@@ -23,10 +23,28 @@ public class Movimento : MonoBehaviour
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
-    }
 
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+    
     void Update()
     {
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
+        if (Cursor.lockState != CursorLockMode.Locked)
+            return;
+
         // 1. Rotação da Câmera e do Personagem (Olhar)
         float rotacaoHorizontal = olhar.x * sensibilidadeMouse * Time.deltaTime;
         transform.Rotate(0, rotacaoHorizontal, 0);
