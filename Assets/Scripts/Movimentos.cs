@@ -12,8 +12,7 @@ public class Movimento : MonoBehaviour
     [SerializeField] private float velocidadeJogador = 4f;
     [SerializeField] private float sensibilidadeMouse = 5f;
 
-    [Header("Física e Pulo")]
-    [SerializeField] private float alturaPulo = 1.5f;
+    [Header("Física")]
     [SerializeField] private float gravidade = -9.81f;
 
     private CharacterController characterController;
@@ -78,15 +77,5 @@ public class Movimento : MonoBehaviour
     void OnLook(InputValue value)
     {
         olhar = value.Get<Vector2>();
-    }
-
-    // Chamado pelo Player Input quando a ação "Jump" (Espaço por padrão) é pressionada
-    void OnJump(InputValue value)
-    {
-        if (value.isPressed && characterController.isGrounded)
-        {
-            // Fórmulas da física para calcular a velocidade inicial do pulo baseada na altura desejada
-            velocidadeVertical.y = Mathf.Sqrt(alturaPulo * -2f * gravidade);
-        }
     }
 }

@@ -612,6 +612,63 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 94671918}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &131692495
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 131692497}
+  - component: {fileID: 131692496}
+  m_Layer: 0
+  m_Name: Diario
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &131692496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131692495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09b136a916ecae142b01f5001c62e460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiarioDePistas
+  teclaDiario: Tab
+  pausarJogoAoAbrir: 0
+  desativarComDiarioAberto:
+  - {fileID: 2039367356}
+  aoRegistrarPista:
+    m_PersistentCalls:
+      m_Calls: []
+  aoAbrirDiario:
+    m_PersistentCalls:
+      m_Calls: []
+  aoFecharDiario:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &131692497
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131692495}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.9, y: 2.97748, z: 4.18735}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &150442000
 GameObject:
   m_ObjectHideFlags: 0
@@ -3038,7 +3095,7 @@ GameObject:
   - component: {fileID: 616111793}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7112,6 +7169,7 @@ GameObject:
   - component: {fileID: 1454744629}
   - component: {fileID: 1454744628}
   - component: {fileID: 1454744627}
+  - component: {fileID: 1454744630}
   m_Layer: 0
   m_Name: Pista - objeto pessoal
   m_TagString: Untagged
@@ -7212,6 +7270,41 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1454744625}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1454744630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454744625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 662c80f68efc23e4d94129a7d7ec3b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjetoInspecionavel
+  nome: Pista
+  descricao: 
+  teclaInteracao: e
+  distanciaMaxima: 2
+  anguloMaximo: 70
+  modeloInspecao: {fileID: 0}
+  distanciaDaCamera: 0.9
+  tamanhoNaTela: 0.3
+  sensibilidade: 0.09
+  zoomPorScroll: 0.08
+  limiteDistancia: {x: 0.6, y: 1.2}
+  desativarDuranteInspecao:
+  - {fileID: 2039367356}
+  aoIniciarInspecao:
+    m_PersistentCalls:
+      m_Calls: []
+  aoPrimeiraInspecao:
+    m_PersistentCalls:
+      m_Calls: []
+  aoFinalizarInspecao:
+    m_PersistentCalls:
+      m_Calls: []
+  registrarNoDiario: 1
 --- !u!1 &1462334476
 GameObject:
   m_ObjectHideFlags: 0
@@ -8517,6 +8610,7 @@ GameObject:
   - component: {fileID: 1720004876}
   - component: {fileID: 1720004875}
   - component: {fileID: 1720004874}
+  - component: {fileID: 1720004877}
   m_Layer: 0
   m_Name: Pista - registro de entrada
   m_TagString: Untagged
@@ -8617,6 +8711,42 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1720004872}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1720004877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720004872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 662c80f68efc23e4d94129a7d7ec3b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjetoInspecionavel
+  nome: Calcinha Freada
+  descricao: "Em todos esses anos nessa industria vital \xE9 a primeira vez que isso
+    me acontece."
+  teclaInteracao: e
+  distanciaMaxima: 2
+  anguloMaximo: 70
+  modeloInspecao: {fileID: 0}
+  distanciaDaCamera: 0.9
+  tamanhoNaTela: 0.3
+  sensibilidade: 0.09
+  zoomPorScroll: 0.08
+  limiteDistancia: {x: 0.6, y: 1.2}
+  desativarDuranteInspecao:
+  - {fileID: 2039367356}
+  aoIniciarInspecao:
+    m_PersistentCalls:
+      m_Calls: []
+  aoPrimeiraInspecao:
+    m_PersistentCalls:
+      m_Calls: []
+  aoFinalizarInspecao:
+    m_PersistentCalls:
+      m_Calls: []
+  registrarNoDiario: 1
 --- !u!1 &1726306403
 GameObject:
   m_ObjectHideFlags: 0
@@ -10274,7 +10404,6 @@ MonoBehaviour:
   olhar: {x: 0, y: 0}
   velocidadeJogador: 4
   sensibilidadeMouse: 5
-  alturaPulo: 1.5
   gravidade: -9.81
 --- !u!114 &2039367357
 MonoBehaviour:
@@ -10569,3 +10698,4 @@ SceneRoots:
   - {fileID: 1124224506}
   - {fileID: 1313638871}
   - {fileID: 2039367355}
+  - {fileID: 131692497}
