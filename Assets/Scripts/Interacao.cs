@@ -84,6 +84,8 @@ public class ObjetoInspecionavel : MonoBehaviour
         }
 
         if (emInspecao != null || DiarioDePistas.Aberto) return;
+        // A mesma tecla abre portas: se o jogador está mirando uma porta, ela tem prioridade.
+        if (MiraDeInteracao.PortaMirada != null) return;
 
         Camera c = Camera.main;
         if (c == null) return;

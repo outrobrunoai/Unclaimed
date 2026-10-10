@@ -149,6 +149,7 @@ public static partial class UnclaimedMorgueGenerator
         facadeBaseMat = Mat(BaseFolder, "Barrado externo", new Color(0.33f, 0.33f, 0.31f), 0.15f);
         copingMat = Mat(BaseFolder, "Capeamento", new Color(0.46f, 0.47f, 0.47f), 0.35f, 0.3f);
         finishes = new Dictionary<string, ZoneFinish> { ["Autopsia"] = AutopsiaFinish() };
+        finishes["Recepcao"] = RecepcaoFinish();   // after the autopsy: reuses its ceiling, decals and fittings
 
         floorsGroup = Group("Pisos");
         wallsGroup = Group("Paredes");
@@ -172,9 +173,12 @@ public static partial class UnclaimedMorgueGenerator
         Exterior(outside);
         Furniture(furniture);
         BuildAutopsia(Sub(roomsGroup, "Autopsia"));
+        BuildRecepcao(Sub(roomsGroup, "Recepcao"));
         Clues(clues);
         Markers(markers);
-        Lights(lightsGroup);
+        RoomLights(ceilingsGroup);
+        NightEnvironment();
+        PrepareStaticLighting(zones);
 
         for (int d = 0; d < Doors.Length; d++)
             if (!doorUsed[d])
@@ -483,11 +487,8 @@ public static partial class UnclaimedMorgueGenerator
     // The autopsy room is furnished in BuildAutopsia.
     private static void Furniture(Transform p)
     {
-        // Recepcao: desk on the west wall, chairs in the south-east corner, entrance strip left clear.
-        Block("Balcao de recepcao", p, -14.55f, -10.75f, -13.35f, -8.25f, 0, 1.1f, furnitureMat);
-        Block("Cadeira de espera 1", p, -8.6f, -12.15f, -8f, -11.55f, 0, 0.9f, furnitureMat);
-        Block("Cadeira de espera 2", p, -7.85f, -12.15f, -7.25f, -11.55f, 0, 0.9f, furnitureMat);
-        Block("Vaso de planta", p, -14.55f, -7.85f, -13.95f, -7.25f, 0, 0.8f, furnitureMat);
+        // Recepcao: layout and Blender models in UnclaimedMorgueGenerator.Recepcao.cs.
+        ReceptionFurniture(p);
 
         Block("Pia do WC", p, -12.2f, -4.425f, -11.6f, -3.975f, 0, 0.9f, furnitureMat);
         Block("Vaso sanitario", p, -14.65f, -5.85f, -14.25f, -5.15f, 0, 0.45f, furnitureMat);
@@ -550,7 +551,7 @@ public static partial class UnclaimedMorgueGenerator
 
     private static void Clues(Transform p)
     {
-        Clue("Pista - registro de entrada", p, -13.95f, -9.5f, 1.1f);
+        DressRegisterBook(Clue("Pista - registro de entrada", p, -12.42f, -9.0f, 1.1f));   // on the counter's granite ledge
         Clue("Pista - objeto pessoal", p, 2.95f, -9.375f, 1.8f);
         Clue("Pista - prontuario", p, -2.25f, -7.875f, 0.75f);
         Clue("Pista - instrumento deslocado", p, 6f, 11.05f, 0.9f);
@@ -565,30 +566,6 @@ public static partial class UnclaimedMorgueGenerator
         Marker("FINAL - identificacao do culpado", p, -3.625f, -1.5f, 0.1f);
         for (int i = 0; i < DrawerZ.Length; i++)
             Marker("EXAMINAR - corpo " + (i + 1), p, (DrawerFaceX + DrawerBackX) / 2, DrawerZ[i] + DrawerWidth / 2, 1.4f);
-    }
-
-    // Lights are placeholders so the floor plan can be inspected immediately; the autopsy room's
-    // fixtures and lights come from BuildAutopsia.
-    private static void Lights(Transform p)
-    {
-        var cold = new Color(0.75f, 0.88f, 1f);
-        Light("Luz - recepcao", p, -10.6f, -9.75f, 8f, 2.2f);
-        Light("Luz - WC", p, -12.55f, -5.5f, 5f, 1.5f);
-        Light("Luz - arquivo", p, -1.5f, -8.125f, 7f, 2f);
-        Light("Luz - escritorio", p, 0.75f, -4.75f, 5f, 1.5f);
-        Light("Luz - descanso", p, -9.125f, -1.5f, 6.5f, 2f);
-        Light("Luz - deposito", p, -6.25f, 3.45f, 4.5f, 1.5f);
-        Light("Luz - sala tecnica", p, -0.625f, 7.375f, 6.5f, 2f);
-        Light("Luz - camara fria", p, 10.25f, -1.6f, 7f, 1.4f, cold);
-        Light("Luz - camara fria", p, 10.25f, 3.4f, 7f, 1.4f, cold);
-        Light("Luz - recebimento", p, 5.6f, 8.4f, 7f, 2f);
-        Light("Luz - recebimento", p, 10.4f, 8.4f, 7f, 2f);
-        Light("Luz - vestibulo", p, 5.375f, 4.45f, 4f, 1.5f);
-        Light("Luz - patio", p, 15f, 8.5f, 8f, 2f);
-        Light("Luz - patio", p, 18.5f, 12.5f, 8f, 2f);
-        foreach (Vector2 c in new[] { new Vector2(-7.25f, -4.925f), new Vector2(-3.625f, -1.5f),
-                     new Vector2(-3.25f, 2.25f), new Vector2(-0.625f, 4.7f) })
-            Light("Luz - circulacao", p, c.x, c.y, 6f, 2.5f);
     }
 
     private static Transform Group(string name) => Sub(root, name);
@@ -661,6 +638,7 @@ public static partial class UnclaimedMorgueGenerator
         var mesh = new Mesh
         {
             name = name, vertices = v, uv = uv, triangles = tris,
+            uv2 = new[] { new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 1), new Vector2(0, 1) },   // lightmap
             normals = new[] { normal, normal, normal, normal },
             tangents = new[] { tangent, tangent, tangent, tangent },
         };
@@ -676,10 +654,8 @@ public static partial class UnclaimedMorgueGenerator
         return obj;
     }
 
-    private static void Clue(string name, Transform parent, float x, float z, float surface)
-    {
+    private static GameObject Clue(string name, Transform parent, float x, float z, float surface) =>
         Box(name, parent, new Vector3(x, surface + 0.075f, z), new Vector3(0.25f, 0.15f, 0.25f), clueMat);
-    }
 
     private static void Marker(string name, Transform parent, float x, float z, float height)
     {
@@ -747,20 +723,6 @@ public static partial class UnclaimedMorgueGenerator
         collider.center = new Vector3((x0 + x1) * 0.5f, (y0 + y1) * 0.5f, (z0 + z1) * 0.5f);
         collider.size = new Vector3(Mathf.Abs(x1 - x0), Mathf.Abs(y1 - y0), Mathf.Abs(z1 - z0));
         return obj.transform;
-    }
-
-    private static void Light(string name, Transform parent, float x, float z, float range, float intensity,
-        Color? color = null)
-    {
-        var obj = new GameObject(name);
-        Undo.RegisterCreatedObjectUndo(obj, "Create light");
-        obj.transform.SetParent(parent, false);
-        obj.transform.position = new Vector3(x, 2.8f, z);
-        var light = obj.AddComponent<Light>();
-        light.type = LightType.Point;
-        light.range = range;
-        light.intensity = intensity;
-        if (color.HasValue) light.color = color.Value;
     }
 
     private static Material GetMaterial(string name, Color color)

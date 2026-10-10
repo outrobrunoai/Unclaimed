@@ -30,7 +30,8 @@ public static partial class UnclaimedMorgueGenerator
         yellowPlastic = Mat(f, "Plastico amarelo", new Color(0.86f, 0.68f, 0.10f), 0.4f);
         rubber = Mat(f, "Borracha", new Color(0.08f, 0.08f, 0.08f), 0.25f);
         wallGuard = Mat(f, "Protetor de parede", new Color(0.52f, 0.58f, 0.55f), 0.35f);
-        tube = Mat(f, "Difusor aceso", new Color(0.95f, 0.96f, 0.97f), 0.3f, 0f, emission: new Color(1.6f, 1.62f, 1.65f));
+        // Just under clipping and slightly warm: the old 1.6 burnt to flat blue-white with no tonemapping.
+        tube = Mat(f, "Difusor aceso", new Color(0.95f, 0.96f, 0.97f), 0.3f, 0f, emission: new Color(1.0f, 0.97f, 0.9f));
         tubeAged = Mat(f, "Difusor gasto", new Color(0.92f, 0.88f, 0.80f), 0.3f, 0f, emission: new Color(0.85f, 0.70f, 0.45f));
         tubeDead = Mat(f, "Difusor apagado", new Color(0.70f, 0.70f, 0.68f), 0.3f);
         surgicalGlass = Mat(f, "Lente do foco", new Color(0.95f, 0.95f, 0.92f), 0.8f, 0f, emission: new Color(2.2f, 2.15f, 2.0f));
@@ -295,19 +296,16 @@ public static partial class UnclaimedMorgueGenerator
     }
 
     // Six surface-mounted fluorescent fixtures (one aged tube, one burnt out) and a surgical lamp over the table.
+    // Only the two fixtures flanking the table cast shadows, so the shadow atlas keeps its resolution.
+    // Bounce light comes from the baked indirect lighting (UnclaimedMorgueGenerator.Iluminacao.cs).
     private static void AutopsyLighting(Transform ceiling)
     {
         var fixtures = new[] { (0f, -1.9f, 0), (2.75f, -1.9f, 0), (5.5f, -1.9f, 1), (0f, 1.4f, 2), (2.75f, 1.4f, 0), (5.5f, 1.4f, 0) };
         for (int i = 0; i < fixtures.Length; i++)
         {
             var (x, z, state) = fixtures[i];
-            Transform f = Sub(ceiling, "Luminaria " + (i + 1));
-            Piece("Corpo", f, x - 0.625f, 3.11f, z - 0.16f, x + 0.625f, WallHeight, z + 0.16f, whiteMetal);
-            Piece("Difusor", f, x - 0.6f, 3.104f, z - 0.135f, x + 0.6f, 3.11f, z + 0.135f, state == 0 ? tube : state == 1 ? tubeAged : tubeDead);
-            // Only the two fixtures flanking the table cast shadows, so the shadow atlas keeps full resolution.
-            if (state != 2)
-                SpotLight("Luz - autopsia - luminaria " + (i + 1), new Vector3(x, 3.09f, z), 150f, 100f, 7f,
-                    state == 0 ? 4f : 2f, state == 0 ? 5600f : 3800f, Mathf.Approximately(x, 2.75f));
+            CeilingFixture(ceiling, "Luz - autopsia - luminaria " + (i + 1), "Luminaria " + (i + 1), x, z, state, 5.6f, 5600f,
+                Mathf.Approximately(x, 2.75f));
         }
 
         Transform lamp = Sub(ceiling, "Foco cirurgico");
@@ -316,23 +314,9 @@ public static partial class UnclaimedMorgueGenerator
         Cyl("Cupula", lamp, new Vector3(2.7f, 2.3f, -0.45f), 0.62f, 0.1f, whiteMetal);
         Cyl("Lente", lamp, new Vector3(2.7f, 2.247f, -0.45f), 0.46f, 0.008f, surgicalGlass);
         SpotLight("Luz - autopsia - foco cirurgico", new Vector3(2.7f, 2.23f, -0.45f), 55f, 30f, 4f, 3f, 4500f, true);
-
-        // Stand-in for light bounced off floor and walls: realtime lights do not bounce, and without it
-        // the ceiling and the painted band above the tiles fall into black.
-        var fill = new GameObject("Luz - autopsia - rebatimento");
-        Undo.RegisterCreatedObjectUndo(fill, "Create light");
-        fill.transform.SetParent(lightsGroup, false);
-        fill.transform.position = new Vector3((AxMin + AxMax) / 2, 1.6f, (AzMin + AzMax) / 2);
-        var bounce = fill.AddComponent<Light>();
-        bounce.type = LightType.Point;
-        bounce.range = 10f;
-        bounce.intensity = 0.8f;
-        bounce.useColorTemperature = true;
-        bounce.colorTemperature = 5200f;
-        bounce.shadows = LightShadows.None;
     }
 
-    private static void SpotLight(string name, Vector3 position, float angle, float innerAngle, float range,
+    private static Light SpotLight(string name, Vector3 position, float angle, float innerAngle, float range,
         float intensity, float kelvin, bool shadows)
     {
         var obj = new GameObject(name);
@@ -348,6 +332,8 @@ public static partial class UnclaimedMorgueGenerator
         light.useColorTemperature = true;
         light.colorTemperature = kelvin;
         light.shadows = shadows ? LightShadows.Soft : LightShadows.None;
+        light.lightmapBakeType = LightmapBakeType.Mixed;
+        return light;
     }
 
     // Transparent quad laid just over a surface; its texture spans the whole quad.

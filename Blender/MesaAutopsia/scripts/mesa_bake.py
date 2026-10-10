@@ -105,6 +105,8 @@ def write_unity_maps(imgs, folder, prefix="MesaAutopsia"):
     os.makedirs(folder, exist_ok=True)
     def save(name, arr, colorspace, alpha):
         img = bpy.data.images.get(name) or bpy.data.images.new(name, SIZE, SIZE, alpha=alpha)
+        if tuple(img.size) != (SIZE, SIZE):   # left over from an export at another atlas size
+            img.scale(SIZE, SIZE)
         if img.colorspace_settings.name != colorspace:
             img.colorspace_settings.name = colorspace
         img.pixels.foreach_set(arr.astype(np.float32).ravel())
