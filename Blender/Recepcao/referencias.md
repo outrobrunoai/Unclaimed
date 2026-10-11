@@ -83,3 +83,23 @@ centro da frente; perfil baixo com o ponto mais alto a ~60 % para trás. 115 × 
 **Caneta** (`pen`): esferográfica comum de corpo sextavado, cone branco com ponta metálica, tampa com
 clipe e tampinha traseira (140 mm tampada); o mesmo modelo está no porta-canetas e sobre o livro.
 **Passa-cabos** (`grommet`): passa-fio de 60 mm de embutir, com aro de aba, luva e tampa com recorte.
+
+## Batente da entrada e acabamento de piso e paredes (2026-10-10)
+
+Sem fotos baixadas: proporções de perfis e acabamentos comuns em obra pública, compatíveis com as
+ferragens 1101/1013 já modeladas.
+
+**Batente** (`BatenteEntrada` em `scripts/recepcao_modelo.py`): requadro de alumínio anodizado natural
+cobrindo a espessura da parede (20,8 cm), montantes de 3 cm e travessa superior entre eles (vão livre de
+1,94 × 2,17 m preservado); guarnições de 82 × 16 mm em meia-esquadria dos dois lados, recuadas 8 mm do
+requadro; cantos levemente arredondados; três parafusos de fixação por montante e dois na travessa;
+cordão de silicone cinza na junção com a parede; soleira de granito de 6 mm. Nada passa sobre o vidro
+nem sobre os pivôs. Uma sonda de reflexo própria ("Reflexo - entrada") cobre o vão, porque o batente fica
+na borda da sonda da recepção e refletia o céu noturno.
+
+**Piso** (`scripts/texturas_superficies.py`, `porcelain`): mesmo porcelanato bege 60 × 60 e mesma cor;
+rejunte de 3 mm rebaixado 1,2 mm, borda bisotada de ~1 mm, variação leve de tom, brilho e planicidade por
+peça, veios muito discretos, desgaste de passagem só no brilho (sem relevo).
+**Paredes** (`paint`): textura de rolo e ondulação leve da massa na normal; mesma cor média da pintura
+aprovada; friso entre barrado e pintura, cantoneira no encontro com o forro, cantoneira de PVC no canto do
+nicho, retoques de pintura localizados e riscos junto à porta do WC.

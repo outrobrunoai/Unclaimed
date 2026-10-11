@@ -34,7 +34,7 @@ LIXEIRA = dict(r_bottom=0.13, r_top=0.15, h=0.43)
 ASSETS = ("BalcaoRecepcao", "CadeiraEspera", "CadeiraAtendente", "ArmarioApoio",
           "LongarinaEspera", "EquipamentosBalcao", "LivroRegistro", "Bebedouro", "Lixeira",
           "LuminariaSobrepor", "LuminariaSobrepor_Luz", "LuminariaExterna", "LuminariaExterna_Luz",
-          "PortaVidroFixos", "PortaVidroFolha", "PortaVidroVidro")
+          "PortaVidroFixos", "PortaVidroFolha", "PortaVidroVidro", "BatenteEntrada")
 # Not baked: parts keep their own UVs and material slots (diffusers, emissive tubes, glass).
 UNBAKED = ("LuminariaSobrepor_Luz", "LuminariaExterna_Luz", "PortaVidroVidro")
 
@@ -1035,6 +1035,54 @@ def build_porta_vidro():
     planar_uv(g, 0, 2, xa, xb, P["z0"], P["z1"], 0.0, 0.96, 0.0, 1.0, edge_uv=(0.985, 0.5), normal_axis=1)
 
 
+def build_batente_entrada():
+    """Aluminium frame of the main entrance, replacing the map's flat boxes (door frame: origin at the
+    opening centre on the floor, wall faces at y = +-0.1, outside -Y; raw opening 2.0 x 2.2 m). Keeps the
+    glass door's envelope: jamb faces at x = +-0.97 (1.94 m clear), head underside at 2.17, sill top at
+    0.006 (the floor springs and lock keepers sit on it).
+    - Jambs run full height; the head sits between them (visible joints at the top corners).
+    - Casings (16 mm, mitred) stand 8 mm back from the jamb face, so the lining shows a shadow step.
+    - Countersunk screws fix the lining (3 per jamb, 2 on the head, clear of the top pivot plates).
+    - Grey silicone bead where the casings meet the wall; granite sill with a rounded nose outside."""
+    P = PORTA
+    jx, top, dep = P["clear"] / 2, P["height"], 0.104       # jamb face, head underside, lining depth (y)
+    raw_x, raw_top = 1.0, 2.2
+    for sx in (-1, 1):
+        x0, x1 = sorted((sx * jx, sx * raw_x))
+        box(f"Marco {sx:+d}", "aluminio", x0, -dep, P["sill"], x1, dep, raw_top, r=0.002, seg=2)
+        for z in (0.30, 1.10, 1.90):
+            screw(f"Parafuso do marco {sx:+d} {z:.2f}", (sx * (jx - 0.0004), 0.0, z), (-sx, 0, 0))
+    box("Travessa superior", "aluminio", -jx, -dep, top, jx, dep, raw_top, r=0.002, seg=2)
+    for x in (-0.5, 0.5):
+        screw(f"Parafuso da travessa {x:+.1f}", (x, 0.0, top - 0.0004), (0, 0, -1))
+    cw, ct, step = 0.082, 0.016, 0.008                      # casing width, thickness, step back
+    ix, iz, ox, oz = jx + step, top + step, jx + step + cw, top + step + cw
+    for side, floor_z in ((-1, P["sill"]), (1, 0.003)):     # outside on the sill, inside on the floor finish
+        y0, y1 = sorted((side * 0.1, side * (0.1 + ct)))
+        for sx in (-1, 1):
+            poly = [(sx * ix, floor_z), (sx * ox, floor_z), (sx * ox, oz), (sx * ix, iz)]
+            extrude(f"Guarnicao {side:+d} {sx:+d}", "aluminio", poly if sx > 0 else poly[::-1], "XZ", y0, y1, r=0.003, seg=2)
+        extrude(f"Guarnicao superior {side:+d}", "aluminio", [(-ix, iz), (ix, iz), (ox, oz), (-ox, oz)], "XZ", y0, y1,
+                r=0.003, seg=2)
+        yb = side * 0.1015
+        tube(f"Silicone {side:+d}", "selante", [(ox + 0.0015, yb, floor_z), (ox + 0.0015, yb, oz + 0.0015),
+                                               (-ox - 0.0015, yb, oz + 0.0015), (-ox - 0.0015, yb, floor_z)], 0.0022, fillet=0.004)
+    box("Soleira", "granito", -raw_x, -0.128, -0.012, raw_x, dep, P["sill"], r=0.004, seg=3)
+
+
+def screw(name, center, axis):
+    """Countersunk stainless screw head flush with a face (axis = outward normal), Phillips recess."""
+    c = Vector(center)
+    n = Vector(axis)
+    cyl(name, "inox", tuple(c), 0.0042, 0.0012, axis=tuple(n), seg=16, r=0.0003)
+    t = n.orthogonal().normalized()
+    b = n.cross(t)
+    for k, d in enumerate((t, b)):
+        o = c + n * 0.0006
+        pts = [o - d * 0.0026, o + d * 0.0026]
+        tube(f"{name} fenda {k}", "inox_escuro", [tuple(p) for p in pts], 0.00045)
+
+
 BUILDERS = {"BalcaoRecepcao": build_balcao, "CadeiraEspera": build_espera,
             "CadeiraAtendente": build_atendente, "ArmarioApoio": build_armario,
             "LongarinaEspera": build_longarina, "EquipamentosBalcao": build_kit, "LivroRegistro": build_livro,
@@ -1042,7 +1090,7 @@ BUILDERS = {"BalcaoRecepcao": build_balcao, "CadeiraEspera": build_espera,
             "LuminariaSobrepor": build_luminaria, "LuminariaSobrepor_Luz": build_luminaria_luz,
             "LuminariaExterna": build_arandela, "LuminariaExterna_Luz": build_arandela_luz,
             "PortaVidroFixos": build_porta_fixos, "PortaVidroFolha": build_porta_folha,
-            "PortaVidroVidro": build_porta_vidro}
+            "PortaVidroVidro": build_porta_vidro, "BatenteEntrada": build_batente_entrada}
 
 
 def build(asset):

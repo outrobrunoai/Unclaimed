@@ -19,18 +19,28 @@ public static partial class UnclaimedMorgueGenerator
     // sit and push the chair back; the cabinet closes the gap at the north wall.
     private const float CounterX = -12.88f, CounterZ = -9.35f;
 
+    // Surfaces (second pass, Blender/Recepcao/scripts/texturas_superficies.py): porcelain with per-tile
+    // shade, gloss and lippage over 2.4 m (4 x 4 tiles), recessed grout; washable paint with a fine roller
+    // texture whose gloss map scales each paint's own sheen (satin wainscot, matt upper wall).
     private static ZoneFinish RecepcaoFinish()
     {
         string f = RecepcaoFolder, t = RecepcaoTextures, a = AutopsiaTextures;
+        Color barrado = new Color(0.74f, 0.71f, 0.64f);
         return new ZoneFinish
         {
-            Floor = Mat(f, "Piso porcelanato bege", Color.white, 0.55f, 0f, t + "Recepcao_Piso_Base.png", t + "Recepcao_Piso_Normal.png", 1.2f),
+            Floor = Mat(f, "Piso porcelanato bege", Color.white, 1f, 0f, t + "Recepcao_Porcelanato_Base.png",
+                t + "Recepcao_Porcelanato_Normal.png", 2.4f, glossMap: t + "Recepcao_Porcelanato_MS.png"),
             Skirting = Mat(f, "Rodape porcelanato bege", new Color(0.55f, 0.51f, 0.45f), 0.45f),
             // Washable satin paint up to 1.1 m (chairs, trolleys, hands), matt paint above.
-            Wainscot = Mat(f, "Barrado tinta lavavel", new Color(0.74f, 0.71f, 0.64f), 0.32f, 0f, a + "Autopsia_Pintura_Base.png", null, 2f),
+            Wainscot = Mat(f, "Barrado tinta lavavel", barrado, 0.42f, 0f, t + "Recepcao_Pintura_Base.png",
+                t + "Recepcao_Pintura_Normal.png", 2f, glossMap: t + "Recepcao_Pintura_MS.png"),
             WainscotHeight = 1.1f,
-            UpperWall = Mat(f, "Pintura", new Color(1f, 0.99f, 0.96f), 0.12f, 0f, a + "Autopsia_Pintura_Base.png", null, 2f),
+            UpperWall = Mat(f, "Pintura", new Color(1f, 0.99f, 0.96f), 0.14f, 0f, t + "Recepcao_Pintura_Base.png",
+                t + "Recepcao_Pintura_Normal.png", 2f, glossMap: t + "Recepcao_Pintura_MS.png"),
             Ceiling = Mat(AutopsiaFolder, "Forro mineral", Color.white, 0.05f, 0f, a + "Autopsia_Forro_Base.png", a + "Autopsia_Forro_Normal.png", 1.25f),
+            // A slightly darker satin line where the two paints meet, and the ceiling's perimeter angle.
+            Friso = Mat(f, "Friso do barrado", barrado * 0.86f, 0.5f),
+            CeilingTrim = Mat(f, "Cantoneira do forro", new Color(0.93f, 0.93f, 0.91f), 0.35f),
         };
     }
 
@@ -103,7 +113,7 @@ public static partial class UnclaimedMorgueGenerator
         Plaque("Placa - administracao", walls, new Vector3(RxMax, 2.45f, -8f), west, 0.8f, 0.2f, sign("Placa administracao", "Placa_Administracao.png"), pvc);
         Plaque("Placa - espaco reservado", walls, new Vector3(RxMax, 1.55f, -9.45f), west, 0.25f, 0.325f, sign("Placa espaco reservado", "Placa_EspacoReservado.png"), pvc);
         Plaque("Quadro de avisos", walls, new Vector3(-8.15f, 1.55f, RzMin), north, 0.9f, 0.6f, sign("Quadro de avisos", "Quadro_Avisos.png"), frame, 0.02f);
-        Clock(walls, new Vector3(-13.35f, 2.24f, RzMax), south, black);   // over the clerk's post (placed by hand, 2026-10-10)
+        Clock(walls, new Vector3(-13.35f, 2.236f, RzMax), south, black);   // over the clerk's post (placed by hand, 2026-10-10)
 
         // PVC guard strips where chair backs touch the walls.
         FaceStrip("Bate-cadeira - longarina", walls, true, RxMax, -1f, -11.65f, -9.85f, 0.72f, 0.86f, 0.012f, wallGuard);
@@ -115,6 +125,18 @@ public static partial class UnclaimedMorgueGenerator
         Decal("Desgaste - balcao", wear, new Vector3(-11.85f, 0.005f, CounterZ), Vector3.up, Vector3.forward, Vector3.right, 2.6f, 1.2f, decalFloorWear);
         Decal("Desgaste - posto", wear, new Vector3(-13.75f, 0.005f, -9.6f), Vector3.up, Vector3.forward, Vector3.right, 1.6f, 1.0f, decalFloorWear);
         Decal("Riscos - parede do posto", wear, new Vector3(RxMin + 0.006f, 0.8f, -9.5f), east, Vector3.back, Vector3.up, 1.0f, 0.5f, decalScuffs);
+        // Maintenance: two touched-up patches of paint, scuffs beside the bathroom door.
+        Material retoque = Mat(RecepcaoFolder, "Decal - retoque de pintura", new Color(1f, 0.995f, 0.98f, 1f), 0.12f, 0f,
+            t + "Decal_RetoquePintura.png", transparent: true);
+        Decal("Retoque - parede norte", wear, new Vector3(-12.7f, 1.62f, RzMax - 0.006f), south, Vector3.left, Vector3.up, 0.48f, 0.36f, retoque);
+        Decal("Retoque - parede leste", wear, new Vector3(RxMax - 0.006f, 1.45f, -10.7f), west, Vector3.forward, Vector3.up, 0.36f, 0.27f, retoque);
+        Decal("Riscos - porta do WC", wear, new Vector3(-10.78f, 0.55f, RzMax - 0.006f), south, Vector3.left, Vector3.up, 0.5f, 0.45f, decalScuffs);
+        // PVC corner guard on the room's only projecting corner (north wall / alcove), above the skirting.
+        // The corner is where the north wall face (z = RzMax) meets the alcove's west wall face (x = AlcoveX).
+        float cx = AlcoveX + FinishOffset, cz = RzMax - FinishOffset;
+        Transform guard = Sub(walls, "Cantoneira - canto da alcova");
+        Piece("Aba na parede norte", guard, cx - 0.03f, 0.1f, cz - 0.002f, cx + 0.002f, 1.6f, cz, pvc);
+        Piece("Aba na alcova", guard, cx, 0.1f, cz, cx + 0.002f, 1.6f, cz + 0.03f, pvc);
 
         RecepcaoLighting(ceiling);
         EntranceDoor();

@@ -11,16 +11,20 @@ using UnityEngine;
 public static class UnclaimedRecepcaoAssets
 {
     public const string Folder = "Assets/Modelos/Recepcao";
+    // Bathroom fittings and door (Blender/WC, same pipeline).
+    public const string WCFolder = "Assets/Modelos/WC";
 
     private readonly struct Asset
     {
-        public readonly string File, Prefab;
+        public readonly string Dir, File, Prefab;
         public readonly int Atlas;
-        public readonly Bounds[] Colliders; // prefab-local, metres; null = one box around the mesh
+        public readonly Bounds[] Colliders; // prefab-local, metres; null = one box around the mesh, empty = none
 
-        public Asset(string file, string prefab, int atlas, params Bounds[] colliders)
+        public Asset(string file, string prefab, int atlas, params Bounds[] colliders) : this(Folder, file, prefab, atlas, colliders) { }
+
+        public Asset(string dir, string file, string prefab, int atlas, params Bounds[] colliders)
         {
-            File = file; Prefab = prefab; Atlas = atlas; Colliders = colliders;
+            Dir = dir; File = file; Prefab = prefab; Atlas = atlas; Colliders = colliders;
         }
     }
 
@@ -45,7 +49,29 @@ public static class UnclaimedRecepcaoAssets
         new Asset("LuminariaExterna", null, 512),
         new Asset("PortaVidroFixos", null, 512),
         new Asset("PortaVidroFolha", null, 1024),
+        // Entrance frame (aluminium lining, casings, sill): thin colliders on the jambs only.
+        new Asset("BatenteEntrada", EntranceFramePrefab, 1024,
+            new Bounds(new Vector3(-0.985f, 1.1f, 0f), new Vector3(0.03f, 2.2f, 0.21f)),
+            new Bounds(new Vector3(0.985f, 1.1f, 0f), new Vector3(0.03f, 2.2f, 0.21f))),
+        // Bathroom: floor fittings with simple colliders, wall fittings without (they stay out of the way).
+        new Asset(WCFolder, "VasoSanitario", "Vaso sanitario", 1024,
+            // Bowl box as tall as the tank: at seat height (0.40) the player's capsule rode up its corner.
+            new Bounds(new Vector3(0f, 0.385f, -0.36f), new Vector3(0.36f, 0.77f, 0.60f)),
+            new Bounds(new Vector3(0f, 0.57f, -0.11f), new Vector3(0.40f, 0.40f, 0.20f))),
+        new Asset(WCFolder, "Lavatorio", "Lavatorio", 1024,
+            new Bounds(new Vector3(0f, 0.71f, -0.21f), new Vector3(0.50f, 0.18f, 0.42f))),
+        new Asset(WCFolder, "Saboneteira", "Saboneteira", 512, new Bounds[0]),
+        new Asset(WCFolder, "ToalheiroPapel", "Toalheiro de papel", 512, new Bounds[0]),
+        new Asset(WCFolder, "PapeleiraRolao", "Papeleira de rolao", 512, new Bounds[0]),
+        new Asset(WCFolder, "BarraApoio", "Barra de apoio", 512, new Bounds[0]),
+        new Asset(WCFolder, "PortaWCFixos", null, 1024),
+        new Asset(WCFolder, "PortaWCFolha", null, 1024),
     };
+
+    public const string EntranceFramePrefab = "Batente da entrada", WCDoorPrefab = "Porta do WC", MirrorPrefab = "Espelho";
+    // Bathroom door (Blender PORTA_WC, Unity axes): hinge axis and leaf box in the leaf frame.
+    private static readonly Vector3 WCPivot = new Vector3(0.469f, 0f, 0.017f);
+    private static readonly Vector3 WCLeafCenter = new Vector3(-0.469f, 1.0875f, -0.0195f), WCLeafSize = new Vector3(0.934f, 2.159f, 0.035f);
 
     // Composite prefabs: surface ceiling fitting, entrance wall lamp, glass entrance door.
     public const string FittingPrefab = "Luminaria de sobrepor", WallLampPrefab = "Arandela externa",
@@ -67,6 +93,7 @@ public static class UnclaimedRecepcaoAssets
     private static readonly Vector2 ScreenSize = new Vector2(0.506f, 0.293f);
 
     public static string PrefabPath(string prefab) => Folder + "/" + prefab + ".prefab";
+    public static string WCPrefabPath(string prefab) => WCFolder + "/" + prefab + ".prefab";
 
     // Material of a light part by fitting state (0 lit, 1 aged tube, 2 burnt out): diffuser and tube.
     public static Material[] LightMaterials(int state)
@@ -85,13 +112,15 @@ public static class UnclaimedRecepcaoAssets
         foreach (Asset a in Assets) Build(a);
         BuildFittings();
         BuildDoor();
+        BuildMirror();
+        BuildWCDoor();
         AssetDatabase.SaveAssets();
-        Debug.Log("Unclaimed: reception prefabs rebuilt in " + Folder + ".");
+        Debug.Log("Unclaimed: reception and bathroom prefabs rebuilt in " + Folder + " and " + WCFolder + ".");
     }
 
     private static void Build(Asset a)
     {
-        string fbx = Folder + "/" + a.File + ".fbx", tex = Folder + "/Texturas/" + a.File;
+        string fbx = a.Dir + "/" + a.File + ".fbx", tex = a.Dir + "/Texturas/" + a.File;
         if (AssetImporter.GetAtPath(fbx) is ModelImporter model)
         {
             model.globalScale = 1f;
@@ -107,12 +136,12 @@ public static class UnclaimedRecepcaoAssets
         var mesh = AssetDatabase.LoadAssetAtPath<Mesh>(fbx);
         if (mesh == null)
         {
-            Debug.LogWarning("Unclaimed: missing " + fbx + "; run Blender/Recepcao/scripts/gerar_tudo.py first.");
+            Debug.LogWarning("Unclaimed: missing " + fbx + "; run the Blender gerar_tudo.py (Recepcao or WC) first.");
             return;
         }
 
-        string matFolder = Folder + "/Materiais", matPath = matFolder + "/" + (a.Prefab ?? a.File) + ".mat";
-        if (!AssetDatabase.IsValidFolder(matFolder)) AssetDatabase.CreateFolder(Folder, "Materiais");
+        string matFolder = a.Dir + "/Materiais", matPath = matFolder + "/" + (a.Prefab ?? a.File) + ".mat";
+        if (!AssetDatabase.IsValidFolder(matFolder)) AssetDatabase.CreateFolder(a.Dir, "Materiais");
         var material = AssetDatabase.LoadAssetAtPath<Material>(matPath);
         if (material == null)
         {
@@ -123,7 +152,9 @@ public static class UnclaimedRecepcaoAssets
         material.SetTexture("_BaseMap", Tex(tex + "_BaseMap.png", a.Atlas, srgb: true));
         material.SetTexture("_MetallicGlossMap", Tex(tex + "_MetallicSmoothness.png", a.Atlas, srgb: false));
         material.SetFloat("_Metallic", 1f);
-        material.SetFloat("_Smoothness", 1f);
+        // The entrance frame's satin aluminium faces the dark street through the glass: blur it a little more
+        // so the reveal reads as metal rather than black.
+        material.SetFloat("_Smoothness", a.File == "BatenteEntrada" ? 0.55f : 1f);
         material.SetFloat("_SmoothnessTextureChannel", 0f);
         material.SetTexture("_BumpMap", Tex(tex + "_Normal.png", a.Atlas, srgb: false, normal: true));
         material.SetFloat("_BumpScale", 1f);
@@ -146,7 +177,7 @@ public static class UnclaimedRecepcaoAssets
             }
             if (a.File == "EquipamentosBalcao") AddScreen(root.transform, matFolder);
             root.isStatic = true;
-            PrefabUtility.SaveAsPrefabAsset(root, PrefabPath(a.Prefab));
+            PrefabUtility.SaveAsPrefabAsset(root, a.Dir + "/" + a.Prefab + ".prefab");
         }
         finally
         {
@@ -180,10 +211,10 @@ public static class UnclaimedRecepcaoAssets
         renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
     }
 
-    private static Material BakedMaterial(string file) =>
-        AssetDatabase.LoadAssetAtPath<Material>(Folder + "/Materiais/" + file + ".mat");
+    private static Material BakedMaterial(string file, string dir = Folder) =>
+        AssetDatabase.LoadAssetAtPath<Material>(dir + "/Materiais/" + file + ".mat");
 
-    private static Mesh MeshOf(string file) => AssetDatabase.LoadAssetAtPath<Mesh>(Folder + "/" + file + ".fbx");
+    private static Mesh MeshOf(string file, string dir = Folder) => AssetDatabase.LoadAssetAtPath<Mesh>(dir + "/" + file + ".fbx");
 
     private static GameObject MeshObject(string name, Transform parent, Mesh mesh, params Material[] materials)
     {
@@ -197,9 +228,10 @@ public static class UnclaimedRecepcaoAssets
     // URP Lit material created or updated in Materiais; transparent ones keep specular highlights and
     // reflections (glass, acrylic).
     private static Material LitMaterial(string name, Color color, float smoothness, bool transparent,
-        Texture2D baseMap = null, Texture2D normalMap = null, Texture2D glossMap = null, Color? emission = null, Vector2? tiling = null)
+        Texture2D baseMap = null, Texture2D normalMap = null, Texture2D glossMap = null, Color? emission = null, Vector2? tiling = null,
+        string dir = Folder)
     {
-        string path = Folder + "/Materiais/" + name + ".mat";
+        string path = dir + "/Materiais/" + name + ".mat";
         var m = AssetDatabase.LoadAssetAtPath<Material>(path);
         if (m == null)
         {
@@ -303,6 +335,82 @@ public static class UnclaimedRecepcaoAssets
                 pane.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             }
             PrefabUtility.SaveAsPrefabAsset(root, PrefabPath(DoorPrefab));
+        }
+        finally { Object.DestroyImmediate(root); }
+    }
+
+    // Bathroom mirror (not baked): reflective face lit by the bathroom's box-projected reflection probe,
+    // polished glass edge, chrome clips.
+    private static void BuildMirror()
+    {
+        Mesh mesh = MeshOf("Espelho", WCFolder);
+        if (mesh == null) { Debug.LogWarning("Unclaimed: missing Espelho mesh."); return; }
+        const string tex = "Assets/UnclaimedPrototype/WC/Texturas/";
+        if (!AssetDatabase.IsValidFolder(WCFolder + "/Materiais")) AssetDatabase.CreateFolder(WCFolder, "Materiais");
+        Material edge = LitMaterial("Borda de vidro", new Color(0.55f, 0.68f, 0.64f), 0.85f, false, dir: WCFolder);
+        Material chrome = LitMaterial("Cromado - presilhas", new Color(0.86f, 0.86f, 0.85f), 0.9f, false, dir: WCFolder);
+        chrome.SetFloat("_Metallic", 1f);
+        Material mirror = LitMaterial("Espelho", new Color(0.92f, 0.93f, 0.93f), 1f, false, null, null,
+            Tex(tex + "WC_Espelho_MS.png", 512, srgb: false), dir: WCFolder);
+        var root = new GameObject(MirrorPrefab);
+        try
+        {
+            root.AddComponent<MeshFilter>().sharedMesh = mesh;
+            // The FBX does not keep the slot order: tell the parts apart by thickness (flat reflective face,
+            // 4 mm glass, 9 mm clips).
+            var materials = new Material[mesh.subMeshCount];
+            for (int i = 0; i < mesh.subMeshCount; i++)
+            {
+                float t = mesh.GetSubMesh(i).bounds.size.z;
+                materials[i] = t < 0.001f ? mirror : t < 0.006f ? edge : chrome;
+            }
+            root.AddComponent<MeshRenderer>().sharedMaterials = materials;
+            PrefabUtility.SaveAsPrefabAsset(root, WCPrefabPath(MirrorPrefab));
+        }
+        finally { Object.DestroyImmediate(root); }
+    }
+
+    // Bathroom door: painted frame (colliders on the jambs) and the leaf on its hinge axis with the
+    // approved door mechanic (FolhaDePorta): opens into the bathroom up to 95 degrees, starts open.
+    private static void BuildWCDoor()
+    {
+        Mesh frame = MeshOf("PortaWCFixos", WCFolder), leafMesh = MeshOf("PortaWCFolha", WCFolder);
+        if (frame == null || leafMesh == null) { Debug.LogWarning("Unclaimed: missing bathroom door meshes."); return; }
+        var root = new GameObject(WCDoorPrefab);
+        try
+        {
+            root.AddComponent<MeshFilter>().sharedMesh = frame;
+            root.AddComponent<MeshRenderer>().sharedMaterial = BakedMaterial("PortaWCFixos", WCFolder);
+            foreach (float sx in new[] { -1f, 1f })
+            {
+                var jamb = root.AddComponent<BoxCollider>();
+                jamb.center = new Vector3(sx * 0.485f, 1.1f, 0f);
+                jamb.size = new Vector3(0.03f, 2.2f, 0.21f);
+            }
+            var leaf = new GameObject("Folha").transform;
+            leaf.SetParent(root.transform, false);
+            leaf.localPosition = WCPivot;
+            MeshObject("Malha", leaf, leafMesh, BakedMaterial("PortaWCFolha", WCFolder));
+            var box = leaf.gameObject.AddComponent<BoxCollider>();
+            box.center = WCLeafCenter;
+            box.size = WCLeafSize;
+            var body = leaf.gameObject.AddComponent<Rigidbody>();
+            body.isKinematic = true;
+            body.useGravity = false;
+            var audio = leaf.gameObject.AddComponent<AudioSource>();
+            audio.playOnAwake = false;
+            audio.spatialBlend = 1f;
+            audio.minDistance = 1f;
+            audio.maxDistance = 12f;
+            var door = leaf.gameObject.AddComponent<FolhaDePorta>();
+            door.sentido = 1;          // leaf along -X turns towards +Z (into the bathroom)
+            door.anguloMaximo = 95f;   // the floor stop sits at 97.5 degrees
+            door.duracao = 1.1f;
+            door.alcance = 2f;
+            door.iniciarAberta = true;
+            door.aberturaInicial = 1f;
+            door.fonte = audio;        // no clips in the project yet
+            PrefabUtility.SaveAsPrefabAsset(root, WCPrefabPath(WCDoorPrefab));
         }
         finally { Object.DestroyImmediate(root); }
     }

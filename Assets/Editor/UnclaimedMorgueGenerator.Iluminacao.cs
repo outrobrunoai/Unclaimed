@@ -96,7 +96,7 @@ public static partial class UnclaimedMorgueGenerator
         {
             count[room] = count.TryGetValue(room, out int n) ? n + 1 : 1;
             CeilingFixture(Sub(ceilingRoot, "Luminarias - " + room), "Luz - " + room + " - luminaria " + count[room],
-                "Luminaria " + count[room], x, z, 0, intensity, kelvin, false, alongZ);
+                "Luminaria " + count[room], x, z, 0, intensity, kelvin, false, alongZ, model: room == "WC");   // finished rooms: modelled fitting
         }
 
         // Outside: a wall lamp over the main entrance and two floodlights on the building over the yard.
@@ -151,7 +151,11 @@ public static partial class UnclaimedMorgueGenerator
 
         // Moonlight replaces the default daylight; the old sun is switched off, not deleted. One moon only:
         // an existing "Luz da lua" is reused and moved into the outdoor lights group.
-        GameObject moonObject = GameObject.Find("Luz da lua");
+        // Searched in the active scene only (GameObject.Find would also see other open scenes).
+        GameObject moonObject = null;
+        foreach (GameObject top in UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects())
+            foreach (Transform t in top.GetComponentsInChildren<Transform>(true))
+                if (moonObject == null && t.name == "Luz da lua") moonObject = t.gameObject;
         if (moonObject == null)
         {
             moonObject = new GameObject("Luz da lua");
@@ -207,10 +211,8 @@ public static partial class UnclaimedMorgueGenerator
     {
         Transform lights = lightsGroup;
         if (lights == null)
-        {
-            GameObject group = GameObject.Find(GroupName + "/Luzes");
-            lights = group != null ? group.transform : null;
-        }
+            foreach (GameObject top in UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects())
+                if (top.name == GroupName) lights = top.transform.Find("Luzes");
         return lights != null ? Sub(lights, "Iluminacao externa") : null;
     }
 
@@ -407,8 +409,30 @@ public static partial class UnclaimedMorgueGenerator
                 probe.center = new Vector3(0f, WallHeight / 2 - 1.5f, 0f);
                 probe.resolution = 128;
                 probe.blendDistance = 0.3f;
+                if (zone.Name == "WC")
+                {
+                    // The bathroom mirror shows this probe sharply, and it hangs on the wall, i.e. on the box
+                    // edge: with a blend band its weight fell to ~0 there and it reflected the night sky.
+                    probe.blendDistance = 0f;
+                    probe.resolution = 256;
+                }
             }
         }
+
+        // The entrance frame straddles the facade, on the edge of the reception box, where that probe's weight
+        // fades out (Forward+ blends per pixel and ignores probe anchors): a small probe over the doorway, seen
+        // from inside, keeps the anodised lining and the door's metal from mirroring the night sky.
+        var entrance = new GameObject("Reflexo - entrada");
+        Undo.RegisterCreatedObjectUndo(entrance, "Create reflection probe");
+        entrance.transform.SetParent(group, false);
+        entrance.transform.position = new Vector3(-11.375f, 1.5f, -11.2f);
+        var doorway = entrance.AddComponent<ReflectionProbe>();
+        doorway.mode = ReflectionProbeMode.Baked;
+        doorway.size = new Vector3(2.4f, WallHeight, 1.6f);                   // z -12.6 .. -11.0, covers both casings
+        doorway.center = new Vector3(0f, WallHeight / 2 - 1.5f, -0.6f);
+        doorway.importance = 2;
+        doorway.blendDistance = 0f;
+        doorway.resolution = 128;
     }
 
     [MenuItem("Tools/Unclaimed/Bake Prototype Lighting")]

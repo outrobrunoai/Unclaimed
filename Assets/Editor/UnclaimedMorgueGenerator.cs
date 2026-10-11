@@ -64,6 +64,9 @@ public static partial class UnclaimedMorgueGenerator
     {
         public Material Floor, Skirting, Wainscot, UpperWall, Ceiling;
         public float WainscotHeight;
+        // Optional trims: a slim strip where the wainscot meets the upper wall (paint line, tile edge
+        // profile) and an angle along the ceiling (ceiling trim / moulding).
+        public Material Friso, CeilingTrim;
     }
 
     private readonly struct Door
@@ -72,17 +75,22 @@ public static partial class UnclaimedMorgueGenerator
         public readonly bool Vertical; // true: the opening is in a wall running north-south (x = Line)
         public readonly float Line, Center, Width;
         public readonly bool Header;
+        // Prefab of a modelled frame (and door) for this opening; replaces the generic jambs, casings and sill.
+        public readonly string Frame;
 
-        public Door(string name, bool vertical, float line, float center, float width, bool header = true)
+        public Door(string name, bool vertical, float line, float center, float width, bool header = true, string frame = null)
         {
-            Name = name; Vertical = vertical; Line = line; Center = center; Width = width; Header = header;
+            Name = name; Vertical = vertical; Line = line; Center = center; Width = width; Header = header; Frame = frame;
         }
     }
 
     private static readonly Door[] Doors =
     {
-        new Door("Entrada principal", false, -12.375f, -11.375f, 2f),
-        new Door("Porta WC", false, -7.125f, -11.5f, 1.5f),
+        new Door("Entrada principal", false, -12.375f, -11.375f, 2f,
+            frame: UnclaimedRecepcaoAssets.Folder + "/" + UnclaimedRecepcaoAssets.EntranceFramePrefab + ".prefab"),
+        // 1.0 m like a bathroom door (was a 1.5 m gap); same axis. Frame, leaf and hardware are one prefab.
+        new Door("Porta WC", false, -7.125f, -11.5f, 1.0f,
+            frame: UnclaimedRecepcaoAssets.WCFolder + "/" + UnclaimedRecepcaoAssets.WCDoorPrefab + ".prefab"),
         new Door("Porta recepcao - circulacao", false, -6f, -8f, 1.5f),
         new Door("Porta recepcao - arquivo", true, -6.5f, -8f, 1.5f),
         new Door("Porta arquivo - circulacao", true, -2f, -4.75f, 1.5f),
@@ -150,6 +158,7 @@ public static partial class UnclaimedMorgueGenerator
         copingMat = Mat(BaseFolder, "Capeamento", new Color(0.46f, 0.47f, 0.47f), 0.35f, 0.3f);
         finishes = new Dictionary<string, ZoneFinish> { ["Autopsia"] = AutopsiaFinish() };
         finishes["Recepcao"] = RecepcaoFinish();   // after the autopsy: reuses its ceiling, decals and fittings
+        finishes["WC"] = WCFinish();
 
         floorsGroup = Group("Pisos");
         wallsGroup = Group("Paredes");
@@ -174,6 +183,7 @@ public static partial class UnclaimedMorgueGenerator
         Furniture(furniture);
         BuildAutopsia(Sub(roomsGroup, "Autopsia"));
         BuildRecepcao(Sub(roomsGroup, "Recepcao"));
+        BuildWC(Sub(roomsGroup, "WC"));
         Clues(clues);
         Markers(markers);
         RoomLights(ceilingsGroup);
@@ -410,6 +420,12 @@ public static partial class UnclaimedMorgueGenerator
             FacePanel("Revestimento - " + room, parent, vertical, face, sign, a, b, fromY, Mathf.Min(f.WainscotHeight, WallHeight), f.Wainscot);
         if (f.UpperWall != null)
             FacePanel("Pintura - " + room, parent, vertical, face, sign, a, b, Mathf.Max(f.WainscotHeight, fromY), WallHeight, f.UpperWall);
+        if (f.Friso != null && f.WainscotHeight > fromY && f.WainscotHeight < WallHeight)
+            FaceStrip("Friso - " + room, parent, vertical, face + sign * FinishOffset, sign, a, b,
+                f.WainscotHeight - 0.006f, f.WainscotHeight + 0.006f, 0.003f, f.Friso);
+        if (f.CeilingTrim != null)
+            FaceStrip("Arremate do forro - " + room, parent, vertical, face + sign * FinishOffset, sign, a, b,
+                WallHeight - 0.025f, WallHeight - FinishOffset, 0.012f, f.CeilingTrim);
     }
 
     private static Kind KindOf(List<Zone> zones, int id) => id == 0 ? Kind.Exterior : zones[id - 1].Kind;
@@ -436,17 +452,34 @@ public static partial class UnclaimedMorgueGenerator
             }
 
             LineBox("Verga", g, d.Vertical, d.Line, a, b, -half, half, DoorHeight, WallHeight, wallMat, true);
+            var framePrefab = d.Frame != null ? AssetDatabase.LoadAssetAtPath<GameObject>(d.Frame) : null;
+            if (framePrefab != null)
+            {
+                // Modelled frame: its origin is the opening's centre on the floor, its front (-Z) on the
+                // low side of the wall line.
+                var frame = (GameObject)PrefabUtility.InstantiatePrefab(framePrefab, g);
+                Undo.RegisterCreatedObjectUndo(frame, "Create " + d.Name + " frame");
+                frame.transform.SetPositionAndRotation(d.Vertical ? new Vector3(d.Line, 0f, d.Center) : new Vector3(d.Center, 0f, d.Line),
+                    Quaternion.Euler(0f, d.Vertical ? -90f : 0f, 0f));
+                foreach (FolhaDePorta leaf in frame.GetComponentsInChildren<FolhaDePorta>()) leaf.AplicarEstadoInicial();
+            }
             float depth = half + FrameProjection;
-            LineBox("Batente", g, d.Vertical, d.Line, a, a + FrameLining, -depth, depth, 0, DoorHeight, frameMat, false);
-            LineBox("Batente", g, d.Vertical, d.Line, b - FrameLining, b, -depth, depth, 0, DoorHeight, frameMat, false);
-            LineBox("Batente superior", g, d.Vertical, d.Line, a, b, -depth, depth, DoorHeight - FrameLining, DoorHeight, frameMat, false);
-            LineBox("Soleira", g, d.Vertical, d.Line, a, b, -depth, depth, 0, ThresholdHeight, thresholdMat, false);
+            if (framePrefab == null)
+            {
+                LineBox("Batente", g, d.Vertical, d.Line, a, a + FrameLining, -depth, depth, 0, DoorHeight, frameMat, false);
+                LineBox("Batente", g, d.Vertical, d.Line, b - FrameLining, b, -depth, depth, 0, DoorHeight, frameMat, false);
+                LineBox("Batente superior", g, d.Vertical, d.Line, a, b, -depth, depth, DoorHeight - FrameLining, DoorHeight, frameMat, false);
+                LineBox("Soleira", g, d.Vertical, d.Line, a, b, -depth, depth, 0, ThresholdHeight, thresholdMat, false);
+            }
             foreach (float sign in new[] { -1f, 1f })
             {
                 float c0 = sign * half, c1 = sign * (half + CasingThickness);
-                LineBox("Guarnicao", g, d.Vertical, d.Line, a - CasingWidth, a, Mathf.Min(c0, c1), Mathf.Max(c0, c1), 0, DoorHeight, frameMat, false);
-                LineBox("Guarnicao", g, d.Vertical, d.Line, b, b + CasingWidth, Mathf.Min(c0, c1), Mathf.Max(c0, c1), 0, DoorHeight, frameMat, false);
-                LineBox("Guarnicao", g, d.Vertical, d.Line, a - CasingWidth, b + CasingWidth, Mathf.Min(c0, c1), Mathf.Max(c0, c1), DoorHeight, DoorHeight + CasingWidth, frameMat, false);
+                if (framePrefab == null)
+                {
+                    LineBox("Guarnicao", g, d.Vertical, d.Line, a - CasingWidth, a, Mathf.Min(c0, c1), Mathf.Max(c0, c1), 0, DoorHeight, frameMat, false);
+                    LineBox("Guarnicao", g, d.Vertical, d.Line, b, b + CasingWidth, Mathf.Min(c0, c1), Mathf.Max(c0, c1), 0, DoorHeight, frameMat, false);
+                    LineBox("Guarnicao", g, d.Vertical, d.Line, a - CasingWidth, b + CasingWidth, Mathf.Min(c0, c1), Mathf.Max(c0, c1), DoorHeight, DoorHeight + CasingWidth, frameMat, false);
+                }
 
                 int zone = sign > 0 ? high : low, other = sign > 0 ? low : high;
                 float face = d.Line + sign * half;
@@ -490,8 +523,6 @@ public static partial class UnclaimedMorgueGenerator
         // Recepcao: layout and Blender models in UnclaimedMorgueGenerator.Recepcao.cs.
         ReceptionFurniture(p);
 
-        Block("Pia do WC", p, -12.2f, -4.425f, -11.6f, -3.975f, 0, 0.9f, furnitureMat);
-        Block("Vaso sanitario", p, -14.65f, -5.85f, -14.25f, -5.15f, 0, 0.45f, furnitureMat);
 
         Block("Armarios do vestiario", p, -12.8f, -2.75f, -12.2f, 0f, 0, 2f, furnitureMat);
         Block("Banco do vestiario", p, -10.5f, -2.65f, -8.7f, -2.25f, 0, 0.45f, furnitureMat);
@@ -747,8 +778,10 @@ public static partial class UnclaimedMorgueGenerator
 
     // URP Lit material, created once: an existing asset is returned untouched, so tweaks made in the Editor survive.
     // Texture tiling is given in meters because finish panels carry UVs in meters.
+    // glossMap: metallic (R) and smoothness (A) map; _Smoothness then scales the map's smoothness.
     private static Material Mat(string folder, string name, Color color, float smoothness, float metallic = 0f,
-        string baseMap = null, string normalMap = null, float tileMeters = 1f, Color? emission = null, bool transparent = false)
+        string baseMap = null, string normalMap = null, float tileMeters = 1f, Color? emission = null, bool transparent = false,
+        string glossMap = null)
     {
         string path = folder + "/" + name + ".mat";
         var material = AssetDatabase.LoadAssetAtPath<Material>(path);
@@ -760,6 +793,7 @@ public static partial class UnclaimedMorgueGenerator
         material.SetFloat("_Metallic", metallic);
         if (baseMap != null) material.SetTexture("_BaseMap", Tex(baseMap, false));
         if (normalMap != null) material.SetTexture("_BumpMap", Tex(normalMap, true));
+        if (glossMap != null) material.SetTexture("_MetallicGlossMap", Tex(glossMap, false));
         material.SetTextureScale("_BaseMap", Vector2.one / tileMeters);
         if (emission.HasValue)
         {
@@ -782,6 +816,11 @@ public static partial class UnclaimedMorgueGenerator
         if (AssetImporter.GetAtPath(path) is TextureImporter importer)
         {
             bool decal = path.Contains("/Decal_"), changed = false;
+            if (path.EndsWith("_MS.png") && importer.sRGBTexture)   // metallic / smoothness maps are linear data
+            {
+                importer.sRGBTexture = false;
+                changed = true;
+            }
             if (normal && importer.textureType != TextureImporterType.NormalMap)
             {
                 importer.textureType = TextureImporterType.NormalMap;

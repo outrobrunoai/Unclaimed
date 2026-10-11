@@ -356,6 +356,13 @@ def make_all(G_class, model):
             "parafuso": metal("Aco zincado", (0.70, 0.70, 0.68), 0.35),
         },
         "LuminariaExterna_Luz": {"difusor": tela("difusor"), "tubo": tela("tubo")},
+        "BatenteEntrada": {
+            "aluminio": metal("Aluminio anodizado - batente", (0.70, 0.71, 0.72), 0.38),
+            "inox": metal("Inox escovado - porta", (0.72, 0.72, 0.71), 0.3),
+            "inox_escuro": metal("Inox escuro - porta", (0.32, 0.32, 0.32), 0.4),
+            "selante": plastico("Silicone cinza", (0.55, 0.55, 0.53), 0.5, scuffed=False),
+            "granito": granito("Granito - soleira", -10.0, -10.0),   # no leaning strip on a sill
+        },
         "PortaVidroFixos": {
             "inox": metal("Inox escovado - porta", (0.72, 0.72, 0.71), 0.3),
             "inox_escuro": metal("Inox escuro - porta", (0.32, 0.32, 0.32), 0.4),

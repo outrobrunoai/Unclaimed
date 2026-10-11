@@ -20,14 +20,16 @@ UNITY = os.path.join(BLEND_DIR, "..", "..", "Assets", "Modelos", "Recepcao")
 # (keycaps, phone keys) seen from the clerk's seat.
 ATLAS = {"BalcaoRecepcao": 2048, "CadeiraEspera": 1024, "CadeiraAtendente": 1024, "ArmarioApoio": 1024,
          "LongarinaEspera": 1024, "EquipamentosBalcao": 2048, "LivroRegistro": 512, "Bebedouro": 1024, "Lixeira": 512,
-         "LuminariaSobrepor": 1024, "LuminariaExterna": 512, "PortaVidroFixos": 512, "PortaVidroFolha": 1024}
+         "LuminariaSobrepor": 1024, "LuminariaExterna": 512, "PortaVidroFixos": 512, "PortaVidroFolha": 1024,
+         "BatenteEntrada": 1024}
 AO_SAMPLES = 64
 # Other assets that should occlude an asset during its bake (the desk kit sits on the counter's worktop).
 OCCLUDERS = {"EquipamentosBalcao": ("BalcaoRecepcao",)}
 SPREAD = {"BalcaoRecepcao": 0.0, "CadeiraEspera": 2.2, "CadeiraAtendente": 3.2, "ArmarioApoio": 4.4,
           "LongarinaEspera": 6.2, "EquipamentosBalcao": 0.0, "LivroRegistro": 7.6, "Bebedouro": 8.3, "Lixeira": 8.9,
           "LuminariaSobrepor": 10.5, "LuminariaSobrepor_Luz": 10.5, "LuminariaExterna": 12.0, "LuminariaExterna_Luz": 12.0,
-          "PortaVidroFixos": 14.0, "PortaVidroFolha": 14.0, "PortaVidroVidro": 14.0}
+          "PortaVidroFixos": 14.0, "PortaVidroFolha": 14.0, "PortaVidroVidro": 14.0,
+          "BatenteEntrada": 16.5}
 
 
 def load(folder, module):
