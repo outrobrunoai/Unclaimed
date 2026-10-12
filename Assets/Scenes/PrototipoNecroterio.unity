@@ -4470,7 +4470,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -41342,6 +41342,7 @@ GameObject:
   - component: {fileID: 478388410}
   - component: {fileID: 478388409}
   - component: {fileID: 478388408}
+  - component: {fileID: 478388411}
   m_Layer: 0
   m_Name: Pista - prontuario
   m_TagString: Untagged
@@ -41442,6 +41443,47 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 478388406}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &478388411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478388406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 662c80f68efc23e4d94129a7d7ec3b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjetoInspecionavel
+  nome: Pista
+  descricao: 
+  teclaInteracao: E
+  distanciaMaxima: 1.2
+  folgaDaMira: 0.04
+  modeloInspecao: {fileID: 0}
+  distanciaDaCamera: 0.7
+  tamanhoNaTela: 0.4
+  sensibilidade: 0.4
+  zoomPorScroll: 0.08
+  limiteDistancia: {x: 0.8, y: 1.2}
+  posicaoNaTela: {x: 0, y: 0}
+  orientacao: 0
+  faceVoltadaParaJogador: 0
+  topoNaTela: 2
+  giroNaTela: 0
+  rotacaoInicial: {x: 0, y: 180, z: 0}
+  nomeDaLayer: Inspecao
+  desativarDuranteInspecao:
+  - {fileID: 1821500669}
+  aoIniciarInspecao:
+    m_PersistentCalls:
+      m_Calls: []
+  aoPrimeiraInspecao:
+    m_PersistentCalls:
+      m_Calls: []
+  aoFinalizarInspecao:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &481703425
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44045,6 +44087,7 @@ GameObject:
   - component: {fileID: 514712505}
   - component: {fileID: 514712504}
   - component: {fileID: 514712503}
+  - component: {fileID: 514712506}
   m_Layer: 0
   m_Name: Pista - instrumento deslocado
   m_TagString: Untagged
@@ -44145,6 +44188,47 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514712501}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &514712506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514712501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 662c80f68efc23e4d94129a7d7ec3b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjetoInspecionavel
+  nome: Pista
+  descricao: 
+  teclaInteracao: E
+  distanciaMaxima: 1
+  folgaDaMira: 0.04
+  modeloInspecao: {fileID: 0}
+  distanciaDaCamera: 0.7
+  tamanhoNaTela: 0.4
+  sensibilidade: 0.4
+  zoomPorScroll: 0.08
+  limiteDistancia: {x: 0.8, y: 1.2}
+  posicaoNaTela: {x: 0, y: 0}
+  orientacao: 0
+  faceVoltadaParaJogador: 0
+  topoNaTela: 2
+  giroNaTela: 0
+  rotacaoInicial: {x: 0, y: 180, z: 0}
+  nomeDaLayer: Inspecao
+  desativarDuranteInspecao:
+  - {fileID: 1821500669}
+  aoIniciarInspecao:
+    m_PersistentCalls:
+      m_Calls: []
+  aoPrimeiraInspecao:
+    m_PersistentCalls:
+      m_Calls: []
+  aoFinalizarInspecao:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &514741006
 GameObject:
   m_ObjectHideFlags: 0
@@ -58198,6 +58282,7 @@ GameObject:
   - component: {fileID: 684900717}
   - component: {fileID: 684900716}
   - component: {fileID: 684900715}
+  - component: {fileID: 684900718}
   m_Layer: 0
   m_Name: Pista - registro de entrada
   m_TagString: Untagged
@@ -58298,6 +58383,47 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684900713}
   m_Mesh: {fileID: 2017749875746039632, guid: ceea25630d90e88c5a9db6f4c9e307cf, type: 3}
+--- !u!114 &684900718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684900713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 662c80f68efc23e4d94129a7d7ec3b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjetoInspecionavel
+  nome: Pista
+  descricao: 
+  teclaInteracao: E
+  distanciaMaxima: 1
+  folgaDaMira: 0.04
+  modeloInspecao: {fileID: 0}
+  distanciaDaCamera: 0.7
+  tamanhoNaTela: 0.4
+  sensibilidade: 0.4
+  zoomPorScroll: 0.08
+  limiteDistancia: {x: 0.8, y: 1.2}
+  posicaoNaTela: {x: 0, y: 0}
+  orientacao: 0
+  faceVoltadaParaJogador: 0
+  topoNaTela: 2
+  giroNaTela: 0
+  rotacaoInicial: {x: 0, y: 180, z: 0}
+  nomeDaLayer: Inspecao
+  desativarDuranteInspecao:
+  - {fileID: 1821500669}
+  aoIniciarInspecao:
+    m_PersistentCalls:
+      m_Calls: []
+  aoPrimeiraInspecao:
+    m_PersistentCalls:
+      m_Calls: []
+  aoFinalizarInspecao:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &687112046
 GameObject:
   m_ObjectHideFlags: 0
@@ -76854,6 +76980,7 @@ GameObject:
   - component: {fileID: 893983666}
   - component: {fileID: 893983665}
   - component: {fileID: 893983664}
+  - component: {fileID: 893983667}
   m_Layer: 0
   m_Name: Pista - laudo da autopsia
   m_TagString: Untagged
@@ -76954,6 +77081,47 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 893983662}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &893983667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893983662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 662c80f68efc23e4d94129a7d7ec3b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjetoInspecionavel
+  nome: Pista
+  descricao: 
+  teclaInteracao: E
+  distanciaMaxima: 1
+  folgaDaMira: 0.04
+  modeloInspecao: {fileID: 0}
+  distanciaDaCamera: 0.7
+  tamanhoNaTela: 0.4
+  sensibilidade: 0.4
+  zoomPorScroll: 0.08
+  limiteDistancia: {x: 0.8, y: 1.2}
+  posicaoNaTela: {x: 0, y: 0}
+  orientacao: 0
+  faceVoltadaParaJogador: 0
+  topoNaTela: 2
+  giroNaTela: 0
+  rotacaoInicial: {x: 0, y: 180, z: 0}
+  nomeDaLayer: Inspecao
+  desativarDuranteInspecao:
+  - {fileID: 1821500669}
+  aoIniciarInspecao:
+    m_PersistentCalls:
+      m_Calls: []
+  aoPrimeiraInspecao:
+    m_PersistentCalls:
+      m_Calls: []
+  aoFinalizarInspecao:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &897158837
 GameObject:
   m_ObjectHideFlags: 0
@@ -124902,6 +125070,7 @@ GameObject:
   - component: {fileID: 1438331935}
   - component: {fileID: 1438331934}
   - component: {fileID: 1438331933}
+  - component: {fileID: 1438331936}
   m_Layer: 0
   m_Name: Pista - objeto pessoal
   m_TagString: Untagged
@@ -125002,6 +125171,47 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1438331931}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1438331936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438331931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 662c80f68efc23e4d94129a7d7ec3b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjetoInspecionavel
+  nome: Pista
+  descricao: 
+  teclaInteracao: E
+  distanciaMaxima: 1
+  folgaDaMira: 0.04
+  modeloInspecao: {fileID: 0}
+  distanciaDaCamera: 0.7
+  tamanhoNaTela: 0.4
+  sensibilidade: 0.4
+  zoomPorScroll: 0.08
+  limiteDistancia: {x: 0.8, y: 1.2}
+  posicaoNaTela: {x: 0, y: 0}
+  orientacao: 0
+  faceVoltadaParaJogador: 0
+  topoNaTela: 2
+  giroNaTela: 0
+  rotacaoInicial: {x: 0, y: 180, z: 0}
+  nomeDaLayer: Inspecao
+  desativarDuranteInspecao:
+  - {fileID: 1821500669}
+  aoIniciarInspecao:
+    m_PersistentCalls:
+      m_Calls: []
+  aoPrimeiraInspecao:
+    m_PersistentCalls:
+      m_Calls: []
+  aoFinalizarInspecao:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1439235235
 GameObject:
   m_ObjectHideFlags: 0
@@ -158494,6 +158704,9 @@ MonoBehaviour:
   olhar: {x: 0, y: 0}
   velocidadeJogador: 4
   sensibilidadeMouse: 5
+  velocidadeAgachado: 2
+  alturaAgachado: 1
+  velocidadeTransicao: 10
   gravidade: -9.81
 --- !u!143 &1821500670
 CharacterController:
@@ -158530,7 +158743,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -11.375, y: 1, z: -11.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.9071, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 43220424}
