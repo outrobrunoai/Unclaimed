@@ -7,10 +7,13 @@
 #   WC_ForroPVC_*      PVC ceiling boards 10 cm wide, V joints; 512 px over 1 m
 #   Decal_RejunteEncardido  darker grout around the toilet foot, 2 x 2 floor tiles (aligned to the grid)
 #   WC_Espelho_MS      mirror: faint wipe streaks and dried splashes in the gloss
+#   Placa_NaoJogarPapel  small acrylic sign over the toilet ("não jogue papel no vaso", common in Brazil)
+#   Controle_Limpeza     cleaning log sheet in its holder by the door (printed grid, handwritten ticks)
+#   Agua_Fluxo / Agua_Espuma / Gota   tap water: streaks along the stream, foam ring, splash droplet
 # Maps: _Base (sRGB), _Normal (tangent space, OpenGL / Unity), _MS (R metallic = 0, A smoothness).
 import os
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "..", "..", "Assets", "UnclaimedPrototype", "WC", "Texturas")
@@ -127,9 +130,123 @@ def mirror_ms(n=512):
     return save(ms, "WC_Espelho_MS.png", rgba=True)
 
 
-if __name__ == "__main__":
+FONT, FONT_B = "/usr/share/fonts/noto/NotoSans-Regular.ttf", "/usr/share/fonts/noto/NotoSans-Bold.ttf"
+
+
+def font(size, bold=False):
+    return ImageFont.truetype(FONT_B if bold else FONT, size)
+
+
+def save_img(img, name):
+    os.makedirs(OUT, exist_ok=True)
+    img.save(os.path.join(OUT, name))
+    return name
+
+
+def placa_papel(w=640, h=384):
+    """White acrylic sign, red band and a crossed-out paper roll pictogram, short instruction below."""
+    img = Image.new("RGB", (w, h), (244, 244, 240))
+    d = ImageDraw.Draw(img)
+    d.rectangle((0, 0, w, int(h * 0.2)), fill=(178, 34, 34))
+    d.text((w / 2, h * 0.1), "ATENÇÃO", font=font(int(h * 0.12), True), fill="white", anchor="mm")
+    cx, cy, r = w * 0.2, h * 0.58, h * 0.24
+    d.rounded_rectangle((cx - r * 0.55, cy - r * 0.75, cx + r * 0.45, cy + r * 0.75), radius=int(r * 0.25), outline=(40, 40, 40), width=8)
+    d.ellipse((cx - r * 0.2, cy - r * 0.2, cx + r * 0.2, cy + r * 0.2), outline=(40, 40, 40), width=6)
+    d.ellipse((cx - r, cy - r, cx + r, cy + r), outline=(178, 34, 34), width=12)
+    d.line((cx - r * 0.7, cy + r * 0.7, cx + r * 0.7, cy - r * 0.7), fill=(178, 34, 34), width=12)
+    for k, line in enumerate(("FAVOR NÃO JOGAR", "PAPEL NO VASO.", "USE A LIXEIRA.")):
+        d.text((w * 0.66, h * (0.40 + 0.17 * k)), line, font=font(int(h * 0.105), k < 2), fill=(35, 35, 35), anchor="mm")
+    return save_img(img, "Placa_NaoJogarPapel.png")
+
+
+def controle_limpeza(w=512, h=720):
+    """A4 cleaning log in a clear sleeve: header, a time/date grid with initials and ticks in blue pen."""
+    rng = np.random.default_rng(5)
+    img = Image.new("RGB", (w, h), (238, 236, 228))
+    d = ImageDraw.Draw(img)
+    d.text((w / 2, 34), "CONTROLE DE LIMPEZA", font=font(30, True), fill=(30, 30, 30), anchor="mm")
+    d.text((w / 2, 66), "SANITÁRIO - RECEPÇÃO", font=font(18), fill=(60, 60, 60), anchor="mm")
+    cols = ["DATA", "HORA", "RESP.", "VISTO"]
+    x = [30, 140, 250, 380, 482]
+    top, row = 92, 30
+    rows = (h - top - 40) // row
+    for i in range(rows + 1):
+        d.line((x[0], top + i * row, x[-1], top + i * row), fill=(90, 90, 90), width=2)
+    for xx in x:
+        d.line((xx, top, xx, top + rows * row), fill=(90, 90, 90), width=2)
+    for k, c in enumerate(cols):
+        d.text(((x[k] + x[k + 1]) / 2, top + row / 2), c, font=font(16, True), fill=(30, 30, 30), anchor="mm")
+    pen = (35, 55, 140)
+    filled = 13
+    for i in range(1, filled + 1):
+        y = top + i * row + row / 2
+        day = 3 + (i - 1) // 3
+        hora = ("07:30", "12:15", "17:40")[(i - 1) % 3]
+        jit = lambda: rng.uniform(-3, 3)
+        d.text(((x[0] + x[1]) / 2 + jit(), y + jit()), f"{day:02d}/10", font=font(17), fill=pen, anchor="mm")
+        d.text(((x[1] + x[2]) / 2 + jit(), y + jit()), hora, font=font(17), fill=pen, anchor="mm")
+        d.text(((x[2] + x[3]) / 2 + jit(), y + jit()), ("M.S.", "J.R.", "A.P.")[i % 3], font=font(17), fill=pen, anchor="mm")
+        cx, cy = (x[3] + x[4]) / 2 + jit(), y + jit()
+        d.line((cx - 10, cy, cx - 2, cy + 8, cx + 14, cy - 10), fill=pen, width=3)
+    img = img.filter(ImageFilter.GaussianBlur(0.6))
+    return save_img(img, "Controle_Limpeza.png")
+
+
+def agua_fluxo(w=64, h=256):
+    """Stream texture: bright, mostly clear, with streaks along v (the flow) and soft bands; alpha carries it."""
+    rng = np.random.default_rng(9)
+    yy, xx = np.mgrid[0:h, 0:w]
+    streak = np.zeros((h, w))
+    for _ in range(14):
+        x0, width, amp = rng.uniform(0, w), rng.uniform(1.0, 4.0), rng.uniform(0.3, 1.0)
+        dx = np.minimum(np.abs(xx - x0), w - np.abs(xx - x0))
+        streak += amp * np.exp(-(dx / width) ** 2) * (0.6 + 0.4 * np.sin(yy / h * 2 * np.pi * rng.integers(1, 4) + rng.uniform(0, 6)))
+    bands = 0.5 + 0.5 * np.sin(yy / h * 2 * np.pi * 6 + np.sin(xx / w * 2 * np.pi) * 0.8)
+    a = np.clip(0.18 + 0.32 * streak / streak.max() + 0.12 * bands, 0, 1)
+    rgba = np.zeros((h, w, 4))
+    rgba[..., :3] = np.array([0.86, 0.93, 0.97])[None, None, :] * (0.85 + 0.15 * bands[..., None])
+    rgba[..., 3] = a
+    return save(rgba, "Agua_Fluxo.png", rgba=True)
+
+
+def agua_espuma(n=256):
+    """Foam ring where the stream hits the basin: broken white ring with bubbles, transparent centre and edge."""
+    rng = np.random.default_rng(12)
+    yy, xx = np.mgrid[0:n, 0:n]
+    cx = cy = (n - 1) / 2
+    r = np.hypot(xx - cx, yy - cy) / (n / 2)
+    ang = np.arctan2(yy - cy, xx - cx)
+    ring = np.exp(-((r - 0.38) / 0.16) ** 2) * (0.6 + 0.4 * np.sin(ang * 7 + rng.uniform(0, 6)))
+    bub = np.zeros((n, n))
+    for _ in range(90):
+        bx, by, br = rng.uniform(0.15, 0.85) * n, rng.uniform(0.15, 0.85) * n, rng.uniform(1.5, 4.5)
+        d = np.hypot(xx - bx, yy - by)
+        bub = np.maximum(bub, np.clip(1 - np.abs(d - br) / 1.2, 0, 1) * (r < 0.8))
+    a = np.clip(ring * 0.8 + bub * 0.6, 0, 1) * np.clip((0.95 - r) / 0.2, 0, 1)
+    rgba = np.zeros((n, n, 4))
+    rgba[..., :3] = 0.95
+    rgba[..., 3] = a
+    return save(rgba, "Agua_Espuma.png", rgba=True)
+
+
+def gota(n=32):
+    """Soft droplet for the splash particles."""
+    yy, xx = np.mgrid[0:n, 0:n]
+    r = np.hypot(xx - (n - 1) / 2, yy - (n - 1) / 2) / (n / 2)
+    rgba = np.zeros((n, n, 4))
+    rgba[..., :3] = 0.92
+    rgba[..., 3] = np.clip(1 - r, 0, 1) ** 1.5
+    return save(rgba, "Gota.png", rgba=True)
+
+
+if __name__ == "__main__" and len(__import__("sys").argv) > 1:
+    for name in __import__("sys").argv[1:]:
+        print(globals()[name]())
+elif __name__ == "__main__":
     print(tiles("WC_Azulejo", 1024, 0.9, 0.30, 0.45, 2.0, (0.93, 0.93, 0.91), (0.78, 0.78, 0.76), 0.78, 0.15, 1.6))
     print(tiles("WC_Piso", 1024, 1.35, 0.45, 0.45, 3.0, (0.55, 0.53, 0.50), (0.32, 0.31, 0.29), 0.34, 0.08, 0.8, shade=0.025))
     print(pvc_ceiling())
     print(grime_decal())
     print(mirror_ms())
+    for f in (placa_papel, controle_limpeza, agua_fluxo, agua_espuma, gota):
+        print(f())

@@ -105,7 +105,7 @@ public class DiarioDePistas : MonoBehaviour
         if (TeclaApertada(teclaDiario))
         {
             if (aberto) Fechar();
-            else if (!ObjetoInspecionavel.InspecionandoAlgo) Abrir();
+            else if (!ObjetoInspecionavel.InspecionandoAlgo && !InterfaceDeTela.AlgumaAberta) Abrir();
         }
         else if (aberto && TeclaApertada("Escape"))
         {

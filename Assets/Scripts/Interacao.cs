@@ -15,6 +15,11 @@ using UnityEngine.InputSystem;
 /// A cópia é desenhada por cima de tudo (câmera overlay do URP), então nunca
 /// atravessa paredes ou móveis. Isso exige a layer "Inspecao" (veja abaixo).
 /// Funciona com o Input System novo e com o Input Manager antigo.
+///
+/// Peças manipuláveis (ex.: os discos de um cadeado): um componente no mesmo objeto que implemente
+/// IManipulavelNaInspecao recebe a cópia ao abrir e a entrada a cada quadro; o que ele usar (clique/arraste,
+/// scroll) não gira nem aproxima o objeto. Opcionalmente o original fica oculto durante a inspeção (sem
+/// duplicata visível) e o Movimento do jogador é travado sem precisar ligá-lo no Inspector.
 /// </summary>
 public class ObjetoInspecionavel : MonoBehaviour
 {
@@ -63,6 +68,12 @@ public class ObjetoInspecionavel : MonoBehaviour
     [Header("Durante a inspeção")]
     [Tooltip("Arraste aqui o movimento do jogador e o script de olhar com o mouse para travá-los.")]
     public Behaviour[] desativarDuranteInspecao;
+    [Tooltip("Também trava todo Movimento ativo na cena (útil em prefabs, que não referenciam o jogador).")]
+    public bool travarMovimentoDoJogador = false;
+    [Tooltip("Oculta o objeto original enquanto a cópia está na tela (sem duplicata visível).")]
+    public bool ocultarOriginal = false;
+    [Tooltip("Instruções no rodapé durante a inspeção. Vazio = as instruções padrão (ou as do manipulador).")]
+    public string instrucoes = "";
 
     [Header("Eventos")]
     public UnityEvent aoIniciarInspecao;
@@ -87,6 +98,9 @@ public class ObjetoInspecionavel : MonoBehaviour
     CursorLockMode travaAnterior;
     bool cursorVisivelAnterior;
     readonly System.Collections.Generic.List<Behaviour> desativados = new System.Collections.Generic.List<Behaviour>();
+    readonly System.Collections.Generic.List<Renderer> ocultados = new System.Collections.Generic.List<Renderer>();
+    IManipulavelNaInspecao manipulador;
+    int quadroAbertura = -1;
     GUIStyle estilo;
 
     // câmera sobreposta (desenha o objeto por cima de tudo)
@@ -108,6 +122,9 @@ public class ObjetoInspecionavel : MonoBehaviour
         }
 
         if (emInspecao != null) return;
+        // Diário, telas (computador, cadeado) e cursor solto bloqueiam; portas, gavetas etc. na mira têm
+        // prioridade sobre a pista (mesma tecla).
+        if (MiraDeInteracao.ControleCapturado || MiraDeInteracao.Alvo != null) return;
 
         Camera c = Camera.main;
         if (c == null) return;
@@ -176,7 +193,7 @@ public class ObjetoInspecionavel : MonoBehaviour
         if (emInspecao == this)
         {
             Inspecionar();
-            if (TeclaApertada(teclaInteracao) || TeclaApertada("Escape"))
+            if (emInspecao == this && Time.frameCount != quadroAbertura && (TeclaApertada(teclaInteracao) || TeclaApertada("Escape")))
                 Fechar();
         }
         else if (emInspecao == null && melhor == this && TeclaApertada(teclaInteracao))
@@ -185,8 +202,15 @@ public class ObjetoInspecionavel : MonoBehaviour
         }
     }
 
+    /// <summary>Encerra a inspeção deste objeto (se estiver aberta), devolvendo controles e cursor.</summary>
+    public void EncerrarInspecao()
+    {
+        if (emInspecao == this) Fechar();
+    }
+
     void Abrir()
     {
+        quadroAbertura = Time.frameCount;
         camPrincipal = Camera.main;
         cam = camPrincipal.transform;
         emInspecao = this;
@@ -237,22 +261,35 @@ public class ObjetoInspecionavel : MonoBehaviour
 
         ConfigurarCameraSobreposta(clone);
 
+        // O original some enquanto a cópia está na tela (a cópia já foi feita com os renderers ligados).
+        ocultados.Clear();
+        if (ocultarOriginal)
+            foreach (var r in GetComponentsInChildren<Renderer>())
+                if (r.enabled) { r.enabled = false; ocultados.Add(r); }
+
         // Trava o jogador e libera o cursor.
         desativados.Clear();
-        foreach (var comp in desativarDuranteInspecao)
-        {
-            if (comp != null && comp.enabled)
+        if (desativarDuranteInspecao != null)
+            foreach (var comp in desativarDuranteInspecao)
             {
-                comp.enabled = false;
-                desativados.Add(comp);
+                if (comp != null && comp.enabled)
+                {
+                    comp.enabled = false;
+                    desativados.Add(comp);
+                }
             }
-        }
+        if (travarMovimentoDoJogador)
+            foreach (var mov in FindObjectsByType<Movimento>())
+                if (mov.enabled) { mov.enabled = false; desativados.Add(mov); }
         travaAnterior = Cursor.lockState;
         cursorVisivelAnterior = Cursor.visible;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
         arrastando = false;
+
+        manipulador = GetComponent<IManipulavelNaInspecao>();
+        manipulador?.AoIniciarInspecao(clone.transform, camPrincipal);
 
         aoIniciarInspecao?.Invoke();
 
@@ -311,8 +348,18 @@ public class ObjetoInspecionavel : MonoBehaviour
         if (pivot == null) return;
 
         Vector2 pos = PosicaoMouse();
+        float scroll = Mathf.Clamp(ScrollVertical(), -1f, 1f);
 
-        if (BotaoEsquerdoPressionado())
+        UsoDaEntrada uso = manipulador != null
+            ? manipulador.ProcessarEntrada(camPrincipal, pos, BotaoEsquerdoPressionado(), scroll)
+            : UsoDaEntrada.Nenhum;
+        if (emInspecao != this || pivot == null) return;   // o manipulador pode ter encerrado a inspeção
+
+        if ((uso & UsoDaEntrada.Ponteiro) != 0)
+        {
+            arrastando = false;   // clique/arraste numa peça: o objeto não gira
+        }
+        else if (BotaoEsquerdoPressionado())
         {
             if (arrastando)
             {
@@ -329,8 +376,7 @@ public class ObjetoInspecionavel : MonoBehaviour
         }
         ultimaPosMouse = pos;
 
-        float scroll = Mathf.Clamp(ScrollVertical(), -1f, 1f);
-        if (Mathf.Abs(scroll) > 0.01f)
+        if ((uso & UsoDaEntrada.Rolagem) == 0 && Mathf.Abs(scroll) > 0.01f)
         {
             distanciaAtual = Mathf.Clamp(distanciaAtual - scroll * zoomPorScroll, limiteDistancia.x, limiteDistancia.y);
             pivot.localPosition = PosicaoLocal(camPrincipal, distanciaAtual);
@@ -343,14 +389,25 @@ public class ObjetoInspecionavel : MonoBehaviour
         pivot = null;
         DesfazerCameraSobreposta();
 
+        foreach (var r in ocultados)
+            if (r != null) r.enabled = true;
+        ocultados.Clear();
+
         foreach (var comp in desativados)
-            if (comp != null) comp.enabled = true;
+        {
+            if (comp == null) continue;
+            if (comp is Movimento mov) mov.olhar = Vector2.zero;   // sem giro acumulado durante a inspeção
+            comp.enabled = true;
+        }
         desativados.Clear();
 
         Cursor.lockState = travaAnterior;
         Cursor.visible = cursorVisivelAnterior;
 
         emInspecao = null;
+        var m = manipulador;
+        manipulador = null;
+        m?.AoFinalizarInspecao();
         aoFinalizarInspecao?.Invoke();
     }
 
@@ -479,8 +536,11 @@ public class ObjetoInspecionavel : MonoBehaviour
             GUI.Label(new Rect(Screen.width * 0.2f, 30, Screen.width * 0.6f, 40), nome, estilo);
             if (!string.IsNullOrEmpty(descricao))
                 GUI.Label(new Rect(Screen.width * 0.2f, 75, Screen.width * 0.6f, 120), descricao, estilo);
+            string texto = !string.IsNullOrEmpty(instrucoes) ? instrucoes
+                : manipulador != null && !string.IsNullOrEmpty(manipulador.Instrucoes) ? manipulador.Instrucoes
+                : "Clique e arraste: girar  |  Scroll: zoom";
             GUI.Label(new Rect(0, Screen.height - 60, Screen.width, 40),
-                $"Clique e arraste: girar  |  Scroll: zoom  |  [{teclaInteracao.ToUpper()}] ou [Esc]: fechar", estilo);
+                $"{texto}  |  [{teclaInteracao.ToUpper()}] ou [Esc]: fechar", estilo);
         }
     }
 
@@ -523,6 +583,34 @@ public class ObjetoInspecionavel : MonoBehaviour
         return Input.mouseScrollDelta.y;
 #endif
     }
+}
+
+/// <summary>O que o manipulador usou da entrada neste quadro (o resto continua girando/aproximando o objeto).</summary>
+[Flags]
+public enum UsoDaEntrada
+{
+    Nenhum = 0,
+    Ponteiro = 1,   // clique/arraste
+    Rolagem = 2     // scroll
+}
+
+/// <summary>
+/// Peças manipuláveis durante a inspeção de um ObjetoInspecionavel (no mesmo objeto). A inspeção mostra uma cópia:
+/// o manipulador a recebe ao abrir e é responsável por mantê-la igual ao original.
+/// </summary>
+public interface IManipulavelNaInspecao
+{
+    /// <summary>Chamado ao abrir, com a raiz da cópia (já na frente da câmera) e a câmera do jogador.</summary>
+    void AoIniciarInspecao(Transform copia, Camera camera);
+
+    /// <summary>A cada quadro da inspeção: posição do mouse (pixels), botão esquerdo e scroll (-1..1).</summary>
+    UsoDaEntrada ProcessarEntrada(Camera camera, Vector2 mouse, bool botao, float scroll);
+
+    /// <summary>Chamado ao fechar (a cópia já foi destruída).</summary>
+    void AoFinalizarInspecao();
+
+    /// <summary>Instruções no rodapé (vazio = as padrão).</summary>
+    string Instrucoes { get; }
 }
 
 public enum OrientacaoNaInspecao

@@ -18,11 +18,12 @@ UNITY = os.path.join(BLEND_DIR, "..", "..", "Assets", "Modelos", "WC")
 
 # Atlas size per asset (the toilet and basin are seen close up) and AO samples.
 ATLAS = {"VasoSanitario": 1024, "Lavatorio": 1024, "Saboneteira": 512, "ToalheiroPapel": 512, "PapeleiraRolao": 512,
-         "BarraApoio": 512, "PortaWCFixos": 1024, "PortaWCFolha": 1024}
+         "BarraApoio": 512, "PortaWCFixos": 1024, "PortaWCFolha": 1024, "Ralo": 512, "EscovaSanitaria": 512, "Exaustor": 512}
 AO_SAMPLES = 64
 OCCLUDERS = {}
 SPREAD = {"VasoSanitario": 0.0, "Lavatorio": 1.2, "Espelho": 2.2, "Saboneteira": 3.0, "ToalheiroPapel": 3.5,
-          "PapeleiraRolao": 4.1, "BarraApoio": 4.8, "PortaWCFixos": 6.5, "PortaWCFolha": 6.5}
+          "PapeleiraRolao": 4.1, "BarraApoio": 4.8, "PortaWCFixos": 6.5, "PortaWCFolha": 6.5,
+          "VasoBotao": 0.0, "LavatorioBotao": 1.2, "Ralo": 8.0, "EscovaSanitaria": 8.5, "Exaustor": 9.0}
 
 
 def load(folder, module):

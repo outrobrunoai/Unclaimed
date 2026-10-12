@@ -1,35 +1,56 @@
+using System;
 using UnityEngine;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+#endif
 
 /// <summary>
 /// O que o jogador está mirando: um raio pelo centro da câmera, calculado uma vez por frame e
 /// compartilhado pelas interações que usam a mesma tecla. A primeira superfície atingida decide,
-/// então nada é acionado através de paredes. Interações miradas (portas) têm prioridade sobre as
-/// pistas do ObjetoInspecionavel, que só são escolhidas por proximidade quando nenhuma porta está na mira.
+/// então nada é acionado através de paredes. Interações miradas (AlvoDeInteracao: portas, gavetas,
+/// armários, torneira, descarga) têm prioridade sobre as pistas do ObjetoInspecionavel, que só são
+/// escolhidas por proximidade quando nenhum alvo está na mira.
 /// </summary>
 public static class MiraDeInteracao
 {
     /// <summary>Distância máxima do raio; cada interação ainda aplica o próprio alcance.</summary>
     public const float DistanciaMaxima = 6f;
 
-    static int frame = -1;
-    static FolhaDePorta porta;
+    static int frame = -1, bloqueadoAte = -1;
+    static AlvoDeInteracao alvo;
     static RaycastHit acerto;
+    static GUIStyle estilo;
+
+    /// <summary>Alvo mirado e ao alcance neste frame (null se nenhum).</summary>
+    public static AlvoDeInteracao Alvo { get { Atualizar(); return alvo; } }
 
     /// <summary>Folha de porta mirada e ao alcance neste frame (null se nenhuma).</summary>
-    public static FolhaDePorta PortaMirada { get { Atualizar(); return porta; } }
+    public static FolhaDePorta PortaMirada => Alvo as FolhaDePorta;
 
     /// <summary>
-    /// Verdadeiro quando outro sistema captura o controle: inspeção de pista, diário aberto ou cursor
-    /// solto (menu, Esc). Interações do mundo não devem responder nesse estado.
+    /// Verdadeiro quando outro sistema captura o controle: inspeção de pista, diário aberto, interface de tela
+    /// (computador, cadeado), cursor solto (menu, Esc) ou o quadro logo depois de uma interface fechar.
+    /// Interações do mundo não devem responder nesse estado.
     /// </summary>
     public static bool ControleCapturado =>
-        ObjetoInspecionavel.InspecionandoAlgo || DiarioDePistas.Aberto || Cursor.lockState != CursorLockMode.Locked;
+        ObjetoInspecionavel.InspecionandoAlgo || DiarioDePistas.Aberto || InterfaceDeTela.AlgumaAberta ||
+        Cursor.lockState != CursorLockMode.Locked || Time.frameCount <= bloqueadoAte;
+
+    /// <summary>Nenhum alvo neste quadro nem no próximo (a tecla que fechou uma interface não aciona outra).</summary>
+    public static void BloquearNoProximoQuadro()
+    {
+        bloqueadoAte = Time.frameCount + 1;
+        frame = -1;
+    }
+
+    /// <summary>Aviso curto na parte de baixo da tela ("Porta destrancada.").</summary>
+    public static void Avisar(string texto, float segundos = 2.5f) => AvisoNaTela.Mostrar(texto, segundos);
 
     static void Atualizar()
     {
         if (frame == Time.frameCount) return;
         frame = Time.frameCount;
-        porta = null;
+        alvo = null;
         if (ControleCapturado) return;
         Camera cam = Camera.main;
         if (cam == null) return;
@@ -37,7 +58,77 @@ public static class MiraDeInteracao
         var raio = new Ray(cam.transform.position, cam.transform.forward);
         int mascara = ~(1 << 2);   // ignora a layer "Ignore Raycast"
         if (!Physics.Raycast(raio, out acerto, DistanciaMaxima, mascara, QueryTriggerInteraction.Ignore)) return;
-        FolhaDePorta folha = acerto.collider.GetComponentInParent<FolhaDePorta>();
-        if (folha != null && folha.isActiveAndEnabled && acerto.distance <= folha.alcance) porta = folha;
+        AlvoDeInteracao a = acerto.collider.GetComponentInParent<AlvoDeInteracao>();
+        if (a != null && a.isActiveAndEnabled && acerto.distance <= a.AlcanceDeInteracao) alvo = a;
+    }
+
+    /// <summary>Indicação discreta, logo abaixo do centro da tela: "E — Abrir gaveta".</summary>
+    public static void Indicar(string tecla, string texto)
+    {
+        if (string.IsNullOrEmpty(texto)) return;
+        if (estilo == null)
+        {
+            estilo = new GUIStyle(GUI.skin.label) { fontSize = 18, alignment = TextAnchor.MiddleCenter };
+            estilo.normal.textColor = new Color(1f, 1f, 1f, 0.8f);
+        }
+        GUI.Label(new Rect(0, Screen.height * 0.5f + 40, Screen.width, 30), $"{tecla.ToUpper()} — {texto}", estilo);
+    }
+
+    public static bool TeclaApertada(string nomeTecla)
+    {
+#if ENABLE_INPUT_SYSTEM
+        if (Keyboard.current == null || !Enum.TryParse(nomeTecla, true, out Key k)) return false;
+        return Keyboard.current[k].wasPressedThisFrame;
+#else
+        return Enum.TryParse(nomeTecla, true, out KeyCode k) && Input.GetKeyDown(k);
+#endif
+    }
+}
+
+/// <summary>Desenha o aviso de MiraDeInteracao.Avisar (objeto criado sob demanda, fora da cena salva).</summary>
+public class AvisoNaTela : MonoBehaviour
+{
+    static AvisoNaTela instancia;
+    string texto;
+    float ate;
+    GUIStyle estilo;
+    Texture2D fundo;
+
+    public static string Atual => instancia != null && Time.unscaledTime < instancia.ate ? instancia.texto : "";
+
+    public static void Mostrar(string texto, float segundos)
+    {
+        if (string.IsNullOrEmpty(texto) || !Application.isPlaying) return;
+        if (instancia == null)
+        {
+            var go = new GameObject("Avisos na tela");
+            DontDestroyOnLoad(go);
+            instancia = go.AddComponent<AvisoNaTela>();
+        }
+        instancia.texto = texto;
+        instancia.ate = Time.unscaledTime + segundos;
+    }
+
+    void OnGUI()
+    {
+        if (Time.unscaledTime >= ate || string.IsNullOrEmpty(texto)) return;
+        float s = Mathf.Max(0.5f, Screen.height / 1080f);
+        if (estilo == null || estilo.fontSize != Mathf.RoundToInt(19 * s))
+        {
+            fundo ??= new Texture2D(1, 1) { hideFlags = HideFlags.HideAndDontSave };
+            fundo.SetPixel(0, 0, new Color(0.06f, 0.07f, 0.08f, 0.72f));
+            fundo.Apply();
+            estilo = new GUIStyle { fontSize = Mathf.RoundToInt(19 * s), alignment = TextAnchor.MiddleCenter, wordWrap = false };
+            estilo.normal.background = fundo;
+            estilo.normal.textColor = new Color(0.95f, 0.95f, 0.93f);
+            estilo.padding = new RectOffset(Mathf.RoundToInt(18 * s), Mathf.RoundToInt(18 * s), Mathf.RoundToInt(8 * s), Mathf.RoundToInt(8 * s));
+        }
+        var c = new GUIContent(texto);
+        Vector2 tam = estilo.CalcSize(c);
+        float alfa = Mathf.Clamp01((ate - Time.unscaledTime) / 0.4f);
+        Color antes = GUI.color;
+        GUI.color = new Color(1f, 1f, 1f, alfa);
+        GUI.Box(new Rect((Screen.width - tam.x) / 2f, Screen.height * 0.72f, tam.x, tam.y), c, estilo);
+        GUI.color = antes;
     }
 }

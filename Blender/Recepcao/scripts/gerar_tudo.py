@@ -18,18 +18,22 @@ UNITY = os.path.join(BLEND_DIR, "..", "..", "Assets", "Modelos", "Recepcao")
 
 # Atlas size per asset and AO samples: the counter is big and seen up close; the desk kit has small parts
 # (keycaps, phone keys) seen from the clerk's seat.
-ATLAS = {"BalcaoRecepcao": 2048, "CadeiraEspera": 1024, "CadeiraAtendente": 1024, "ArmarioApoio": 1024,
+ATLAS = {"BalcaoRecepcao": 2048, "GavetaBalcao1": 1024, "GavetaBalcao2": 1024, "GavetaBalcao3": 1024,
+         "PortaArmarioEsquerda": 512, "PortaArmarioDireita": 512, "CadeiraEspera": 1024, "CadeiraAtendente": 1024, "ArmarioApoio": 1024,
          "LongarinaEspera": 1024, "EquipamentosBalcao": 2048, "LivroRegistro": 512, "Bebedouro": 1024, "Lixeira": 512,
          "LuminariaSobrepor": 1024, "LuminariaExterna": 512, "PortaVidroFixos": 512, "PortaVidroFolha": 1024,
-         "BatenteEntrada": 1024}
+         "BatenteEntrada": 1024, "PortaCirculacaoFixos": 2048, "PortaCirculacaoFolha": 2048}
 AO_SAMPLES = 64
 # Other assets that should occlude an asset during its bake (the desk kit sits on the counter's worktop).
 OCCLUDERS = {"EquipamentosBalcao": ("BalcaoRecepcao",)}
-SPREAD = {"BalcaoRecepcao": 0.0, "CadeiraEspera": 2.2, "CadeiraAtendente": 3.2, "ArmarioApoio": 4.4,
+SPREAD = {"BalcaoRecepcao": 0.0, "GavetaBalcao1": 0.0, "GavetaBalcao2": 0.0, "GavetaBalcao3": 0.0,
+          "PortaArmarioEsquerda": 4.4, "PortaArmarioDireita": 4.4, "CadeiraEspera": 2.2, "CadeiraAtendente": 3.2, "ArmarioApoio": 4.4,
           "LongarinaEspera": 6.2, "EquipamentosBalcao": 0.0, "LivroRegistro": 7.6, "Bebedouro": 8.3, "Lixeira": 8.9,
           "LuminariaSobrepor": 10.5, "LuminariaSobrepor_Luz": 10.5, "LuminariaExterna": 12.0, "LuminariaExterna_Luz": 12.0,
           "PortaVidroFixos": 14.0, "PortaVidroFolha": 14.0, "PortaVidroVidro": 14.0,
-          "BatenteEntrada": 16.5}
+          "BatenteEntrada": 16.5,
+          "CadeadoCorpo": 18.0, "CadeadoArco": 18.0, "CadeadoDisco": 18.0, "FechoBase": 18.0, "FechoAba": 18.0, "FechoSuporte": 18.0,
+          "ChaveMetal": 18.0, "ChaveEtiqueta": 18.0, "PortaCirculacaoFixos": 20.0, "PortaCirculacaoFolha": 20.0}
 
 
 def load(folder, module):
@@ -41,7 +45,7 @@ def load(folder, module):
 
 def build_meshes():
     """Builds every asset, returns {asset: (object, px per metre)}."""
-    if bpy.context.object and bpy.context.object.mode != "OBJECT":
+    if getattr(bpy.context, "object", None) and bpy.context.object.mode != "OBJECT":
         bpy.ops.object.mode_set(mode="OBJECT")
     model = load(SCRIPTS, "recepcao_modelo")
     mats = load(SCRIPTS, "recepcao_materiais").make_all(load(TABLE_SCRIPTS, "mesa_materiais").G, model)

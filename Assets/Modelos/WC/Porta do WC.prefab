@@ -427,8 +427,14 @@ MonoBehaviour:
   aberturaInicial: 1
   tecla: E
   alcance: 2
-  textoAbrir: Abrir
-  textoFechar: Fechar
+  textoAbrir: Abrir porta
+  textoFechar: Fechar porta
+  trancada: 0
+  chaveNecessaria: 
+  textoTrancada: Porta trancada
+  textoDestrancar: Destrancar porta
+  avisoDestrancada: Porta destrancada.
+  avisoSemChave: "Est\xE1 trancada."
   obstaculos:
     serializedVersion: 2
     m_Bits: 4294967291
@@ -444,6 +450,7 @@ MonoBehaviour:
   somFechar: {fileID: 0}
   somFechou: {fileID: 0}
   somBloqueio: {fileID: 0}
+  somDestrancar: {fileID: 0}
   aoComecarAbrir:
     m_PersistentCalls:
       m_Calls: []

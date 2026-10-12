@@ -427,12 +427,54 @@ public static partial class UnclaimedMorgueGenerator
         entrance.transform.SetParent(group, false);
         entrance.transform.position = new Vector3(-11.375f, 1.5f, -11.2f);
         var doorway = entrance.AddComponent<ReflectionProbe>();
-        doorway.mode = ReflectionProbeMode.Baked;
+        DoorwayProbe(doorway, EntranceReflection);
         doorway.size = new Vector3(2.4f, WallHeight, 1.6f);                   // z -12.6 .. -11.0, covers both casings
         doorway.center = new Vector3(0f, WallHeight / 2 - 1.5f, -0.6f);
         doorway.importance = 2;
         doorway.blendDistance = 0f;
         doorway.resolution = 128;
+
+        // The restricted circulation door also sits on the reception box's edge: its stainless kick plates and
+        // levers reflected the night sky. Same fix, a probe over that doorway (both faces), seen from the reception.
+        var circulation = new GameObject("Reflexo - porta da circulacao");
+        Undo.RegisterCreatedObjectUndo(circulation, "Create reflection probe");
+        circulation.transform.SetParent(group, false);
+        circulation.transform.position = new Vector3(-8f, 1.5f, -6.6f);
+        var door = circulation.AddComponent<ReflectionProbe>();
+        DoorwayProbe(door, CirculationDoorReflection);
+        door.size = new Vector3(2.0f, WallHeight, 1.8f);                      // z -7.0 .. -5.2, both faces of the door
+        door.center = new Vector3(0f, WallHeight / 2 - 1.5f, 0.5f);
+        door.importance = 2;
+        door.blendDistance = 0f;
+        door.resolution = 128;
+    }
+
+    // Doorway probes are Custom (texture assigned in the scene): a probe baked on its own outside a full lighting
+    // bake is not registered in the scene's LightingData and loses its texture when the scene reloads.
+    private const string EntranceReflection = RecepcaoFolder + "/Reflexo entrada.exr";
+    private const string CirculationDoorReflection = RecepcaoFolder + "/Reflexo porta da circulacao.exr";
+
+    private static void DoorwayProbe(ReflectionProbe probe, string texture)
+    {
+        probe.mode = ReflectionProbeMode.Custom;
+        probe.customBakedTexture = AssetDatabase.LoadAssetAtPath<Texture>(texture);
+    }
+
+    /// <summary>Bakes the doorway reflection probes (entrance, restricted circulation door) into their textures.
+    /// Also run at the end of Bake Autopsia Reflection.</summary>
+    [MenuItem("Tools/Unclaimed/Bake Doorway Reflections")]
+    public static void BakeDoorwayReflections()
+    {
+        foreach (var (name, path) in new[] { ("Reflexo - entrada", EntranceReflection), ("Reflexo - porta da circulacao", CirculationDoorReflection) })
+            foreach (ReflectionProbe probe in Object.FindObjectsByType<ReflectionProbe>())
+            {
+                if (probe.name != name) continue;
+                if (!Lightmapping.BakeReflectionProbe(probe, path)) { Debug.LogWarning("Unclaimed: could not bake " + name, probe); continue; }
+                AssetDatabase.ImportAsset(path);
+                Undo.RecordObject(probe, "Bake doorway reflection");
+                probe.mode = ReflectionProbeMode.Custom;
+                probe.customBakedTexture = AssetDatabase.LoadAssetAtPath<Texture>(path);
+            }
     }
 
     [MenuItem("Tools/Unclaimed/Bake Prototype Lighting")]

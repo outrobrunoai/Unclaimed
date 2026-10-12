@@ -131,13 +131,6 @@ public static partial class UnclaimedMorgueGenerator
         Decal("Retoque - parede norte", wear, new Vector3(-12.7f, 1.62f, RzMax - 0.006f), south, Vector3.left, Vector3.up, 0.48f, 0.36f, retoque);
         Decal("Retoque - parede leste", wear, new Vector3(RxMax - 0.006f, 1.45f, -10.7f), west, Vector3.forward, Vector3.up, 0.36f, 0.27f, retoque);
         Decal("Riscos - porta do WC", wear, new Vector3(-10.78f, 0.55f, RzMax - 0.006f), south, Vector3.left, Vector3.up, 0.5f, 0.45f, decalScuffs);
-        // PVC corner guard on the room's only projecting corner (north wall / alcove), above the skirting.
-        // The corner is where the north wall face (z = RzMax) meets the alcove's west wall face (x = AlcoveX).
-        float cx = AlcoveX + FinishOffset, cz = RzMax - FinishOffset;
-        Transform guard = Sub(walls, "Cantoneira - canto da alcova");
-        Piece("Aba na parede norte", guard, cx - 0.03f, 0.1f, cz - 0.002f, cx + 0.002f, 1.6f, cz, pvc);
-        Piece("Aba na alcova", guard, cx, 0.1f, cz, cx + 0.002f, 1.6f, cz + 0.03f, pvc);
-
         RecepcaoLighting(ceiling);
         EntranceDoor();
     }

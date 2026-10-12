@@ -91,7 +91,10 @@ public static partial class UnclaimedMorgueGenerator
         // 1.0 m like a bathroom door (was a 1.5 m gap); same axis. Frame, leaf and hardware are one prefab.
         new Door("Porta WC", false, -7.125f, -11.5f, 1.0f,
             frame: UnclaimedRecepcaoAssets.WCFolder + "/" + UnclaimedRecepcaoAssets.WCDoorPrefab + ".prefab"),
-        new Door("Porta recepcao - circulacao", false, -6f, -8f, 1.5f),
+        // Restricted circulation: active leaf + fixed leaf, locked until the player has the key from the support
+        // cabinet (first puzzle: reception computer -> padlock -> key -> this door).
+        new Door("Porta recepcao - circulacao", false, -6f, -8f, 1.5f,
+            frame: UnclaimedRecepcaoAssets.Folder + "/" + UnclaimedRecepcaoAssets.CirculationDoorPrefab + ".prefab"),
         new Door("Porta recepcao - arquivo", true, -6.5f, -8f, 1.5f),
         new Door("Porta arquivo - circulacao", true, -2f, -4.75f, 1.5f),
         new Door("Porta descanso", true, -5.25f, -0.25f, 1.5f),
@@ -398,11 +401,12 @@ public static partial class UnclaimedMorgueGenerator
         {
             string room = zones[zone - 1].Name;
             finishes.TryGetValue(room, out ZoneFinish f);
-            float wrapStrip = WallThickness / 2 + SkirtingThickness;
+            float wrapStrip = WallThickness / 2 + StripWrap(vertical, SkirtingThickness);
             FaceStrip("Rodape - " + room, skirtingGroup, vertical, face, sign,
                 a - (wrapStart ? wrapStrip : 0), b + (wrapEnd ? wrapStrip : 0), 0, SkirtingHeight, SkirtingThickness, f?.Skirting ?? skirtingMat);
             if (f != null)
-                CladFace(room, f, vertical, face, sign, a - (wrapStart ? wrapPanel : 0), b + (wrapEnd ? wrapPanel : 0), 0);
+                CladFace(room, f, vertical, face, sign, a - (wrapStart ? wrapPanel : 0), b + (wrapEnd ? wrapPanel : 0), 0,
+                    wrapStart, wrapEnd);
         }
         else
         {
@@ -412,8 +416,15 @@ public static partial class UnclaimedMorgueGenerator
         }
     }
 
-    // Wainscot up to the finish's height and paint above it, clipped to start at `fromY`.
-    private static void CladFace(string room, ZoneFinish f, bool vertical, float face, float sign, float a, float b, float fromY)
+    // Around a convex corner the two faces' strips (skirting, friso, ceiling trim) must not overlap, or their
+    // coplanar end faces flicker between two lightmaps: the strip on a line along X runs over the corner by its
+    // own depth and covers it, the strip along Z butts against it.
+    private static float StripWrap(bool vertical, float depth) => vertical ? 0f : depth;
+
+    // Wainscot up to the finish's height and paint above it, clipped to start at `fromY`. a and b already
+    // include the panels' wrap round convex corners (wrapStart / wrapEnd say where).
+    private static void CladFace(string room, ZoneFinish f, bool vertical, float face, float sign, float a, float b, float fromY,
+        bool wrapStart = false, bool wrapEnd = false)
     {
         Transform parent = Sub(claddingGroup, room);
         if (f.Wainscot != null && f.WainscotHeight > fromY)
@@ -421,11 +432,19 @@ public static partial class UnclaimedMorgueGenerator
         if (f.UpperWall != null)
             FacePanel("Pintura - " + room, parent, vertical, face, sign, a, b, Mathf.Max(f.WainscotHeight, fromY), WallHeight, f.UpperWall);
         if (f.Friso != null && f.WainscotHeight > fromY && f.WainscotHeight < WallHeight)
-            FaceStrip("Friso - " + room, parent, vertical, face + sign * FinishOffset, sign, a, b,
-                f.WainscotHeight - 0.006f, f.WainscotHeight + 0.006f, 0.003f, f.Friso);
+        {
+            const float depth = 0.003f;
+            float w = StripWrap(vertical, depth);
+            FaceStrip("Friso - " + room, parent, vertical, face + sign * FinishOffset, sign, a - (wrapStart ? w : 0), b + (wrapEnd ? w : 0),
+                f.WainscotHeight - 0.006f, f.WainscotHeight + 0.006f, depth, f.Friso);
+        }
         if (f.CeilingTrim != null)
-            FaceStrip("Arremate do forro - " + room, parent, vertical, face + sign * FinishOffset, sign, a, b,
-                WallHeight - 0.025f, WallHeight - FinishOffset, 0.012f, f.CeilingTrim);
+        {
+            const float depth = 0.012f;
+            float w = StripWrap(vertical, depth);
+            FaceStrip("Arremate do forro - " + room, parent, vertical, face + sign * FinishOffset, sign, a - (wrapStart ? w : 0), b + (wrapEnd ? w : 0),
+                WallHeight - 0.025f, WallHeight - FinishOffset, depth, f.CeilingTrim);
+        }
     }
 
     private static Kind KindOf(List<Zone> zones, int id) => id == 0 ? Kind.Exterior : zones[id - 1].Kind;

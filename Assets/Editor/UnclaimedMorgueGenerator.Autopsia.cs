@@ -361,6 +361,7 @@ public static partial class UnclaimedMorgueGenerator
             Undo.RecordObject(probe, "Bake autopsy reflection");
             probe.customBakedTexture = AssetDatabase.LoadAssetAtPath<Texture>(AutopsiaReflection);
             Debug.Log("Unclaimed: autopsy reflection baked to " + AutopsiaReflection, probe);
+            BakeDoorwayReflections();
             return;
         }
         Debug.LogWarning("Unclaimed: no autopsy reflection probe in the open scenes.");

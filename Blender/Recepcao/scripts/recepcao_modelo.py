@@ -19,6 +19,11 @@ ESPERA = dict(seat_w=0.47, seat_z=0.452, frame_x=0.215, tube_r=0.011, back_botto
 # Clerk chair: armless task chair that tucks under the 0.735 m worktop underside.
 ATENDENTE = dict(base_r=0.30, seat_z=0.51, seat_w=0.48, seat_d=0.47, back_w=0.44, back_h=0.47,
                  back_t=0.065, back_bottom=0.55, back_y=0.28, back_tilt=8.0)
+# Drawer pedestal of the counter (staff side, +X end): carcass between y = back and the drawer fronts' plane
+# (y = front), side panel thickness, slide width; three drawers (bottom to top) by front height, each a box
+# 0.46 m deep on side-mounted slides, opening 0.40 m.
+GAVETAS = dict(back=-0.525, front=0.10, side=0.018, rail=0.0127, depth=0.46, travel=0.40,
+               rows=((0.095, 0.30), (0.305, 0.51), (0.515, 0.727)))
 # Support cabinet: low two-door unit in the counter's laminate.
 ARMARIO = dict(width=0.90, depth=0.45, height=0.95, plinth=0.08, door_t=0.018, top_t=0.025)
 # Three-seat beam seating (longarina) with the waiting chair's seat and backrest shells.
@@ -31,12 +36,17 @@ LIVRO = dict(w=0.22, d=0.32, t=0.035)
 BEBEDOURO = dict(w=0.33, d=0.32, body_h=0.86, top_h=0.12)
 LIXEIRA = dict(r_bottom=0.13, r_top=0.15, h=0.43)
 
-ASSETS = ("BalcaoRecepcao", "CadeiraEspera", "CadeiraAtendente", "ArmarioApoio",
+ASSETS = ("BalcaoRecepcao", "GavetaBalcao1", "GavetaBalcao2", "GavetaBalcao3", "CadeiraEspera", "CadeiraAtendente",
+          "ArmarioApoio", "PortaArmarioEsquerda", "PortaArmarioDireita",
           "LongarinaEspera", "EquipamentosBalcao", "LivroRegistro", "Bebedouro", "Lixeira",
           "LuminariaSobrepor", "LuminariaSobrepor_Luz", "LuminariaExterna", "LuminariaExterna_Luz",
-          "PortaVidroFixos", "PortaVidroFolha", "PortaVidroVidro", "BatenteEntrada")
+          "PortaVidroFixos", "PortaVidroFolha", "PortaVidroVidro", "BatenteEntrada",
+          "CadeadoCorpo", "CadeadoArco", "CadeadoDisco", "FechoBase", "FechoAba", "FechoSuporte", "ChaveMetal", "ChaveEtiqueta",
+          "PortaCirculacaoFixos", "PortaCirculacaoFolha")
 # Not baked: parts keep their own UVs and material slots (diffusers, emissive tubes, glass).
-UNBAKED = ("LuminariaSobrepor_Luz", "LuminariaExterna_Luz", "PortaVidroVidro")
+UNBAKED = ("LuminariaSobrepor_Luz", "LuminariaExterna_Luz", "PortaVidroVidro",
+           # Puzzle hardware: one Unity material each (brass, steel, digit strip, nickel, printed tag).
+           "CadeadoCorpo", "CadeadoArco", "CadeadoDisco", "FechoBase", "FechoAba", "FechoSuporte", "ChaveMetal", "ChaveEtiqueta")
 
 
 # ---------------------------------------------------------------- mesh helpers
@@ -540,16 +550,19 @@ def build_balcao():
     cut(top, cyl("__furo", "laminado", (G["x"], G["y"], wz - wt / 2), G["hole_r"], wt + 0.02, seg=40, r=0))
     grommet(wz, wt)
     # Staff side: drawer pedestal at +X, open shelf for binders at -X, knee space between them.
-    px = inner - P["pedestal_w"]
-    box("Gaveteiro", "laminado", px, face + 0.05, P["plinth"], inner, B - 0.02, wz - wt, r=0.002)
+    # The pedestal is an open carcass (side, back, base; the gable and the worktop close it) with the fixed
+    # members of the drawer slides; the drawers themselves are separate assets (GavetaBalcao1..3).
+    px, G_ = inner - P["pedestal_w"], GAVETAS
+    box("Lateral do gaveteiro", "laminado", px, G_["back"], P["plinth"], px + G_["side"], G_["front"], wz - wt, r=0.002)
+    box("Fundo do gaveteiro", "laminado", px + G_["side"], G_["back"], P["plinth"], inner, G_["back"] + 0.018, wz - wt, r=0.001)
+    box("Base do gaveteiro", "laminado", px + G_["side"], G_["back"] + 0.018, P["plinth"], inner, G_["front"],
+        P["plinth"] + 0.018, r=0.001)
     box("Rodape do gaveteiro", "rodape", px, plinth_back, 0.0, inner, B - 0.05, P["plinth"], r=0.002)
-    rows = ((P["plinth"] + 0.005, 0.30), (0.305, 0.51), (0.515, wz - wt - 0.008))
-    for i, (z0, z1) in enumerate(rows):
-        box(f"Frente de gaveta {i + 1}", "laminado", px + 0.004, B - 0.02, z0, inner - 0.004, B - 0.002, z1, r=0.0015)
-        hx, hz, cc = (px + inner) / 2, z1 - 0.045, 0.128
-        tube(f"Puxador de gaveta {i + 1}", "aluminio",
-             [(hx - cc / 2, B - 0.003, hz), (hx - cc / 2, B + 0.025, hz), (hx + cc / 2, B + 0.025, hz),
-              (hx + cc / 2, B - 0.003, hz)], 0.0055, fillet=0.01)
+    for i in range(len(G_["rows"])):
+        zb = drawer_box(i)[2]
+        for side, (x0, x1) in (("esquerda", (px + G_["side"], px + G_["side"] + G_["rail"])), ("direita", (inner - G_["rail"], inner))):
+            box(f"Corredica fixa {i + 1} {side}", "aco", x0, G_["front"] - 0.455, zb + 0.008, x1, G_["front"] - 0.004, zb + 0.048,
+                r=0.0008, seg=1)
     sx = -inner + P["shelf_w"]
     box("Divisoria", "laminado", sx, plinth_back, 0.0, sx + 0.018, B - 0.01, wz - wt, r=0.002)
     box("Prateleira", "laminado", -inner, face + pt + 0.015, 0.36, sx, B - 0.03, 0.378, r=0.002)
@@ -634,13 +647,100 @@ def build_armario():
     box("Fundo", "laminado", -W + s, D - 0.02, pl, W - s, D - 0.002, H - tt, r=0)
     box("Base", "laminado", -W + s, -D + dt + 0.02, pl, W - s, D - 0.02, pl + s, r=0)
     box("Rodape", "rodape", -W + s, -D + 0.04, 0.0, W - s, -D + 0.06, pl, r=0.002)
-    gap = 0.003
-    for side, (x0, x1), hx in (("esquerda", (-W + 0.0015, -gap / 2), -0.035), ("direita", (gap / 2, W - 0.0015), 0.035)):
-        box(f"Porta {side}", "laminado", x0, -D, pl + 0.003, x1, -D + dt, H - tt - 0.003, r=0.0015)
-        hz, cc = 0.62, 0.128
-        tube(f"Puxador {side}", "aluminio",
-             [(hx, -D + 0.001, hz - cc / 2), (hx, -D - 0.028, hz - cc / 2), (hx, -D - 0.028, hz + cc / 2),
-              (hx, -D + 0.001, hz + cc / 2)], 0.0055, fillet=0.01)
+    # Inside: one shelf on pins, the fixed plates of the concealed hinges, and the reception's spare stock
+    # (paper, archive boxes, sleeves of the water cooler's cups). The doors are separate assets.
+    sz = ARMARIO_INTERIOR["shelf_z"]
+    box("Prateleira", "melamina", -W + s + 0.001, -D + dt + 0.02, sz, W - s - 0.001, D - 0.022, sz + 0.018, r=0.0015)
+    for sx in (-1, 1):
+        for y in (-D + dt + 0.05, D - 0.06):
+            cyl(f"Pino da prateleira {sx:+d} {y:+.2f}", "aco", (sx * (W - s - 0.004), y, sz - 0.003), 0.0025, 0.008,
+                axis=(1, 0, 0), seg=8, r=0.0005)
+        for z in ARMARIO_INTERIOR["hinges_z"]:
+            box(f"Base da dobradica {sx:+d} {z:.2f}", "aco", sx * (W - s) - (sx > 0) * 0.012, -D + dt + 0.03, z - 0.02,
+                sx * (W - s) + (sx < 0) * 0.012, -D + dt + 0.075, z + 0.02, r=0.001, seg=1)
+    top = sz + 0.018
+    for k in range(2):
+        box(f"Resma {k + 1}", "papel", -0.38, -0.15 + 0.004 * k, top + 0.052 * k, -0.17, 0.147 + 0.004 * k, top + 0.052 * (k + 1) - 0.002,
+            r=0.002)
+    box("Caixa arquivo azul", "polionda_azul", 0.02, -0.13, top, 0.155, 0.125, top + 0.35, r=0.002)
+    box("Caixa arquivo cinza", "polionda_cinza", 0.165, -0.12, top, 0.30, 0.135, top + 0.35, r=0.002)
+    floor_z = pl + s
+    for k, (x, z) in enumerate(((-0.33, 0.0), (-0.255, 0.0), (-0.292, 0.064))):
+        cyl(f"Pacote de copos {k + 1}", "copos", (x, 0.0, floor_z + 0.036 + z), 0.036, 0.36, axis=(0, 1, 0), seg=20, r=0.006)
+    box("Resma de baixo", "papel", 0.06, -0.16, floor_z, 0.27, 0.137, floor_z + 0.05, r=0.002)
+
+
+# Inside of the support cabinet and its concealed hinges (height of the shelf, of each hinge).
+ARMARIO_INTERIOR = dict(shelf_z=0.50, hinges_z=(0.20, 0.76))
+
+
+def build_porta_armario(side):
+    """One door of the support cabinet in the cabinet's frame (closed): overlay panel, pull, the two hinge
+    cups and a felt bumper on the inner face. In Unity it turns about the hinge axis at x = +-W, y = -D + dt."""
+    P = ARMARIO
+    W, D, H = P["width"] / 2, P["depth"] / 2, P["height"]
+    tt, dt, pl = P["top_t"], P["door_t"], P["plinth"]
+    sx = -1 if side == "esquerda" else 1
+    x0, x1 = (-W + 0.0015, -0.0015) if sx < 0 else (0.0015, W - 0.0015)
+    box(f"Porta {side}", "laminado", x0, -D, pl + 0.003, x1, -D + dt, H - tt - 0.003, r=0.0015)
+    hx, hz, cc = sx * 0.035, 0.62, 0.128
+    tube(f"Puxador {side}", "aluminio",
+         [(hx, -D + 0.001, hz - cc / 2), (hx, -D - 0.028, hz - cc / 2), (hx, -D - 0.028, hz + cc / 2),
+          (hx, -D + 0.001, hz + cc / 2)], 0.0055, fillet=0.01)
+    for z in ARMARIO_INTERIOR["hinges_z"]:
+        cyl(f"Caneco da dobradica {z:.2f}", "aco", (sx * (W - 0.0225), -D + dt + 0.0015, z), 0.0175, 0.003, axis=(0, 1, 0),
+            seg=20, r=0.0006)
+        box(f"Braco da dobradica {z:.2f}", "aco", sx * (W - 0.03) - 0.009, -D + dt + 0.002, z - 0.008,
+            sx * (W - 0.03) + 0.009, -D + dt + 0.014, z + 0.008, r=0.001, seg=1)
+    cyl("Batente de feltro", "borracha", (-sx * 0.02, -D + dt + 0.001, H - tt - 0.03), 0.005, 0.002, axis=(0, 1, 0), seg=10, r=0.0005)
+
+
+def drawer_box(i):
+    """Outer limits of drawer i's box (x0, x1, z bottom, z top) in the counter's frame."""
+    P, G_ = BALCAO, GAVETAS
+    inner = P["length"] / 2 - P["gable_t"]
+    px = inner - P["pedestal_w"]
+    z0, z1 = G_["rows"][i]
+    return px + G_["side"] + G_["rail"] + 0.001, inner - G_["rail"] - 0.001, z0 + 0.025, z1 - 0.035
+
+
+def build_gaveta(i):
+    """Drawer i (0 = bottom) of the counter's pedestal, closed, in the counter's frame: laminate front and pull,
+    white melamine box (sides, inner front, back, grooved bottom), moving slide members, and what it holds."""
+    P, G_ = BALCAO, GAVETAS
+    inner = P["length"] / 2 - P["gable_t"]
+    px = inner - P["pedestal_w"]
+    z0, z1 = G_["rows"][i]
+    F, t = G_["front"], 0.015
+    box(f"Frente de gaveta {i + 1}", "laminado", px + 0.004, F, z0, inner - 0.004, F + 0.018, z1, r=0.0015)
+    hx, hz, cc = (px + inner) / 2, z1 - 0.045, 0.128
+    tube(f"Puxador de gaveta {i + 1}", "aluminio",
+         [(hx - cc / 2, F + 0.017, hz), (hx - cc / 2, F + 0.045, hz), (hx + cc / 2, F + 0.045, hz),
+          (hx + cc / 2, F + 0.017, hz)], 0.0055, fillet=0.01)
+    xl, xr, zb, zt = drawer_box(i)
+    yb, yf = F - G_["depth"], F - 0.001
+    box("Lateral esquerda", "melamina", xl, yb, zb, xl + t, yf, zt, r=0.0015)
+    box("Lateral direita", "melamina", xr - t, yb, zb, xr, yf, zt, r=0.0015)
+    box("Contrafrente", "melamina", xl + t, yf - t, zb, xr - t, yf, zt, r=0.001)
+    box("Traseira", "melamina", xl + t, yb, zb + 0.016, xr - t, yb + t, zt, r=0.001)
+    box("Fundo", "melamina", xl + 0.008, yb + 0.008, zb + 0.010, xr - 0.008, yf - 0.008, zb + 0.016, r=0)
+    for side, (x0, x1) in (("esquerda", (xl - G_["rail"] + 0.0015, xl)), ("direita", (xr, xr + G_["rail"] - 0.0015))):
+        box(f"Corredica movel {side}", "aco", x0, yb + 0.01, zb + 0.014, x1, yf - 0.01, zb + 0.042, r=0.0006, seg=1)
+    z = zb + 0.016   # top of the bottom panel: contents rest here
+    if i == 2:   # top drawer: blank forms, a stamp and its ink pad, pens
+        box("Formularios", "papel", xl + 0.03, yb + 0.05, z, xl + 0.24, yb + 0.347, z + 0.016, r=0.001)
+        box("Almofada de carimbo", "plastico", xr - 0.115, -0.12, z, xr - 0.025, -0.05, z + 0.016, r=0.002)
+        box("Base do carimbo", "plastico", xr - 0.10, -0.03, z, xr - 0.045, -0.005, z + 0.014, r=0.002)
+        cyl("Cabo do carimbo", "madeira", (xr - 0.0725, -0.0175, z + 0.04), 0.012, 0.05, seg=16, r=0.005)
+        for k, (x, cap) in enumerate(((xr - 0.05, "caneta_azul"), (xr - 0.08, "caneta_preta"))):
+            pen(f"Caneta {k + 1}", along((x, -0.32, z + 0.0049), (x + 0.01, -0.17, z + 0.0049)), "caneta_corpo", cap)
+    elif i == 1:   # middle: kraft envelopes, a box of paper clips
+        box("Envelopes", "pasta_kraft", xl + 0.025, yb + 0.04, z, xl + 0.255, yb + 0.37, z + 0.022, r=0.001)
+        box("Envelopes de cima", "pasta_kraft", xl + 0.035, yb + 0.06, z + 0.022, xl + 0.26, yb + 0.38, z + 0.03, r=0.001)
+        box("Caixa de clipes", "plastico", xr - 0.085, -0.10, z, xr - 0.025, -0.02, z + 0.028, r=0.003)
+    else:   # bottom: a ream of paper with a blue folder on it
+        box("Resma", "papel", xl + 0.02, yb + 0.03, z, xl + 0.23, yb + 0.327, z + 0.05, r=0.002)
+        box("Pasta azul", "pasta_azul", xl + 0.01, yb + 0.02, z + 0.05, xl + 0.245, yb + 0.33, z + 0.062, r=0.002)
 
 
 def build_longarina():
@@ -1083,8 +1183,311 @@ def screw(name, center, axis):
         tube(f"{name} fenda {k}", "inox_escuro", [tuple(p) for p in pts], 0.00045)
 
 
+# ---------------------------------------------------------------- first puzzle: padlock, hasp, key, restricted door
+
+# Combination padlock hung on a hasp across the support cabinet's doors (cabinet frame, closed doors).
+# Padlock frame: origin at the top centre of the body on the shackle's plane, front towards -Y; the short (right)
+# shackle leg goes through the staple's eye, the long (left) one stays in the body when the shackle opens.
+# Removal (played in Unity): the shackle rises shackle_open, the padlock rises lift_out so the open short leg
+# clears the staple's top while the body stays under it, then moves straight out to the front. So the body sits
+# in front of the hasp strap (body_y) and the staple reaches out far enough (staple_out) for that gap.
+# Discs: 4 x decagonal prisms on a common X axis, digit 0 facing front at rotation 0.
+CADEADO = dict(hasp_z=0.80, staple_x=-0.030, staple_out=0.0165, body=(0.032, 0.014, 0.046), body_y=(-0.010, 0.004),
+               shackle_r=0.0028, shackle_span=0.018, shackle_leg=0.016, long_leg=0.024, shackle_open=0.015,
+               lift_out=0.0125, disc_r=0.0065, disc_t=0.0060, disc_pitch=0.0068, disc_z=-0.034, disc_y=-0.006)
+CADEADO["origin"] = (CADEADO["staple_x"] - CADEADO["shackle_span"] / 2, -ARMARIO["depth"] / 2 - 0.0105,
+                     CADEADO["hasp_z"] + 0.008 - (CADEADO["shackle_leg"] + CADEADO["shackle_span"] / 2))
+# Key of the restricted circulation, lying on the cabinet shelf (cabinet frame): bow hole centre and yaw.
+CHAVE = dict(pos=(-0.075, -0.115), yaw=18.0)
+# Restricted circulation door (second version): pressed-steel frame with a single rebate wrapping the 1.5 m raw
+# opening (flanges over both wall faces, no separate casings), an active leaf (hinges at -X, opens into the
+# corridor, +Y) and a secondary leaf held by surface bolts. The leaves sit flush with the frame on the corridor
+# (swing) side and the hinge axis lies just outside that face, so the active leaf swings clear of frame and wall.
+# Frame profile (u: from the raw opening edge into the opening; v: through the wall, +Y = corridor).
+PORTA_CIRC = dict(raw=1.5, height=2.2, wall=0.103, flange_w=0.045, flange_t=0.012, stop_u=0.045, rebate_u=0.030,
+                  leaf_t=0.040, gap=0.003, center_gap=0.004, sill_top=0.004, floor_gap=0.008, active=0.86, max_open=95.0,
+                  knuckle_r=0.0065)
+PORTA_CIRC["face"] = PORTA_CIRC["wall"] + PORTA_CIRC["flange_t"]                 # corridor face of frame and leaves
+PORTA_CIRC["leaf_back"] = PORTA_CIRC["face"] - PORTA_CIRC["leaf_t"]              # reception face of the leaves
+PORTA_CIRC["jx"] = PORTA_CIRC["raw"] / 2 - PORTA_CIRC["rebate_u"]                # rebate face (leaf edges + gap)
+PORTA_CIRC["pivot"] = (-PORTA_CIRC["jx"] + 0.0015, PORTA_CIRC["face"] + PORTA_CIRC["knuckle_r"])
+PORTA_CIRC["leaf_z"] = (PORTA_CIRC["sill_top"] + PORTA_CIRC["floor_gap"],
+                        PORTA_CIRC["height"] - PORTA_CIRC["rebate_u"] - PORTA_CIRC["gap"])
+
+
+def _decagon_disc(name, mat, r, t, cells=10):
+    """Decagonal prism on the X axis, centred at the origin; side face j (normal at angle 36 j from -Y towards
+    +Z) maps to cell j of a vertical strip of 10 digit cells (u along the axis, v around the rim)."""
+    bm = bmesh.new()
+    uv = bm.loops.layers.uv.new("UVMap")
+    ang = [math.radians(36 * j - 18) for j in range(cells + 1)]
+    def P(x, a):
+        return Vector((x, -r * math.cos(a), r * math.sin(a)))
+    for j in range(cells):
+        a0, a1 = ang[j], ang[j + 1]
+        vs = [bm.verts.new(P(-t / 2, a0)), bm.verts.new(P(t / 2, a0)), bm.verts.new(P(t / 2, a1)), bm.verts.new(P(-t / 2, a1))]
+        f = bm.faces.new(vs)
+        v0, v1 = 1 - (j + 1) / cells, 1 - j / cells   # cell j (0 at the top of the strip)
+        for loop, (u, v) in zip(f.loops, ((0.0, v0), (1.0, v0), (1.0, v1), (0.0, v1))):   # glyph top towards +angle
+            loop[uv].uv = (u, v)
+    for x in (-t / 2, t / 2):   # flat caps, mapped to a dark corner of the strip
+        f = bm.faces.new([bm.verts.new(P(x, ang[j])) for j in range(cells)])
+        for loop in f.loops:
+            loop[uv].uv = (0.02, 0.002)
+    bmesh.ops.remove_doubles(bm, verts=bm.verts[:], dist=1e-7)
+    return _finish(name, bm, mat)
+
+
+def build_cadeado_corpo():
+    C = CADEADO
+    w, d, h = C["body"]
+    yf, yb = C["body_y"]
+    box("Corpo", "latao", -w / 2, yf, -h, w / 2, yb, 0.0, r=0.003, seg=3)
+    # Alignment marks: small raised arrows either side of the dial window, at the reading line.
+    for sx in (-1, 1):
+        hull(f"Marca {sx:+d}", "latao", [(sx * (w / 2 - 0.0005), yf - 0.0006, C["disc_z"] + dz) for dz in (-0.0012, 0.0012)] +
+             [(sx * (w / 2 - 0.0025), yf - 0.0006, C["disc_z"]), (sx * (w / 2 - 0.0005), yf + 0.0004, C["disc_z"])], r=0.0001, seg=1)
+    box("Janela dos discos", "latao", -w / 2 + 0.002, yf - 0.0004, C["disc_z"] - 0.0075, w / 2 - 0.002, yf + 0.001,
+        C["disc_z"] - 0.0068, r=0.0002, seg=1)
+
+
+def build_cadeado_arco():
+    C = CADEADO
+    half, leg, rr = C["shackle_span"] / 2, C["shackle_leg"], C["shackle_r"]
+    pts = [(-half, 0.0, -C["long_leg"]), (-half, 0.0, leg)] + \
+          [(-half * math.cos(math.radians(a)), 0.0, leg + half * math.sin(math.radians(a))) for a in range(15, 180, 15)] + \
+          [(half, 0.0, leg), (half, 0.0, -0.004)]
+    tube("Arco", "aco", pts, rr, res=3)
+
+
+def build_cadeado_disco():
+    C = CADEADO
+    _decagon_disc("Disco", "disco", C["disc_r"], C["disc_t"])
+
+
+def build_fecho_base():
+    """Staple plate on the left door, by the meeting edge (cabinet frame)."""
+    D, z, sx, out = ARMARIO["depth"] / 2, CADEADO["hasp_z"], CADEADO["staple_x"], CADEADO["staple_out"]
+    box("Chapa do fecho", "aco", sx - 0.015, -D - 0.002, z - 0.025, sx + 0.015, -D, z + 0.025, r=0.001, seg=1)
+    for dx in (-0.009, 0.009):
+        for dz in (-0.017, 0.017):
+            cyl(f"Parafuso {dx:+.3f} {dz:+.3f}", "aco", (sx + dx, -D - 0.0024, z + dz), 0.0022, 0.0012, axis=(0, 1, 0), seg=12, r=0.0004)
+    tube("Grampo", "aco", [(sx - 0.006, -D - 0.001, z), (sx - 0.006, -D - out, z), (sx + 0.006, -D - out, z),
+                           (sx + 0.006, -D - 0.001, z)], 0.0025, fillet=0.003, res=3)
+
+
+def build_fecho_suporte():
+    """Fixed leaf of the hasp strap's hinge, screwed to the right door (cabinet frame)."""
+    D, z = ARMARIO["depth"] / 2, CADEADO["hasp_z"]
+    kx = FECHO_ABA_EIXO[0]
+    box("Folha fixa do fecho", "aco", kx, -D - 0.002, z - 0.02, kx + 0.026, -D, z + 0.02, r=0.001, seg=1)
+    for dz in (-0.012, 0.012):
+        cyl(f"Parafuso {dz:+.3f}", "aco", (kx + 0.016, -D - 0.0024, z + dz), 0.0022, 0.0012, axis=(0, 1, 0), seg=12, r=0.0004)
+
+
+def build_fecho_aba():
+    """Hasp strap (turns about its knuckle): knuckle and the strap reaching over the staple, with a slot for it
+    (cabinet frame)."""
+    D, z, sx = ARMARIO["depth"] / 2, CADEADO["hasp_z"], CADEADO["staple_x"]
+    kx = FECHO_ABA_EIXO[0]
+    cyl("Charneira", "aco", (kx, FECHO_ABA_EIXO[1], z), 0.0036, 0.04, seg=14, r=0.0008)
+    strap = box("Aba", "aco", sx - 0.014, -D - 0.005, z - 0.013, kx - 0.002, -D - 0.0025, z + 0.013, r=0.0012, seg=2)
+    # The slot clears the staple by ~1 mm a side, so the strap slides off it as it swings out.
+    cut(strap, box("__fenda", "aco", sx - 0.0095, -D - 0.01, z - 0.0045, sx + 0.0095, -D + 0.005, z + 0.0045, r=0))
+
+
+# Hinge axis of the hasp strap (x, y) in the cabinet frame (it turns about Z).
+FECHO_ABA_EIXO = (0.072, -ARMARIO["depth"] / 2 - 0.0036)
+
+
+def _chave_matrix():
+    x, y = CHAVE["pos"]
+    return Matrix.Translation((x, y, ARMARIO_INTERIOR["shelf_z"] + 0.018)) @ Matrix.Rotation(math.radians(CHAVE["yaw"]), 4, "Z")
+
+
+def build_chave_metal():
+    """Pin-tumbler key lying flat on the shelf (bow with hole, shoulder, bitted blade) and its split ring."""
+    m = _chave_matrix()
+    t = 0.0022
+    bow = cyl("Cabeca", "niquel", (0.0, 0.0, t / 2), 0.0125, t, seg=32, r=0.0006)
+    cut(bow, cyl("__furo", "niquel", (-0.006, 0.0, t / 2), 0.0032, t * 3, seg=16, r=0))
+    box("Ombro", "niquel", 0.010, -0.0055, 0.0, 0.016, 0.0055, t, r=0.0005, seg=1)
+    blade = extrude("Haste", "niquel", [(0.015, -0.004), (0.047, -0.004), (0.050, -0.0005), (0.050, 0.004), (0.015, 0.004)], "XY", 0.0, t * 0.9,
+                    r=0.0003, seg=1)
+    for k, (bx, depth) in enumerate(((0.021, 0.0016), (0.027, 0.0028), (0.033, 0.0012), (0.039, 0.0024), (0.044, 0.0018))):
+        cut(blade, extrude(f"__dente{k}", "niquel", [(bx - 0.0026, 0.0041), (bx, 0.0041 - depth), (bx + 0.0026, 0.0041), (bx + 0.0026, 0.006),
+                                                     (bx - 0.0026, 0.006)], "XY", -0.001, t + 0.001, r=0))
+    box("Sulco", "niquel", 0.017, -0.0008, t * 0.9 - 0.0002, 0.048, 0.0, t * 0.9 + 0.0001, r=0, seg=1)
+    ring = []
+    for a in range(0, 361, 10):
+        ring.append((-0.006 - 0.011 + 0.011 * math.cos(math.radians(a)), 0.011 * math.sin(math.radians(a)), 0.0009 + 0.0004 * math.sin(math.radians(2 * a))))
+    tube("Argola", "niquel", ring, 0.0008, res=2)
+    for o in _coll(_current["asset"]).objects:
+        o.data.transform(m)
+
+
+def build_chave_etiqueta():
+    """Plastic key tag on the ring, label face up (texture: 'CIRCULAÇÃO')."""
+    m = _chave_matrix()
+    x0, x1, w, t = -0.071, -0.026, 0.0095, 0.0024
+    tag = box("Etiqueta", "etiqueta", x0, -w, 0.0, x1, w, t, r=0.0018, seg=2)
+    cut(tag, cyl("__furo", "etiqueta", (x1 - 0.004, 0.0, t / 2), 0.002, t * 3, seg=12, r=0))
+    planar_uv(tag, 0, 1, x0, x1, -w, w, edge_uv=(0.5, 0.02), normal_axis=2)
+    tag.data.transform(m)
+
+
+def _frame_profile(P, c=0.0015):
+    """Closed (u, v) outline of the pressed-steel frame, small chamfers on the exposed corners."""
+    fw, w, ft, su, ru, lb = P["flange_w"], P["wall"], P["flange_t"], P["stop_u"], P["rebate_u"], P["leaf_back"]
+    o = w + ft
+    return [(-fw, -w), (-fw, -o + c), (-fw + c, -o), (su - c, -o), (su, -o + c), (su, lb), (ru, lb), (ru, o - c),
+            (ru - c, o), (-fw + c, o), (-fw, o - c), (-fw, w), (0.0, w), (0.0, -w)]
+
+
+def sweep_frame(name, mat, profile, path, inward):
+    """Sweeps a closed (u, v) profile along a polyline in the XZ plane with mitred corners. inward[i] is the unit
+    (x, z) normal pointing into the opening along segment i; v maps to Y."""
+    bm = bmesh.new()
+    rings = []
+    for i, (px, pz) in enumerate(path):
+        if i == 0:
+            n = Vector(inward[0]); k = 1.0
+            off = lambda u, n=n: n * u
+        elif i == len(path) - 1:
+            n = Vector(inward[-1])
+            off = lambda u, n=n: n * u
+        else:
+            na, nb = Vector(inward[i - 1]), Vector(inward[i])
+            m = (na + nb) / (1.0 + na.dot(nb))
+            off = lambda u, m=m: m * u
+        rings.append([bm.verts.new((px + off(u).x, v, pz + off(u).y)) for u, v in profile])
+    n = len(profile)
+    for ra, rb in zip(rings, rings[1:]):
+        for j in range(n):
+            bm.faces.new((ra[j], ra[(j + 1) % n], rb[(j + 1) % n], rb[j]))
+    bm.faces.new(list(reversed(rings[0])))
+    bm.faces.new(rings[-1])
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+    return _finish(name, bm, mat)
+
+
+def _hinge(prefix, mat, x, y, z, r):
+    """Butt hinge as seen on a flush door: knuckle with a seam between the two leaves and domed finials."""
+    cyl(f"{prefix} - junta inferior", mat, (x, y, z - 0.026), r, 0.05, seg=20, r=0.0008)
+    cyl(f"{prefix} - junta superior", mat, (x, y, z + 0.026), r, 0.05, seg=20, r=0.0008)
+    for dz in (-0.0535, 0.0535):
+        cyl(f"{prefix} - remate {dz:+.2f}", mat, (x, y, z + dz), r * 0.75, 0.006, seg=20, r=0.0025)
+
+
+def _kick_plate(prefix, x0, x1, y, face, z0, z1):
+    """Brushed stainless kick plate: 1.2 mm sheet held 0.4 mm off the leaf, eased edges, six countersunk screws."""
+    yi = y + face * 0.0004
+    y0, y1 = sorted((yi, yi + face * 0.0012))
+    box(prefix, "inox", x0, y0, z0, x1, y1, z1, r=0.0005, seg=1)
+    for sx in (x0 + 0.02, (x0 + x1) / 2, x1 - 0.02):
+        for sz in (z0 + 0.02, z1 - 0.02):
+            cyl(f"{prefix} - parafuso {sx:.2f} {sz:.2f}", "inox", (sx, yi + face * 0.0014, sz), 0.0028, 0.0008, axis=(0, 1, 0),
+                seg=12, r=0.0003)
+
+
+def _lever_set(prefix, hx, y, face, z_lever=1.0, z_cyl=0.875):
+    """Long backplate (espelho) with a return lever and a profile-cylinder face with its keyway."""
+    t = 0.008
+    y0, y1 = sorted((y, y + face * t))
+    box(f"{prefix} - espelho", "inox", hx - 0.026, y0, z_cyl - 0.055, hx + 0.026, y1, z_lever + 0.06, r=0.004, seg=3)
+    yf = y + face * t
+    cyl(f"{prefix} - roseta", "inox", (hx, yf + face * 0.004, z_lever), 0.018, 0.008, axis=(0, 1, 0), seg=28, r=0.002)
+    tube(f"{prefix} - alavanca", "inox", [(hx, yf + face * 0.006, z_lever), (hx, yf + face * 0.056, z_lever),
+                                         (hx - 0.115, yf + face * 0.062, z_lever), (hx - 0.128, yf + face * 0.048, z_lever)],
+         0.0095, fillet=0.018, res=3)
+    # Profile cylinder (round head with a lower lobe), slightly proud, with the keyway.
+    cyl(f"{prefix} - cilindro", "inox_escuro", (hx, yf + face * 0.0016, z_cyl + 0.0015), 0.0088, 0.0032, axis=(0, 1, 0), seg=28,
+        r=0.0008)
+    y0c, y1c = sorted((yf, yf + face * 0.003))
+    box(f"{prefix} - cilindro (lobulo)", "inox_escuro", hx - 0.0052, y0c, z_cyl - 0.0125, hx + 0.0052, y1c, z_cyl + 0.001, r=0.0012, seg=2)
+    box(f"{prefix} - entrada da chave", "fenda", hx - 0.0011, min(yf + face * 0.0031, yf + face * 0.0035), z_cyl - 0.009,
+        hx + 0.0011, max(yf + face * 0.0031, yf + face * 0.0035), z_cyl + 0.005, r=0.0002, seg=1)
+
+
+def build_porta_circ_fixos():
+    """Frame (one swept profile with mitred head corners), granite sill fitted to the frame's outline, the
+    secondary leaf with its hinges, surface bolts, strikes, astragal and kick plates, and the floor stop."""
+    P = PORTA_CIRC
+    hw, H = P["raw"] / 2, P["height"]
+    sweep_frame("Marco", "marco", _frame_profile(P), [(-hw, 0.0), (-hw, H), (hw, H), (hw, 0.0)],
+                [(1.0, 0.0), (0.0, -1.0), (-1.0, 0.0)])
+    su, ru, lb, w = hw - P["stop_u"], P["jx"], P["leaf_back"], P["wall"]
+    sill = [(-su, -w), (su, -w), (su, lb), (ru, lb), (ru, w), (-ru, w), (-ru, lb), (-su, lb)]
+    extrude("Soleira", "granito", sill, "XY", -0.012, P["sill_top"], r=0.0015, seg=2)
+    # Secondary leaf: from the meeting gap to the right rebate face.
+    fx0 = -ru + P["gap"] + P["active"] + P["center_gap"]
+    fx1 = ru - P["gap"]
+    y0, y1 = lb, P["face"]
+    z0, z1 = P["leaf_z"]
+    box("Folha secundaria", "folha", fx0, y0, z0, fx1, y1, z1, r=0.0025, seg=3)
+    for z in (0.25, 1.05, 1.90):
+        _hinge(f"Dobradica secundaria {z:.2f}", "inox", ru - 0.0015, P["face"] + P["knuckle_r"], z, P["knuckle_r"])
+    # Astragal on the reception face of the secondary leaf: covers the meeting gap and stops the active leaf.
+    # A 5 mm bar with wide 45-degree chamfers: a square 7 mm edge left a dark side face thinner than a pixel at
+    # play distance, which aliased into a dashed line along the meeting edge.
+    al, ar, at = fx0 - 0.022, fx0 + 0.03, 0.005
+    extrude("Mata-junta", "folha", [(al + 0.004, lb - at), (ar - 0.004, lb - at), (ar, lb - 0.001), (ar, lb),
+                                    (al, lb), (al, lb - 0.001)], "XY", z0 + 0.01, z1 - 0.01, r=0.0008, seg=2)
+    # Surface bolts on the corridor face by the meeting edge, rods into a strike in the head and in the sill.
+    bx = fx0 + 0.03
+    for top in (True, False):
+        zb = z1 - 0.20 if top else z0 + 0.04
+        box(f"Ferrolho {'superior' if top else 'inferior'} - base", "inox", bx - 0.014, y1, zb, bx + 0.014, y1 + 0.004, zb + 0.16, r=0.001, seg=1)
+        for g in (0.02, 0.08, 0.14):
+            box(f"Ferrolho - guia {top} {g}", "inox", bx - 0.009, y1 + 0.004, zb + g - 0.006, bx + 0.009, y1 + 0.016, zb + g + 0.006,
+                r=0.001, seg=1)
+        zr0, zr1 = (zb + 0.01, z1 + 0.025) if top else (P["sill_top"] - 0.006, zb + 0.15)
+        cyl(f"Ferrolho - haste {top}", "inox", (bx, y1 + 0.011, (zr0 + zr1) / 2), 0.0045, zr1 - zr0, seg=14, r=0.001)
+        cyl(f"Ferrolho - manopla {top}", "inox_escuro", (bx + 0.012, y1 + 0.011, zb + (0.10 if top else 0.06)), 0.004, 0.024,
+            axis=(1, 0, 0), seg=12, r=0.0015)
+    cyl("Contra-ferrolho do piso", "inox", (bx, y1 + 0.011, P["sill_top"] - 0.0005), 0.009, 0.001, seg=20, r=0.0003)
+    for face, y in ((-1, y0), (1, y1)):
+        _kick_plate(f"Chapa de protecao secundaria {face:+d}", fx0 + 0.035, fx1 - 0.035, y, face, z0 + 0.006, z0 + 0.206)
+    # Floor stop past the active leaf's maximum opening.
+    px, py = P["pivot"]
+    a, r = math.radians(P["max_open"] + 2.5), P["active"] - 0.08
+    sx, sy = px + r * math.cos(a), py + r * math.sin(a)
+    cyl("Batedor de piso", "inox", (sx, sy, 0.019), 0.02, 0.032, seg=24, r=0.003)
+    cyl("Borracha do batedor", "borracha", (sx, sy, 0.039), 0.018, 0.008, seg=24, r=0.002)
+    for k in range(3):
+        a2 = 2 * math.pi * k / 3
+        cyl(f"Parafuso do batedor {k}", "inox", (sx + 0.027 * math.cos(a2), sy + 0.027 * math.sin(a2), 0.0035), 0.004, 0.001, seg=10, r=0.0003)
+
+
+def build_porta_circ_folha():
+    """Active leaf (leaf frame: origin on the hinge axis at floor level, leaf towards +X): flush steel leaf with
+    eased edges, three butt hinges, long backplates with return levers and profile cylinders on both faces,
+    kick plates on both faces."""
+    P = PORTA_CIRC
+    px, py = P["pivot"]
+    x0 = (-P["jx"] + P["gap"]) - px
+    x1 = x0 + P["active"]
+    y0, y1 = P["leaf_back"] - py, P["face"] - py
+    z0, z1 = P["leaf_z"]
+    box("Folha", "folha", x0, y0, z0, x1, y1, z1, r=0.0025, seg=3)
+    for z in (0.25, 1.05, 1.90):
+        _hinge(f"Dobradica {z:.2f}", "inox", 0.0, 0.0, z, P["knuckle_r"])
+    hx = x1 - 0.065
+    for face, y in ((-1, y0), (1, y1)):
+        _lever_set(f"Fechadura {face:+d}", hx, y, face)
+        _kick_plate(f"Chapa de protecao {face:+d}", x0 + 0.035, x1 - 0.035, y, face, z0 + 0.006, z0 + 0.206)
+
+
 BUILDERS = {"BalcaoRecepcao": build_balcao, "CadeiraEspera": build_espera,
             "CadeiraAtendente": build_atendente, "ArmarioApoio": build_armario,
+            "GavetaBalcao1": lambda: build_gaveta(0), "GavetaBalcao2": lambda: build_gaveta(1),
+            "GavetaBalcao3": lambda: build_gaveta(2),
+            "PortaArmarioEsquerda": lambda: build_porta_armario("esquerda"),
+            "PortaArmarioDireita": lambda: build_porta_armario("direita"),
+            "CadeadoCorpo": build_cadeado_corpo, "CadeadoArco": build_cadeado_arco, "CadeadoDisco": build_cadeado_disco,
+            "FechoBase": build_fecho_base, "FechoAba": build_fecho_aba, "FechoSuporte": build_fecho_suporte, "ChaveMetal": build_chave_metal,
+            "ChaveEtiqueta": build_chave_etiqueta, "PortaCirculacaoFixos": build_porta_circ_fixos,
+            "PortaCirculacaoFolha": build_porta_circ_folha,
             "LongarinaEspera": build_longarina, "EquipamentosBalcao": build_kit, "LivroRegistro": build_livro,
             "Bebedouro": build_bebedouro, "Lixeira": build_lixeira,
             "LuminariaSobrepor": build_luminaria, "LuminariaSobrepor_Luz": build_luminaria_luz,

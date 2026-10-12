@@ -1,5 +1,112 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &430327521667078781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3922828021323763129}
+  - component: {fileID: 7416524250560704144}
+  - component: {fileID: 6702621568195079825}
+  m_Layer: 0
+  m_Name: Computador
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3922828021323763129
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430327521667078781}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.9986295, z: -0.052335955, w: -0}
+  m_LocalPosition: {x: 0.15, y: 1.0064094, z: -0.21589044}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3488516375244416790}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7416524250560704144
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430327521667078781}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.53599995, y: 0.323, z: 0.05}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6702621568195079825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430327521667078781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6081b7540a87c632b6a0e87c38866a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ComputadorRecepcao
+  tecla: E
+  alcance: 1.5
+  textoUsar: Usar computador
+  conteudo: {fileID: 4900000, guid: b71db5336018c6da29834b866594ac3e, type: 3}
+  papelDeParede: {fileID: 2800000, guid: 22a66c258f000fa56803e92b5c135633, type: 3}
+  imagens:
+  - {fileID: 2800000, guid: 4d6946ab2e247f5ceaaeaf311856ec37, type: 3}
+  - {fileID: 2800000, guid: a1f828dea102d129da100765f8482965, type: 3}
+  - {fileID: 2800000, guid: 81b219fa003d7f4da9ddc5202679820c, type: 3}
+  - {fileID: 2800000, guid: 49da7c6ef9d02cc8097a09867aeb78ce, type: 3}
+  - {fileID: 2800000, guid: ea507f73a3855cba5b0c28644cc31279, type: 3}
+  - {fileID: 2800000, guid: bf18478174e01f994a6f229c8d43b775, type: 3}
+  - {fileID: 2800000, guid: 59c1cbbe394be2af4aee3642483c03aa, type: 3}
+  - {fileID: 2800000, guid: 3ea3361a078866e26915f45189c9f493, type: 3}
+  - {fileID: 2800000, guid: 07d034180203c7b98b706d4f6aee831b, type: 3}
+  - {fileID: 2800000, guid: c7d59882d759e025381b3a61fa028906, type: 3}
+  - {fileID: 2800000, guid: d73f8920e2b2b14278dab3f271d670e8, type: 3}
+  - {fileID: 2800000, guid: 1b461cb4cb47e76b1a4afd448b61501f, type: 3}
+  - {fileID: 2800000, guid: 5c001a1b9d95f34f3931e7d42dc77149, type: 3}
+  - {fileID: 2800000, guid: db1e90d245486f322bdedae9953e371b, type: 3}
+  - {fileID: 2800000, guid: 3c8f513d1d216544497a765ba43f02b9, type: 3}
+  - {fileID: 2800000, guid: d03df87e7b59bb3139bc86b97d1ce470, type: 3}
+  - {fileID: 2800000, guid: 88d60ce9ac5491159ae26fc89d607cdf, type: 3}
+  - {fileID: 2800000, guid: 4c896f06506ba5bf1ae46e6ca2962d30, type: 3}
+  - {fileID: 2800000, guid: c21e637d15f82f9f887479d0964ec9d9, type: 3}
+  - {fileID: 2800000, guid: 77943cdf999d6209295683720727dfd5, type: 3}
+  - {fileID: 2800000, guid: 940029ab39ceedc1fa80828f82b80fe4, type: 3}
+  - {fileID: 2800000, guid: 7fa5a4469989b1f85a49ec73fb0fdadf, type: 3}
+  - {fileID: 2800000, guid: f10960bc6b60a889eb2c2abdd79f8194, type: 3}
+  - {fileID: 2800000, guid: 92e1166b5e1061e7bab8c63baaf513d3, type: 3}
+  - {fileID: 2800000, guid: 37e9f138cdeb8cd4d955e2a9df5855d2, type: 3}
+  - {fileID: 2800000, guid: 1fad3925b97eeb88a88e3ebca230211d, type: 3}
+  - {fileID: 2800000, guid: baf0a9d1cb1b7626282a416b97cee57f, type: 3}
+  - {fileID: 2800000, guid: e62447a3dcef1c5658240d672855de67, type: 3}
+  - {fileID: 2800000, guid: 30e021eea92bf448cb80b7074b2062c6, type: 3}
+  - {fileID: 2800000, guid: 6bf950d424bf512a3bcea5e30ec8ffdc, type: 3}
+  fonte: {fileID: 12800000, guid: f5911d78edf084441bacbf1281e36589, type: 3}
+  fonteNegrito: {fileID: 12800000, guid: 55605fd07246b781db3fd4a02f473b22, type: 3}
+  fonteMono: {fileID: 12800000, guid: ca7d247956c007398b6f52c6a13aaa54, type: 3}
+  telaDoMonitor: {fileID: 6830754707357407017}
+  aspectoDoMonitor: 1.7269623
 --- !u!1 &1901285115083471866
 GameObject:
   m_ObjectHideFlags: 0
@@ -32,6 +139,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8374114221139123331}
+  - {fileID: 3922828021323763129}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &304927050055920799

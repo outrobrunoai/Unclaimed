@@ -24,12 +24,20 @@ def make_all(G_class, model):
     janela = rm.plastico("Visor fume", (0.10, 0.11, 0.12), 0.15, scuffed=False)
     cinza = rm.plastico("Plastico cinza", (0.35, 0.36, 0.37), 0.5)
     papel = rm.papel("Papel - WC", (0.90, 0.90, 0.86))
+    selante = rm.plastico("Silicone branco - WC", (0.86, 0.86, 0.83), 0.35)
+    pvc = rm.plastico("PVC branco - sifao", (0.86, 0.86, 0.84), 0.4)
+    fenda = rm.tela("Fenda escura")
     P = model.PORTA_WC
     hx = -P["leaf_w"] + 0.065 + (P["raw"] / 2 - P["jamb"] - P["gap"] - P["pivot"][0])   # handle, leaf frame
     return {
         "VasoSanitario": {"louca": louca, "cromo": cromo, "inox": inox,
-                          "assento": rm.plastico("Assento", (0.93, 0.93, 0.92), 0.32)},
-        "Lavatorio": {"louca": louca, "cromo": cromo, "inox": inox},
+                          "assento": rm.plastico("Assento", (0.93, 0.93, 0.92), 0.32), "selante": selante},
+        "Lavatorio": {"louca": louca, "cromo": cromo, "inox": inox, "pvc": pvc, "selante": selante},
+        # Moving buttons: not baked, chrome set in Unity (these only name the FBX slots).
+        "VasoBotao": {"cromo": rm.tela("cromo")}, "LavatorioBotao": {"cromo": rm.tela("cromo")},
+        "Ralo": {"inox": inox, "fenda": fenda, "pvc_cinza": rm.plastico("PVC cinza - ralo", (0.35, 0.36, 0.37), 0.5)},
+        "EscovaSanitaria": {"plastico_branco": branco, "cinza": cinza},
+        "Exaustor": {"plastico_branco": branco, "fenda": fenda, "cinza": cinza},
         "Espelho": {"espelho": rm.tela("espelho"), "borda": rm.tela("borda"), "cromo": rm.tela("cromo")},   # Unity sets these
         "Saboneteira": {"plastico_branco": branco, "janela": janela, "cinza": cinza},
         "ToalheiroPapel": {"plastico_branco": branco, "janela": janela, "cinza": cinza, "papel": papel},

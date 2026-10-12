@@ -56,15 +56,30 @@ public static partial class UnclaimedMorgueGenerator
         WCProp(acc, wc("Saboneteira"), "Saboneteira", new Vector3(WxMax - WallMount, 1.05f, -4.80f), naParedeLeste);
         WCProp(acc, wc("Toalheiro de papel"), "Toalheiro de papel", new Vector3(WxMax - WallMount, 1.20f, -4.30f), naParedeLeste);
         WCProp(acc, UnclaimedRecepcaoAssets.PrefabPath("Lixeira"), "Lixeira", new Vector3(WxMax - 0.20f, 0f, -4.30f), naParedeLeste);
+        // Brazilian public toilets ask for the paper to go in a bin by the toilet: a second pedal bin in the corner
+        // east of the toilet, the sign over the tank, and the brush holder in the gap by the west wall.
+        WCProp(acc, UnclaimedRecepcaoAssets.PrefabPath("Lixeira"), "Lixeira do vaso", new Vector3(-13.76f, 0f, WzMax - 0.17f), 0f);
+        WCProp(acc, wc("Escova sanitaria"), "Escova sanitaria", new Vector3(WxMin + 0.10f, 0f, WzMax - 0.17f), 0f);
+        // Installation: floor drain (stainless grate centred on a 45 cm floor tile) and the ceiling exhaust.
+        WCProp(fit, wc("Ralo"), "Ralo", new Vector3(-12.375f, 0f, -5.625f), 0f);
+        WCProp(fit, wc("Exaustor"), "Exaustor", new Vector3(-14.0f, WallHeight - FinishOffset, -6.45f), 0f);
 
-        // Wear, kept local: drain grate, grout darkened round the toilet foot (on the 45 cm tile grid),
-        // limescale behind the tap, water marks in front of the basin.
-        Decal("Ralo", wear, new Vector3(-12.30f, 0.0045f, -5.40f), Vector3.up, Vector3.right, Vector3.forward, 0.15f, 0.15f, drain);
+        // Discreet signage: "do not flush paper" over the tank, the cleaning log in its acrylic holder by the door.
+        Material acrylic = Mat(WCMatFolder, "Acrilico da placa", new Color(0.93f, 0.93f, 0.92f), 0.7f);
+        Material paperSign = Mat(WCMatFolder, "Placa - papel no lixo", Color.white, 0.55f, 0f, WCTextures + "Placa_NaoJogarPapel.png");
+        Material cleaningLog = Mat(WCMatFolder, "Controle de limpeza", Color.white, 0.6f, 0f, WCTextures + "Controle_Limpeza.png");
+        Transform signs = Sub(room, "Sinalizacao");
+        Plaque("Placa - papel no lixo", signs, new Vector3(-14.20f, 1.40f, WzMax), Vector3.back, 0.25f, 0.15f, paperSign, acrylic, 0.003f);
+        Plaque("Controle de limpeza", signs, new Vector3(-12.75f, 1.45f, WzMin), Vector3.forward, 0.23f, 0.32f, cleaningLog, acrylic, 0.006f);
+
+        // Wear, kept local: grout darkened round the toilet foot (on the 45 cm tile grid),
+        // limescale behind the tap, water marks in front of the basin, a damp ring round the drain.
         Material grime = Mat(WCMatFolder, "Decal - rejunte encardido", new Color(1f, 1f, 1f, 1f), 0.1f, 0f,
             WCTextures + "Decal_RejunteEncardido.png", transparent: true);
         Decal("Rejunte encardido - vaso", wear, new Vector3(-14.40f, 0.0045f, -4.50f), Vector3.up, Vector3.right, Vector3.forward, 0.9f, 0.9f, grime);
         Decal("Calcario - torneira", wear, new Vector3(WxMax - 0.006f, 0.87f, -5.25f), Vector3.left, Vector3.forward, Vector3.up, 0.32f, 0.12f, decalLimescale);
         Decal("Marcas de agua - lavatorio", wear, new Vector3(-10.95f, 0.0045f, -5.25f), Vector3.up, Vector3.forward, Vector3.right, 0.55f, 0.45f, decalFloorWear);
+        Decal("Umidade - ralo", wear, new Vector3(-12.375f, 0.0042f, -5.625f), Vector3.up, Vector3.right, Vector3.forward, 0.34f, 0.34f, decalFloorWear);
     }
 
     private static GameObject WCProp(Transform parent, string prefabPath, string name, Vector3 position, float yaw)

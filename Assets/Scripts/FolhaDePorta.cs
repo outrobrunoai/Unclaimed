@@ -2,9 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-#if ENABLE_INPUT_SYSTEM
-using UnityEngine.InputSystem;
-#endif
 
 /// <summary>
 /// Uma folha de porta que abre e fecha girando no próprio pivô. Coloque no objeto cujo pivô é o eixo
@@ -12,8 +9,8 @@ using UnityEngine.InputSystem;
 /// Portas de duas folhas usam um componente em cada folha; elas funcionam de forma independente e uma
 /// conta como obstáculo para a outra.
 ///
-/// Interação: olhar para a folha (raio pelo centro da tela, sem atravessar paredes), estar no alcance e
-/// apertar a tecla. Apertar durante o movimento inverte a direção a partir do ângulo atual.
+/// Interação (AlvoDeInteracao): olhar para a folha (raio pelo centro da tela, sem atravessar paredes), estar no
+/// alcance e apertar a tecla. Apertar durante o movimento inverte a direção a partir do ângulo atual.
 ///
 /// Obstrução: cada passo da folha é testado ao longo do arco, em sub-passos, com o volume dos colliders na
 /// nova posição.
@@ -27,7 +24,7 @@ using UnityEngine.InputSystem;
 /// Bloqueada, a folha fica parada até nova interação (que inverte o sentido).
 /// </summary>
 [DisallowMultipleComponent]
-public class FolhaDePorta : MonoBehaviour
+public class FolhaDePorta : AlvoDeInteracao
 {
     [Header("Movimento (giro em torno de eixoLocal, no espaço do objeto pai)")]
     [Tooltip("Eixo de giro no espaço do pai. Para portas comuns: (0, 1, 0).")]
@@ -52,6 +49,16 @@ public class FolhaDePorta : MonoBehaviour
     [Min(0.2f)] public float alcance = 2f;
     public string textoAbrir = "Abrir";
     public string textoFechar = "Fechar";
+
+    [Header("Tranca (opcional)")]
+    [Tooltip("Trancada: não abre. Com a chave no Chaveiro, a interação destranca (e a porta fica destrancada).")]
+    public bool trancada = false;
+    [Tooltip("Identificador da chave que destranca (Chaveiro).")]
+    public string chaveNecessaria = "";
+    public string textoTrancada = "Porta trancada";
+    public string textoDestrancar = "Destrancar porta";
+    public string avisoDestrancada = "Porta destrancada.";
+    public string avisoSemChave = "Está trancada.";
 
     [Header("Obstrução")]
     [Tooltip("Layers testadas pela folha (jogador, móveis, a outra folha, paredes).")]
@@ -80,6 +87,7 @@ public class FolhaDePorta : MonoBehaviour
     [Tooltip("Ao começar a fechar.")] public AudioClip somFechar;
     [Tooltip("Quando chega ao ângulo fechado (batida).")] public AudioClip somFechou;
     [Tooltip("Quando para contra um obstáculo.")] public AudioClip somBloqueio;
+    [Tooltip("Ao destrancar com a chave.")] public AudioClip somDestrancar;
 
     [Header("Eventos")]
     public UnityEvent aoComecarAbrir;
@@ -101,7 +109,20 @@ public class FolhaDePorta : MonoBehaviour
     readonly Collider[] encontrados = new Collider[16];
     readonly HashSet<Collider> ignorar = new HashSet<Collider>();
     readonly List<CharacterController> personagens = new List<CharacterController>();
-    GUIStyle estilo;
+
+    public override float AlcanceDeInteracao => alcance;
+    public override string Tecla => tecla;
+    public override string Indicacao =>
+        trancada ? (Chaveiro.Tem(chaveNecessaria) ? textoDestrancar : textoTrancada) : destino > 0f ? textoFechar : textoAbrir;
+
+    public override void Interagir()
+    {
+        if (!trancada) { Alternar(); return; }
+        if (!Chaveiro.Tem(chaveNecessaria)) { MiraDeInteracao.Avisar(avisoSemChave, 1.5f); return; }
+        trancada = false;   // a chave fica com o jogador; a porta continua destrancada nesta sessão
+        Tocar(somDestrancar);
+        MiraDeInteracao.Avisar(avisoDestrancada);
+    }
 
     // Volume de um BoxCollider da folha numa pose: centro, rotação e meias medidas no mundo.
     struct Caixa { public Vector3 centro; public Quaternion rotacao; public Vector3 meia; }
@@ -153,9 +174,9 @@ public class FolhaDePorta : MonoBehaviour
         (abrindo ? aoComecarAbrir : aoComecarFechar)?.Invoke();
     }
 
-    void Update()
+    protected override void Update()
     {
-        if (MiraDeInteracao.PortaMirada == this && TeclaApertada(tecla)) Alternar();
+        base.Update();
         if (movendo) Mover(Time.deltaTime);
     }
 
@@ -345,31 +366,8 @@ public class FolhaDePorta : MonoBehaviour
         fonte.Play();
     }
 
-    // Indicação discreta, só da folha mirada.
-    void OnGUI()
-    {
-        if (MiraDeInteracao.PortaMirada != this) return;
-        if (estilo == null)
-        {
-            estilo = new GUIStyle(GUI.skin.label) { fontSize = 18, alignment = TextAnchor.MiddleCenter };
-            estilo.normal.textColor = new Color(1f, 1f, 1f, 0.8f);
-        }
-        GUI.Label(new Rect(0, Screen.height * 0.5f + 40, Screen.width, 30),
-            $"{tecla.ToUpper()} — {(destino > 0f ? textoFechar : textoAbrir)}", estilo);
-    }
-
     void OnValidate()
     {
         sentido = sentido < 0 ? -1 : 1;
-    }
-
-    static bool TeclaApertada(string nomeTecla)
-    {
-#if ENABLE_INPUT_SYSTEM
-        if (Keyboard.current == null || !Enum.TryParse(nomeTecla, true, out Key k)) return false;
-        return Keyboard.current[k].wasPressedThisFrame;
-#else
-        return Enum.TryParse(nomeTecla, true, out KeyCode k) && Input.GetKeyDown(k);
-#endif
     }
 }

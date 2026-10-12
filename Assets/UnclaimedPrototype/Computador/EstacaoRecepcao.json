@@ -1,0 +1,257 @@
+{
+  "estacao": {
+    "nome": "REC-01",
+    "sistema": "Ipê Desktop",
+    "versao": "4.2 LTS",
+    "orgao": "Núcleo de Informática",
+    "usuario": "nina.rocha",
+    "nomeUsuario": "Nina Rocha",
+    "setor": "Recepção e arquivo",
+    "data": "17/10/2025",
+    "diaDaSemana": "sexta-feira",
+    "dataSeguinte": "18/10/2025",
+    "diaSeguinte": "sábado",
+    "horaInicial": "23:52",
+    "suporte": "Núcleo de Informática — ramal 300",
+    "memoria": "4 GB",
+    "processador": "Processador de 2 núcleos, 2,4 GHz"
+  },
+  "pessoas": [
+    { "id": "helena", "nome": "Helena Duarte", "endereco": "helena.duarte", "cargo": "Coordenação do setor — médica legista" },
+    { "id": "mauro", "nome": "Mauro Nunes", "endereco": "mauro.nunes", "cargo": "Técnico de necropsia" },
+    { "id": "nina", "nome": "Nina Rocha", "endereco": "nina.rocha", "cargo": "Recepção e arquivo" },
+    { "id": "celso", "nome": "Celso Batista", "endereco": "celso.batista", "cargo": "Vigilância" },
+    { "id": "recepcao", "nome": "Recepção", "endereco": "recepcao", "cargo": "Lista da recepção" },
+    { "id": "equipe", "nome": "Equipe do setor", "endereco": "equipe", "cargo": "Lista de toda a equipe" },
+    { "id": "gp", "nome": "Gestão de Pessoas", "endereco": "gestao.pessoas", "cargo": "Departamento de Gestão de Pessoas" }
+  ],
+  "conversas": [
+    {
+      "id": "cadeado",
+      "assunto": "Cadeado novo no armário de apoio",
+      "mensagens": [
+        {
+          "id": "cadeado-1", "de": "mauro", "para": ["recepcao"], "cc": ["celso"], "data": "17/10/2025 07:48", "lida": true,
+          "anexos": ["foto-armario"],
+          "corpo": "Bom dia.\n\nPus o cadeado de segredo no armário de apoio da recepção, o da chave da circulação. O antigo já não fechava; a Dra. pediu a troca há duas semanas e o cadeado só chegou ontem.\n\nEla também pediu que a combinação não circule por escrito. Então ficou assim: são os quatro números da hora em que foi fechado o último recebimento concluído de ontem à noite, no registro de recebimentos. Hora e minuto, sem os dois pontos. Cancelado ou só previsto não conta.\n\nSe alguém esquecer, me liga antes de chamar chaveiro. Esse cadeado saiu do meu bolso e o reembolso ainda não veio.\n\nMauro"
+        },
+        {
+          "id": "cadeado-2", "de": "nina", "para": ["mauro"], "cc": [], "data": "17/10/2025 08:03", "lida": true, "anexos": [],
+          "corpo": "Bom dia, Mauro. Entendido. Não vou anotar no caderno, prometo.\n\nNina"
+        },
+        {
+          "id": "cadeado-3", "de": "mauro", "para": ["nina"], "cc": [], "data": "17/10/2025 08:10", "lida": false, "anexos": [],
+          "corpo": "Prometa para a Dra., não para mim. Eu já esqueci.\n\nM."
+        }
+      ]
+    },
+    {
+      "id": "maca",
+      "assunto": "PS 112 — maca 3, rodízio dianteiro",
+      "mensagens": [
+        {
+          "id": "maca-1", "de": "helena", "para": ["mauro"], "cc": ["recepcao"], "data": "14/10/2025 17:32", "lida": true,
+          "anexos": ["ps112"],
+          "corpo": "Mauro,\n\nMaca 3 continua travando o rodízio dianteiro. Pedido aberto em 02/09, reaberto em 30/09. Histórico anexo.\n\nRecepção: protocolar como terceira reabertura.\n\nH. Duarte"
+        },
+        {
+          "id": "maca-2", "de": "mauro", "para": ["helena"], "cc": ["recepcao"], "data": "15/10/2025 07:15", "lida": true, "anexos": [],
+          "corpo": "A peça chegou ontem. Troco hoje depois das nove, quando liberar a sala.\n\nDeixei café na sua mesa. É do pote azul.\n\nM."
+        },
+        {
+          "id": "maca-3", "de": "helena", "para": ["mauro"], "cc": ["recepcao"], "data": "15/10/2025 07:31", "lida": true, "anexos": [],
+          "corpo": "Café recebido. Nove e meia.\n\nH."
+        }
+      ]
+    },
+    {
+      "id": "fichas",
+      "assunto": "Fichas de entrada com divergência",
+      "mensagens": [
+        {
+          "id": "fichas-1", "de": "helena", "para": ["equipe"], "cc": [], "data": "16/10/2025 08:05", "lida": true, "anexos": [],
+          "corpo": "A ficha de entrada lançada em 15/10 não confere com a cópia impressa: no papel, o campo de pertences está preenchido; no sistema, pendente.\n\nNão corrijam à mão. Separem as duas versões e deixem na minha mesa até sexta.\n\nCorreção gera nova versão. A anterior fica.\n\nDra. Helena Duarte\nCoordenação do setor"
+        }
+      ]
+    },
+    {
+      "id": "ronda",
+      "assunto": "Ronda de hoje",
+      "mensagens": [
+        {
+          "id": "ronda-1", "de": "celso", "para": ["nina"], "cc": [], "data": "16/10/2025 21:58", "lida": true, "anexos": [],
+          "corpo": "Nina, hoje a ronda pega o bloco anexo e o pátio de serviço. Se o interfone tocar e ninguém atender, é isso.\n\nO portão de serviço voltou a bater. Já falei com a manutenção.\n\nE se chegar um envelope no meu nome, deixa na gaveta de baixo da recepção que eu pego na volta.\n\nCelso"
+        },
+        {
+          "id": "ronda-2", "de": "nina", "para": ["celso"], "cc": [], "data": "16/10/2025 22:04", "lida": true, "anexos": [],
+          "corpo": "Deixo. É do concurso das cruzadas? Se for, você ainda me deve a 7 horizontal de domingo."
+        },
+        {
+          "id": "ronda-3", "de": "celso", "para": ["nina"], "cc": [], "data": "16/10/2025 22:06", "lida": true, "anexos": [],
+          "corpo": "É do concurso, é. E a 7 horizontal era ARAPUCA. Você que não quis ouvir."
+        }
+      ]
+    },
+    {
+      "id": "contrato",
+      "assunto": "Renovação de contrato temporário — Nina Rocha",
+      "mensagens": [
+        {
+          "id": "contrato-1", "de": "gp", "para": ["nina"], "cc": ["helena"], "data": "15/10/2025 10:20", "lida": true, "anexos": [],
+          "corpo": "Prezada Nina Rocha,\n\nInformamos que seu contrato temporário vence em 31/10/2025.\n\nA renovação depende do parecer da chefia imediata, que deverá ser encaminhado a esta Gestão de Pessoas até 24/10/2025. Na ausência do parecer no prazo, o processo seguirá para encerramento do vínculo na data de vencimento.\n\nEventuais dúvidas podem ser tratadas por este endereço, em dias úteis.\n\nAtenciosamente,\n\nDepartamento de Gestão de Pessoas"
+        },
+        {
+          "id": "contrato-2", "de": "helena", "para": ["nina"], "cc": [], "data": "17/10/2025 16:40", "lida": false, "anexos": [],
+          "corpo": "Nina,\n\nPara fechar o parecer, preciso do levantamento de pendências do arquivo até quarta. Só o que está pendente, com data de abertura e responsável. Nada de observação.\n\nH. Duarte"
+        }
+      ]
+    },
+    {
+      "id": "bolo",
+      "assunto": "Folga",
+      "mensagens": [
+        {
+          "id": "bolo-1", "de": "celso", "para": ["nina"], "cc": [], "data": "17/10/2025 21:47", "lida": false, "anexos": [],
+          "corpo": "Hoje é sua folga, né? Guardei o bolo da copa mesmo assim. Fica na gaveta da guarita até amanhã.\n\nDeixei a 12 vertical em branco pra você."
+        }
+      ]
+    }
+  ],
+  "pastas": [
+    { "id": "docs", "nome": "Documentos", "pai": "" },
+    { "id": "recepcao", "nome": "Recepção", "pai": "docs" },
+    { "id": "arquivo", "nome": "Arquivo", "pai": "docs" },
+    { "id": "manuais", "nome": "Manuais", "pai": "docs" },
+    { "id": "impressora", "nome": "Impressora do arquivo", "pai": "manuais" },
+    { "id": "imagens", "nome": "Imagens", "pai": "" },
+    { "id": "notas", "nome": "Notas", "pai": "" }
+  ],
+  "arquivos": [
+    {
+      "id": "registro", "nome": "Registro de recebimentos — noite 16-17.10", "tipo": "planilha", "pasta": "recepcao",
+      "modificado": "17/10/2025 06:55", "autor": "nina.rocha",
+      "blocos": [
+        { "tipo": "titulo", "texto": "Registro de recebimentos — plantão noturno" },
+        { "tipo": "meta", "texto": "Recepção · noite de 16 para 17/10/2025 · responsável: Nina Rocha" },
+        { "tipo": "paragrafo", "texto": "Horário: nos recebimentos concluídos, hora em que o recebimento foi fechado, após a conferência. Nos cancelados e previstos, hora agendada pelo serviço de remoção." },
+        { "tipo": "tabela", "colunas": ["Horário", "Origem", "Situação", "Conferência"], "larguras": [0.14, 0.34, 0.30, 0.22],
+          "linhas": [
+            { "c": ["22:48", "Hospital Municipal — remoção", "Concluído", "N. Rocha / C. Batista"] },
+            { "c": ["23:17", "UPA Zona Norte — remoção", "Concluído", "N. Rocha"] },
+            { "c": ["23:26", "Hospital São Vicente", "Cancelado pelo hospital antes da saída", "—"] },
+            { "c": ["23:40", "Remoção — via pública", "Previsto, sem confirmação", "—"] }
+          ] },
+        { "tipo": "nota", "texto": "Plantão encerrado por N. Rocha. O previsto das 23:40 ficou sem retorno do serviço; repassado à coordenação." }
+      ]
+    },
+    {
+      "id": "rotina", "nome": "Rotina do plantão noturno", "tipo": "documento", "pasta": "recepcao",
+      "modificado": "02/10/2025 10:12", "autor": "helena.duarte",
+      "blocos": [
+        { "tipo": "titulo", "texto": "Rotina do plantão noturno — Recepção" },
+        { "tipo": "meta", "texto": "Revisão de 02/10/2025 · Coordenação: Dra. Helena Duarte" },
+        { "tipo": "lista", "itens": [
+          "Recebimentos: conferir documentação e identificação na chegada e lançar no registro da noite. Concluído leva a hora do fechamento; cancelado ou previsto leva a situação e a hora agendada.",
+          "Pertences: etiquetar e vincular ao registro de entrada no mesmo turno.",
+          "Familiares: anotar nome e contato. Informação sobre liberação somente pela coordenação.",
+          "Circulação restrita: porta sempre trancada. A chave fica no armário de apoio da recepção.",
+          "Senhas e combinações não são anotadas em papel nem enviadas por escrito.",
+          "Ao fim do plantão, encerrar o registro e a sessão desta estação."
+        ] }
+      ]
+    },
+    {
+      "id": "ramais", "nome": "Ramais internos", "tipo": "documento", "pasta": "recepcao",
+      "modificado": "29/09/2025 15:30", "autor": "nina.rocha",
+      "blocos": [
+        { "tipo": "titulo", "texto": "Ramais internos" },
+        { "tipo": "meta", "texto": "Atualizado em 29/09/2025" },
+        { "tipo": "tabela", "colunas": ["Nome", "Função", "Ramal"], "larguras": [0.32, 0.46, 0.22],
+          "linhas": [
+            { "c": ["Helena Duarte", "Coordenação do setor", "201"] },
+            { "c": ["Nina Rocha", "Recepção e arquivo", "210"] },
+            { "c": ["Mauro Nunes", "Técnico de necropsia", "214"] },
+            { "c": ["Sala de necropsia", "—", "220"] },
+            { "c": ["Celso Batista", "Vigilância (guarita)", "230 · rádio canal 3"] },
+            { "c": ["Núcleo de Informática", "Suporte da estação", "300"] }
+          ] },
+        { "tipo": "paragrafo", "texto": "Fora do horário administrativo, urgências pelo rádio da vigilância." }
+      ]
+    },
+    {
+      "id": "ficha", "nome": "Ficha de entrada — campos obrigatórios", "tipo": "documento", "pasta": "arquivo",
+      "modificado": "11/09/2025 09:40", "autor": "nina.rocha",
+      "blocos": [
+        { "tipo": "titulo", "texto": "Ficha de entrada — campos obrigatórios" },
+        { "tipo": "meta", "texto": "Modelo do arquivo · elaborado por Irene Farias · revisado por Nina Rocha em 11/09/2025" },
+        { "tipo": "tabela", "colunas": ["Campo", "Como preencher"], "larguras": [0.30, 0.70],
+          "linhas": [
+            { "c": ["Identificação", "Confirmada ou não confirmada. Nunca em branco."] },
+            { "c": ["Documentação", "Documentos recebidos com o corpo, um por linha."] },
+            { "c": ["Pertences", "Número da etiqueta da bolsa e vinculação ao registro de entrada."] },
+            { "c": ["Observações", "Toda pendência, com data e responsável."] }
+          ] },
+        { "tipo": "paragrafo", "texto": "Toda correção gera uma nova versão da ficha. A versão anterior não é apagada nem substituída: as duas ficam no arquivo, com a data de cada uma." }
+      ]
+    },
+    {
+      "id": "manual", "nome": "Manual rápido — impressora do arquivo", "tipo": "documento", "pasta": "impressora",
+      "modificado": "04/06/2025 14:02", "autor": "suporte",
+      "blocos": [
+        { "tipo": "titulo", "texto": "Impressora do arquivo — manual rápido" },
+        { "tipo": "meta", "texto": "Núcleo de Informática" },
+        { "tipo": "subtitulo", "texto": "Papel atolado" },
+        { "tipo": "lista", "itens": [
+          "Desligue a impressora e aguarde a ventoinha parar.",
+          "Abra a tampa traseira e puxe a folha no sentido da saída, com as duas mãos.",
+          "Não use objetos metálicos dentro do equipamento."
+        ] },
+        { "tipo": "subtitulo", "texto": "Toner" },
+        { "tipo": "paragrafo", "texto": "Solicitar pelo almoxarifado, informando o número de patrimônio da impressora. Cartuchos vazios voltam na mesma caixa." }
+      ]
+    },
+    {
+      "id": "lista-perguntas", "nome": "lista_de_verificacao.txt", "tipo": "nota", "pasta": "impressora",
+      "modificado": "12/10/2025 03:14", "autor": "nina.rocha",
+      "texto": "perguntas pra I.\n\n- quem assinou a saída?\n- ela ainda tem a cópia do pedido?\n- pra onde ele foi levado?\n\nnão deixar na mesa."
+    },
+    {
+      "id": "passagem", "nome": "passagem_16-10.txt", "tipo": "nota", "pasta": "notas",
+      "modificado": "17/10/2025 06:58", "autor": "nina.rocha",
+      "texto": "pra manhã:\n\n- impressora do arquivo travou de novo. formulários de ontem estão na bandeja.\n- duas famílias ligaram perguntando de liberação. contatos no caderno. falei que a coordenação retorna de manhã. nada por telefone.\n- as duas versões da ficha de 15/10 estão na mesa da Dra., na pasta azul.\n- portão de serviço batendo (o Celso já avisou a manutenção)."
+    },
+    {
+      "id": "lembretes", "nome": "lembretes.txt", "tipo": "nota", "pasta": "notas",
+      "modificado": "15/10/2025 23:20", "autor": "nina.rocha",
+      "texto": "- pilhas pro rádio da guarita (o Celso pediu de novo)\n- trazer talheres pra copa. ninguém traz os seus.\n- parecer da renovação: prazo 24/10\n- perguntar pro Mauro onde ficam as etiquetas grandes"
+    },
+    {
+      "id": "foto-armario", "nome": "armario_apoio.jpg", "tipo": "imagem", "pasta": "imagens",
+      "modificado": "17/10/2025 07:46", "autor": "mauro.nunes", "imagem": "foto_armario_apoio"
+    },
+    {
+      "id": "ps112", "nome": "PS112_historico.doc", "tipo": "documento", "pasta": "",
+      "modificado": "14/10/2025 17:30", "autor": "helena.duarte",
+      "blocos": [
+        { "tipo": "titulo", "texto": "Pedido de serviço 112" },
+        { "tipo": "meta", "texto": "Equipamento: maca de transporte nº 3 · solicitante: Coordenação do setor" },
+        { "tipo": "tabela", "colunas": ["Data", "Ocorrência", "Responsável"], "larguras": [0.18, 0.56, 0.26],
+          "linhas": [
+            { "c": ["02/09/2025", "Rodízio dianteiro travando na curva da circulação.", "H. Duarte"] },
+            { "c": ["05/09/2025", "Lubrificado. Pedido encerrado.", "M. Nunes"] },
+            { "c": ["30/09/2025", "Reaberto: mesmo defeito.", "H. Duarte"] },
+            { "c": ["14/10/2025", "Reaberto: mesmo defeito. Peça de reposição solicitada.", "H. Duarte"] }
+          ] }
+      ]
+    }
+  ],
+  "agenda": [
+    { "data": "02/10/2025", "titulo": "Revisão da rotina do plantão noturno", "detalhe": "Coordenação." },
+    { "data": "14/10/2025", "titulo": "Coleta de resíduos", "detalhe": "Pela manhã, portão de serviço." },
+    { "data": "17/10/2025", "titulo": "Folga — N. Rocha", "detalhe": "Plantão noturno." },
+    { "data": "21/10/2025", "titulo": "Manutenção da câmara fria", "detalhe": "Empresa contratada, das 8h às 12h. Avisar a vigilância." },
+    { "data": "24/10/2025", "titulo": "Prazo do parecer de renovação", "detalhe": "Coordenação → Gestão de Pessoas." },
+    { "data": "28/10/2025", "titulo": "Coleta de resíduos", "detalhe": "Pela manhã, portão de serviço." },
+    { "data": "31/10/2025", "titulo": "Vencimento do contrato temporário", "detalhe": "N. Rocha." }
+  ]
+}

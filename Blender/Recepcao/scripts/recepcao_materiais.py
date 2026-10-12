@@ -264,10 +264,30 @@ def make_all(G_class, model):
     scuff_dark = (0.22, 0.22, 0.21)
     alum = metal("Aluminio escovado", (0.78, 0.78, 0.77), 0.32)
     worktop_rest = ((0.0, B["back"] - 0.12, B["work_z"]), 0.35)
+    # Shared by the counter and its drawers, the cabinet and its doors (same object-space patterns).
+    lam_balcao = laminado("Laminado - balcao", lam, grime_spots=(worktop_rest,))
+    lam_armario = laminado("Laminado - armario", lam, grime_spots=(((-0.035, -M["depth"] / 2, 0.62), 0.12),
+                                                                  ((0.035, -M["depth"] / 2, 0.62), 0.12)))
+    melamina = laminado("Melamina branca - interno", (0.80, 0.79, 0.76), kick=0.0, rough=0.42)
+    aco = metal("Aco zincado - corredicas", (0.66, 0.67, 0.68), 0.32)
+    gaveta = {"laminado": lam_balcao, "aluminio": alum, "melamina": melamina, "aco": aco,
+              "papel": papel("Papel - gaveta"), "pasta_kraft": plastico("Envelope kraft", (0.45, 0.33, 0.19), 0.8, scuffed=False),
+              "pasta_azul": plastico("Pasta azul", (0.05, 0.13, 0.33), 0.35),
+              "plastico": plastico("Plastico preto - gaveta", (0.03, 0.03, 0.032), 0.45),
+              "madeira": plastico("Madeira do carimbo", (0.45, 0.30, 0.17), 0.6, scuffed=False),
+              "caneta_corpo": plastico("Corpo da caneta", (0.80, 0.82, 0.84), 0.25, scuffed=False),
+              "ponta_plastico": plastico("Cone da caneta", (0.85, 0.85, 0.83), 0.4, scuffed=False),
+              "ponta": metal("Ponta da caneta", (0.75, 0.74, 0.70), 0.3),
+              "caneta_azul": plastico("Caneta azul", (0.03, 0.08, 0.30), 0.3, scuffed=False),
+              "caneta_preta": plastico("Tampa preta", (0.025, 0.025, 0.028), 0.35, scuffed=False)}
+    porta_armario = {"laminado": lam_armario, "aluminio": alum, "aco": aco, "borracha": borracha("Feltro do batente")}
     return {
+        "GavetaBalcao1": gaveta, "GavetaBalcao2": gaveta, "GavetaBalcao3": gaveta,
+        "PortaArmarioEsquerda": porta_armario, "PortaArmarioDireita": porta_armario,
         "BalcaoRecepcao": {
-            "laminado": laminado("Laminado - balcao", lam, grime_spots=(worktop_rest,)),
+            "laminado": lam_balcao,
             "rodape": laminado("Rodape - balcao", rod, scuff_rgb=scuff_dark, kick=0.12, rough=0.55),
+            "aco": aco,
             "granito": granito("Granito - balcao", B["front"] + 0.12, B["height"]),
             "aluminio": alum, "nylon": nylon("Nylon - balcao"),
         },
@@ -282,11 +302,12 @@ def make_all(G_class, model):
             "cromo": metal("Cromado", (0.85, 0.85, 0.84), 0.12),
         },
         "ArmarioApoio": {
-            "laminado": laminado("Laminado - armario", lam,
-                                 grime_spots=(((-0.035, -M["depth"] / 2, 0.62), 0.12),
-                                              ((0.035, -M["depth"] / 2, 0.62), 0.12))),
+            "laminado": lam_armario,
             "rodape": laminado("Rodape - armario", rod, scuff_rgb=scuff_dark, kick=0.1, rough=0.55),
-            "aluminio": alum,
+            "melamina": melamina, "aco": aco, "papel": papel("Papel - resmas"),
+            "polionda_azul": plastico("Polionda azul", (0.10, 0.25, 0.50), 0.55),
+            "polionda_cinza": plastico("Polionda cinza", (0.30, 0.31, 0.32), 0.55),
+            "copos": plastico("Copos descartaveis", (0.78, 0.78, 0.76), 0.3, scuffed=False),
         },
         "LongarinaEspera": {
             "epoxi": epoxi("Epoxi - longarina"),
@@ -377,6 +398,28 @@ def make_all(G_class, model):
                                       sy * 0.07, model.PORTA["handle_z"]) for sy in (-1, 1)]),
         },
         "PortaVidroVidro": {"vidro": tela("vidro")},
+        # First puzzle hardware: not baked, these only name the single FBX slot of each part (Unity sets them).
+        "CadeadoCorpo": {"latao": tela("latao")}, "CadeadoArco": {"aco": tela("aco")},
+        "CadeadoDisco": {"disco": tela("disco")}, "FechoBase": {"aco": tela("aco")}, "FechoAba": {"aco": tela("aco")}, "FechoSuporte": {"aco": tela("aco")},
+        "ChaveMetal": {"niquel": tela("niquel")}, "ChaveEtiqueta": {"etiqueta": tela("etiqueta")},
+        # Restricted circulation door: satin-painted steel (graphite frame, light grey leaves), brushed stainless
+        # hardware; wear by the lever and along the bottom of the leaves.
+        "PortaCirculacaoFixos": {
+            "marco": laminado("Pintura acetinada - marco circulacao", (0.29, 0.30, 0.31), kick=0.18, rough=0.42),
+            "folha": laminado("Pintura acetinada - folha secundaria", (0.60, 0.62, 0.62), kick=0.22, rough=0.40),
+            "granito": granito("Granito - soleira circulacao", -10.0, -10.0),
+            "inox": metal("Inox escovado - ferragens", (0.74, 0.74, 0.73), 0.30),
+            "inox_escuro": metal("Inox escuro - ferragens", (0.36, 0.36, 0.36), 0.40),
+            "borracha": borracha("Borracha - batedor"),
+        },
+        "PortaCirculacaoFolha": {
+            "folha": laminado("Pintura acetinada - folha ativa", (0.60, 0.62, 0.62), kick=0.22, rough=0.40,
+                              grime_spots=((((model.PORTA_CIRC["active"] + (-model.PORTA_CIRC["jx"] + model.PORTA_CIRC["gap"]) - model.PORTA_CIRC["pivot"][0] - 0.065), (model.PORTA_CIRC["leaf_back"] - model.PORTA_CIRC["pivot"][1]) - 0.01, 1.0), 0.13), (((model.PORTA_CIRC["active"] + (-model.PORTA_CIRC["jx"] + model.PORTA_CIRC["gap"]) - model.PORTA_CIRC["pivot"][0] - 0.065), (model.PORTA_CIRC["face"] - model.PORTA_CIRC["pivot"][1]) + 0.01, 1.0), 0.13),
+                                           (((model.PORTA_CIRC["active"] + (-model.PORTA_CIRC["jx"] + model.PORTA_CIRC["gap"]) - model.PORTA_CIRC["pivot"][0] - 0.065) - 0.06, 0.0, 1.12), 0.22))),
+            "inox": metal("Inox escovado - ferragens", (0.74, 0.74, 0.73), 0.30),
+            "inox_escuro": metal("Inox escuro - ferragens", (0.36, 0.36, 0.36), 0.40),
+            "fenda": tela("Fenda escura - cilindro"),
+        },
         "Lixeira": {
             "inox": metal("Inox - lixeira", (0.70, 0.70, 0.69), 0.34),
             "plastico": plastico("Plastico preto - lixeira", (0.03, 0.03, 0.03), 0.5),
