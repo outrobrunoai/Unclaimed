@@ -1,0 +1,584 @@
+{
+ "Arvore_Sibipiruna_A": {
+  "nome": "Arvore_Sibipiruna_A",
+  "altura": 7.094,
+  "raio_copa": 6.163,
+  "tris": {
+   "0": 29164,
+   "1": 11418,
+   "2": 4
+  },
+  "materiais": [
+   "Casca_Sibipiruna",
+   "Folhas_Compostas",
+   "Impostor_Arvore_Sibipiruna_A"
+  ],
+  "colisor": {
+   "tipo": "capsula",
+   "raio": 0.242,
+   "altura": 2.8
+  },
+  "cor_vertice": true
+ },
+ "Arvore_Sibipiruna_B": {
+  "nome": "Arvore_Sibipiruna_B",
+  "altura": 6.913,
+  "raio_copa": 5.132,
+  "tris": {
+   "0": 21376,
+   "1": 8334,
+   "2": 4
+  },
+  "materiais": [
+   "Casca_Sibipiruna",
+   "Folhas_Compostas",
+   "Impostor_Arvore_Sibipiruna_B"
+  ],
+  "colisor": {
+   "tipo": "capsula",
+   "raio": 0.22,
+   "altura": 2.5
+  },
+  "cor_vertice": true
+ },
+ "Arvore_Mangueira_A": {
+  "nome": "Arvore_Mangueira_A",
+  "altura": 6.558,
+  "raio_copa": 4.678,
+  "tris": {
+   "0": 34980,
+   "1": 14344,
+   "2": 4
+  },
+  "materiais": [
+   "Casca_Mangueira",
+   "Folhas_Largas",
+   "Impostor_Arvore_Mangueira_A"
+  ],
+  "colisor": {
+   "tipo": "capsula",
+   "raio": 0.242,
+   "altura": 2.2
+  },
+  "cor_vertice": true
+ },
+ "Arvore_Mangueira_B": {
+  "nome": "Arvore_Mangueira_B",
+  "altura": 5.574,
+  "raio_copa": 4.352,
+  "tris": {
+   "0": 26756,
+   "1": 10184,
+   "2": 4
+  },
+  "materiais": [
+   "Casca_Mangueira",
+   "Folhas_Largas",
+   "Impostor_Arvore_Mangueira_B"
+  ],
+  "colisor": {
+   "tipo": "capsula",
+   "raio": 0.22,
+   "altura": 2.0
+  },
+  "cor_vertice": true
+ },
+ "Arvore_Pequena": {
+  "nome": "Arvore_Pequena",
+  "altura": 4.315,
+  "raio_copa": 2.537,
+  "tris": {
+   "0": 5572,
+   "1": 1838,
+   "2": 4
+  },
+  "materiais": [
+   "Casca_Sibipiruna",
+   "Folhas_Compostas",
+   "Impostor_Arvore_Pequena"
+  ],
+  "colisor": {
+   "tipo": "capsula",
+   "raio": 0.088,
+   "altura": 1.9
+  },
+  "cor_vertice": true
+ },
+ "Arbusto_Redondo_A": {
+  "nome": "Arbusto_Redondo_A",
+  "altura": 1.425,
+  "raio_copa": 1.055,
+  "tris": {
+   "0": 396,
+   "1": 144
+  },
+  "materiais": [
+   "Casca",
+   "Folhas_Largas"
+  ],
+  "colisor": null,
+  "cor_vertice": true,
+  "vento": {
+   "Folhas_Largas": {
+    "tronco": 0.03,
+    "ramos": 0.035,
+    "folhas": 0.012,
+    "frequencia": 0.55
+   },
+   "Casca": {
+    "tronco": 0.03,
+    "ramos": 0.035,
+    "folhas": 0.012,
+    "frequencia": 0.55
+   }
+  }
+ },
+ "Arbusto_Redondo_B": {
+  "nome": "Arbusto_Redondo_B",
+  "altura": 1.284,
+  "raio_copa": 0.889,
+  "tris": {
+   "0": 316,
+   "1": 112
+  },
+  "materiais": [
+   "Casca",
+   "Folhas_Largas"
+  ],
+  "colisor": null,
+  "cor_vertice": true,
+  "vento": {
+   "Folhas_Largas": {
+    "tronco": 0.03,
+    "ramos": 0.035,
+    "folhas": 0.012,
+    "frequencia": 0.55
+   },
+   "Casca": {
+    "tronco": 0.03,
+    "ramos": 0.035,
+    "folhas": 0.012,
+    "frequencia": 0.55
+   }
+  }
+ },
+ "Arbusto_Estreito": {
+  "nome": "Arbusto_Estreito",
+  "altura": 2.016,
+  "raio_copa": 0.858,
+  "tris": {
+   "0": 356,
+   "1": 128
+  },
+  "materiais": [
+   "Casca",
+   "Folhas_Estreitas"
+  ],
+  "colisor": null,
+  "cor_vertice": true,
+  "vento": {
+   "Folhas_Estreitas": {
+    "tronco": 0.03,
+    "ramos": 0.035,
+    "folhas": 0.012,
+    "frequencia": 0.55
+   },
+   "Casca": {
+    "tronco": 0.03,
+    "ramos": 0.035,
+    "folhas": 0.012,
+    "frequencia": 0.55
+   }
+  }
+ },
+ "Bananeira_A": {
+  "nome": "Bananeira_A",
+  "altura": 2.672,
+  "raio_copa": 2.151,
+  "tris": {
+   "0": 600,
+   "1": 132
+  },
+  "materiais": [
+   "Plantas_Procedurais"
+  ],
+  "colisor": {
+   "tipo": "capsula",
+   "raio": 0.14,
+   "altura": 1.6
+  },
+  "cor_vertice": true,
+  "vento": {
+   "Plantas_Procedurais": {
+    "tronco": 0.05,
+    "ramos": 0.08,
+    "folhas": 0.03,
+    "frequencia": 0.45
+   }
+  }
+ },
+ "Bananeira_B": {
+  "nome": "Bananeira_B",
+  "altura": 2.655,
+  "raio_copa": 2.049,
+  "tris": {
+   "0": 782,
+   "1": 198
+  },
+  "materiais": [
+   "Plantas_Procedurais"
+  ],
+  "colisor": {
+   "tipo": "capsula",
+   "raio": 0.14,
+   "altura": 1.6
+  },
+  "cor_vertice": true,
+  "vento": {
+   "Plantas_Procedurais": {
+    "tronco": 0.05,
+    "ramos": 0.08,
+    "folhas": 0.03,
+    "frequencia": 0.45
+   }
+  }
+ },
+ "Capim_Alto_A": {
+  "nome": "Capim_Alto_A",
+  "altura": 0.646,
+  "raio_copa": 0.577,
+  "tris": {
+   "0": 180,
+   "1": 35
+  },
+  "materiais": [
+   "Grama_Laminas"
+  ],
+  "colisor": null,
+  "cor_vertice": true,
+  "vento": {
+   "Grama_Laminas": {
+    "tronco": 0.16,
+    "ramos": 0.07,
+    "folhas": 0.015,
+    "frequencia": 0.6
+   }
+  },
+  "lods": [
+   0.05,
+   0.012
+  ]
+ },
+ "Capim_Alto_B": {
+  "nome": "Capim_Alto_B",
+  "altura": 0.712,
+  "raio_copa": 0.466,
+  "tris": {
+   "0": 180,
+   "1": 35
+  },
+  "materiais": [
+   "Grama_Laminas"
+  ],
+  "colisor": null,
+  "cor_vertice": true,
+  "vento": {
+   "Grama_Laminas": {
+    "tronco": 0.16,
+    "ramos": 0.07,
+    "folhas": 0.015,
+    "frequencia": 0.6
+   }
+  },
+  "lods": [
+   0.05,
+   0.012
+  ]
+ },
+ "Tufo_Grama_A": {
+  "nome": "Tufo_Grama_A",
+  "altura": 0.139,
+  "raio_copa": 0.183,
+  "tris": {
+   "0": 260,
+   "1": 54
+  },
+  "materiais": [
+   "Grama_Laminas"
+  ],
+  "colisor": null,
+  "cor_vertice": true,
+  "vento": {
+   "Grama_Laminas": {
+    "tronco": 0.035,
+    "ramos": 0.02,
+    "folhas": 0.006,
+    "frequencia": 0.9
+   }
+  },
+  "lods": [
+   0.015,
+   0.004
+  ]
+ },
+ "Tufo_Grama_B": {
+  "nome": "Tufo_Grama_B",
+  "altura": 0.169,
+  "raio_copa": 0.179,
+  "tris": {
+   "0": 205,
+   "1": 42
+  },
+  "materiais": [
+   "Grama_Laminas"
+  ],
+  "colisor": null,
+  "cor_vertice": true,
+  "vento": {
+   "Grama_Laminas": {
+    "tronco": 0.035,
+    "ramos": 0.02,
+    "folhas": 0.006,
+    "frequencia": 0.9
+   }
+  },
+  "lods": [
+   0.015,
+   0.004
+  ]
+ },
+ "Grama_Tufo_A": {
+  "nome": "Grama_Tufo_A",
+  "altura": 0.164,
+  "raio_copa": 0.173,
+  "tris": {
+   "0": 220,
+   "1": 45
+  },
+  "materiais": [
+   "Grama_Laminas"
+  ],
+  "colisor": null,
+  "cor_vertice": true,
+  "vento": {
+   "Grama_Laminas": {
+    "tronco": 0.035,
+    "ramos": 0.02,
+    "folhas": 0.006,
+    "frequencia": 0.9
+   }
+  },
+  "lods": [
+   0.015,
+   0.004
+  ]
+ },
+ "Grama_Tufo_B": {
+  "nome": "Grama_Tufo_B",
+  "altura": 0.13,
+  "raio_copa": 0.225,
+  "tris": {
+   "0": 245,
+   "1": 51
+  },
+  "materiais": [
+   "Grama_Laminas"
+  ],
+  "colisor": null,
+  "cor_vertice": true,
+  "vento": {
+   "Grama_Laminas": {
+    "tronco": 0.035,
+    "ramos": 0.02,
+    "folhas": 0.006,
+    "frequencia": 0.9
+   }
+  },
+  "lods": [
+   0.015,
+   0.004
+  ]
+ },
+ "Grama_Tufo_C": {
+  "nome": "Grama_Tufo_C",
+  "altura": 0.15,
+  "raio_copa": 0.21,
+  "tris": {
+   "0": 260,
+   "1": 54
+  },
+  "materiais": [
+   "Grama_Laminas"
+  ],
+  "colisor": null,
+  "cor_vertice": true,
+  "vento": {
+   "Grama_Laminas": {
+    "tronco": 0.035,
+    "ramos": 0.02,
+    "folhas": 0.006,
+    "frequencia": 0.9
+   }
+  },
+  "lods": [
+   0.015,
+   0.004
+  ]
+ },
+ "Grama_Tufo_D": {
+  "nome": "Grama_Tufo_D",
+  "altura": 0.149,
+  "raio_copa": 0.19,
+  "tris": {
+   "0": 220,
+   "1": 45
+  },
+  "materiais": [
+   "Grama_Laminas"
+  ],
+  "colisor": null,
+  "cor_vertice": true,
+  "vento": {
+   "Grama_Laminas": {
+    "tronco": 0.035,
+    "ramos": 0.02,
+    "folhas": 0.006,
+    "frequencia": 0.9
+   }
+  },
+  "lods": [
+   0.015,
+   0.004
+  ]
+ },
+ "Erva_Daninha_A": {
+  "nome": "Erva_Daninha_A",
+  "altura": 0.381,
+  "raio_copa": 0.237,
+  "tris": {
+   "0": 16,
+   "1": 8
+  },
+  "materiais": [
+   "Plantas_Procedurais"
+  ],
+  "colisor": null,
+  "cor_vertice": true,
+  "vento": {
+   "Plantas_Procedurais": {
+    "tronco": 0.03,
+    "ramos": 0.03,
+    "folhas": 0.01,
+    "frequencia": 0.8
+   }
+  }
+ },
+ "Erva_Daninha_B": {
+  "nome": "Erva_Daninha_B",
+  "altura": 0.368,
+  "raio_copa": 0.262,
+  "tris": {
+   "0": 12,
+   "1": 4
+  },
+  "materiais": [
+   "Plantas_Procedurais"
+  ],
+  "colisor": null,
+  "cor_vertice": true,
+  "vento": {
+   "Plantas_Procedurais": {
+    "tronco": 0.03,
+    "ramos": 0.03,
+    "folhas": 0.01,
+    "frequencia": 0.8
+   }
+  }
+ },
+ "Espada_Sao_Jorge": {
+  "nome": "Espada_Sao_Jorge",
+  "altura": 0.811,
+  "raio_copa": 0.244,
+  "tris": {
+   "0": 96,
+   "1": 14
+  },
+  "materiais": [
+   "Plantas_Procedurais"
+  ],
+  "colisor": null,
+  "cor_vertice": true,
+  "vento": {
+   "Plantas_Procedurais": {
+    "tronco": 0.012,
+    "ramos": 0.006,
+    "folhas": 0.0,
+    "frequencia": 0.55
+   }
+  }
+ },
+ "Trepadeira_Muro": {
+  "nome": "Trepadeira_Muro",
+  "altura": 1.673,
+  "raio_copa": 1.37,
+  "tris": {
+   "0": 480,
+   "1": 160
+  },
+  "materiais": [
+   "Folhas_Largas"
+  ],
+  "colisor": null,
+  "cor_vertice": true,
+  "vento": {
+   "Folhas_Largas": {
+    "tronco": 0.0,
+    "ramos": 0.0,
+    "folhas": 0.008,
+    "frequencia": 0.5
+   }
+  }
+ },
+ "Folhas_Secas_A": {
+  "nome": "Folhas_Secas_A",
+  "altura": 0.014,
+  "raio_copa": 0.803,
+  "tris": {
+   "0": 10
+  },
+  "materiais": [
+   "Plantas_Procedurais"
+  ],
+  "colisor": null,
+  "cor_vertice": true,
+  "vento": {
+   "Plantas_Procedurais": {
+    "tronco": 0.0,
+    "ramos": 0.0,
+    "folhas": 0.0,
+    "frequencia": 0.0
+   }
+  }
+ },
+ "Folhas_Secas_B": {
+  "nome": "Folhas_Secas_B",
+  "altura": 0.016,
+  "raio_copa": 0.896,
+  "tris": {
+   "0": 12
+  },
+  "materiais": [
+   "Plantas_Procedurais"
+  ],
+  "colisor": null,
+  "cor_vertice": true,
+  "vento": {
+   "Plantas_Procedurais": {
+    "tronco": 0.0,
+    "ramos": 0.0,
+    "folhas": 0.0,
+    "frequencia": 0.0
+   }
+  }
+ }
+}

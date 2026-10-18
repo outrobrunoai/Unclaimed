@@ -17,7 +17,9 @@ public static partial class UnclaimedMorgueGenerator
 
     // Provisional night sky: one lat-long image (drawn by Blender/Ceu/ceu_noturno.py) on Unity's built-in
     // Skybox/Panoramic. The moon in that image sits opposite MoonEuler, so moonlight and sky agree; change
-    // both together (MOON_EULER in the script).
+    // both together (MOON_EULER in the script). The script draws every pixel from its 3D view direction
+    // (overcast light-rain clouds, angular stars), so the zenith and the wrap seam stay clean. The default
+    // reflection (Skybox) and the probes that see the sky keep the old sky until re-baked.
     private const string SkyTexturePath = LightingFolder + "/Ceu_Noturno.png";
     private static readonly Vector3 MoonEuler = new Vector3(20f, 10f, 0f);   // low moon to the south-south-west
     private const float MoonIntensity = 0.12f;
@@ -222,12 +224,13 @@ public static partial class UnclaimedMorgueGenerator
     {
         string path = LightingFolder + "/Ceu noturno.mat";
         if (AssetImporter.GetAtPath(SkyTexturePath) is TextureImporter importer &&
-            (importer.mipmapEnabled || importer.wrapModeV != TextureWrapMode.Clamp || importer.maxTextureSize != 4096))
+            (importer.mipmapEnabled || importer.wrapModeV != TextureWrapMode.Clamp || importer.maxTextureSize != 8192 ||
+             importer.textureCompression != TextureImporterCompression.CompressedHQ))
         {
             importer.mipmapEnabled = false;            // mip seams show at the panorama's wrap
             importer.wrapModeU = TextureWrapMode.Repeat;
             importer.wrapModeV = TextureWrapMode.Clamp;
-            importer.maxTextureSize = 4096;            // a star is one texel: smaller loses them
+            importer.maxTextureSize = 8192;            // native size: smaller blurs clouds and stars again
             importer.textureCompression = TextureImporterCompression.CompressedHQ;
             importer.SaveAndReimport();
         }

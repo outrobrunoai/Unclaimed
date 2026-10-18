@@ -181,6 +181,8 @@ public static partial class UnclaimedMorgueGenerator
         Floors(zones);
         Walls(zones);
         Doorways(zones);
+        StopStripsAtCasings();   // UnclaimedMorgueGenerator.Acabamentos.cs
+        UnifyWallFinishes();
         Ceilings(zones);
         Exterior(outside);
         Furniture(furniture);
@@ -487,8 +489,9 @@ public static partial class UnclaimedMorgueGenerator
             {
                 LineBox("Batente", g, d.Vertical, d.Line, a, a + FrameLining, -depth, depth, 0, DoorHeight, frameMat, false);
                 LineBox("Batente", g, d.Vertical, d.Line, b - FrameLining, b, -depth, depth, 0, DoorHeight, frameMat, false);
-                LineBox("Batente superior", g, d.Vertical, d.Line, a, b, -depth, depth, DoorHeight - FrameLining, DoorHeight, frameMat, false);
-                LineBox("Soleira", g, d.Vertical, d.Line, a, b, -depth, depth, 0, ThresholdHeight, thresholdMat, false);
+                // Head and threshold fit between the side linings: overlapping them, two boxes shared faces at the corners.
+                LineBox("Batente superior", g, d.Vertical, d.Line, a + FrameLining, b - FrameLining, -depth, depth, DoorHeight - FrameLining, DoorHeight, frameMat, false);
+                LineBox("Soleira", g, d.Vertical, d.Line, a + FrameLining, b - FrameLining, -depth, depth, 0, ThresholdHeight, thresholdMat, false);
             }
             foreach (float sign in new[] { -1f, 1f })
             {
@@ -521,18 +524,6 @@ public static partial class UnclaimedMorgueGenerator
                 LineBox("Capeamento", envelopeGroup, d.Vertical, d.Line, a, b, -half - 0.05f, half + 0.05f, top, top + CopingThickness, copingMat, false);
             }
         }
-    }
-
-    // Ground around the building keeps the main entrance and the service gate usable;
-    // invisible colliders at its edges stop the player from walking off the map.
-    private static void Exterior(Transform parent)
-    {
-        Block("Terreno externo", parent, MinX, MinZ, MaxX, MaxZ, -0.22f, 0.2f, exteriorMat);
-        Block("Calcada da entrada", parent, -14f, -13.875f, -8.375f, -12.375f, -0.2f, 0.2f, patioMat);
-        Limit("Limite norte", parent, MinX, MaxZ, MaxX, MaxZ + 0.25f);
-        Limit("Limite sul", parent, MinX, MinZ - 0.25f, MaxX, MinZ);
-        Limit("Limite oeste", parent, MinX - 0.25f, MinZ, MinX, MaxZ);
-        Limit("Limite leste", parent, MaxX, MinZ, MaxX + 0.25f, MaxZ);
     }
 
     // Furniture keeps human scale; it is placed per room and never scaled with the rooms.
@@ -713,15 +704,6 @@ public static partial class UnclaimedMorgueGenerator
         Undo.RegisterCreatedObjectUndo(marker, "Create marker");
         marker.transform.SetParent(parent, false);
         marker.transform.position = new Vector3(x, height, z);
-    }
-
-    private static void Limit(string name, Transform parent, float x0, float z0, float x1, float z1)
-    {
-        var obj = new GameObject(name);
-        Undo.RegisterCreatedObjectUndo(obj, "Create " + name);
-        obj.transform.SetParent(parent, false);
-        obj.transform.position = new Vector3((x0 + x1) * 0.5f, 1.5f, (z0 + z1) * 0.5f);
-        obj.AddComponent<BoxCollider>().size = new Vector3(Mathf.Abs(x1 - x0), 3f, Mathf.Abs(z1 - z0));
     }
 
     private static GameObject Box(string name, Transform parent, Vector3 position, Vector3 size, Material material)

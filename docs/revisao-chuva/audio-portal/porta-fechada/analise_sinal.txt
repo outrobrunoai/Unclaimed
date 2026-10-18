@@ -1,0 +1,14 @@
+  1.8s dentro 1,2 m, fechando       rms  -38.5 dB  centroide   919 Hz  L/R  -0.1 dB  corr L-R +0.05
+  6.0s dentro 1 m, fechada          rms  -38.2 dB  centroide   931 Hz  L/R  -0.5 dB  corr L-R +0.04
+ 11.0s dentro 0,43 m (minimo), fechada rms  -38.2 dB  centroide   922 Hz  L/R  +0.1 dB  corr L-R +0.03
+ 13.3s rente, lado direito          rms  -38.1 dB  centroide   912 Hz  L/R  -0.2 dB  corr L-R +0.03
+ 15.3s rente, junta/esquerdo        rms  -37.9 dB  centroide   916 Hz  L/R  -0.5 dB  corr L-R +0.01
+ 17.2s rente, centro                rms  -38.3 dB  centroide   937 Hz  L/R  -0.7 dB  corr L-R +0.05
+ 20.8s 1,2 m, ambas abertas         rms  -28.4 dB  centroide  4540 Hz  L/R  -0.8 dB  corr L-R +0.27
+ 24.2s 1,2 m, fechada de novo       rms  -38.3 dB  centroide   898 Hz  L/R  +0.0 dB  corr L-R +0.04
+ 27.3s 1,2 m, so esquerda aberta    rms  -32.0 dB  centroide  4451 Hz  L/R  +0.4 dB  corr L-R +0.24
+ 29.8s 1,2 m, fechada               rms  -38.0 dB  centroide   966 Hz  L/R  -0.5 dB  corr L-R +0.09
+ 33.3s 0,43 m, fechada              rms  -38.4 dB  centroide   912 Hz  L/R  -0.1 dB  corr L-R +0.05
+ 35.3s fora 0,42 m, fechada         rms  -27.0 dB  centroide  4651 Hz  L/R  -1.0 dB  corr L-R -0.00
+ 37.8s fora 1 m, fechada            rms  -26.9 dB  centroide  4629 Hz  L/R  -0.5 dB  corr L-R +0.00
+maiores saltos de centroide (0,25 s): [(np.float64(0.5), 1478), (np.float64(17.75), 2059), (np.float64(22.75), 1577), (np.float64(25.5), 1536), (np.float64(34.0), 3728)]

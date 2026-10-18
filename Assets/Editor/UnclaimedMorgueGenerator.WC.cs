@@ -64,13 +64,7 @@ public static partial class UnclaimedMorgueGenerator
         WCProp(fit, wc("Ralo"), "Ralo", new Vector3(-12.375f, 0f, -5.625f), 0f);
         WCProp(fit, wc("Exaustor"), "Exaustor", new Vector3(-14.0f, WallHeight - FinishOffset, -6.45f), 0f);
 
-        // Discreet signage: "do not flush paper" over the tank, the cleaning log in its acrylic holder by the door.
-        Material acrylic = Mat(WCMatFolder, "Acrilico da placa", new Color(0.93f, 0.93f, 0.92f), 0.7f);
-        Material paperSign = Mat(WCMatFolder, "Placa - papel no lixo", Color.white, 0.55f, 0f, WCTextures + "Placa_NaoJogarPapel.png");
-        Material cleaningLog = Mat(WCMatFolder, "Controle de limpeza", Color.white, 0.6f, 0f, WCTextures + "Controle_Limpeza.png");
-        Transform signs = Sub(room, "Sinalizacao");
-        Plaque("Placa - papel no lixo", signs, new Vector3(-14.20f, 1.40f, WzMax), Vector3.back, 0.25f, 0.15f, paperSign, acrylic, 0.003f);
-        Plaque("Controle de limpeza", signs, new Vector3(-12.75f, 1.45f, WzMin), Vector3.forward, 0.23f, 0.32f, cleaningLog, acrylic, 0.006f);
+        WCSigns(Sub(room, "Sinalizacao"));
 
         // Wear, kept local: grout darkened round the toilet foot (on the 45 cm tile grid),
         // limescale behind the tap, water marks in front of the basin, a damp ring round the drain.
@@ -80,6 +74,17 @@ public static partial class UnclaimedMorgueGenerator
         Decal("Calcario - torneira", wear, new Vector3(WxMax - 0.006f, 0.87f, -5.25f), Vector3.left, Vector3.forward, Vector3.up, 0.32f, 0.12f, decalLimescale);
         Decal("Marcas de agua - lavatorio", wear, new Vector3(-10.95f, 0.0045f, -5.25f), Vector3.up, Vector3.forward, Vector3.right, 0.55f, 0.45f, decalFloorWear);
         Decal("Umidade - ralo", wear, new Vector3(-12.375f, 0.0042f, -5.625f), Vector3.up, Vector3.right, Vector3.forward, 0.34f, 0.34f, decalFloorWear);
+    }
+
+    // Discreet signage: "do not flush paper" over the tank, the cleaning log in its acrylic holder by the door.
+    // Also rebuilt on the saved map by Tools > Unclaimed > Update Wall Finishes.
+    private static void WCSigns(Transform signs)
+    {
+        Material acrylic = Mat(WCMatFolder, "Acrilico da placa", new Color(0.93f, 0.93f, 0.92f), 0.7f);
+        Material paperSign = Mat(WCMatFolder, "Placa - papel no lixo", Color.white, 0.55f, 0f, WCTextures + "Placa_NaoJogarPapel.png");
+        Material cleaningLog = Mat(WCMatFolder, "Controle de limpeza", Color.white, 0.6f, 0f, WCTextures + "Controle_Limpeza.png");
+        Plaque("Placa - papel no lixo", signs, new Vector3(-14.20f, 1.40f, WzMax), Vector3.back, 0.25f, 0.15f, paperSign, acrylic, 0.003f);
+        Plaque("Controle de limpeza", signs, new Vector3(-12.75f, 1.45f, WzMin), Vector3.forward, 0.23f, 0.32f, cleaningLog, acrylic, 0.006f);
     }
 
     private static GameObject WCProp(Transform parent, string prefabPath, string name, Vector3 position, float yaw)

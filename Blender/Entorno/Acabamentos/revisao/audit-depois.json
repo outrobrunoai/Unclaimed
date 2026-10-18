@@ -1,0 +1,6571 @@
+{
+  "scene": "Assets/Scenes/PrototipoNecroterio.unity",
+  "dirty": true,
+  "playing": false,
+  "lightmaps": 3,
+  "lights": [
+    {
+      "path": "Directional Light",
+      "pos": [
+        0.0,
+        3.0,
+        0.0
+      ],
+      "rot": [
+        0.408217877,
+        -0.234569684,
+        0.109381631,
+        0.8754261
+      ],
+      "intensity": 1.0,
+      "range": 10.0,
+      "color": [
+        1.0,
+        0.956862748,
+        0.8392157,
+        1.0
+      ],
+      "type": "Directional",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - autopsia - luminaria 1",
+      "pos": [
+        0.0,
+        3.09,
+        -1.9
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 5.6,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - autopsia - luminaria 2",
+      "pos": [
+        2.75,
+        3.09,
+        -1.9
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 5.6,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - autopsia - luminaria 3",
+      "pos": [
+        5.5,
+        3.09,
+        -1.9
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 3.08,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - autopsia - luminaria 5",
+      "pos": [
+        2.75,
+        3.09,
+        1.4
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 5.6,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - autopsia - luminaria 6",
+      "pos": [
+        5.5,
+        3.09,
+        1.4
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 5.6,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - autopsia - foco cirurgico",
+      "pos": [
+        2.7,
+        2.23,
+        -0.45
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 3.0,
+      "range": 4.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - recepcao - luminaria 1",
+      "pos": [
+        -13.0,
+        3.11950016,
+        -8.45
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 4.2,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - recepcao - luminaria 2",
+      "pos": [
+        -10.35,
+        3.11950016,
+        -8.45
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 4.2,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - recepcao - luminaria 3",
+      "pos": [
+        -7.7,
+        3.11950016,
+        -8.45
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 4.2,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - recepcao - luminaria 4",
+      "pos": [
+        -13.0,
+        3.11950016,
+        -10.95
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 4.2,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - recepcao - luminaria 5",
+      "pos": [
+        -10.35,
+        3.11950016,
+        -10.95
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 2.31,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - recepcao - luminaria 6",
+      "pos": [
+        -7.7,
+        3.11950016,
+        -10.95
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 4.2,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - WC - luminaria 1",
+      "pos": [
+        -12.55,
+        3.11950016,
+        -5.5
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 3.6,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - Arquivo e escritorio - luminaria 1",
+      "pos": [
+        -4.2,
+        3.09,
+        -8.1
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 4.2,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - Arquivo e escritorio - luminaria 2",
+      "pos": [
+        -0.2,
+        3.09,
+        -8.1
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 4.2,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - Arquivo e escritorio - luminaria 3",
+      "pos": [
+        0.75,
+        3.09,
+        -4.75
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 3.6,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - Descanso e vestiario - luminaria 1",
+      "pos": [
+        -11.0,
+        3.09,
+        -1.5
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 3.9,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - Descanso e vestiario - luminaria 2",
+      "pos": [
+        -7.3,
+        3.09,
+        -1.5
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 3.9,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - Deposito - luminaria 1",
+      "pos": [
+        -6.25,
+        3.09,
+        3.45
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 3.4,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - Sala tecnica - luminaria 1",
+      "pos": [
+        -2.4,
+        3.09,
+        7.4
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 3.6,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - Sala tecnica - luminaria 2",
+      "pos": [
+        1.4,
+        3.09,
+        7.4
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 3.6,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - Camara fria - luminaria 1",
+      "pos": [
+        10.25,
+        3.09,
+        -1.6
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 4.2,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - Camara fria - luminaria 2",
+      "pos": [
+        10.25,
+        3.09,
+        3.4
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 4.2,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - Recebimento de corpos - luminaria 1",
+      "pos": [
+        5.6,
+        3.09,
+        8.4
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 4.5,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - Recebimento de corpos - luminaria 2",
+      "pos": [
+        10.4,
+        3.09,
+        8.4
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 4.5,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - Vestibulo de servico - luminaria 1",
+      "pos": [
+        5.375,
+        3.09,
+        4.45
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 3.4,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - Circulacao - luminaria 1",
+      "pos": [
+        -7.25,
+        3.09,
+        -4.925
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 3.6,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - Circulacao - luminaria 2",
+      "pos": [
+        -3.9,
+        3.09,
+        -4.925
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 3.6,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - Circulacao - luminaria 3",
+      "pos": [
+        -3.625,
+        3.09,
+        -1.5
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 3.6,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - Circulacao - luminaria 4",
+      "pos": [
+        -3.25,
+        3.09,
+        2.25
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 3.6,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Luz - Circulacao - luminaria 5",
+      "pos": [
+        -0.625,
+        3.09,
+        4.7
+      ],
+      "rot": [
+        0.7071068,
+        0.0,
+        0.0,
+        0.7071068
+      ],
+      "intensity": 3.6,
+      "range": 8.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Iluminacao externa/Luz - Arandela - entrada principal",
+      "pos": [
+        -11.375,
+        2.49,
+        -12.55
+      ],
+      "rot": [
+        0.618465662,
+        0.618465662,
+        -0.3427831,
+        0.342783123
+      ],
+      "intensity": 3.2,
+      "range": 10.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Iluminacao externa/Luz - Refletor - porta do patio",
+      "pos": [
+        12.9100008,
+        2.93,
+        8.375
+      ],
+      "rot": [
+        0.6797055,
+        0.194936976,
+        0.194936976,
+        0.6797055
+      ],
+      "intensity": 3.5,
+      "range": 13.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Iluminacao externa/Luz - Refletor - patio norte",
+      "pos": [
+        11.0,
+        2.93,
+        11.6600008
+      ],
+      "rot": [
+        0.3427831,
+        -0.342783123,
+        0.6184656,
+        0.6184657
+      ],
+      "intensity": 3.5,
+      "range": 13.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Iluminacao externa/Luz da lua",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.1729874,
+        0.08583164,
+        -0.0151344351,
+        0.981060266
+      ],
+      "intensity": 0.12,
+      "range": 10.0,
+      "color": [
+        0.68,
+        0.76,
+        0.95,
+        1.0
+      ],
+      "type": "Directional",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Iluminacao externa/Entorno/Luz - Refletor - nicho do arquivo",
+      "pos": [
+        3.65999985,
+        2.93,
+        -10.0
+      ],
+      "rot": [
+        0.6797055,
+        0.194936976,
+        0.194936976,
+        0.6797055
+      ],
+      "intensity": 2.5,
+      "range": 10.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Iluminacao externa/Entorno/Luz - poste de jardim",
+      "pos": [
+        -13.0,
+        2.67,
+        -16.8
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "intensity": 1.5,
+      "range": 6.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Point",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Iluminacao externa/Entorno/Luz - guarita - interior",
+      "pos": [
+        12.2,
+        2.39999986,
+        -17.15
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "intensity": 0.4,
+      "range": 4.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Point",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Iluminacao externa/Entorno/Luz - Refletor - guarita",
+      "pos": [
+        13.46,
+        2.38,
+        -16.9
+      ],
+      "rot": [
+        0.6797055,
+        0.194936976,
+        0.194936976,
+        0.6797055
+      ],
+      "intensity": 2.5,
+      "range": 11.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Iluminacao externa/Entorno/Luz - poste de sodio x-4.5",
+      "pos": [
+        -4.5,
+        7.69,
+        -22.82
+      ],
+      "rot": [
+        0.596930563,
+        0.0,
+        0.0,
+        0.802292943
+      ],
+      "intensity": 8.0,
+      "range": 18.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Iluminacao externa/Entorno/Luz - poste LED x22",
+      "pos": [
+        22.0,
+        7.69,
+        -22.82
+      ],
+      "rot": [
+        0.596930563,
+        0.0,
+        0.0,
+        0.802292943
+      ],
+      "intensity": 3.0,
+      "range": 15.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Iluminacao externa/Entorno/Luz - poste LED x-32",
+      "pos": [
+        -32.0,
+        7.69,
+        -27.18
+      ],
+      "rot": [
+        0.802293,
+        0.0,
+        0.0,
+        0.5969305
+      ],
+      "intensity": 3.0,
+      "range": 15.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Iluminacao externa/Entorno/Luz - poste LED x9",
+      "pos": [
+        9.0,
+        7.69,
+        -27.18
+      ],
+      "rot": [
+        0.802293,
+        0.0,
+        0.0,
+        0.5969305
+      ],
+      "intensity": 3.0,
+      "range": 15.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Iluminacao externa/Entorno/Luz - poste LED x40",
+      "pos": [
+        40.0,
+        7.69,
+        -27.18
+      ],
+      "rot": [
+        0.802293,
+        0.0,
+        0.0,
+        0.5969305
+      ],
+      "intensity": 3.0,
+      "range": 15.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Spot",
+      "enabled": true
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Luzes/Iluminacao externa/Entorno/Luz - alpendre - casa 3",
+      "pos": [
+        -2.5,
+        2.35,
+        -34.7600021
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "intensity": 1.2,
+      "range": 6.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Point",
+      "enabled": true
+    }
+  ],
+  "colliders": [
+    {
+      "path": "Player",
+      "type": "CharacterController",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -11.375,
+        1.0,
+        -11.5
+      ],
+      "size": [
+        0.7,
+        2.0,
+        0.7
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pisos/Piso - Recepcao 1",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -10.625,
+        -0.1,
+        -9.75
+      ],
+      "size": [
+        8.25,
+        0.2,
+        5.25
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pisos/Piso - Recepcao 2",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -8.4375,
+        -0.1,
+        -6.5625
+      ],
+      "size": [
+        3.875,
+        0.2,
+        1.125
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pisos/Piso - WC",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -12.5625,
+        -0.1,
+        -5.5
+      ],
+      "size": [
+        4.375,
+        0.2,
+        3.25
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pisos/Piso - Arquivo e escritorio 1",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -1.5,
+        -0.1,
+        -8.125
+      ],
+      "size": [
+        10.0,
+        0.2,
+        4.25
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pisos/Piso - Arquivo e escritorio 2",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        0.75,
+        -0.1,
+        -4.75
+      ],
+      "size": [
+        5.5,
+        0.2,
+        2.5
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pisos/Piso - Descanso e vestiario",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -9.125,
+        -0.1,
+        -1.5
+      ],
+      "size": [
+        7.75,
+        0.2,
+        4.75
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pisos/Piso - Deposito",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -6.25,
+        -0.1,
+        3.4375
+      ],
+      "size": [
+        3.5,
+        0.2,
+        5.125
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pisos/Piso - Sala tecnica",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -0.625,
+        -0.1,
+        7.375
+      ],
+      "size": [
+        7.75,
+        0.2,
+        3.25
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pisos/Piso - Autopsia",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        2.75,
+        -0.1,
+        0.0625
+      ],
+      "size": [
+        9.5,
+        0.2,
+        7.125
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pisos/Piso - Camara fria",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        11.25,
+        -0.1,
+        0.875
+      ],
+      "size": [
+        7.5,
+        0.2,
+        8.75
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pisos/Piso - Recebimento de corpos",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        8.0,
+        -0.1,
+        8.375
+      ],
+      "size": [
+        9.5,
+        0.2,
+        6.25
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pisos/Piso - Circulacao 1",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -6.1875,
+        -0.1,
+        -4.9375
+      ],
+      "size": [
+        8.375,
+        0.2,
+        2.125
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pisos/Piso - Circulacao 2",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -3.625,
+        -0.1,
+        -1.5
+      ],
+      "size": [
+        3.25,
+        0.2,
+        4.75
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pisos/Piso - Circulacao 3",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -3.25,
+        -0.1,
+        2.25
+      ],
+      "size": [
+        2.5,
+        0.2,
+        2.75
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pisos/Piso - Circulacao 4",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -0.625,
+        -0.1,
+        4.6875
+      ],
+      "size": [
+        7.75,
+        0.2,
+        2.125
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pisos/Piso - Vestibulo de servico",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        5.375,
+        -0.1,
+        4.4375
+      ],
+      "size": [
+        4.25,
+        0.2,
+        1.625
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pisos/Piso - Patio de servico 1",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        16.875,
+        -0.1,
+        10.375
+      ],
+      "size": [
+        8.25,
+        0.2,
+        10.25
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pisos/Piso - Patio de servico 2",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        11.0,
+        -0.1,
+        12.375
+      ],
+      "size": [
+        3.5,
+        0.2,
+        1.75
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede externa - Recepcao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -14.75,
+        1.6,
+        -9.75
+      ],
+      "size": [
+        0.200000763,
+        3.2,
+        5.450001
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede externa - WC",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -14.75,
+        1.6,
+        -5.5
+      ],
+      "size": [
+        0.200000763,
+        3.2,
+        3.44999981
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede externa - Descanso e vestiario",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -13.0,
+        1.6,
+        -1.5
+      ],
+      "size": [
+        0.200000763,
+        3.2,
+        4.95
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Recepcao / WC",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -10.375,
+        1.6,
+        -6.5625
+      ],
+      "size": [
+        0.200000763,
+        3.2,
+        1.32499981
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede WC / Circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -10.375,
+        1.6,
+        -4.9375
+      ],
+      "size": [
+        0.200000763,
+        3.2,
+        2.32499981
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede externa - Deposito",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -8.0,
+        1.6,
+        3.4375
+      ],
+      "size": [
+        0.200000286,
+        3.2,
+        5.325
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede externa - Recepcao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -6.5,
+        1.6,
+        -11.3125
+      ],
+      "size": [
+        0.199999809,
+        3.2,
+        2.32500076
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Recepcao / Arquivo e escritorio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -6.5,
+        1.6,
+        -9.55
+      ],
+      "size": [
+        0.199999809,
+        3.2,
+        1.60000038
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Recepcao / Arquivo e escritorio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -6.5,
+        1.6,
+        -6.575
+      ],
+      "size": [
+        0.199999809,
+        3.2,
+        1.35000038
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Descanso e vestiario / Circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -5.25,
+        1.6,
+        -2.4875
+      ],
+      "size": [
+        0.199999809,
+        3.2,
+        2.975
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Descanso e vestiario / Circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -5.25,
+        1.6,
+        0.7375
+      ],
+      "size": [
+        0.199999809,
+        3.2,
+        0.475000024
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Deposito / Circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -4.5,
+        1.6,
+        1.7625
+      ],
+      "size": [
+        0.199999809,
+        3.2,
+        1.9749999
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Deposito / Circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -4.5,
+        1.6,
+        5.05
+      ],
+      "size": [
+        0.199999809,
+        3.2,
+        1.60000038
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Deposito / Sala tecnica",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -4.5,
+        1.6,
+        5.875
+      ],
+      "size": [
+        0.199999809,
+        3.2,
+        0.4499998
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede externa - Sala tecnica",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -4.5,
+        1.6,
+        7.5
+      ],
+      "size": [
+        0.199999809,
+        3.2,
+        3.20000076
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Arquivo e escritorio / Circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -2.0,
+        1.6,
+        -5.8
+      ],
+      "size": [
+        0.199999928,
+        3.2,
+        0.6000004
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Arquivo e escritorio / Circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -2.0,
+        1.6,
+        -3.7
+      ],
+      "size": [
+        0.199999928,
+        3.2,
+        0.5999999
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Autopsia / Circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -2.0,
+        1.6,
+        -2.175
+      ],
+      "size": [
+        0.199999928,
+        3.2,
+        2.85
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Autopsia / Circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -2.0,
+        1.6,
+        2.2375
+      ],
+      "size": [
+        0.199999928,
+        3.2,
+        2.975
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Circulacao / Vestibulo de servico",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        3.25,
+        1.6,
+        3.7
+      ],
+      "size": [
+        0.199999809,
+        3.2,
+        0.3499999
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Circulacao / Vestibulo de servico",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        3.25,
+        1.6,
+        5.2375
+      ],
+      "size": [
+        0.199999809,
+        3.2,
+        0.225000381
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Recebimento de corpos / Circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        3.25,
+        1.6,
+        5.5
+      ],
+      "size": [
+        0.199999809,
+        3.2,
+        0.6999998
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Sala tecnica / Recebimento de corpos",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        3.25,
+        1.6,
+        7.375
+      ],
+      "size": [
+        0.199999809,
+        3.2,
+        3.45000076
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede externa - Recebimento de corpos",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        3.25,
+        1.6,
+        10.25
+      ],
+      "size": [
+        0.199999809,
+        3.2,
+        2.70000076
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede externa - Arquivo e escritorio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        3.5,
+        1.6,
+        -6.875
+      ],
+      "size": [
+        0.199999809,
+        3.2,
+        6.950001
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Autopsia / Camara fria",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        7.5,
+        1.6,
+        -2.05
+      ],
+      "size": [
+        0.199999809,
+        3.2,
+        3.1
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Autopsia / Camara fria",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        7.5,
+        1.6,
+        2.3625
+      ],
+      "size": [
+        0.199999809,
+        3.2,
+        2.725
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Camara fria / Vestibulo de servico",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        7.5,
+        1.6,
+        4.4375
+      ],
+      "size": [
+        0.199999809,
+        3.2,
+        1.82499981
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Muro do patio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        9.25,
+        1.1,
+        12.375
+      ],
+      "size": [
+        0.149999619,
+        2.2,
+        1.89999962
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Recebimento de corpos / Patio de servico",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        12.75,
+        1.6,
+        6.2625
+      ],
+      "size": [
+        0.200000763,
+        3.2,
+        2.22500038
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Recebimento de corpos / Patio de servico",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        12.75,
+        1.6,
+        10.4875
+      ],
+      "size": [
+        0.200000763,
+        3.2,
+        2.22500038
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Muro do patio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        12.75,
+        1.1,
+        14.375
+      ],
+      "size": [
+        0.149999619,
+        2.2,
+        2.39999962
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede externa - Camara fria",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        15.0,
+        1.6,
+        0.875
+      ],
+      "size": [
+        0.200000763,
+        3.2,
+        8.95
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Muro do patio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        21.0,
+        1.1,
+        10.375
+      ],
+      "size": [
+        0.150001526,
+        2.2,
+        10.4
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede externa - Recepcao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -13.6125,
+        1.6,
+        -12.375
+      ],
+      "size": [
+        2.47500038,
+        3.2,
+        0.200000763
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede externa - Recepcao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -8.3875,
+        1.6,
+        -12.375
+      ],
+      "size": [
+        3.97500038,
+        3.2,
+        0.200000763
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede externa - Arquivo e escritorio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -1.5,
+        1.6,
+        -10.25
+      ],
+      "size": [
+        10.2,
+        3.2,
+        0.200000763
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Recepcao / WC",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -13.425,
+        1.6,
+        -7.125
+      ],
+      "size": [
+        2.85000038,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Recepcao / WC",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -10.6375,
+        1.6,
+        -7.125
+      ],
+      "size": [
+        0.7250004,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Recepcao / Circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -9.6125,
+        1.6,
+        -6.0
+      ],
+      "size": [
+        1.72500038,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Recepcao / Circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -6.825,
+        1.6,
+        -6.0
+      ],
+      "size": [
+        0.8500004,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Arquivo e escritorio / Circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -4.25,
+        1.6,
+        -6.0
+      ],
+      "size": [
+        4.7,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede externa - WC",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -13.875,
+        1.6,
+        -3.875
+      ],
+      "size": [
+        1.95000076,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede WC / Descanso e vestiario",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -11.6875,
+        1.6,
+        -3.875
+      ],
+      "size": [
+        2.82500076,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Descanso e vestiario / Circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -7.8125,
+        1.6,
+        -3.875
+      ],
+      "size": [
+        5.325001,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Arquivo e escritorio / Autopsia",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        0.75,
+        1.6,
+        -3.5
+      ],
+      "size": [
+        5.7,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede externa - Autopsia",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        5.5,
+        1.6,
+        -3.5
+      ],
+      "size": [
+        4.2,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede externa - Camara fria",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        11.25,
+        1.6,
+        -3.5
+      ],
+      "size": [
+        7.700001,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede externa - Descanso e vestiario",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -10.5,
+        1.6,
+        0.875
+      ],
+      "size": [
+        5.200001,
+        3.2,
+        0.200000048
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Descanso e vestiario / Deposito",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -6.625,
+        1.6,
+        0.875
+      ],
+      "size": [
+        2.95000076,
+        3.2,
+        0.200000048
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Deposito / Circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -4.875,
+        1.6,
+        0.875
+      ],
+      "size": [
+        0.9499998,
+        3.2,
+        0.200000048
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Autopsia / Circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        0.625,
+        1.6,
+        3.625
+      ],
+      "size": [
+        5.45,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Autopsia / Vestibulo de servico",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        5.375,
+        1.6,
+        3.625
+      ],
+      "size": [
+        4.45,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Recebimento de corpos / Vestibulo de servico",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        3.8875,
+        1.6,
+        5.25
+      ],
+      "size": [
+        1.4749999,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Recebimento de corpos / Vestibulo de servico",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        6.8625,
+        1.6,
+        5.25
+      ],
+      "size": [
+        1.47500038,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Camara fria / Recebimento de corpos",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        8.2,
+        1.6,
+        5.25
+      ],
+      "size": [
+        1.60000038,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Camara fria / Recebimento de corpos",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        11.675,
+        1.6,
+        5.25
+      ],
+      "size": [
+        2.35000038,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Camara fria / Patio de servico",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        13.875,
+        1.6,
+        5.25
+      ],
+      "size": [
+        2.45000076,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Muro do patio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        15.8375,
+        1.1,
+        5.25
+      ],
+      "size": [
+        1.82500076,
+        2.2,
+        0.149999619
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Muro do patio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        20.1625,
+        1.1,
+        5.25
+      ],
+      "size": [
+        1.82500076,
+        2.2,
+        0.149999619
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Sala tecnica / Circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -4.425,
+        1.6,
+        5.75
+      ],
+      "size": [
+        0.350000381,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Sala tecnica / Circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        0.299999952,
+        1.6,
+        5.75
+      ],
+      "size": [
+        6.1,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede externa - Deposito",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -6.25,
+        1.6,
+        6.0
+      ],
+      "size": [
+        3.70000076,
+        3.2,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede externa - Sala tecnica",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -0.625,
+        1.6,
+        9.0
+      ],
+      "size": [
+        7.95,
+        3.2,
+        0.200000763
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede externa - Recebimento de corpos",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        6.25,
+        1.6,
+        11.5
+      ],
+      "size": [
+        6.200001,
+        3.2,
+        0.200000763
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Parede Recebimento de corpos / Patio de servico",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        11.0,
+        1.6,
+        11.5
+      ],
+      "size": [
+        3.70000076,
+        3.2,
+        0.200000763
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Muro do patio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        11.0,
+        1.1,
+        13.25
+      ],
+      "size": [
+        3.64999962,
+        2.2,
+        0.149999619
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Paredes/Muro do patio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        16.875,
+        1.1,
+        15.5
+      ],
+      "size": [
+        8.400002,
+        2.2,
+        0.149999619
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Entrada principal/Verga",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -11.375,
+        2.7,
+        -12.375
+      ],
+      "size": [
+        2.0,
+        1.0,
+        0.200000763
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Entrada principal/Batente da entrada",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -12.36,
+        1.1,
+        -12.375
+      ],
+      "size": [
+        0.0300006866,
+        2.2,
+        0.209999084
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Entrada principal/Batente da entrada",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -10.39,
+        1.1,
+        -12.375
+      ],
+      "size": [
+        0.0300006866,
+        2.2,
+        0.209999084
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Entrada principal/Porta de vidro - entrada/Folha esquerda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -12.2691326,
+        1.09,
+        -12.8007412
+      ],
+      "size": [
+        0.08375168,
+        2.16,
+        0.969154358
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Entrada principal/Porta de vidro - entrada/Folha direita",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -10.4808664,
+        1.09,
+        -12.8007412
+      ],
+      "size": [
+        0.08375168,
+        2.16,
+        0.969154358
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta WC/Verga",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -11.5,
+        2.7,
+        -7.125
+      ],
+      "size": [
+        1.0,
+        1.0,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta WC/Porta do WC",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -11.985,
+        1.1,
+        -7.125
+      ],
+      "size": [
+        0.0300006866,
+        2.2,
+        0.210000038
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta WC/Porta do WC",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -11.015,
+        1.1,
+        -7.125
+      ],
+      "size": [
+        0.0300006866,
+        2.2,
+        0.210000038
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta WC/Porta do WC/Folha",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -11.00955,
+        1.0875001,
+        -6.639085
+      ],
+      "size": [
+        0.116270065,
+        2.159,
+        0.9334965
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta recepcao - circulacao/Verga",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -8.0,
+        2.7,
+        -6.0
+      ],
+      "size": [
+        1.5,
+        1.0,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta recepcao - circulacao/Porta da circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -8.7275,
+        1.1,
+        -6.02
+      ],
+      "size": [
+        0.0450000763,
+        2.2,
+        0.18999958
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta recepcao - circulacao/Porta da circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -8.735,
+        1.1,
+        -5.905
+      ],
+      "size": [
+        0.0300006866,
+        2.2,
+        0.03999996
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta recepcao - circulacao/Porta da circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -7.2725,
+        1.1,
+        -6.02
+      ],
+      "size": [
+        0.0450000763,
+        2.2,
+        0.18999958
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta recepcao - circulacao/Porta da circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -7.265,
+        1.1,
+        -5.905
+      ],
+      "size": [
+        0.029999733,
+        2.2,
+        0.03999996
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta recepcao - circulacao/Porta da circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -7.568,
+        1.0895,
+        -5.905
+      ],
+      "size": [
+        0.5699997,
+        2.15499973,
+        0.03999996
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta recepcao - circulacao/Porta da circulacao/Folha",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -8.287,
+        1.0895,
+        -5.905
+      ],
+      "size": [
+        0.860000134,
+        2.15499973,
+        0.03999996
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta recepcao - arquivo/Verga",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -6.5,
+        2.7,
+        -8.0
+      ],
+      "size": [
+        0.199999809,
+        1.0,
+        1.5
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta arquivo - circulacao/Verga",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -2.0,
+        2.7,
+        -4.75
+      ],
+      "size": [
+        0.199999928,
+        1.0,
+        1.5
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta descanso/Verga",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -5.25,
+        2.7,
+        -0.25
+      ],
+      "size": [
+        0.199999809,
+        1.0,
+        1.5
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta deposito/Verga",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -4.5,
+        2.7,
+        3.5
+      ],
+      "size": [
+        0.199999809,
+        1.0,
+        1.5
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta sala tecnica/Verga",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -3.5,
+        2.7,
+        5.75
+      ],
+      "size": [
+        1.5,
+        1.0,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta autopsia - circulacao/Verga",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -2.0,
+        2.7,
+        0.0
+      ],
+      "size": [
+        0.199999928,
+        1.0,
+        1.5
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta autopsia - camara fria/Verga",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        7.5,
+        2.7,
+        0.25
+      ],
+      "size": [
+        0.199999809,
+        1.0,
+        1.5
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta camara fria - recebimento/Verga",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        9.75,
+        2.7,
+        5.25
+      ],
+      "size": [
+        1.5,
+        1.0,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta circulacao - vestibulo/Verga",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        3.25,
+        2.7,
+        4.5
+      ],
+      "size": [
+        0.199999809,
+        1.0,
+        1.25
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta vestibulo - recebimento/Verga",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        5.375,
+        2.7,
+        5.25
+      ],
+      "size": [
+        1.5,
+        1.0,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Portas/Porta dupla recebimento - patio/Verga",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        12.75,
+        2.7,
+        8.375
+      ],
+      "size": [
+        0.200000763,
+        1.0,
+        2.0
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Tetos/Laje - Recepcao 1",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -10.625,
+        3.3,
+        -9.75
+      ],
+      "size": [
+        8.25,
+        0.199999809,
+        5.25
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Tetos/Laje - Recepcao 2",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -8.4375,
+        3.3,
+        -6.5625
+      ],
+      "size": [
+        3.875,
+        0.199999809,
+        1.125
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Tetos/Laje - WC",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -12.5625,
+        3.3,
+        -5.5
+      ],
+      "size": [
+        4.375,
+        0.199999809,
+        3.25
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Tetos/Laje - Arquivo e escritorio 1",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -1.5,
+        3.3,
+        -8.125
+      ],
+      "size": [
+        10.0,
+        0.199999809,
+        4.25
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Tetos/Laje - Arquivo e escritorio 2",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        0.75,
+        3.3,
+        -4.75
+      ],
+      "size": [
+        5.5,
+        0.199999809,
+        2.5
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Tetos/Laje - Descanso e vestiario",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -9.125,
+        3.3,
+        -1.5
+      ],
+      "size": [
+        7.75,
+        0.199999809,
+        4.75
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Tetos/Laje - Deposito",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -6.25,
+        3.3,
+        3.4375
+      ],
+      "size": [
+        3.5,
+        0.199999809,
+        5.125
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Tetos/Laje - Sala tecnica",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -0.625,
+        3.3,
+        7.375
+      ],
+      "size": [
+        7.75,
+        0.199999809,
+        3.25
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Tetos/Laje - Autopsia",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        2.75,
+        3.3,
+        0.0625
+      ],
+      "size": [
+        9.5,
+        0.199999809,
+        7.125
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Tetos/Laje - Camara fria",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        11.25,
+        3.3,
+        0.875
+      ],
+      "size": [
+        7.5,
+        0.199999809,
+        8.75
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Tetos/Laje - Recebimento de corpos",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        8.0,
+        3.3,
+        8.375
+      ],
+      "size": [
+        9.5,
+        0.199999809,
+        6.25
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Tetos/Laje - Circulacao 1",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -6.1875,
+        3.3,
+        -4.9375
+      ],
+      "size": [
+        8.375,
+        0.199999809,
+        2.125
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Tetos/Laje - Circulacao 2",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -3.625,
+        3.3,
+        -1.5
+      ],
+      "size": [
+        3.25,
+        0.199999809,
+        4.75
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Tetos/Laje - Circulacao 3",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -3.25,
+        3.3,
+        2.25
+      ],
+      "size": [
+        2.5,
+        0.199999809,
+        2.75
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Tetos/Laje - Circulacao 4",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -0.625,
+        3.3,
+        4.6875
+      ],
+      "size": [
+        7.75,
+        0.199999809,
+        2.125
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Tetos/Laje - Vestibulo de servico",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        5.375,
+        3.3,
+        4.4375
+      ],
+      "size": [
+        4.25,
+        0.199999809,
+        1.625
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -14.75,
+        3.55000019,
+        -9.75
+      ],
+      "size": [
+        0.200000763,
+        0.6999998,
+        5.450001
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -14.75,
+        3.55000019,
+        -5.5
+      ],
+      "size": [
+        0.200000763,
+        0.6999998,
+        3.44999981
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -13.0,
+        3.55000019,
+        -1.5
+      ],
+      "size": [
+        0.200000763,
+        0.6999998,
+        4.95
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -8.0,
+        3.55000019,
+        3.4375
+      ],
+      "size": [
+        0.200000286,
+        0.6999998,
+        5.325
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -6.5,
+        3.55000019,
+        -11.3125
+      ],
+      "size": [
+        0.199999809,
+        0.6999998,
+        2.32500076
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -4.5,
+        3.55000019,
+        7.5
+      ],
+      "size": [
+        0.199999809,
+        0.6999998,
+        3.20000076
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        3.25,
+        3.55000019,
+        10.25
+      ],
+      "size": [
+        0.199999809,
+        0.6999998,
+        2.70000076
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        3.5,
+        3.55000019,
+        -6.875
+      ],
+      "size": [
+        0.199999809,
+        0.6999998,
+        6.950001
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        12.75,
+        3.55000019,
+        6.2625
+      ],
+      "size": [
+        0.200000763,
+        0.6999998,
+        2.22500038
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        12.75,
+        3.55000019,
+        10.4875
+      ],
+      "size": [
+        0.200000763,
+        0.6999998,
+        2.22500038
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        15.0,
+        3.55000019,
+        0.875
+      ],
+      "size": [
+        0.200000763,
+        0.6999998,
+        8.95
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -13.6125,
+        3.55000019,
+        -12.375
+      ],
+      "size": [
+        2.47500038,
+        0.6999998,
+        0.200000763
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -8.3875,
+        3.55000019,
+        -12.375
+      ],
+      "size": [
+        3.97500038,
+        0.6999998,
+        0.200000763
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -1.5,
+        3.55000019,
+        -10.25
+      ],
+      "size": [
+        10.2,
+        0.6999998,
+        0.200000763
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -13.875,
+        3.55000019,
+        -3.875
+      ],
+      "size": [
+        1.95000076,
+        0.6999998,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        5.5,
+        3.55000019,
+        -3.5
+      ],
+      "size": [
+        4.2,
+        0.6999998,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        11.25,
+        3.55000019,
+        -3.5
+      ],
+      "size": [
+        7.700001,
+        0.6999998,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -10.5,
+        3.55000019,
+        0.875
+      ],
+      "size": [
+        5.200001,
+        0.6999998,
+        0.200000048
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        13.875,
+        3.55000019,
+        5.25
+      ],
+      "size": [
+        2.45000076,
+        0.6999998,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -6.25,
+        3.55000019,
+        6.0
+      ],
+      "size": [
+        3.70000076,
+        0.6999998,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -0.625,
+        3.55000019,
+        9.0
+      ],
+      "size": [
+        7.95,
+        0.6999998,
+        0.200000763
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        6.25,
+        3.55000019,
+        11.5
+      ],
+      "size": [
+        6.200001,
+        0.6999998,
+        0.200000763
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        11.0,
+        3.55000019,
+        11.5
+      ],
+      "size": [
+        3.70000076,
+        0.6999998,
+        0.200000763
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -11.375,
+        3.55000019,
+        -12.375
+      ],
+      "size": [
+        2.0,
+        0.6999998,
+        0.200000763
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Fechamento externo/Platibanda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        12.75,
+        3.55000019,
+        8.375
+      ],
+      "size": [
+        0.200000763,
+        0.6999998,
+        2.0
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Terreno/Colisor - chao do lote",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        1.25,
+        -0.17,
+        -0.5
+      ],
+      "size": [
+        39.5,
+        0.26000002,
+        37.0
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Pavimentos/Colisor - pavimento",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -14.025,
+        -0.075,
+        -12.925
+      ],
+      "size": [
+        1.65000153,
+        0.15,
+        0.8999996
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Pavimentos/Colisor - pavimento",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -2.97500038,
+        -0.075,
+        -12.925
+      ],
+      "size": [
+        13.15,
+        0.15,
+        0.8999996
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Pavimentos/Colisor - pavimento",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -11.375,
+        -0.075,
+        -13.1625
+      ],
+      "size": [
+        3.64999962,
+        0.15,
+        1.375
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Pavimentos/Colisor - pavimento",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -11.4,
+        -0.075,
+        -16.55
+      ],
+      "size": [
+        2.0,
+        0.15,
+        5.09999943
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Pavimentos/Colisor - canteiro elevado",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -13.9,
+        0.2,
+        -12.7750006
+      ],
+      "size": [
+        1.20000076,
+        0.4,
+        0.6000004
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Pavimentos/Colisor - canteiro elevado",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -8.85,
+        0.2,
+        -12.7750006
+      ],
+      "size": [
+        1.20000076,
+        0.4,
+        0.6000004
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Pavimentos/Colisor - banco",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -16.0,
+        0.225,
+        -15.2
+      ],
+      "size": [
+        0.400001526,
+        0.45,
+        1.60000038
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fechamentos/Colisor - muro oeste",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -18.425,
+        0.950000048,
+        -0.5
+      ],
+      "size": [
+        0.150001526,
+        2.5,
+        37.0
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fechamentos/Colisor - muro norte",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        1.25,
+        0.950000048,
+        17.925
+      ],
+      "size": [
+        39.5,
+        2.5,
+        0.150001526
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fechamentos/Colisor - muro leste",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        21.0,
+        0.950000048,
+        -6.875
+      ],
+      "size": [
+        0.150001526,
+        2.5,
+        24.25
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fechamentos/Colisor - muro leste - fundos",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        21.0,
+        0.950000048,
+        16.75
+      ],
+      "size": [
+        0.150001526,
+        2.5,
+        2.5
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fechamentos/Colisor - gradil frontal",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        1.25,
+        0.950000048,
+        -19.0
+      ],
+      "size": [
+        39.5,
+        2.5,
+        0.240001678
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fechamentos/Colisor - portao lateral",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -16.675,
+        1.0,
+        -8.0
+      ],
+      "size": [
+        3.65000057,
+        2.6,
+        0.299999237
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fechamentos/Colisor - gradil leste",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        7.0,
+        0.950000048,
+        -11.3
+      ],
+      "size": [
+        0.239999771,
+        2.5,
+        15.4
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fechamentos/Colisor - portao do patio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        18.0,
+        1.05000007,
+        5.25
+      ],
+      "size": [
+        3.09999847,
+        2.7,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Limites/Limite - calcada",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        1.25,
+        1.25,
+        -19.4
+      ],
+      "size": [
+        41.5,
+        3.5,
+        0.200000763
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Limites/Limite - lote oeste",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -18.9,
+        1.25,
+        -0.75
+      ],
+      "size": [
+        0.200000763,
+        3.5,
+        37.5
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Limites/Limite - faixa lateral",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -16.675,
+        1.25,
+        -7.6
+      ],
+      "size": [
+        3.65000057,
+        3.5,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Limites/Limite - patio de manobra",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        7.4,
+        1.25,
+        -11.3
+      ],
+      "size": [
+        0.199999809,
+        3.5,
+        15.4
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fachada/Colisor - poste de entrada",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -7.5,
+        1.5,
+        -18.65
+      ],
+      "size": [
+        0.199999809,
+        3.0,
+        0.200000763
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fachada/Poste de jardim",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -13.0,
+        1.26,
+        -16.8
+      ],
+      "size": [
+        0.200000763,
+        2.80000019,
+        0.200000763
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fachada/Poste de jardim",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -13.0,
+        -0.049999997,
+        -16.8
+      ],
+      "size": [
+        0.459999084,
+        0.18,
+        0.459999084
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Patio de manobra/Colisor - acesso de servico",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        14.8,
+        -0.160000011,
+        -6.89999962
+      ],
+      "size": [
+        12.4,
+        0.28,
+        24.2
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Rua/Colisor - poste",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -4.5,
+        1.4,
+        -21.1
+      ],
+      "size": [
+        0.3000002,
+        3.2,
+        0.299999237
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arvores/Arvore_Sibipiruna_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -16.2,
+        1.17027366,
+        -17.7
+      ],
+      "size": [
+        0.3179016,
+        2.46500039,
+        0.3179016
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arvores/Arvore_Pequena",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -4.5,
+        0.892075062,
+        -16.0
+      ],
+      "size": [
+        0.154000282,
+        1.9000001,
+        0.153999329
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arvores/Arvore_Sibipiruna_B",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        2.0,
+        1.17349124,
+        -17.0
+      ],
+      "size": [
+        0.313499928,
+        2.46999979,
+        0.313499451
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arvores/Arvore_Pequena",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -9.0,
+        0.752499938,
+        -21.05
+      ],
+      "size": [
+        0.146299362,
+        1.80500007,
+        0.14630127
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arvores/Arvore_Sibipiruna_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        10.0,
+        1.0825,
+        -21.05
+      ],
+      "size": [
+        0.3178997,
+        2.46500015,
+        0.3179016
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arvores/Arvore_Sibipiruna_B",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -15.0,
+        0.909999967,
+        -29.9
+      ],
+      "size": [
+        0.263999939,
+        2.08000016,
+        0.263999939
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arvores/Arvore_Sibipiruna_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        4.0,
+        1.1025002,
+        -29.9
+      ],
+      "size": [
+        0.317900658,
+        2.46500063,
+        0.3179016
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arvores/Arvore_Pequena",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        28.5,
+        0.867499948,
+        -29.9
+      ],
+      "size": [
+        0.1617012,
+        1.99499989,
+        0.1617012
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arvores/Arvore_Pequena",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        9.0,
+        0.8740563,
+        -12.8
+      ],
+      "size": [
+        0.153999329,
+        1.9,
+        0.153999329
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arvores/Arvore_Mangueira_B",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -15.0,
+        0.877908468,
+        8.0
+      ],
+      "size": [
+        0.3553009,
+        1.9000001,
+        0.355300426
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arvores/Arvore_Mangueira_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -8.5,
+        1.07908893,
+        13.5
+      ],
+      "size": [
+        0.417999268,
+        2.30000019,
+        0.417999268
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arvores/Arvore_Sibipiruna_B",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        1.0,
+        1.094239,
+        15.5
+      ],
+      "size": [
+        0.29700017,
+        2.33999968,
+        0.297000885
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arvores/Arvore_Mangueira_B",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -25.0,
+        0.878893256,
+        1.8
+      ],
+      "size": [
+        0.336601257,
+        1.8,
+        0.336600065
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arvores/Arvore_Mangueira_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        28.0,
+        1.12988758,
+        5.5
+      ],
+      "size": [
+        0.417999268,
+        2.30000019,
+        0.418000221
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arvores/Arvore_Pequena",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        2.4,
+        0.899607658,
+        -32.4
+      ],
+      "size": [
+        0.146300316,
+        1.80499983,
+        0.14630127
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arvores/Arvore_Sibipiruna_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -27.0,
+        1.2916,
+        22.0
+      ],
+      "size": [
+        0.336601257,
+        2.61000013,
+        0.336601257
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arvores/Arvore_Pequena",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        18.8,
+        0.936346054,
+        31.5
+      ],
+      "size": [
+        0.153999329,
+        1.9000001,
+        0.153999329
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arvores/Arvore_Mangueira_B",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -14.5,
+        0.9922972,
+        28.0
+      ],
+      "size": [
+        0.374000549,
+        2.00000024,
+        0.374000549
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Bananeira_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        5.8,
+        0.6167146,
+        -5.8
+      ],
+      "size": [
+        0.237999916,
+        1.36000013,
+        0.237999916
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Bananeira_B",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -16.4,
+        0.724359035,
+        -1.4
+      ],
+      "size": [
+        0.279998779,
+        1.5999999,
+        0.279999971
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Bananeira_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -15.8,
+        0.6527045,
+        1.6
+      ],
+      "size": [
+        0.2520008,
+        1.44,
+        0.2520001
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Bananeira_B",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -3.0,
+        0.7214192,
+        15.0
+      ],
+      "size": [
+        0.2800002,
+        1.60000014,
+        0.2800007
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Bananeira_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -37.0,
+        0.7865449,
+        0.0
+      ],
+      "size": [
+        0.279998779,
+        1.60000014,
+        0.28
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Sibipiruna_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        24.0646744,
+        1.30861187,
+        -59.71692
+      ],
+      "size": [
+        0.337718964,
+        2.61868286,
+        0.337722778
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Mangueira_B",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        49.4134,
+        1.07095444,
+        12.60637
+      ],
+      "size": [
+        0.406600952,
+        2.17435431,
+        0.406604767
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Mangueira_B",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        3.48954964,
+        1.08086669,
+        44.63179
+      ],
+      "size": [
+        0.4097209,
+        2.1910193,
+        0.409721375
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Sibipiruna_B",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -53.98227,
+        1.42831755,
+        3.430249
+      ],
+      "size": [
+        0.3654251,
+        2.879109,
+        0.3654256
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Mangueira_B",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        31.391222,
+        1.04075789,
+        15.4694147
+      ],
+      "size": [
+        0.3975296,
+        2.125834,
+        0.3975315
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Sibipiruna_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -16.7276287,
+        1.31842756,
+        43.8090324
+      ],
+      "size": [
+        0.344905853,
+        2.674399,
+        0.344902039
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Mangueira_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -20.93928,
+        1.19611835,
+        26.32015
+      ],
+      "size": [
+        0.4363823,
+        2.40115023,
+        0.4363823
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Sibipiruna_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        21.086834,
+        1.40890336,
+        -44.96694
+      ],
+      "size": [
+        0.366268158,
+        2.84006071,
+        0.366271973
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Sibipiruna_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -15.3912125,
+        1.609833,
+        -50.46212
+      ],
+      "size": [
+        0.418392181,
+        3.244223,
+        0.418396
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Sibipiruna_B",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -19.53501,
+        1.19910526,
+        51.6205826
+      ],
+      "size": [
+        0.308052063,
+        2.42707825,
+        0.308052063
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Sibipiruna_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        45.8964157,
+        1.47985864,
+        22.0937767
+      ],
+      "size": [
+        0.384391785,
+        2.98056269,
+        0.38438797
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Sibipiruna_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -42.5872459,
+        1.4765265,
+        12.8579712
+      ],
+      "size": [
+        0.385322571,
+        2.98781347,
+        0.385324478
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Sibipiruna_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        40.2157555,
+        1.52428746,
+        2.67675066
+      ],
+      "size": [
+        0.3957672,
+        3.06879568,
+        0.395768642
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Sibipiruna_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -38.9219856,
+        1.59207189,
+        30.973278
+      ],
+      "size": [
+        0.4140396,
+        3.210439,
+        0.4140358
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Sibipiruna_B",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -2.901841,
+        1.229042,
+        -63.49222
+      ],
+      "size": [
+        0.313553333,
+        2.470418,
+        0.313552856
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Mangueira_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        17.0858974,
+        1.31365037,
+        33.9301453
+      ],
+      "size": [
+        0.48033905,
+        2.643023,
+        0.48033905
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Mangueira_B",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        32.66805,
+        0.9008882,
+        -53.425602
+      ],
+      "size": [
+        0.342956543,
+        1.83398676,
+        0.342956543
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Sibipiruna_A",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        31.4623413,
+        1.50273609,
+        30.438
+      ],
+      "size": [
+        0.3881302,
+        3.00955343,
+        0.3881302
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Mangueira_B",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        13.9669924,
+        1.08071935,
+        41.71933
+      ],
+      "size": [
+        0.4102974,
+        2.19410443,
+        0.4103012
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Silhuetas distantes/Arvore_Mangueira_B",
+      "type": "CapsuleCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        8.05899,
+        1.03247857,
+        -64.0427246
+      ],
+      "size": [
+        0.3917842,
+        2.0951,
+        0.391784668
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Balcao de recepcao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -12.4425,
+        0.55,
+        -9.35
+      ],
+      "size": [
+        0.325000763,
+        1.10000026,
+        2.5
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Balcao de recepcao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -12.7925005,
+        0.38,
+        -9.35
+      ],
+      "size": [
+        0.375,
+        0.7600002,
+        2.5
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Balcao de recepcao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -12.99,
+        0.7475,
+        -9.35
+      ],
+      "size": [
+        0.0200004578,
+        0.0249999762,
+        2.5
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Balcao de recepcao/Gaveta 1",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -12.7752476,
+        0.197500065,
+        -8.33675
+      ],
+      "size": [
+        0.510494232,
+        0.205000073,
+        0.4185009
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Balcao de recepcao/Gaveta 2",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -12.7752476,
+        0.4075001,
+        -8.33675
+      ],
+      "size": [
+        0.510494232,
+        0.205000043,
+        0.4185009
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Balcao de recepcao/Gaveta 3",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -12.7752476,
+        0.6210002,
+        -8.33675
+      ],
+      "size": [
+        0.510494232,
+        0.212000012,
+        0.4185009
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Equipamentos do balcao/Computador",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -12.6641092,
+        1.00640941,
+        -9.200001
+      ],
+      "size": [
+        0.0834884644,
+        0.326457024,
+        0.5359993
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Cadeira do atendente",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -13.379,
+        0.51,
+        -9.4
+      ],
+      "size": [
+        0.75157547,
+        1.02000022,
+        0.75157547
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Armario de apoio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -14.18,
+        0.9375,
+        -7.455
+      ],
+      "size": [
+        0.8999996,
+        0.0249999762,
+        0.4499998
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Armario de apoio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -14.621,
+        0.4625,
+        -7.446
+      ],
+      "size": [
+        0.017999649,
+        0.925,
+        0.43200016
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Armario de apoio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -13.739,
+        0.4625,
+        -7.446
+      ],
+      "size": [
+        0.017999649,
+        0.925,
+        0.43200016
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Armario de apoio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -14.18,
+        0.5025,
+        -7.2409997
+      ],
+      "size": [
+        0.8640003,
+        0.845,
+        0.017999649
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Armario de apoio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -14.18,
+        0.049,
+        -7.446
+      ],
+      "size": [
+        0.8999996,
+        0.098,
+        0.43200016
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Armario de apoio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -14.18,
+        0.509,
+        -7.447
+      ],
+      "size": [
+        0.8640003,
+        0.0180000067,
+        0.390000343
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Armario de apoio/Porta esquerda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -14.4050007,
+        0.4735,
+        -7.671
+      ],
+      "size": [
+        0.4470005,
+        0.835999966,
+        0.017999649
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Armario de apoio/Porta esquerda",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -14.215,
+        0.62,
+        -7.694
+      ],
+      "size": [
+        0.017999649,
+        0.149999976,
+        0.0279998779
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Armario de apoio/Porta direita",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -13.955,
+        0.4735,
+        -7.671
+      ],
+      "size": [
+        0.4470005,
+        0.835999966,
+        0.017999649
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Armario de apoio/Porta direita",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -14.145,
+        0.62,
+        -7.694
+      ],
+      "size": [
+        0.017999649,
+        0.149999976,
+        0.0279998779
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Armario de apoio/Cadeado",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -14.219,
+        0.770999968,
+        -7.6925
+      ],
+      "size": [
+        0.0499992371,
+        0.08000004,
+        0.029999733
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Armario de apoio/Chave da circulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -14.2662563,
+        0.5270534,
+        -7.57573938
+      ],
+      "size": [
+        0.12774086,
+        0.01869309,
+        0.0598039627
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Longarina de espera",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -6.85532427,
+        0.415410876,
+        -10.75
+      ],
+      "size": [
+        0.489935875,
+        0.830822,
+        1.54000092
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Cadeira de espera 1",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -8.45,
+        0.42,
+        -12.005
+      ],
+      "size": [
+        0.4699993,
+        0.84,
+        0.479999542
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Cadeira de espera 2",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -7.85,
+        0.42,
+        -12.005
+      ],
+      "size": [
+        0.470000267,
+        0.84,
+        0.479999542
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Bebedouro",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -10.0,
+        0.5238003,
+        -6.273
+      ],
+      "size": [
+        0.340000153,
+        1.04760063,
+        0.342
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Lixeira",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -9.45,
+        0.234,
+        -6.3075
+      ],
+      "size": [
+        0.308000565,
+        0.468,
+        0.375
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Armarios do vestiario",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -12.5,
+        1.0,
+        -1.375
+      ],
+      "size": [
+        0.6000004,
+        2.0,
+        2.75
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Banco do vestiario",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -9.6,
+        0.225,
+        -2.45
+      ],
+      "size": [
+        1.79999924,
+        0.45,
+        0.4000001
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Bancada de cafe",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -6.5,
+        0.45,
+        -3.4
+      ],
+      "size": [
+        2.0,
+        0.9,
+        0.6000004
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Estante do deposito",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -7.55,
+        1.0,
+        4.25
+      ],
+      "size": [
+        0.5,
+        2.0,
+        2.5
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Balde e esfregao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -5.625,
+        0.25,
+        1.75
+      ],
+      "size": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Quadro eletrico",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -2.625,
+        1.0,
+        8.65
+      ],
+      "size": [
+        1.0,
+        2.0,
+        0.299999237
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Condensadora",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        1.5,
+        0.5,
+        6.45
+      ],
+      "size": [
+        1.5,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Tubulacao",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        1.0,
+        2.55000019,
+        8.65
+      ],
+      "size": [
+        4.0,
+        0.3000002,
+        0.299999237
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Pia de lavagem de corpos",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        3.9,
+        0.45,
+        8.4
+      ],
+      "size": [
+        0.8999996,
+        0.9,
+        2.20000029
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Bancada com pia - recebimento",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        6.0,
+        0.45,
+        11.05
+      ],
+      "size": [
+        2.0,
+        0.9,
+        0.6000004
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Maca de recebimento",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        8.0,
+        0.425,
+        8.375
+      ],
+      "size": [
+        2.10000038,
+        0.85,
+        0.75
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Corpo provisório - recebimento",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        8.0,
+        0.925,
+        8.375
+      ],
+      "size": [
+        1.70000076,
+        0.149999976,
+        0.6499996
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Mesa auxiliar",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        12.2000008,
+        0.4,
+        11.05
+      ],
+      "size": [
+        0.799999237,
+        0.8,
+        0.6000004
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Gaveta mortuaria 1",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        13.7999992,
+        0.55,
+        -2.55
+      ],
+      "size": [
+        2.20000076,
+        1.1,
+        0.9000001
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Corpo provisório 1",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        13.7999992,
+        1.17000008,
+        -2.55
+      ],
+      "size": [
+        1.79999924,
+        0.1400001,
+        0.6500001
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Gaveta mortuaria 2",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        13.7999992,
+        0.55,
+        -1.5999999
+      ],
+      "size": [
+        2.20000076,
+        1.1,
+        0.9000001
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Corpo provisório 2",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        13.7999992,
+        1.17000008,
+        -1.5999999
+      ],
+      "size": [
+        1.79999924,
+        0.1400001,
+        0.6500001
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Gaveta mortuaria 3",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        13.7999992,
+        0.55,
+        -0.650000036
+      ],
+      "size": [
+        2.20000076,
+        1.1,
+        0.9
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Corpo provisório 3",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        13.7999992,
+        1.17000008,
+        -0.650000036
+      ],
+      "size": [
+        1.79999924,
+        0.1400001,
+        0.65
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Gaveta mortuaria 4",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        13.7999992,
+        0.55,
+        2.45
+      ],
+      "size": [
+        2.20000076,
+        1.1,
+        0.9000001
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Corpo provisório 4",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        13.7999992,
+        1.17000008,
+        2.45
+      ],
+      "size": [
+        1.79999924,
+        0.1400001,
+        0.6500001
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Gaveta mortuaria 5",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        13.7999992,
+        0.55,
+        3.4
+      ],
+      "size": [
+        2.20000076,
+        1.1,
+        0.8999996
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Corpo provisório 5",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        13.7999992,
+        1.17000008,
+        3.4
+      ],
+      "size": [
+        1.79999924,
+        0.1400001,
+        0.6499996
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Gaveta mortuaria 6",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        13.7999992,
+        0.55,
+        4.35000038
+      ],
+      "size": [
+        2.20000076,
+        1.1,
+        0.899999857
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Corpo provisório 6",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        13.7999992,
+        1.17000008,
+        4.35000038
+      ],
+      "size": [
+        1.79999924,
+        0.1400001,
+        0.6499996
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Maca da camara fria",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        13.8,
+        0.425,
+        0.875
+      ],
+      "size": [
+        2.10000038,
+        0.85,
+        0.75
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Mesa do escritorio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -2.625,
+        0.375,
+        -8.0
+      ],
+      "size": [
+        1.80000019,
+        0.75,
+        0.8999996
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Cadeira do escritorio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -2.625,
+        0.475,
+        -7.10000038
+      ],
+      "size": [
+        0.5999999,
+        0.95,
+        0.6000004
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Arquivo de prontuarios",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        2.95,
+        0.8,
+        -5.25
+      ],
+      "size": [
+        0.5999999,
+        1.6,
+        2.5
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Estante de pastas",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        2.95,
+        1.0,
+        -7.625
+      ],
+      "size": [
+        0.5999999,
+        2.0,
+        1.75
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Armario de pertences",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        2.95,
+        0.9,
+        -9.375
+      ],
+      "size": [
+        0.5999999,
+        1.8,
+        1.25
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Cacamba",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        19.975,
+        0.7,
+        14.4
+      ],
+      "size": [
+        1.75,
+        1.4,
+        1.90000153
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Paletes",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        17.7,
+        0.15,
+        14.8
+      ],
+      "size": [
+        1.199997,
+        0.3,
+        1.10000038
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Moveis/Armarios de servico",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        20.55,
+        0.6,
+        10.6
+      ],
+      "size": [
+        0.5999985,
+        1.2,
+        1.20000076
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Autopsia/Mobiliario/Mesa de autopsia",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        2.9,
+        0.87,
+        -0.45
+      ],
+      "size": [
+        2.80000019,
+        0.139999986,
+        0.8000001
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Autopsia/Mobiliario/Mesa de autopsia",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        4.10000038,
+        0.75,
+        -0.45
+      ],
+      "size": [
+        0.399999857,
+        0.100000024,
+        0.8000001
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Autopsia/Mobiliario/Mesa de autopsia",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        2.7,
+        0.4,
+        -0.45
+      ],
+      "size": [
+        0.320000172,
+        0.8,
+        0.26
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Autopsia/Mobiliario/Mesa de autopsia",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        4.28250027,
+        1.02,
+        -0.45
+      ],
+      "size": [
+        0.0349998474,
+        0.160000086,
+        0.6
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Autopsia/Mobiliario/Bancada com pia - autopsia",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        1.9,
+        0.45,
+        3.2
+      ],
+      "size": [
+        3.8,
+        0.9,
+        0.6500001
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Autopsia/Mobiliario/Armario suspenso",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        3.0,
+        1.85,
+        3.35
+      ],
+      "size": [
+        1.5999999,
+        0.700000048,
+        0.350000381
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Autopsia/Mobiliario/Armario de instrumental",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -1.675,
+        1.0,
+        -2.4
+      ],
+      "size": [
+        0.4499998,
+        2.0,
+        1.39999974
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Autopsia/Mobiliario/Estante de insumos",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        7.175,
+        1.0,
+        2.6
+      ],
+      "size": [
+        0.450000763,
+        2.0,
+        1.4000001
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Autopsia/Mobiliario/Pia de lavagem de maos",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        6.35,
+        0.45,
+        -3.17500019
+      ],
+      "size": [
+        0.6999998,
+        0.9,
+        0.4499998
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Autopsia/Mobiliario/Lixeira infectante",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        4.775,
+        0.31,
+        -3.185
+      ],
+      "size": [
+        0.4499998,
+        0.62,
+        0.3699999
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Autopsia/Mobiliario/Lixeira comum",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        5.27499962,
+        0.275,
+        -3.21
+      ],
+      "size": [
+        0.350000381,
+        0.55,
+        0.3199997
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Autopsia/Mobiliario/Carrinho de instrumental",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        5.0,
+        0.46,
+        -1.5
+      ],
+      "size": [
+        0.8000002,
+        0.92,
+        0.5
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Autopsia/Mobiliario/Banco da autopsia",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        1.6,
+        0.31,
+        -1.95
+      ],
+      "size": [
+        0.460000038,
+        0.62,
+        0.460000038
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Autopsia/Mobiliario/Maca de transporte",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        6.975,
+        0.49,
+        -1.7
+      ],
+      "size": [
+        0.75,
+        0.98,
+        2.1
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Recepcao/Parede - sinalizacao e quadros/Quadro de avisos",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -8.15,
+        1.55,
+        -12.26
+      ],
+      "size": [
+        1.20000029,
+        0.9000001,
+        0.0240001678
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/WC/Loucas e metais/Vaso sanitario",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -14.2,
+        0.385,
+        -4.347
+      ],
+      "size": [
+        0.3600006,
+        0.77,
+        0.6000004
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/WC/Loucas e metais/Vaso sanitario",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -14.2,
+        0.57,
+        -4.097
+      ],
+      "size": [
+        0.399999619,
+        0.399999976,
+        0.199999809
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/WC/Loucas e metais/Lavatorio",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -10.689,
+        0.71,
+        -5.25
+      ],
+      "size": [
+        0.420000076,
+        0.180000067,
+        0.5
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/WC/Acessorios/Lixeira",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -10.6925,
+        0.234,
+        -4.3
+      ],
+      "size": [
+        0.375,
+        0.4680001,
+        0.308000565
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/WC/Acessorios/Lixeira do vaso",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -13.76,
+        0.234,
+        -4.1625
+      ],
+      "size": [
+        0.308000565,
+        0.468,
+        0.375
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/WC/Acessorios/Escova sanitaria",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -14.5499992,
+        0.0625,
+        -4.145
+      ],
+      "size": [
+        0.104999542,
+        0.125,
+        0.104999542
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pistas/Pista - registro de entrada",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -12.4216957,
+        1.12289345,
+        -8.999882
+      ],
+      "size": [
+        0.246458054,
+        0.0457868576,
+        0.336084366
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pistas/Pista - objeto pessoal",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        2.95,
+        1.875,
+        -9.375
+      ],
+      "size": [
+        0.25,
+        0.1500001,
+        0.25
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pistas/Pista - prontuario",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        -2.25,
+        0.825,
+        -7.875
+      ],
+      "size": [
+        0.25,
+        0.149999976,
+        0.25
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pistas/Pista - instrumento deslocado",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        6.0,
+        0.974999964,
+        11.05
+      ],
+      "size": [
+        0.25,
+        0.149999976,
+        0.25
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Pistas/Pista - laudo da autopsia",
+      "type": "BoxCollider",
+      "enabled": true,
+      "trigger": false,
+      "center": [
+        3.0,
+        0.974999964,
+        3.0
+      ],
+      "size": [
+        0.25,
+        0.149999976,
+        0.25
+      ]
+    }
+  ],
+  "targets": [
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Drenagem/Condutores pluviais",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "gi": "0",
+      "boundsSize": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": []
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fechamentos/Gradis e portoes",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "gi": "BatchingStatic",
+      "boundsSize": [
+        38.9,
+        2.15999985,
+        24.36
+      ],
+      "materials": [
+        "Assets/UnclaimedPrototype/Entorno/Materiais/Metal pintado escuro.mat",
+        "Assets/UnclaimedPrototype/Entorno/Materiais/Metal galvanizado.mat",
+        "Assets/UnclaimedPrototype/Entorno/Materiais/Chapa pintada.mat"
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fachada/Placa - identificacao",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "gi": "0",
+      "boundsSize": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": []
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fachada/Placa - atendimento",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "gi": "0",
+      "boundsSize": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": []
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fachada/Placa - numero",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "gi": "0",
+      "boundsSize": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": []
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fachada/Placa - nao estacione",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "gi": "0",
+      "boundsSize": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": []
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fachada/Instalacoes da fachada",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "gi": "BatchingStatic",
+      "boundsSize": [
+        18.9997349,
+        6.1,
+        11.7269993
+      ],
+      "materials": [
+        "Assets/UnclaimedPrototype/Entorno/Materiais/PVC cinza.mat",
+        "Assets/UnclaimedPrototype/Entorno/Materiais/Metal pintado escuro.mat",
+        "Assets/UnclaimedPrototype/Entorno/Materiais/Grelha.mat",
+        "Assets/UnclaimedPrototype/Entorno/Materiais/Pintura branca gasta.mat",
+        "Assets/UnclaimedPrototype/Entorno/Materiais/Vidro escuro.mat",
+        "Assets/UnclaimedPrototype/Entorno/Materiais/Metal galvanizado.mat",
+        "Assets/UnclaimedPrototype/Entorno/Materiais/Mangueira verde.mat",
+        "Assets/UnclaimedPrototype/Entorno/Materiais/Concreto do poste.mat",
+        "Assets/UnclaimedPrototype/Entorno/Materiais/Reboco do muro.mat",
+        "Assets/UnclaimedPrototype/Entorno/Materiais/Concreto.mat"
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Patio de manobra/Placa - portaria",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "gi": "0",
+      "boundsSize": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": []
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Espada-de-sao-jorge ornamental",
+      "pos": [
+        -14.2199993,
+        0.345,
+        -12.7407627
+      ],
+      "rotation": [
+        0.0,
+        191.632339,
+        0.0
+      ],
+      "scale": [
+        0.824616253,
+        0.824616253,
+        0.824616253
+      ],
+      "gi": "0",
+      "boundsSize": [
+        0.39605093,
+        0.7162164,
+        0.358462155
+      ],
+      "materials": [
+        "Assets/Modelos/Entorno/Acabamentos/Materiais/Folha_Espada.mat"
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Espada-de-sao-jorge ornamental",
+      "pos": [
+        -13.8799992,
+        0.345,
+        -12.761013
+      ],
+      "rotation": [
+        0.0,
+        75.4346848,
+        0.0
+      ],
+      "scale": [
+        0.8487173,
+        0.8487173,
+        0.8487173
+      ],
+      "gi": "0",
+      "boundsSize": [
+        0.373352826,
+        0.7136637,
+        0.4102801
+      ],
+      "materials": [
+        "Assets/Modelos/Entorno/Acabamentos/Materiais/Folha_Espada.mat"
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Espada-de-sao-jorge ornamental",
+      "pos": [
+        -13.5599995,
+        0.345,
+        -12.8349113
+      ],
+      "rotation": [
+        0.0,
+        110.55899,
+        0.0
+      ],
+      "scale": [
+        0.819230855,
+        0.819230855,
+        0.819230855
+      ],
+      "gi": "0",
+      "boundsSize": [
+        0.394507319,
+        0.7115389,
+        0.422599554
+      ],
+      "materials": [
+        "Assets/Modelos/Entorno/Acabamentos/Materiais/Folha_Espada.mat"
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Espada-de-sao-jorge ornamental",
+      "pos": [
+        -9.17,
+        0.345,
+        -12.7607718
+      ],
+      "rotation": [
+        0.0,
+        139.618942,
+        0.0
+      ],
+      "scale": [
+        0.9265259,
+        0.9265259,
+        0.9265259
+      ],
+      "gi": "0",
+      "boundsSize": [
+        0.497688949,
+        0.7790909,
+        0.491280377
+      ],
+      "materials": [
+        "Assets/Modelos/Entorno/Acabamentos/Materiais/Folha_Espada.mat"
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Espada-de-sao-jorge ornamental",
+      "pos": [
+        -8.83,
+        0.345,
+        -12.7950583
+      ],
+      "rotation": [
+        0.0,
+        156.5175,
+        0.0
+      ],
+      "scale": [
+        0.965096354,
+        0.965096354,
+        0.965096354
+      ],
+      "gi": "0",
+      "boundsSize": [
+        0.5064956,
+        0.838229656,
+        0.477158368
+      ],
+      "materials": [
+        "Assets/Modelos/Entorno/Acabamentos/Materiais/Folha_Espada.mat"
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Espada-de-sao-jorge ornamental",
+      "pos": [
+        -8.51,
+        0.345,
+        -12.7565155
+      ],
+      "rotation": [
+        0.0,
+        178.723511,
+        0.0
+      ],
+      "scale": [
+        0.823069334,
+        0.823069334,
+        0.823069334
+      ],
+      "gi": "0",
+      "boundsSize": [
+        0.342919379,
+        0.692097,
+        0.294055939
+      ],
+      "materials": [
+        "Assets/Modelos/Entorno/Acabamentos/Materiais/Folha_Espada.mat"
+      ]
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Recepcao/Parede - sinalizacao e quadros/Placa - recepcao",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "gi": "0",
+      "boundsSize": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": []
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Recepcao/Parede - sinalizacao e quadros/Placa - sanitarios",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "gi": "0",
+      "boundsSize": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": []
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Recepcao/Parede - sinalizacao e quadros/Placa - acesso restrito",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "gi": "0",
+      "boundsSize": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": []
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Recepcao/Parede - sinalizacao e quadros/Placa - administracao",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "gi": "0",
+      "boundsSize": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": []
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/Recepcao/Parede - sinalizacao e quadros/Placa - espaco reservado",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "gi": "0",
+      "boundsSize": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": []
+    },
+    {
+      "path": "Unclaimed - Necroterio (planta)/Ambientes/WC/Sinalizacao/Placa - papel no lixo",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "gi": "0",
+      "boundsSize": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": []
+    }
+  ]
+}

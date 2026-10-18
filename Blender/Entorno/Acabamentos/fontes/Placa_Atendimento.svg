@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1600" viewBox="0 0 440 320">
+<title>Aviso da equipe em porta-folha de acrílico — atendimento a familiares</title>
+<rect width="440" height="320" fill="#e1dfd7"/>
+<g transform="translate(11.5 15) rotate(-0.4 210 148.5)">
+<rect x="0.8" y="1" width="420" height="297" fill="#000" opacity="0.10"/>
+<rect width="420" height="297" fill="#ece7d8"/>
+<g font-family="Liberation Sans" fill="#272725">
+<text x="28" y="55" font-size="29.7" font-weight="bold">Atendimento a familiares</text>
+<text x="28" y="99" font-size="22.6">Horário comercial: na recepção.</text>
+<text x="28" y="125" font-size="22.6">Outros horários: toque o interfone.</text>
+<text x="28" y="151" font-size="22.6">Atendemos 24 horas.</text>
+</g></g></svg>

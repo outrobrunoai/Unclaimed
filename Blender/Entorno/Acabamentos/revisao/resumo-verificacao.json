@@ -1,0 +1,16 @@
+{
+  "morgue_unchanged": true,
+  "lights_identical": true,
+  "colliders_identical": true,
+  "lightmap_count": 3,
+  "mono_behaviours_preserved": true,
+  "mono_behaviours_count": 54,
+  "lights_count": 46,
+  "colliders_count": 308,
+  "installed_count": 32,
+  "walk_samples": 145,
+  "walk_paths_clear": true,
+  "gates_blocked": true,
+  "before_after_pairs": 12,
+  "final_views": 17
+}

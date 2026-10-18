@@ -74,6 +74,8 @@ public class ObjetoInspecionavel : MonoBehaviour
     public bool ocultarOriginal = false;
     [Tooltip("Instruções no rodapé durante a inspeção. Vazio = as instruções padrão (ou as do manipulador).")]
     public string instrucoes = "";
+    [Tooltip("Segundos da cópia saindo do lugar do objeto até a frente da câmera (e voltando ao fechar). 0 = aparece direto.")]
+    public float duracaoAnimacao = 0f;
 
     [Header("Eventos")]
     public UnityEvent aoIniciarInspecao;
@@ -101,6 +103,14 @@ public class ObjetoInspecionavel : MonoBehaviour
     readonly System.Collections.Generic.List<Renderer> ocultados = new System.Collections.Generic.List<Renderer>();
     IManipulavelNaInspecao manipulador;
     int quadroAbertura = -1;
+
+    // animação de ida (do lugar do objeto até a frente da câmera) e de volta
+    enum Animacao { Nenhuma, Vindo, Voltando }
+    Animacao animacao;
+    float inicioAnimacao;
+    Transform copia;
+    Vector3 origemPos, origemEsc, alvoLocalPos, alvoLocalEsc, deLocalPos, deLocalEsc;
+    Quaternion origemRot, alvoLocalRot, deLocalRot;
     GUIStyle estilo;
 
     // câmera sobreposta (desenha o objeto por cima de tudo)
@@ -190,16 +200,41 @@ public class ObjetoInspecionavel : MonoBehaviour
     // LateUpdate roda depois de todos os Update, então "melhor" já está decidido.
     void LateUpdate()
     {
+        if (emInspecao == this && animacao == Animacao.Voltando)
+        {
+            // voltando ao lugar: sem entrada; fecha ao chegar
+            float e = Progresso();
+            PoseEntre(deLocalPos, deLocalRot, deLocalEsc, e, true);
+            if (e >= 1f) Fechar();
+            return;
+        }
         if (emInspecao == this)
         {
+            if (animacao == Animacao.Vindo)
+            {
+                float e = Progresso();
+                PoseEntre(alvoLocalPos, alvoLocalRot, alvoLocalEsc, e, false);
+                if (e >= 1f) animacao = Animacao.Nenhuma;
+            }
             Inspecionar();
             if (emInspecao == this && Time.frameCount != quadroAbertura && (TeclaApertada(teclaInteracao) || TeclaApertada("Escape")))
-                Fechar();
+                PedirFechamento();
         }
         else if (emInspecao == null && melhor == this && TeclaApertada(teclaInteracao))
         {
             Abrir();
         }
+    }
+
+    /// <summary>
+    /// Abre a inspeção sem a mira (ex.: um papel escolhido com o mouse no quadro de avisos). Falso se outra
+    /// inspeção já está aberta. Como na mira, a tecla que abriu não fecha no mesmo quadro.
+    /// </summary>
+    public bool IniciarInspecao()
+    {
+        if (emInspecao != null) return false;
+        Abrir();
+        return emInspecao == this;
     }
 
     /// <summary>Encerra a inspeção deste objeto (se estiver aberta), devolvendo controles e cursor.</summary>
@@ -258,6 +293,18 @@ public class ObjetoInspecionavel : MonoBehaviour
         clone.transform.SetParent(pivot, true);
 
         if (maior > 0.0001f) pivot.localScale = Vector3.one * (tamanhoNaTela / maior);
+
+        // Pose final da cópia no pivô; com animação, ela parte do lugar do original.
+        copia = clone.transform;
+        alvoLocalPos = copia.localPosition; alvoLocalRot = copia.localRotation; alvoLocalEsc = copia.localScale;
+        origemPos = fonte.transform.position; origemRot = fonte.transform.rotation; origemEsc = fonte.transform.lossyScale;
+        animacao = Animacao.Nenhuma;
+        if (duracaoAnimacao > 0f)
+        {
+            animacao = Animacao.Vindo;
+            inicioAnimacao = Time.unscaledTime;
+            PoseEntre(alvoLocalPos, alvoLocalRot, alvoLocalEsc, 0f, false);
+        }
 
         ConfigurarCameraSobreposta(clone);
 
@@ -383,8 +430,41 @@ public class ObjetoInspecionavel : MonoBehaviour
         }
     }
 
+    /// <summary>Fecha a inspeção; com animação, a cópia volta antes ao lugar do original.</summary>
+    void PedirFechamento()
+    {
+        if (duracaoAnimacao <= 0f || copia == null) { Fechar(); return; }
+        deLocalPos = copia.localPosition; deLocalRot = copia.localRotation; deLocalEsc = copia.localScale;
+        animacao = Animacao.Voltando;
+        inicioAnimacao = Time.unscaledTime;
+    }
+
+    float Progresso()
+    {
+        float k = Mathf.Clamp01((Time.unscaledTime - inicioAnimacao) / Mathf.Max(0.01f, duracaoAnimacao));
+        return k * k * (3f - 2f * k);
+    }
+
+    /// <summary>
+    /// Pose da cópia entre o lugar do original (no mundo, convertido para o pivô a cada quadro: girar ou aproximar
+    /// durante a animação não a desloca) e uma pose no pivô. paraOrigem: de "outra" pose até o original.
+    /// </summary>
+    void PoseEntre(Vector3 outraPos, Quaternion outraRot, Vector3 outraEsc, float e, bool paraOrigem)
+    {
+        if (copia == null || pivot == null) return;
+        Vector3 oPos = pivot.InverseTransformPoint(origemPos);
+        Quaternion oRot = Quaternion.Inverse(pivot.rotation) * origemRot;
+        Vector3 oEsc = origemEsc / Mathf.Max(1e-6f, pivot.lossyScale.x);
+        float t = paraOrigem ? e : 1f - e;   // t = 1: no original
+        copia.localPosition = Vector3.Lerp(outraPos, oPos, t);
+        copia.localRotation = Quaternion.Slerp(outraRot, oRot, t);
+        copia.localScale = Vector3.Lerp(outraEsc, oEsc, t);
+    }
+
     void Fechar()
     {
+        animacao = Animacao.Nenhuma;
+        copia = null;
         if (pivot != null) Destroy(pivot.gameObject);
         pivot = null;
         DesfazerCameraSobreposta();

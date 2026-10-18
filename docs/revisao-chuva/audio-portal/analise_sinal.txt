@@ -1,0 +1,13 @@
+  2.0s fora 2,6 m                   rms  -26.9 dB  centroide  4635 Hz  L/R  +0.5 dB  corr L-R +0.01
+ 10.0s fora 0,3 m                   rms  -26.7 dB  centroide  4656 Hz  L/R  -1.1 dB  corr L-R +0.01
+ 14.5s soleira                      rms  -27.1 dB  centroide  4669 Hz  L/R  +0.2 dB  corr L-R -0.00
+ 20.0s 1 m dentro                   rms  -26.6 dB  centroide  4621 Hz  L/R  -0.1 dB  corr L-R +0.07
+ 27.0s 3,2 m dentro                 rms  -33.8 dB  centroide  4290 Hz  L/R  -0.0 dB  corr L-R +0.45
+ 31.5s 3,2 m, de costas p/ dentro   rms  -34.4 dB  centroide  4249 Hz  L/R  -0.4 dB  corr L-R +0.44
+ 44.0s lateral 3,6 m                rms  -34.3 dB  centroide  4166 Hz  L/R  -5.3 dB  corr L-R +0.36
+ 52.0s 1,8 m dentro                 rms  -28.0 dB  centroide  4557 Hz  L/R  -0.6 dB  corr L-R +0.26
+ 55.5s porta fechada                rms  -38.8 dB  centroide   905 Hz  L/R  +0.1 dB  corr L-R +0.07
+ 59.5s porta reaberta               rms  -28.8 dB  centroide  4483 Hz  L/R  +0.6 dB  corr L-R +0.27
+ 71.0s dentro do WC                 rms  -38.5 dB  centroide  2815 Hz  L/R  +0.9 dB  corr L-R +0.14
+ 88.0s fora de novo                 rms  -26.6 dB  centroide  4654 Hz  L/R  +0.7 dB  corr L-R +0.01
+maiores saltos de centroide (0,25 s): [(np.float64(53.25), 1532), (np.float64(53.5), 1438), (np.float64(57.0), 655), (np.float64(57.25), 1727), (np.float64(57.5), 1053)]

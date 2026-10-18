@@ -1,0 +1,93 @@
+[
+  {
+    "asset": "Condutor_Pluvial_DN100",
+    "triangles": 9044,
+    "bad_vertices": 0,
+    "zero_area_faces": 0,
+    "uv_layers": 1
+  },
+  {
+    "asset": "Agua_Jardim_DN25",
+    "triangles": 16596,
+    "bad_vertices": 0,
+    "zero_area_faces": 0,
+    "uv_layers": 1
+  },
+  {
+    "asset": "Interfone_Externo",
+    "triangles": 2472,
+    "bad_vertices": 0,
+    "zero_area_faces": 0,
+    "uv_layers": 1
+  },
+  {
+    "asset": "Condensadora_Split",
+    "triangles": 21576,
+    "bad_vertices": 0,
+    "zero_area_faces": 0,
+    "uv_layers": 1
+  },
+  {
+    "asset": "Cadeado_Chave_Corrente",
+    "triangles": 8624,
+    "bad_vertices": 0,
+    "zero_area_faces": 0,
+    "uv_layers": 1
+  },
+  {
+    "asset": "Placa_Fachada",
+    "triangles": 644,
+    "bad_vertices": 0,
+    "zero_area_faces": 0,
+    "uv_layers": 1
+  },
+  {
+    "asset": "Placa_Atendimento",
+    "triangles": 644,
+    "bad_vertices": 0,
+    "zero_area_faces": 0,
+    "uv_layers": 1
+  },
+  {
+    "asset": "Placa_Numero",
+    "triangles": 644,
+    "bad_vertices": 0,
+    "zero_area_faces": 0,
+    "uv_layers": 1
+  },
+  {
+    "asset": "Placa_NaoEstacione",
+    "triangles": 644,
+    "bad_vertices": 0,
+    "zero_area_faces": 0,
+    "uv_layers": 1
+  },
+  {
+    "asset": "Placa_Guarita",
+    "triangles": 644,
+    "bad_vertices": 0,
+    "zero_area_faces": 0,
+    "uv_layers": 1
+  },
+  {
+    "asset": "Espada_Ornamental_A",
+    "triangles": 7920,
+    "bad_vertices": 0,
+    "zero_area_faces": 0,
+    "uv_layers": 1
+  },
+  {
+    "asset": "Espada_Ornamental_B",
+    "triangles": 7920,
+    "bad_vertices": 0,
+    "zero_area_faces": 0,
+    "uv_layers": 1
+  },
+  {
+    "asset": "Filodendro_Ornamental",
+    "triangles": 8580,
+    "bad_vertices": 0,
+    "zero_area_faces": 0,
+    "uv_layers": 1
+  }
+]

@@ -1,0 +1,47 @@
+{
+  "scene": "Assets/Scenes/PrototipoNecroterio.unity",
+  "dirty": false,
+  "playing": false,
+  "componentsOutsideSignChanged": [],
+  "lights": 46,
+  "colliders": 308,
+  "volumesUnchanged": true,
+  "lightmapsUnchanged": true,
+  "baselineFiles": 460,
+  "changedFiles": [
+    "Assets/Editor/UnclaimedMorgueGenerator.Entorno.Lote.cs",
+    "Assets/Modelos/Entorno/Acabamentos/assets.json",
+    "Blender/Entorno/Acabamentos/Acabamentos_Exterior.blend",
+    "Blender/Entorno/Acabamentos/scripts/texturas.py",
+    "Assets/Modelos/Entorno/Acabamentos/Materiais/Print_Placa_Fachada.mat",
+    "Blender/Entorno/Acabamentos/scripts/LetreiroReview.cs",
+    "Blender/Entorno/Acabamentos/README.md",
+    "Assets/Modelos/Entorno/Acabamentos/Placa_Fachada.fbx",
+    "Assets/Editor/UnclaimedExteriorFinishes.cs",
+    "Assets/Modelos/Entorno/Acabamentos/Prefabs/Placa_Fachada.prefab",
+    "Assets/Modelos/Entorno/Acabamentos/Texturas/Placa_Fachada.png",
+    "Blender/Entorno/Acabamentos/scripts/modelos.py"
+  ],
+  "guidMetaFilesPreserved": [
+    "Assets/Modelos/Entorno/Acabamentos/Prefabs/Placa_Fachada.prefab.meta",
+    "Assets/Modelos/Entorno/Acabamentos/Texturas/Placa_Fachada.png.meta",
+    "Assets/Modelos/Entorno/Acabamentos/Placa_Fachada.fbx.meta",
+    "Assets/UnclaimedPrototype/Entorno/Materiais/Placa_Fachada.mat.meta",
+    "Assets/Modelos/Entorno/Acabamentos/Materiais/Print_Placa_Fachada.mat.meta",
+    "Assets/UnclaimedPrototype/Entorno/Texturas/Placa_Fachada.png.meta"
+  ],
+  "otherBaselineFilesUnchanged": 448,
+  "compilationFailed": false,
+  "currentConsoleErrors": 0,
+  "currentConsoleWarnings": 1,
+  "MorgueScenesPreserved": [
+    "Assets/Morgue.unity",
+    "Assets/Scenes/Morgue.unity"
+  ],
+  "views": [
+    "frente-player",
+    "angulo-player",
+    "perto-inspecao"
+  ],
+  "bakePerformed": false
+}

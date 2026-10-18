@@ -1,0 +1,378 @@
+{
+  "routes": [
+    {
+      "route": "entrada",
+      "samples": 24,
+      "blockedBy": []
+    },
+    {
+      "route": "lateral-oeste",
+      "samples": 35,
+      "blockedBy": []
+    },
+    {
+      "route": "fachada-arquivo",
+      "samples": 50,
+      "blockedBy": []
+    },
+    {
+      "route": "nicho-arquivo",
+      "samples": 36,
+      "blockedBy": []
+    }
+  ],
+  "gates": [
+    {
+      "gate": "frontal",
+      "hits": [
+        "Unclaimed - Necroterio (planta)/Area externa/Fechamentos/Colisor - gradil frontal",
+        "Unclaimed - Necroterio (planta)/Area externa/Limites/Limite - calcada"
+      ]
+    },
+    {
+      "gate": "lateral",
+      "hits": [
+        "Unclaimed - Necroterio (planta)/Area externa/Limites/Limite - faixa lateral",
+        "Unclaimed - Necroterio (planta)/Area externa/Fechamentos/Colisor - portao lateral"
+      ]
+    },
+    {
+      "gate": "leste",
+      "hits": [
+        "Unclaimed - Necroterio (planta)/Area externa/Limites/Limite - patio de manobra",
+        "Unclaimed - Necroterio (planta)/Area externa/Fechamentos/Colisor - gradil leste"
+      ]
+    },
+    {
+      "gate": "patio",
+      "hits": [
+        "Unclaimed - Necroterio (planta)/Area externa/Fechamentos/Colisor - portao do patio"
+      ]
+    }
+  ],
+  "missingMeshes": [],
+  "badMaterials": [],
+  "installed": [
+    {
+      "name": "Condutor DN100 1",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Drenagem/Condutores pluviais/Condutor DN100 1",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Condutor_Pluvial_DN100.prefab",
+      "position": [
+        -14.6,
+        0.0,
+        -12.475
+      ]
+    },
+    {
+      "name": "Condutor DN100 2",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Drenagem/Condutores pluviais/Condutor DN100 2",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Condutor_Pluvial_DN100.prefab",
+      "position": [
+        -6.75,
+        0.0,
+        -12.475
+      ]
+    },
+    {
+      "name": "Condutor DN100 3",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Drenagem/Condutores pluviais/Condutor DN100 3",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Condutor_Pluvial_DN100.prefab",
+      "position": [
+        3.3,
+        0.0,
+        -10.35
+      ]
+    },
+    {
+      "name": "Condutor DN100 4",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Drenagem/Condutores pluviais/Condutor DN100 4",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Condutor_Pluvial_DN100.prefab",
+      "position": [
+        3.6,
+        0.0,
+        -6.0
+      ]
+    },
+    {
+      "name": "Condutor DN100 5",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Drenagem/Condutores pluviais/Condutor DN100 5",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Condutor_Pluvial_DN100.prefab",
+      "position": [
+        -14.85,
+        0.0,
+        -4.2
+      ]
+    },
+    {
+      "name": "Condutor DN100 6",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Drenagem/Condutores pluviais/Condutor DN100 6",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Condutor_Pluvial_DN100.prefab",
+      "position": [
+        -13.1,
+        0.0,
+        0.5
+      ]
+    },
+    {
+      "name": "Condutor DN100 7",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Drenagem/Condutores pluviais/Condutor DN100 7",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Condutor_Pluvial_DN100.prefab",
+      "position": [
+        0.0,
+        0.0,
+        9.1
+      ]
+    },
+    {
+      "name": "Condutor DN100 8",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Drenagem/Condutores pluviais/Condutor DN100 8",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Condutor_Pluvial_DN100.prefab",
+      "position": [
+        14.6,
+        0.0,
+        -3.6
+      ]
+    },
+    {
+      "name": "Cadeado de chave - portao 1",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fechamentos/Cadeado de chave - portao 1",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Cadeado_Chave_Corrente.prefab",
+      "position": [
+        -11.4,
+        1.05,
+        -19.03
+      ]
+    },
+    {
+      "name": "Cadeado de chave - portao 2",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fechamentos/Cadeado de chave - portao 2",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Cadeado_Chave_Corrente.prefab",
+      "position": [
+        -16.6,
+        1.1,
+        -8.013
+      ]
+    },
+    {
+      "name": "Cadeado de chave - portao 3",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fechamentos/Cadeado de chave - portao 3",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Cadeado_Chave_Corrente.prefab",
+      "position": [
+        6.97,
+        1.05,
+        -14.62
+      ]
+    },
+    {
+      "name": "Cadeado de chave - portao 4",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fechamentos/Cadeado de chave - portao 4",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Cadeado_Chave_Corrente.prefab",
+      "position": [
+        18.0,
+        1.1,
+        5.237
+      ]
+    },
+    {
+      "name": "Placa",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fachada/Placa - identificacao/Placa",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Placa_Fachada.prefab",
+      "position": [
+        -11.375,
+        3.08,
+        -12.475
+      ]
+    },
+    {
+      "name": "Placa",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fachada/Placa - atendimento/Placa",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Placa_Atendimento.prefab",
+      "position": [
+        -9.9,
+        1.55,
+        -12.475
+      ]
+    },
+    {
+      "name": "Placa",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fachada/Placa - numero/Placa",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Placa_Numero.prefab",
+      "position": [
+        -12.55,
+        1.55,
+        -19.15
+      ]
+    },
+    {
+      "name": "Placa",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fachada/Placa - nao estacione/Placa",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Placa_NaoEstacione.prefab",
+      "position": [
+        20.1,
+        0.33,
+        -19.1
+      ]
+    },
+    {
+      "name": "Interfone externo",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fachada/Interfone externo",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Interfone_Externo.prefab",
+      "position": [
+        -9.7,
+        1.3,
+        -12.475
+      ]
+    },
+    {
+      "name": "Condensadora split 1",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fachada/Condensadora split 1",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Condensadora_Split.prefab",
+      "position": [
+        3.6,
+        1.8,
+        -9.2
+      ]
+    },
+    {
+      "name": "Agua - torneira e mangueira",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fachada/Agua - torneira e mangueira",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Agua_Jardim_DN25.prefab",
+      "position": [
+        3.6,
+        0.0,
+        -10.0
+      ]
+    },
+    {
+      "name": "Condensadora split 2",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Fachada/Condensadora split 2",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Condensadora_Split_Usada.prefab",
+      "position": [
+        3.6,
+        1.8,
+        -7.9
+      ]
+    },
+    {
+      "name": "Placa",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Patio de manobra/Placa - portaria/Placa",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Placa_Guarita.prefab",
+      "position": [
+        13.4,
+        2.3,
+        -17.6
+      ]
+    },
+    {
+      "name": "Filodendro ornamental",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Filodendro ornamental",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Filodendro_Ornamental.prefab",
+      "position": [
+        -4.8,
+        -0.0607538074,
+        -11.6
+      ]
+    },
+    {
+      "name": "Filodendro ornamental",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Filodendro ornamental",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Filodendro_Ornamental.prefab",
+      "position": [
+        -4.0,
+        -0.062011458,
+        -11.65
+      ]
+    },
+    {
+      "name": "Filodendro ornamental",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Filodendro ornamental",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Filodendro_Ornamental.prefab",
+      "position": [
+        -0.5,
+        -0.0586399734,
+        -11.6
+      ]
+    },
+    {
+      "name": "Filodendro ornamental",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Filodendro ornamental",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Filodendro_Ornamental.prefab",
+      "position": [
+        2.0,
+        -0.06629055,
+        -11.6
+      ]
+    },
+    {
+      "name": "Filodendro ornamental",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Filodendro ornamental",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Filodendro_Ornamental.prefab",
+      "position": [
+        2.8,
+        -0.0610626638,
+        -11.55
+      ]
+    },
+    {
+      "name": "Espada-de-sao-jorge ornamental",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Espada-de-sao-jorge ornamental",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Espada_Ornamental_A.prefab",
+      "position": [
+        -14.2199993,
+        0.345,
+        -12.7407627
+      ]
+    },
+    {
+      "name": "Espada-de-sao-jorge ornamental",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Espada-de-sao-jorge ornamental",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Espada_Ornamental_B.prefab",
+      "position": [
+        -13.8799992,
+        0.345,
+        -12.761013
+      ]
+    },
+    {
+      "name": "Espada-de-sao-jorge ornamental",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Espada-de-sao-jorge ornamental",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Espada_Ornamental_A.prefab",
+      "position": [
+        -13.5599995,
+        0.345,
+        -12.8349113
+      ]
+    },
+    {
+      "name": "Espada-de-sao-jorge ornamental",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Espada-de-sao-jorge ornamental",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Espada_Ornamental_B.prefab",
+      "position": [
+        -9.17,
+        0.345,
+        -12.7607718
+      ]
+    },
+    {
+      "name": "Espada-de-sao-jorge ornamental",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Espada-de-sao-jorge ornamental",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Espada_Ornamental_A.prefab",
+      "position": [
+        -8.83,
+        0.345,
+        -12.7950583
+      ]
+    },
+    {
+      "name": "Espada-de-sao-jorge ornamental",
+      "path": "Unclaimed - Necroterio (planta)/Area externa/Vegetacao/Arbustos e bananeiras/Espada-de-sao-jorge ornamental",
+      "prefab": "Assets/Modelos/Entorno/Acabamentos/Prefabs/Espada_Ornamental_B.prefab",
+      "position": [
+        -8.51,
+        0.345,
+        -12.7565155
+      ]
+    }
+  ],
+  "lightmaps": 3
+}

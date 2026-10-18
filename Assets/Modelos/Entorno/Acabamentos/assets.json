@@ -1,0 +1,362 @@
+{
+  "assets": {
+    "Condutor_Pluvial_DN100": {
+      "triangles": 9044,
+      "materials": [
+        "PVC_Pluvial",
+        "Aco_Galvanizado",
+        "Metal_Escuro",
+        "Chapa_Clara"
+      ],
+      "size_blender": [
+        0.18000000715255737,
+        0.6299999952316284,
+        3.504999876022339
+      ]
+    },
+    "Agua_Jardim_DN25": {
+      "triangles": 16596,
+      "materials": [
+        "PVC_Agua",
+        "Aco_Galvanizado",
+        "Latao",
+        "Metal_Escuro",
+        "Mangueira"
+      ],
+      "size_blender": [
+        0.4296491742134094,
+        0.2840000092983246,
+        1.055999994277954
+      ]
+    },
+    "Interfone_Externo": {
+      "triangles": 2472,
+      "materials": [
+        "Metal_Escuro",
+        "Chapa_Clara",
+        "Botao",
+        "Face_Interfone",
+        "Aco_Galvanizado",
+        "Borracha"
+      ],
+      "size_blender": [
+        0.12999999523162842,
+        0.08749999850988388,
+        0.20250000059604645
+      ]
+    },
+    "Condensadora_Split": {
+      "triangles": 21576,
+      "materials": [
+        "Chapa_Clara",
+        "Metal_Escuro",
+        "Aco_Galvanizado",
+        "Latao",
+        "Borracha",
+        "PVC_Pluvial",
+        "Papel_Tecnico"
+      ],
+      "size_blender": [
+        0.9330999851226807,
+        0.5515235066413879,
+        0.8919999599456787
+      ]
+    },
+    "Cadeado_Chave_Corrente": {
+      "triangles": 8624,
+      "materials": [
+        "Metal_Escuro",
+        "Aco_Galvanizado",
+        "Latao"
+      ],
+      "size_blender": [
+        0.1515720784664154,
+        0.0794999971985817,
+        0.09989999979734421
+      ]
+    },
+    "Placa_Fachada": {
+      "triangles": 644,
+      "materials": [
+        "Chapa_Letreiro",
+        "Print_Placa_Fachada",
+        "Aco_Galvanizado",
+        "Metal_Escuro"
+      ],
+      "size_blender": [
+        2.4000000953674316,
+        0.0182499997317791,
+        0.5199999809265137
+      ]
+    },
+    "Placa_Atendimento": {
+      "triangles": 912,
+      "materials": [
+        "PVC_Fundo",
+        "Acrilico_Borda",
+        "Print_Placa_Atendimento",
+        "Inox"
+      ],
+      "size_blender": [
+        0.4399999976158142,
+        0.013100000098347664,
+        0.3199999928474426
+      ]
+    },
+    "Placa_Numero": {
+      "triangles": 644,
+      "materials": [
+        "Aco_Galvanizado",
+        "Print_Placa_Numero",
+        "Metal_Escuro"
+      ],
+      "size_blender": [
+        0.23999999463558197,
+        0.030750000849366188,
+        0.11999999731779099
+      ]
+    },
+    "Placa_NaoEstacione": {
+      "triangles": 644,
+      "materials": [
+        "Aco_Galvanizado",
+        "Print_Placa_NaoEstacione",
+        "Metal_Escuro"
+      ],
+      "size_blender": [
+        0.5,
+        0.029750000685453415,
+        0.25
+      ]
+    },
+    "Placa_Guarita": {
+      "triangles": 644,
+      "materials": [
+        "Aco_Galvanizado",
+        "Print_Placa_Guarita",
+        "Metal_Escuro"
+      ],
+      "size_blender": [
+        0.5,
+        0.03175000101327896,
+        0.1899999976158142
+      ]
+    },
+    "Espada_Ornamental_A": {
+      "triangles": 7920,
+      "materials": [
+        "Folha_Espada"
+      ],
+      "size_blender": [
+        0.41664934158325195,
+        0.35804620385169983,
+        0.8685450553894043
+      ]
+    },
+    "Espada_Ornamental_B": {
+      "triangles": 7920,
+      "materials": [
+        "Folha_Espada"
+      ],
+      "size_blender": [
+        0.40897852182388306,
+        0.3482430875301361,
+        0.8408733010292053
+      ]
+    },
+    "Filodendro_Ornamental": {
+      "triangles": 8580,
+      "materials": [
+        "Caule",
+        "Folha_Filodendro"
+      ],
+      "size_blender": [
+        0.7141504287719727,
+        0.728137731552124,
+        0.6935648322105408
+      ]
+    }
+  },
+  "materials": {
+    "Chapa_Clara": [
+      [
+        0.7,
+        0.72,
+        0.68
+      ],
+      0.0,
+      0.27
+    ],
+    "PVC_Pluvial": [
+      [
+        0.67,
+        0.68,
+        0.61
+      ],
+      0,
+      0.24
+    ],
+    "PVC_Agua": [
+      [
+        0.24,
+        0.115,
+        0.057
+      ],
+      0,
+      0.22
+    ],
+    "Aco_Galvanizado": [
+      [
+        0.32,
+        0.35,
+        0.34
+      ],
+      0.65,
+      0.32
+    ],
+    "Metal_Escuro": [
+      [
+        0.045,
+        0.055,
+        0.052
+      ],
+      0.45,
+      0.22
+    ],
+    "Borracha": [
+      [
+        0.018,
+        0.024,
+        0.022
+      ],
+      0,
+      0.1
+    ],
+    "Latao": [
+      [
+        0.4,
+        0.28,
+        0.1
+      ],
+      0.75,
+      0.32
+    ],
+    "Cobre": [
+      [
+        0.42,
+        0.2,
+        0.095
+      ],
+      0.7,
+      0.34
+    ],
+    "Mangueira": [
+      [
+        0.055,
+        0.16,
+        0.09
+      ],
+      0,
+      0.22
+    ],
+    "Botao": [
+      [
+        0.25,
+        0.27,
+        0.25
+      ],
+      0.45,
+      0.29
+    ],
+    "Folha_Espada": [
+      [
+        1,
+        1,
+        1
+      ],
+      0,
+      0.13
+    ],
+    "Folha_Filodendro": [
+      [
+        1,
+        1,
+        1
+      ],
+      0,
+      0.12
+    ],
+    "Caule": [
+      [
+        0.12,
+        0.22,
+        0.085
+      ],
+      0,
+      0.13
+    ],
+    "Papel_Tecnico": [
+      [
+        0.65,
+        0.67,
+        0.61
+      ],
+      0,
+      0.18
+    ],
+    "Face_Placa": [
+      [
+        1,
+        1,
+        1
+      ],
+      0,
+      0.2
+    ],
+    "Face_Interfone": [
+      [
+        1,
+        1,
+        1
+      ],
+      0,
+      0.22
+    ],
+    "Chapa_Letreiro": [
+      [
+        0.68,
+        0.66,
+        0.61
+      ],
+      0,
+      0.16
+    ],
+    "PVC_Fundo": [
+      [
+        0.86,
+        0.85,
+        0.81
+      ],
+      0,
+      0.3
+    ],
+    "Acrilico_Borda": [
+      [
+        0.62,
+        0.7,
+        0.66
+      ],
+      0,
+      0.88
+    ],
+    "Inox": [
+      [
+        0.62,
+        0.62,
+        0.6
+      ],
+      0.9,
+      0.62
+    ]
+  }
+}

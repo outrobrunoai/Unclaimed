@@ -1,0 +1,23 @@
+DONE
+Resolucao 2560x1440, 120 quadros por medida, Editor (Play Mode), OpenGLCore, AMD Radeon RX 9070 XT (radeonsi, gfx1201, ACO, DRM 3.64, 7.2.10-arch1-1)
+pose 1 chuva ON : render 4.75 ms, quadro 8.96 ms, 1x ParticleSystem.Update 0.011 ms, 2x ParticleSystem.ScheduleGeometryJobs 0.052 ms, 0x ChuvaLeve.Update 0.000 ms, particulas 4500+84+6
+pose 1 chuva OFF: render 4.57 ms, quadro 8.56 ms, 1x ParticleSystem.Update 0.009 ms, 0x ParticleSystem.ScheduleGeometryJobs 0.000 ms, 0x ChuvaLeve.Update 0.000 ms
+pose 1 chuva ON : render 4.72 ms, quadro 8.93 ms, 1x ParticleSystem.Update 0.011 ms, 2x ParticleSystem.ScheduleGeometryJobs 0.052 ms, 0x ChuvaLeve.Update 0.000 ms, particulas 4500+80+4
+pose 1 chuva OFF: render 4.59 ms, quadro 8.58 ms, 1x ParticleSystem.Update 0.009 ms, 0x ParticleSystem.ScheduleGeometryJobs 0.000 ms, 0x ChuvaLeve.Update 0.000 ms
+pose 2 chuva ON : render 6.09 ms, quadro 11.82 ms, 1x ParticleSystem.Update 0.011 ms, 2x ParticleSystem.ScheduleGeometryJobs 0.053 ms, 0x ChuvaLeve.Update 0.000 ms, particulas 4500+122+13
+pose 2 chuva OFF: render 5.81 ms, quadro 11.24 ms, 1x ParticleSystem.Update 0.010 ms, 0x ParticleSystem.ScheduleGeometryJobs 0.000 ms, 0x ChuvaLeve.Update 0.000 ms
+pose 2 chuva ON : render 6.08 ms, quadro 11.82 ms, 1x ParticleSystem.Update 0.012 ms, 2x ParticleSystem.ScheduleGeometryJobs 0.053 ms, 0x ChuvaLeve.Update 0.000 ms, particulas 4500+115+13
+pose 2 chuva OFF: render 5.81 ms, quadro 11.18 ms, 1x ParticleSystem.Update 0.010 ms, 0x ParticleSystem.ScheduleGeometryJobs 0.000 ms, 0x ChuvaLeve.Update 0.000 ms
+pose 3 chuva ON : render 4.96 ms, quadro 9.01 ms, 1x ParticleSystem.Update 0.011 ms, 2x ParticleSystem.ScheduleGeometryJobs 0.051 ms, 0x ChuvaLeve.Update 0.000 ms, particulas 4500+89+6
+pose 3 chuva OFF: render 4.80 ms, quadro 8.64 ms, 1x ParticleSystem.Update 0.009 ms, 0x ParticleSystem.ScheduleGeometryJobs 0.000 ms, 0x ChuvaLeve.Update 0.000 ms
+pose 3 chuva ON : render 4.94 ms, quadro 8.98 ms, 1x ParticleSystem.Update 0.011 ms, 2x ParticleSystem.ScheduleGeometryJobs 0.050 ms, 0x ChuvaLeve.Update 0.000 ms, particulas 4500+94+2
+pose 3 chuva OFF: render 4.77 ms, quadro 8.63 ms, 1x ParticleSystem.Update 0.009 ms, 0x ParticleSystem.ScheduleGeometryJobs 0.001 ms, 0x ChuvaLeve.Update 0.000 ms
+pose 4 chuva ON : render 4.88 ms, quadro 9.13 ms, 1x ParticleSystem.Update 0.011 ms, 2x ParticleSystem.ScheduleGeometryJobs 0.044 ms, 0x ChuvaLeve.Update 0.000 ms, particulas 4500+54+6
+pose 4 chuva OFF: render 4.59 ms, quadro 8.67 ms, 1x ParticleSystem.Update 0.009 ms, 0x ParticleSystem.ScheduleGeometryJobs 0.000 ms, 0x ChuvaLeve.Update 0.000 ms
+pose 4 chuva ON : render 4.92 ms, quadro 9.18 ms, 1x ParticleSystem.Update 0.011 ms, 2x ParticleSystem.ScheduleGeometryJobs 0.043 ms, 0x ChuvaLeve.Update 0.000 ms, particulas 4500+36+3
+pose 4 chuva OFF: render 4.62 ms, quadro 8.69 ms, 1x ParticleSystem.Update 0.009 ms, 0x ParticleSystem.ScheduleGeometryJobs 0.000 ms, 0x ChuvaLeve.Update 0.000 ms
+pose 5 chuva ON : render 5.75 ms, quadro 11.34 ms, 1x ParticleSystem.Update 0.011 ms, 2x ParticleSystem.ScheduleGeometryJobs 0.048 ms, 0x ChuvaLeve.Update 0.000 ms, particulas 4500+64+16
+pose 5 chuva OFF: render 5.56 ms, quadro 10.88 ms, 1x ParticleSystem.Update 0.009 ms, 0x ParticleSystem.ScheduleGeometryJobs 0.000 ms, 0x ChuvaLeve.Update 0.000 ms
+pose 5 chuva ON : render 5.75 ms, quadro 11.25 ms, 1x ParticleSystem.Update 0.011 ms, 2x ParticleSystem.ScheduleGeometryJobs 0.049 ms, 0x ChuvaLeve.Update 0.000 ms, particulas 4500+66+12
+pose 5 chuva OFF: render 5.59 ms, quadro 10.91 ms, 1x ParticleSystem.Update 0.010 ms, 0x ParticleSystem.ScheduleGeometryJobs 0.000 ms, 0x ChuvaLeve.Update 0.000 ms
+

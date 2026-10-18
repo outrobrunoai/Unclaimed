@@ -60,7 +60,9 @@ def floor(n=1024, tiles=2, grout_px=4):
 
 
 def plate(name, w, h, title, sub=None, band=BLUE, icon=None, title_rgb=BLUE, title_size=None):
-    """Institutional PVC sign: white plate, coloured band with a pictogram, title and subtitle."""
+    """Institutional PVC sign: white plate, coloured band with a pictogram, title and subtitle. The print runs to
+    the edge: the plate's own side faces (UnclaimedMorgueGenerator.Plaque) are its border, a drawn outline would
+    show as a second rectangle round the sign."""
     img = Image.new("RGB", (w, h), (244, 244, 240))
     d = ImageDraw.Draw(img)
     bw = h if icon else 0
@@ -77,8 +79,47 @@ def plate(name, w, h, title, sub=None, band=BLUE, icon=None, title_rgb=BLUE, tit
     d.text((tx, ty), title, font=ft, fill=title_rgb, anchor="mm")
     if sub:
         d.text((tx, h * 0.76), sub, font=font(int(h * 0.15)), fill=(70, 70, 70), anchor="mm")
-    d.rectangle((0, 0, w - 1, h - 1), outline=(200, 200, 195), width=3)
     return save(img, name)
+
+
+NIMBUS = "/usr/share/fonts/gsfonts/NimbusSans-Regular.otf"
+NIMBUS_B = "/usr/share/fonts/gsfonts/NimbusSans-Bold.otf"
+PLATE, INK, SAFETY_RED = (228, 225, 214), (43, 45, 41), (160, 38, 34)
+
+
+def functional_plate(name, w_mm, h_mm, title, sub=None, prohibition=False, px_mm=2.56):
+    """Permanent functional sign of the signage review (docs/direcao-arte/comunicacao-visual.md, section 2): off-white
+    PVC, charcoal Nimbus Sans, text left aligned at a 15% margin. Red is used only by the ISO 7010 P001 general
+    prohibition sign, which gets its own column; no band, frame or rule. Wear is limited to dust on the top edge."""
+    w, h = round(w_mm * px_mm), round(h_mm * px_mm)
+    mm = lambda v: round(v * px_mm)
+    img = Image.new("RGB", (w, h), PLATE)
+    d = ImageDraw.Draw(img)
+    margin = 0.15 * h_mm
+    x = margin
+    if prohibition:
+        dia = h_mm - 2 * margin
+        cx, cy, r = mm(margin + dia / 2), mm(h_mm / 2), mm(dia / 2)
+        ring = mm(dia * 0.1)
+        d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=SAFETY_RED)
+        d.ellipse((cx - r + ring, cy - r + ring, cx + r - ring, cy + r - ring), fill=PLATE)
+        k = (r - ring / 2) * 0.7071
+        d.line((cx - k, cy - k, cx + k, cy + k), fill=SAFETY_RED, width=mm(dia * 0.08))
+        x = margin + dia + 0.3 * h_mm
+    title_mm, sub_mm = (0.32 * h_mm, 0.17 * h_mm) if sub else (0.40 * h_mm, 0)
+    ft = ImageFont.truetype(NIMBUS_B, mm(title_mm))
+    if sub:
+        d.text((mm(x), mm(h_mm * 0.53)), title, font=ft, fill=INK, anchor="ls")
+        d.text((mm(x + 0.6), mm(h_mm * 0.80)), sub, font=ImageFont.truetype(NIMBUS, mm(sub_mm)), fill=INK, anchor="ls")
+    else:
+        d.text((mm(x), mm(h_mm * 0.64)), title, font=ft, fill=INK, anchor="ls")
+    a = np.asarray(img, float) / 255
+    yy = np.arange(h)[:, None]
+    rng = np.random.default_rng(sum(map(ord, name)))   # own stream: the module RNG feeds the other textures
+    grain = Image.fromarray(np.uint8(rng.integers(0, 256, (4, 12)))).resize((w, h), Image.Resampling.BICUBIC)
+    a *= (1 + 0.012 * (np.asarray(grain, float) / 255 - 0.5))[..., None]
+    a *= (1 - 0.06 * np.exp(-yy / mm(3)))[..., None]
+    return save(Image.fromarray(np.uint8(np.clip(a, 0, 1) * 255 + 0.5)), name)
 
 
 def icon_info(d, cx, cy, r):
@@ -308,9 +349,7 @@ if __name__ == "__main__":
     out = [floor()]
     out.append(plate("Placa_Recepcao.png", 1024, 256, "RECEPÇÃO", "Atendimento ao público", icon=icon_info))
     out.append(plate("Placa_Sanitarios.png", 768, 256, "SANITÁRIOS", icon=icon_wc))
-    out.append(plate("Placa_AcessoRestrito.png", 1024, 256, "ACESSO RESTRITO", "Somente funcionários",
-                     band=(170, 30, 30), icon=icon_stop, title_rgb=(150, 25, 25)))
-    out.append(plate("Placa_Administracao.png", 1024, 256, "ADMINISTRAÇÃO", "Acesso restrito",
-                     band=(170, 30, 30), icon=icon_stop, title_rgb=(150, 25, 25)))
+    out.append(functional_plate("Placa_AcessoRestrito.png", 800, 200, "Acesso restrito", "Somente funcionários", prohibition=True))
+    out.append(functional_plate("Placa_Administracao.png", 800, 200, "Administração", "Acesso restrito"))
     out += [accessible_sign(), accessible_floor(), clock(), notice_board(), screen(), door_glass(), prismatic_normal()]
     print("\n".join(out))

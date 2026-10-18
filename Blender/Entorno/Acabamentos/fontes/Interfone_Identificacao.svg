@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1376" height="320" viewBox="0 0 86 20">
+<title>Interfone externo — sino moldado e etiqueta de rotuladora</title>
+<rect width="86" height="20" fill="#b4b8ad"/>
+<g fill="none" stroke="#8e9289" stroke-width="0.9" stroke-linejoin="round">
+<path d="M8 14.7 h11 M9.3 14.7 c0.8-1.2 1-2.4 1-4.2 c0-2.6 1.6-4.2 3.2-4.4 c1.6 0.2 3.2 1.8 3.2 4.4 c0 1.8 0.2 3 1 4.2"/>
+<path d="M12.6 16.1 a1 1 0 0 0 2 0"/></g>
+<g transform="rotate(-0.8 52 10)">
+<rect x="27.4" y="4.3" width="47" height="12" fill="#000" opacity="0.18"/>
+<rect x="27" y="4" width="47" height="12" rx="0.3" fill="#ecebe4"/>
+<text x="50.5" y="12.6" text-anchor="middle" font-family="Nimbus Sans" font-weight="bold" font-size="7" fill="#1f201e" letter-spacing="0.25">RECEPÇÃO</text>
+</g></svg>

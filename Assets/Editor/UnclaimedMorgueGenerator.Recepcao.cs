@@ -1,9 +1,10 @@
 // Reception: finish, furniture and fittings. Furniture and equipment are prefabs modelled in Blender
-// (Blender/Recepcao, prefabs built by UnclaimedRecepcaoAssets); signs, clock and notice board are flat
-// panels textured by Blender/Recepcao/scripts/texturas_recepcao.py. A missing prefab falls back to the old
+// (Blender/Recepcao, prefabs built by UnclaimedRecepcaoAssets); signs (solid PVC plates) and the clock are
+// textured by Blender/Recepcao/scripts/texturas_recepcao.py. A missing prefab falls back to the old
 // placeholder box, if it had one. References (public health units, a UPA waiting room) are listed in
 // Blender/Recepcao/referencias.md.
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -102,17 +103,22 @@ public static partial class UnclaimedMorgueGenerator
             ceiling = Sub(ceilingsGroup, "Luminarias - Recepcao");
         string t = RecepcaoTextures;
         Material sign(string name, string file) => Mat(RecepcaoFolder, name, Color.white, 0.35f, 0f, t + file);
-        Material pvc = Mat(RecepcaoFolder, "PVC branco", new Color(0.92f, 0.92f, 0.9f), 0.4f);
         Material frame = Mat(RecepcaoFolder, "Aluminio anodizado", new Color(0.66f, 0.67f, 0.68f), 0.45f, 0.8f);
         Material black = Mat(RecepcaoFolder, "Plastico preto", new Color(0.03f, 0.03f, 0.03f), 0.4f);
 
         var east = Vector3.right; var west = Vector3.left; var north = Vector3.forward; var south = Vector3.back;
-        Plaque("Placa - recepcao", walls, new Vector3(RxMin, 2.25f, CounterZ), east, 1.0f, 0.25f, sign("Placa recepcao", "Placa_Recepcao.png"), pvc);
-        Plaque("Placa - sanitarios", walls, new Vector3(-11.5f, 2.45f, RzMax), south, 0.6f, 0.2f, sign("Placa sanitarios", "Placa_Sanitarios.png"), pvc);
-        Plaque("Placa - acesso restrito", walls, new Vector3(-8f, 2.45f, AlcoveZ), south, 0.8f, 0.2f, sign("Placa acesso restrito", "Placa_AcessoRestrito.png"), pvc);
-        Plaque("Placa - administracao", walls, new Vector3(RxMax, 2.45f, -8f), west, 0.8f, 0.2f, sign("Placa administracao", "Placa_Administracao.png"), pvc);
-        Plaque("Placa - espaco reservado", walls, new Vector3(RxMax, 1.55f, -9.45f), west, 0.25f, 0.325f, sign("Placa espaco reservado", "Placa_EspacoReservado.png"), pvc);
-        Plaque("Quadro de avisos", walls, new Vector3(-8.15f, 1.55f, RzMin), north, 0.9f, 0.6f, sign("Quadro de avisos", "Quadro_Avisos.png"), frame, 0.02f);
+        RecepcaoSigns(walls);
+        // Notice board (Tools > Unclaimed > Build Quadro de Avisos): readable papers from QuadroAvisos.json.
+        var board = AssetDatabase.LoadAssetAtPath<GameObject>(UnclaimedQuadroDeAvisos.PrefabPath);
+        if (board != null)
+        {
+            var obj = (GameObject)PrefabUtility.InstantiatePrefab(board, walls);
+            Undo.RegisterCreatedObjectUndo(obj, "Create Quadro de avisos");
+            obj.name = UnclaimedQuadroDeAvisos.PrefabName;
+            obj.transform.SetPositionAndRotation(new Vector3(-8.15f, 1.55f, RzMin + FinishOffset), Quaternion.Euler(0f, 180f, 0f));
+        }
+        else
+            Plaque("Quadro de avisos", walls, new Vector3(-8.15f, 1.55f, RzMin), north, 0.9f, 0.6f, sign("Quadro de avisos", "Quadro_Avisos.png"), frame, 0.02f);
         Clock(walls, new Vector3(-13.35f, 2.236f, RzMax), south, black);   // over the clerk's post (placed by hand, 2026-10-10)
 
         // PVC guard strips where chair backs touch the walls.
@@ -130,7 +136,8 @@ public static partial class UnclaimedMorgueGenerator
             t + "Decal_RetoquePintura.png", transparent: true);
         Decal("Retoque - parede norte", wear, new Vector3(-12.7f, 1.62f, RzMax - 0.006f), south, Vector3.left, Vector3.up, 0.48f, 0.36f, retoque);
         Decal("Retoque - parede leste", wear, new Vector3(RxMax - 0.006f, 1.45f, -10.7f), west, Vector3.forward, Vector3.up, 0.36f, 0.27f, retoque);
-        Decal("Riscos - porta do WC", wear, new Vector3(-10.78f, 0.55f, RzMax - 0.006f), south, Vector3.left, Vector3.up, 0.5f, 0.45f, decalScuffs);
+        // Starts just past the WC door's casing (outer edge x = -10.897): laid over the casing, it z-fought with its faces.
+        Decal("Riscos - porta do WC", wear, new Vector3(-10.64f, 0.55f, RzMax - 0.006f), south, Vector3.left, Vector3.up, 0.5f, 0.45f, decalScuffs);
         RecepcaoLighting(ceiling);
         EntranceDoor();
     }
@@ -163,16 +170,87 @@ public static partial class UnclaimedMorgueGenerator
         }
     }
 
-    // A sign or board: a thin backing plate with the printed face just in front of it (visual only).
+    // Door and wall signs (PVC plates); also rebuilt on the saved map by Tools > Unclaimed > Update Wall Finishes.
+    private static void RecepcaoSigns(Transform walls)
+    {
+        string t = RecepcaoTextures;
+        Material sign(string name, string file) => Mat(RecepcaoFolder, name, Color.white, 0.35f, 0f, t + file);
+        Material pvc = Mat(RecepcaoFolder, "PVC branco", new Color(0.92f, 0.92f, 0.9f), 0.4f);
+        var east = Vector3.right; var west = Vector3.left; var south = Vector3.back;
+        Plaque("Placa - recepcao", walls, new Vector3(RxMin, 2.25f, CounterZ), east, 1.0f, 0.25f, sign("Placa recepcao", "Placa_Recepcao.png"), pvc);
+        Plaque("Placa - sanitarios", walls, new Vector3(-11.5f, 2.45f, RzMax), south, 0.6f, 0.2f, sign("Placa sanitarios", "Placa_Sanitarios.png"), pvc);
+        Plaque("Placa - acesso restrito", walls, new Vector3(-8f, 2.45f, AlcoveZ), south, 0.8f, 0.2f, sign("Placa acesso restrito", "Placa_AcessoRestrito.png"), pvc);
+        Plaque("Placa - administracao", walls, new Vector3(RxMax, 2.45f, -8f), west, 0.8f, 0.2f, sign("Placa administracao", "Placa_Administracao.png"), pvc);
+        Plaque("Placa - espaco reservado", walls, new Vector3(RxMax, 1.55f, -9.45f), west, 0.25f, 0.325f, sign("Placa espaco reservado", "Placa_EspacoReservado.png"), pvc);
+    }
+
+    // A sign or board: one solid plate whose front carries the print (submesh 0) and whose edges and back are
+    // the backing material (submesh 1). It used to be a backing box with the print as a separate quad 1.5 mm in
+    // front of it, which drew a second outline round the sign and broke its edges into dashes. Visual only and
+    // no shadow: a few millimetres off the wall, the shadow map could only add a stepped rectangle. Running it
+    // again on an existing sign replaces the old pieces.
     private static void Plaque(string name, Transform parent, Vector3 wallPoint, Vector3 normal, float w, float h,
         Material face, Material backing, float depth = 0.004f)
     {
         Transform g = Sub(parent, name);
-        Vector3 right = Vector3.Cross(normal, Vector3.up);
-        Vector3 center = wallPoint + normal * (FinishOffset + depth / 2);
-        Part("Base", g, PrimitiveType.Cube, center, new Vector3(w, h, depth), Quaternion.LookRotation(normal), backing);
-        Vector3 front = wallPoint + normal * (FinishOffset + depth + 0.0015f);
-        Panel("Face", g, front - right * (w / 2) - Vector3.up * (h / 2), right, Vector3.up, w, h, normal, face, worldUv: false);
+        for (int i = g.childCount - 1; i >= 0; i--) Undo.DestroyObjectImmediate(g.GetChild(i).gameObject);
+        var obj = new GameObject("Placa");
+        Undo.RegisterCreatedObjectUndo(obj, "Create " + name);
+        obj.transform.SetParent(g, false);
+        obj.transform.SetPositionAndRotation(wallPoint + normal * (FinishOffset + depth / 2), Quaternion.LookRotation(normal));
+        obj.AddComponent<MeshFilter>().sharedMesh = PlateMesh(name, w, h, depth);
+        var r = obj.AddComponent<MeshRenderer>();
+        r.sharedMaterials = new[] { face, backing };
+        r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        ClampPrint(face);
+    }
+
+    // The print runs to the plate's edge: with Repeat wrapping, bilinear filtering and mipmaps blended the
+    // opposite edge in (the blue band showed as a line along the white end).
+    private static void ClampPrint(Material face)
+    {
+        string path = AssetDatabase.GetAssetPath(face.GetTexture("_BaseMap"));
+        if (AssetImporter.GetAtPath(path) is TextureImporter importer && importer.wrapMode != TextureWrapMode.Clamp)
+        {
+            importer.wrapMode = TextureWrapMode.Clamp;
+            importer.SaveAndReimport();
+        }
+    }
+
+    // Box w x h x depth centred on the origin, front face on +Z. The print spans the front (texture right =
+    // world right as seen from the front, i.e. local -X); the sides and the back share submesh 1.
+    private static Mesh PlateMesh(string name, float w, float h, float depth)
+    {
+        float x = w / 2, y = h / 2, z = depth / 2;
+        var v = new List<Vector3>();
+        var n = new List<Vector3>();
+        var uv = new List<Vector2>();
+        var front = new List<int>();
+        var rest = new List<int>();
+        void Face(List<int> tris, Vector3 normal, Vector3 a, Vector3 b, Vector3 c, Vector3 d)
+        {
+            int i = v.Count;
+            foreach (Vector3 p in new[] { a, b, c, d })
+            {
+                v.Add(p);
+                n.Add(normal);
+                uv.Add(new Vector2(0.5f - p.x / w, 0.5f + p.y / h));
+            }
+            bool ccw = Vector3.Dot(Vector3.Cross(b - a, c - a), normal) > 0;
+            tris.AddRange(ccw ? new[] { i, i + 1, i + 2, i, i + 2, i + 3 } : new[] { i, i + 2, i + 1, i, i + 3, i + 2 });
+        }
+        Face(front, Vector3.forward, new Vector3(-x, -y, z), new Vector3(x, -y, z), new Vector3(x, y, z), new Vector3(-x, y, z));
+        Face(rest, Vector3.back, new Vector3(-x, -y, -z), new Vector3(x, -y, -z), new Vector3(x, y, -z), new Vector3(-x, y, -z));
+        Face(rest, Vector3.right, new Vector3(x, -y, -z), new Vector3(x, y, -z), new Vector3(x, y, z), new Vector3(x, -y, z));
+        Face(rest, Vector3.left, new Vector3(-x, -y, -z), new Vector3(-x, y, -z), new Vector3(-x, y, z), new Vector3(-x, -y, z));
+        Face(rest, Vector3.up, new Vector3(-x, y, -z), new Vector3(x, y, -z), new Vector3(x, y, z), new Vector3(-x, y, z));
+        Face(rest, Vector3.down, new Vector3(-x, -y, -z), new Vector3(x, -y, -z), new Vector3(x, -y, z), new Vector3(-x, -y, z));
+        var mesh = new Mesh { name = name, vertices = v.ToArray(), normals = n.ToArray(), uv = uv.ToArray(), subMeshCount = 2 };
+        mesh.SetTriangles(front, 0);
+        mesh.SetTriangles(rest, 1);
+        mesh.RecalculateTangents();
+        mesh.RecalculateBounds();
+        return mesh;
     }
 
     // Round wall clock showing ten past ten: black case, printed dial on a disc (UVs on the inscribed
