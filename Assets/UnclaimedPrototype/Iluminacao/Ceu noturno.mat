@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Ceu noturno
-  m_Shader: {fileID: 108, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: b29c5ec1150524eb98c79095b0c96e35, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -25,24 +25,45 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Fundo:
+        m_Texture: {fileID: 2800000, guid: f58f61fa930978157869ee64e5ed9152, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: b49b4d8abd1f3e38f95460dda9752fe2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Nuvens:
+        m_Texture: {fileID: 2800000, guid: 2ae05dd39775eb0578fa0d26da660d98, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AberturaPiso: 0.035
     - _AtmosphereThickness: 0.45
+    - _Evolucao: 0.6
     - _Exposure: 1
+    - _GiroTextura: 1.5
     - _ImageType: 0
     - _Layout: 0
+    - _LuaDiametro: 1.6
     - _Mapping: 1
     - _MirrorOnBack: 0
+    - _ModoTextura: 0
     - _Rotation: 0
     - _SunDisk: 0
     - _SunSize: 0
     - _SunSizeConvergence: 5
+    - _VelocidadeAlta: 3
+    - _VelocidadeBaixa: 7
+    - _VelocidadeFina: 9
     m_Colors:
+    - _DirecaoPadrao: {r: 1, g: 0, b: 0.3, a: 0}
+    - _GainA: {r: 0.89210796, g: 0.90582365, b: 1.0009353, a: 0}
+    - _GainB: {r: 0.17626578, g: 0.1415897, b: 0.04103514, a: 0}
+    - _GainC: {r: -0.3270802, g: -0.25830767, b: -0.14658049, a: 0}
     - _GroundColor: {r: 0.05, g: 0.05, b: 0.055, a: 1}
+    - _LuaDir: {r: -0.16317591, g: 0.34202015, b: -0.9254166, a: 0}
     - _SkyTint: {r: 0.22, g: 0.27, b: 0.42, a: 1}
     - _Tint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_BuildTextureStacks: []

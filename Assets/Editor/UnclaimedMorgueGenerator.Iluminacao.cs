@@ -98,7 +98,7 @@ public static partial class UnclaimedMorgueGenerator
         {
             count[room] = count.TryGetValue(room, out int n) ? n + 1 : 1;
             CeilingFixture(Sub(ceilingRoot, "Luminarias - " + room), "Luz - " + room + " - luminaria " + count[room],
-                "Luminaria " + count[room], x, z, 0, intensity, kelvin, false, alongZ, model: room == "WC");   // finished rooms: modelled fitting
+                "Luminaria " + count[room], x, z, 0, intensity, kelvin, false, alongZ, model: room == "WC" || room == "Arquivo e escritorio");   // finished rooms: modelled fitting
         }
 
         // Outside: a wall lamp over the main entrance and two floodlights on the building over the yard.
@@ -218,48 +218,117 @@ public static partial class UnclaimedMorgueGenerator
         return lights != null ? Sub(lights, "Iluminacao externa") : null;
     }
 
-    // The night sky material (Skybox/Panoramic, lat-long). The material asset keeps its GUID: an older
-    // procedural "Ceu noturno" is converted in place.
+    // The night sky material. With the layers from Blender/Ceu/ceu_noturno.py (Ceu_Noturno_Fundo.png,
+    // Ceu_Noturno_Nuvens.png, Ceu_Noturno.json) it uses "Unclaimed/Ceu noturno", which draws the same cloud
+    // deck per pixel and lets it drift with the wind (CeuNoturno publishes wind and time). Without them it
+    // falls back to Skybox/Panoramic on Ceu_Noturno.png. The material asset keeps its GUID; its speed and
+    // gap settings are left as tuned in the Editor.
+    private const string SkyLayersBase = LightingFolder + "/Ceu_Noturno";
+
     private static Material NightSky()
     {
         string path = LightingFolder + "/Ceu noturno.mat";
-        if (AssetImporter.GetAtPath(SkyTexturePath) is TextureImporter importer &&
-            (importer.mipmapEnabled || importer.wrapModeV != TextureWrapMode.Clamp || importer.maxTextureSize != 8192 ||
-             importer.textureCompression != TextureImporterCompression.CompressedHQ))
-        {
-            importer.mipmapEnabled = false;            // mip seams show at the panorama's wrap
-            importer.wrapModeU = TextureWrapMode.Repeat;
-            importer.wrapModeV = TextureWrapMode.Clamp;
-            importer.maxTextureSize = 8192;            // native size: smaller blurs clouds and stars again
-            importer.textureCompression = TextureImporterCompression.CompressedHQ;
-            importer.SaveAndReimport();
-        }
+        ConfigureSkyTexture(SkyTexturePath, true);
+        ConfigureSkyTexture(SkyLayersBase + "_Fundo.png", true);
+        ConfigureSkyTexture(SkyLayersBase + "_Nuvens.png", false);
         var texture = AssetDatabase.LoadAssetAtPath<Texture2D>(SkyTexturePath);
+        var fundo = AssetDatabase.LoadAssetAtPath<Texture2D>(SkyLayersBase + "_Fundo.png");
+        var nuvens = AssetDatabase.LoadAssetAtPath<Texture2D>(SkyLayersBase + "_Nuvens.png");
+        string json = System.IO.File.Exists(SkyLayersBase + ".json") ? System.IO.File.ReadAllText(SkyLayersBase + ".json") : null;
         var sky = AssetDatabase.LoadAssetAtPath<Material>(path);
-        Shader panoramic = Shader.Find("Skybox/Panoramic");
+        Shader panoramic = Shader.Find("Skybox/Panoramic"), moving = Shader.Find("Unclaimed/Ceu noturno");
         if (sky == null)
         {
-            sky = new Material(panoramic) { name = "Ceu noturno" };
+            sky = new Material(moving != null ? moving : panoramic) { name = "Ceu noturno" };
             AssetDatabase.CreateAsset(sky, path);
         }
-        if (sky.shader != panoramic && texture != null)
+        if (moving != null && fundo != null && nuvens != null && json != null)
         {
-            sky.shader = panoramic;
-            sky.SetTexture("_MainTex", texture);
-            sky.SetFloat("_Mapping", 1f);        // latitude-longitude layout
-            sky.SetFloat("_ImageType", 0f);      // 360 degrees
-            sky.SetFloat("_MirrorOnBack", 0f);
-            sky.SetFloat("_Layout", 0f);
-            sky.SetFloat("_Rotation", 0f);       // the moon's direction is drawn into the image
-            sky.SetFloat("_Exposure", 1f);
+            if (sky.shader != moving) sky.shader = moving;
+            sky.SetTexture("_Fundo", fundo);
+            sky.SetTexture("_Nuvens", nuvens);
+            // gain[channel][basis] -> one colour per basis (1, low-sky boost, high-sky correction).
+            float[] gain = JsonNumbers(json, "gain");
+            if (gain.Length == 9)
+                for (int b = 0; b < 3; b++)
+                    sky.SetVector(b == 0 ? "_GainA" : b == 1 ? "_GainB" : "_GainC", new Vector4(gain[b], gain[3 + b], gain[6 + b], 0f));
+            float[] moonDir = JsonNumbers(json, "moon_direction");
+            if (moonDir.Length == 3) sky.SetVector("_LuaDir", new Vector4(moonDir[0], moonDir[1], moonDir[2], 0f));
+            float[] diameter = JsonNumbers(json, "moon_diameter");
+            if (diameter.Length == 1) sky.SetFloat("_LuaDiametro", diameter[0]);
             sky.SetColor("_Tint", new Color(0.5f, 0.5f, 0.5f));
-            sky.EnableKeyword("_MAPPING_LATITUDE_LONGITUDE_LAYOUT");
-            sky.DisableKeyword("_MAPPING_6_FRAMES_LAYOUT");
+            sky.SetFloat("_Exposure", 1f);
             EditorUtility.SetDirty(sky);
         }
-        else if (texture == null)
+        else if (texture != null)
+        {
+            if (sky.shader != panoramic)
+            {
+                sky.shader = panoramic;
+                sky.SetTexture("_MainTex", texture);
+                sky.SetFloat("_Mapping", 1f);        // latitude-longitude layout
+                sky.SetFloat("_ImageType", 0f);      // 360 degrees
+                sky.SetFloat("_MirrorOnBack", 0f);
+                sky.SetFloat("_Layout", 0f);
+                sky.SetFloat("_Rotation", 0f);       // the moon's direction is drawn into the image
+                sky.SetFloat("_Exposure", 1f);
+                sky.SetColor("_Tint", new Color(0.5f, 0.5f, 0.5f));
+                sky.EnableKeyword("_MAPPING_LATITUDE_LONGITUDE_LAYOUT");
+                sky.DisableKeyword("_MAPPING_6_FRAMES_LAYOUT");
+                EditorUtility.SetDirty(sky);
+            }
+        }
+        else
             Debug.LogWarning("Unclaimed: missing " + SkyTexturePath + "; run Blender/Ceu/ceu_noturno.py.");
         return sky;
+    }
+
+    // Panorama import: no mips (mip seams show at the wrap), wrap in u only, native 8192, BC7.
+    private static void ConfigureSkyTexture(string path, bool srgb)
+    {
+        if (!(AssetImporter.GetAtPath(path) is TextureImporter importer)) return;
+        if (!importer.mipmapEnabled && importer.wrapModeU == TextureWrapMode.Repeat && importer.wrapModeV == TextureWrapMode.Clamp &&
+            importer.maxTextureSize == 8192 && importer.textureCompression == TextureImporterCompression.CompressedHQ &&
+            importer.sRGBTexture == srgb && importer.alphaIsTransparency == false) return;
+        importer.mipmapEnabled = false;
+        importer.wrapModeU = TextureWrapMode.Repeat;
+        importer.wrapModeV = TextureWrapMode.Clamp;
+        importer.maxTextureSize = 8192;            // native size: smaller blurs clouds and stars again
+        importer.textureCompression = TextureImporterCompression.CompressedHQ;
+        importer.sRGBTexture = srgb;
+        importer.alphaIsTransparency = false;
+        importer.SaveAndReimport();
+    }
+
+    // The numbers of one top-level json value ("key": number | [ ... ]), flattened.
+    private static float[] JsonNumbers(string json, string key)
+    {
+        var m = System.Text.RegularExpressions.Regex.Match(json, "\"" + key + "\"\\s*:\\s*(\\[[^\"]*\\]|[-0-9.eE+]+)");
+        if (!m.Success) return new float[0];
+        var numbers = System.Text.RegularExpressions.Regex.Matches(m.Groups[1].Value, "[-+]?[0-9]*\\.?[0-9]+(?:[eE][-+]?[0-9]+)?");
+        var result = new float[numbers.Count];
+        for (int k = 0; k < numbers.Count; k++)
+            result[k] = float.Parse(numbers[k].Value, System.Globalization.CultureInfo.InvariantCulture);
+        return result;
+    }
+
+    // Converts only the sky material and adds the CeuNoturno publisher (wind + time for the clouds); the
+    // rest of the night environment (ambient, moonlight, lighting settings) is left as it is in the scene.
+    [MenuItem("Tools/Unclaimed/Apply Moving Night Sky")]
+    public static void ApplyMovingSky()
+    {
+        Material sky = NightSky();
+        if (RenderSettings.skybox != sky) RenderSettings.skybox = sky;
+        CeuNoturno publisher = Object.FindAnyObjectByType<CeuNoturno>(FindObjectsInactive.Include);
+        if (publisher == null)
+        {
+            Transform outdoor = OutdoorLightsGroup();
+            var go = new GameObject("Ceu - nuvens em movimento");
+            Undo.RegisterCreatedObjectUndo(go, "Create CeuNoturno");
+            if (outdoor != null) go.transform.SetParent(outdoor, false);
+            go.AddComponent<CeuNoturno>();
+        }
+        UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
     }
 
     // Lightmap UVs for the structure, GI flags, light probes and reflection probes.

@@ -42,7 +42,7 @@ ASSETS = ("BalcaoRecepcao", "GavetaBalcao1", "GavetaBalcao2", "GavetaBalcao3", "
           "LuminariaSobrepor", "LuminariaSobrepor_Luz", "LuminariaExterna", "LuminariaExterna_Luz",
           "PortaVidroFixos", "PortaVidroFolha", "PortaVidroVidro", "BatenteEntrada",
           "CadeadoCorpo", "CadeadoArco", "CadeadoDisco", "FechoBase", "FechoAba", "FechoSuporte", "ChaveMetal", "ChaveEtiqueta",
-          "PortaCirculacaoFixos", "PortaCirculacaoFolha")
+          "PortaCirculacaoFixos", "PortaCirculacaoFolha", "PortaArquivoFixos", "PortaArquivoFolha", "PortaArquivoTrinco")
 # Not baked: parts keep their own UVs and material slots (diffusers, emissive tubes, glass).
 UNBAKED = ("LuminariaSobrepor_Luz", "LuminariaExterna_Luz", "PortaVidroVidro",
            # Puzzle hardware: one Unity material each (brass, steel, digit strip, nickel, printed tag).
@@ -1478,6 +1478,58 @@ def build_porta_circ_folha():
         _kick_plate(f"Chapa de protecao {face:+d}", x0 + 0.035, x1 - 0.035, y, face, z0 + 0.006, z0 + 0.206)
 
 
+# Reception-archive door: the circulation door's kit (same 1.5 m raw opening, frame, leaves and hardware) with a
+# horizontal surface bolt on the archive face (+Y, the swing side) of the active leaf, by its meeting edge, shooting
+# across the centre gap into a keeper on the secondary leaf. The bolt rod and its knob are a separate asset
+# (PortaArquivoTrinco, in the leaf frame) that Unity slides FERROLHO["travel"] towards -X when it is drawn.
+FERROLHO = dict(z=1.45, travel=0.05, rod_r=0.0055, plate_h=0.044)
+
+
+def _ferrolho_x():
+    """Active leaf's meeting edge in the leaf frame, and the leaf's +Y face."""
+    P = PORTA_CIRC
+    px, py = P["pivot"]
+    x1 = (-P["jx"] + P["gap"]) - px + P["active"]
+    return x1, P["face"] - py
+
+
+def build_porta_arq_fixos():
+    """Circulation frame and secondary leaf, plus the bolt's keeper on the secondary leaf's archive face."""
+    build_porta_circ_fixos()
+    P, F = PORTA_CIRC, FERROLHO
+    fx0 = -P["jx"] + P["gap"] + P["active"] + P["center_gap"]
+    y1, z = P["face"], F["z"]
+    box("Fecho do ferrolho - base", "inox", fx0 + 0.008, y1, z - 0.02, fx0 + 0.05, y1 + 0.003, z + 0.02, r=0.001, seg=1)
+    box("Fecho do ferrolho - ponte", "inox", fx0 + 0.012, y1 + 0.003, z - 0.011, fx0 + 0.046, y1 + 0.0175, z + 0.011, r=0.002, seg=2)
+    for sx in (fx0 + 0.016, fx0 + 0.042):
+        cyl(f"Fecho do ferrolho - parafuso {sx:.3f}", "inox", (sx, y1 + 0.0035, z + 0.015), 0.0022, 0.001, axis=(0, 1, 0), seg=10, r=0.0003)
+
+
+def build_porta_arq_folha():
+    """Circulation active leaf plus the fixed parts of the surface bolt (back plate, two guide straps, screws)."""
+    build_porta_circ_folha()
+    F = FERROLHO
+    x1, y1 = _ferrolho_x()
+    z, h = F["z"], F["plate_h"] / 2
+    box("Ferrolho - chapa", "inox", x1 - 0.175, y1, z - h, x1 - 0.022, y1 + 0.003, z + h, r=0.0015, seg=2)
+    for g0 in (x1 - 0.165, x1 - 0.06):
+        box(f"Ferrolho - guia {g0:.3f}", "inox", g0, y1 + 0.003, z - 0.012, g0 + 0.025, y1 + 0.017, z + 0.012, r=0.002, seg=2)
+    for sx in (x1 - 0.168, x1 - 0.03):
+        for sz in (z - h + 0.007, z + h - 0.007):
+            cyl(f"Ferrolho - parafuso {sx:.3f} {sz:.3f}", "inox", (sx, y1 + 0.0035, sz), 0.0022, 0.001, axis=(0, 1, 0), seg=10, r=0.0003)
+
+
+def build_porta_arq_trinco():
+    """Bolt rod and knob, shot (locked), in the leaf frame: the rod reaches into the keeper on the secondary leaf."""
+    F = FERROLHO
+    x1, y1 = _ferrolho_x()
+    z, yr = F["z"], y1 + 0.0095
+    cyl("Trinco - haste", "inox", ((x1 - 0.18 + x1 + 0.036) / 2, yr, z), F["rod_r"], x1 + 0.036 - (x1 - 0.18), axis=(1, 0, 0), seg=18, r=0.0012)
+    kx = x1 - 0.085   # between the guides; drawn, it stops just short of the first one
+    cyl("Trinco - manopla", "inox", (kx, yr + 0.016, z), 0.0042, 0.03, axis=(0, 1, 0), seg=14, r=0.0012)
+    cyl("Trinco - bola", "inox_escuro", (kx, yr + 0.034, z), 0.0085, 0.012, axis=(0, 1, 0), seg=18, r=0.004)
+
+
 BUILDERS = {"BalcaoRecepcao": build_balcao, "CadeiraEspera": build_espera,
             "CadeiraAtendente": build_atendente, "ArmarioApoio": build_armario,
             "GavetaBalcao1": lambda: build_gaveta(0), "GavetaBalcao2": lambda: build_gaveta(1),
@@ -1488,6 +1540,8 @@ BUILDERS = {"BalcaoRecepcao": build_balcao, "CadeiraEspera": build_espera,
             "FechoBase": build_fecho_base, "FechoAba": build_fecho_aba, "FechoSuporte": build_fecho_suporte, "ChaveMetal": build_chave_metal,
             "ChaveEtiqueta": build_chave_etiqueta, "PortaCirculacaoFixos": build_porta_circ_fixos,
             "PortaCirculacaoFolha": build_porta_circ_folha,
+            "PortaArquivoFixos": build_porta_arq_fixos, "PortaArquivoFolha": build_porta_arq_folha,
+            "PortaArquivoTrinco": build_porta_arq_trinco,
             "LongarinaEspera": build_longarina, "EquipamentosBalcao": build_kit, "LivroRegistro": build_livro,
             "Bebedouro": build_bebedouro, "Lixeira": build_lixeira,
             "LuminariaSobrepor": build_luminaria, "LuminariaSobrepor_Luz": build_luminaria_luz,

@@ -124,6 +124,14 @@ public class FolhaDePorta : AlvoDeInteracao
         MiraDeInteracao.Avisar(avisoDestrancada);
     }
 
+    /// <summary>Destranca sem chave (ex.: ferrolho do outro lado). Não volta a trancar.</summary>
+    public void Destravar()
+    {
+        if (!trancada) return;
+        trancada = false;
+        Tocar(somDestrancar);
+    }
+
     // Volume de um BoxCollider da folha numa pose: centro, rotação e meias medidas no mundo.
     struct Caixa { public Vector3 centro; public Quaternion rotacao; public Vector3 meia; }
 

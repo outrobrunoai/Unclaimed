@@ -89,7 +89,7 @@ public class EstacaoDados
         foreach (var a in arquivos) if (a.pasta == pasta) yield return a;
     }
 
-    /// <summary>"17/10/2025 07:48" → valor ordenável.</summary>
+    /// <summary>"17/11/2026 07:48" → valor ordenável.</summary>
     public static long Ordem(string data)
     {
         if (string.IsNullOrEmpty(data) || data.Length < 10) return 0;

@@ -77,10 +77,12 @@ public static partial class UnclaimedMorgueGenerator
         public readonly bool Header;
         // Prefab of a modelled frame (and door) for this opening; replaces the generic jambs, casings and sill.
         public readonly string Frame;
+        public readonly float Yaw;
 
-        public Door(string name, bool vertical, float line, float center, float width, bool header = true, string frame = null)
+        public Door(string name, bool vertical, float line, float center, float width, bool header = true, string frame = null, float? yaw = null)
         {
             Name = name; Vertical = vertical; Line = line; Center = center; Width = width; Header = header; Frame = frame;
+            Yaw = yaw ?? (vertical ? -90f : 0f);
         }
     }
 
@@ -95,7 +97,8 @@ public static partial class UnclaimedMorgueGenerator
         // cabinet (first puzzle: reception computer -> padlock -> key -> this door).
         new Door("Porta recepcao - circulacao", false, -6f, -8f, 1.5f,
             frame: UnclaimedRecepcaoAssets.Folder + "/" + UnclaimedRecepcaoAssets.CirculationDoorPrefab + ".prefab"),
-        new Door("Porta recepcao - arquivo", true, -6.5f, -8f, 1.5f),
+        new Door("Porta recepcao - arquivo", true, -6.5f, -8f, 1.5f,
+            frame: UnclaimedRecepcaoAssets.Folder + "/" + UnclaimedRecepcaoAssets.ArchiveDoorPrefab + ".prefab", yaw: 90f),
         new Door("Porta arquivo - circulacao", true, -2f, -4.75f, 1.5f),
         new Door("Porta descanso", true, -5.25f, -0.25f, 1.5f),
         new Door("Porta deposito", true, -4.5f, 3.5f, 1.5f),
@@ -162,6 +165,7 @@ public static partial class UnclaimedMorgueGenerator
         finishes = new Dictionary<string, ZoneFinish> { ["Autopsia"] = AutopsiaFinish() };
         finishes["Recepcao"] = RecepcaoFinish();   // after the autopsy: reuses its ceiling, decals and fittings
         finishes["WC"] = WCFinish();
+        finishes["Arquivo e escritorio"] = ArquivoFinish();
 
         floorsGroup = Group("Pisos");
         wallsGroup = Group("Paredes");
@@ -188,6 +192,7 @@ public static partial class UnclaimedMorgueGenerator
         Furniture(furniture);
         BuildAutopsia(Sub(roomsGroup, "Autopsia"));
         BuildRecepcao(Sub(roomsGroup, "Recepcao"));
+        BuildArquivo(Sub(roomsGroup, "Arquivo e escritorio"));
         BuildWC(Sub(roomsGroup, "WC"));
         Clues(clues);
         Markers(markers);
@@ -481,9 +486,10 @@ public static partial class UnclaimedMorgueGenerator
                 var frame = (GameObject)PrefabUtility.InstantiatePrefab(framePrefab, g);
                 Undo.RegisterCreatedObjectUndo(frame, "Create " + d.Name + " frame");
                 frame.transform.SetPositionAndRotation(d.Vertical ? new Vector3(d.Line, 0f, d.Center) : new Vector3(d.Center, 0f, d.Line),
-                    Quaternion.Euler(0f, d.Vertical ? -90f : 0f, 0f));
+                    Quaternion.Euler(0f, d.Yaw, 0f));
                 foreach (FolhaDePorta leaf in frame.GetComponentsInChildren<FolhaDePorta>()) leaf.AplicarEstadoInicial();
             }
+            if (framePrefab == null && d.Name == ArchiveDoorName) ArchiveDoorLeaf(g, d);
             float depth = half + FrameProjection;
             if (framePrefab == null)
             {
@@ -562,10 +568,10 @@ public static partial class UnclaimedMorgueGenerator
         }
         Block("Maca da camara fria", p, 12.75f, 0.5f, 14.85f, 1.25f, 0, 0.85f, furnitureMat);
 
-        OfficeDesk(p);
-        Block("Arquivo de prontuarios", p, 2.65f, -6.5f, 3.25f, -4f, 0, 1.6f, furnitureMat);
-        Block("Estante de pastas", p, 2.65f, -8.5f, 3.25f, -6.75f, 0, 2f, furnitureMat);
-        Block("Armario de pertences", p, 2.65f, -10f, 3.25f, -8.75f, 0, 1.8f, furnitureMat);
+        if (!HasAdminPrefab("Mesa do servidor")) OfficeDesk(p);
+        if (!HasAdminPrefab("Arquivo de aco")) Block("Arquivo de prontuarios", p, 2.65f, -6.5f, 3.25f, -4f, 0, 1.6f, furnitureMat);
+        if (!HasAdminPrefab("Estante de aco") && !HasAdminPrefab("Estante da coordenacao")) Block("Estante de pastas", p, 2.65f, -8.5f, 3.25f, -6.75f, 0, 2f, furnitureMat);
+        if (!HasAdminPrefab("Armario de pertences")) Block("Armario de pertences", p, 2.65f, -10f, 3.25f, -8.75f, 0, 1.8f, furnitureMat);
 
         // Patio: equipment against the north and east fences keeps the yard open for vehicles.
         Block("Cacamba", p, 19.1f, 13.45f, 20.85f, 15.35f, 0, 1.4f, furnitureMat);
@@ -593,8 +599,8 @@ public static partial class UnclaimedMorgueGenerator
     private static void Clues(Transform p)
     {
         DressRegisterBook(Clue("Pista - registro de entrada", p, -12.42f, -9.0f, 1.1f));   // on the counter's granite ledge
-        Clue("Pista - objeto pessoal", p, 2.95f, -9.375f, 1.8f);
-        Clue("Pista - prontuario", p, -2.25f, -7.875f, 0.75f);
+        if (!HasAdminPrefab("Armario de pertences")) Clue("Pista - objeto pessoal", p, 2.95f, -9.375f, 1.8f);
+        if (!HasAdminPrefab("Mesa do servidor")) Clue("Pista - prontuario", p, -2.25f, -7.875f, 0.75f);
         Clue("Pista - instrumento deslocado", p, 6f, 11.05f, 0.9f);
         Clue("Pista - laudo da autopsia", p, 3f, 3f, 0.9f);
     }

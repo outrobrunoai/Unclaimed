@@ -22,7 +22,8 @@ ATLAS = {"BalcaoRecepcao": 2048, "GavetaBalcao1": 1024, "GavetaBalcao2": 1024, "
          "PortaArmarioEsquerda": 512, "PortaArmarioDireita": 512, "CadeiraEspera": 1024, "CadeiraAtendente": 1024, "ArmarioApoio": 1024,
          "LongarinaEspera": 1024, "EquipamentosBalcao": 2048, "LivroRegistro": 512, "Bebedouro": 1024, "Lixeira": 512,
          "LuminariaSobrepor": 1024, "LuminariaExterna": 512, "PortaVidroFixos": 512, "PortaVidroFolha": 1024,
-         "BatenteEntrada": 1024, "PortaCirculacaoFixos": 2048, "PortaCirculacaoFolha": 2048}
+         "BatenteEntrada": 1024, "PortaCirculacaoFixos": 2048, "PortaCirculacaoFolha": 2048,
+         "PortaArquivoFixos": 2048, "PortaArquivoFolha": 2048, "PortaArquivoTrinco": 256}
 AO_SAMPLES = 64
 # Other assets that should occlude an asset during its bake (the desk kit sits on the counter's worktop).
 OCCLUDERS = {"EquipamentosBalcao": ("BalcaoRecepcao",)}
@@ -33,7 +34,8 @@ SPREAD = {"BalcaoRecepcao": 0.0, "GavetaBalcao1": 0.0, "GavetaBalcao2": 0.0, "Ga
           "PortaVidroFixos": 14.0, "PortaVidroFolha": 14.0, "PortaVidroVidro": 14.0,
           "BatenteEntrada": 16.5,
           "CadeadoCorpo": 18.0, "CadeadoArco": 18.0, "CadeadoDisco": 18.0, "FechoBase": 18.0, "FechoAba": 18.0, "FechoSuporte": 18.0,
-          "ChaveMetal": 18.0, "ChaveEtiqueta": 18.0, "PortaCirculacaoFixos": 20.0, "PortaCirculacaoFolha": 20.0}
+          "ChaveMetal": 18.0, "ChaveEtiqueta": 18.0, "PortaCirculacaoFixos": 20.0, "PortaCirculacaoFolha": 20.0,
+          "PortaArquivoFixos": 20.0, "PortaArquivoFolha": 20.0, "PortaArquivoTrinco": 20.0}
 
 
 def load(folder, module):

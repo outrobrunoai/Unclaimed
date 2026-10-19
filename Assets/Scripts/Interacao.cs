@@ -34,6 +34,10 @@ public class ObjetoInspecionavel : MonoBehaviour
     public float distanciaMaxima = 2f;
     [Tooltip("Folga da mira (em metros) para facilitar apontar para objetos pequenos. 0 = o centro da tela precisa acertar o objeto exatamente.")]
     [Range(0f, 0.2f)] public float folgaDaMira = 0.04f;
+    [Tooltip("Realça a pista enquanto está na mira.")]
+    public bool realcarNaMira = true;
+    [Tooltip("Força do realce branco na mira.")]
+    [Range(0f, 1f)] public float intensidadeDoRealce = 1f;
 
     [Header("Visualização 360°")]
     [Tooltip("Opcional: um modelo mais detalhado só para a inspeção. Vazio = usa o próprio objeto.")]
@@ -89,6 +93,15 @@ public class ObjetoInspecionavel : MonoBehaviour
     static int frameAtual = -1;
     public static bool InspecionandoAlgo => emInspecao != null;
     static ObjetoInspecionavel emInspecao;  // pista sendo inspecionada agora
+    static Material materialRealce;
+    static bool avisouShaderRealce;
+    static readonly int intensidadeRealceId = Shader.PropertyToID("_Intensidade");
+
+    float realce;
+    MaterialPropertyBlock propriedadesRealce;
+    MeshRenderer[] renderersRealce;
+    Mesh[] meshesRealce;
+    bool avisouLoteEstatico;
 
     // --- estado da instância ---
     Transform cam;
@@ -97,6 +110,7 @@ public class ObjetoInspecionavel : MonoBehaviour
     bool arrastando;
     Vector2 ultimaPosMouse;
     bool jaExaminado;
+    public bool JaExaminado => jaExaminado;
     CursorLockMode travaAnterior;
     bool cursorVisivelAnterior;
     readonly System.Collections.Generic.List<Behaviour> desativados = new System.Collections.Generic.List<Behaviour>();
@@ -200,6 +214,7 @@ public class ObjetoInspecionavel : MonoBehaviour
     // LateUpdate roda depois de todos os Update, então "melhor" já está decidido.
     void LateUpdate()
     {
+        if (emInspecao != null) realce = 0f;
         if (emInspecao == this && animacao == Animacao.Voltando)
         {
             // voltando ao lugar: sem entrada; fecha ao chegar
@@ -217,12 +232,100 @@ public class ObjetoInspecionavel : MonoBehaviour
                 if (e >= 1f) animacao = Animacao.Nenhuma;
             }
             Inspecionar();
+            if (emInspecao == this && animacao == Animacao.Nenhuma && Time.frameCount != quadroAbertura)
+            {
+                var pilha = PilhaDeDocumentos.De(this);
+                if (pilha != null && pilha.Total > 1)
+                {
+                    int passo = TeclaApertada("LeftArrow") || TeclaApertada("A") ? -1
+                        : TeclaApertada("RightArrow") || TeclaApertada("D") ? 1 : 0;
+                    var vizinha = passo != 0 ? pilha.Vizinha(this, passo) : null;
+                    if (vizinha != null && vizinha != this)
+                    {
+                        // Restaura o estado anterior antes de aplicar o da próxima folha.
+                        Fechar();
+                        vizinha.Abrir();
+                        return;
+                    }
+                }
+            }
             if (emInspecao == this && Time.frameCount != quadroAbertura && (TeclaApertada(teclaInteracao) || TeclaApertada("Escape")))
                 PedirFechamento();
         }
         else if (emInspecao == null && melhor == this && TeclaApertada(teclaInteracao))
         {
             Abrir();
+        }
+        AtualizarRealce();
+    }
+
+    void AtualizarRealce()
+    {
+        if (!realcarNaMira || emInspecao != null)
+        {
+            realce = 0f;
+            return;
+        }
+
+        realce = Mathf.MoveTowards(realce, melhor == this ? 1f : 0f, Time.unscaledDeltaTime / 0.12f);
+        if (realce <= 0.001f) return;
+
+        if (materialRealce == null)
+        {
+            if (avisouShaderRealce) return;
+            Shader shader = Resources.Load<Shader>("Shaders/RealceMira");
+            if (shader == null) shader = Shader.Find("Unclaimed/RealceMira");
+            if (shader == null)
+            {
+                avisouShaderRealce = true;
+                Debug.LogWarning("Shader Unclaimed/RealceMira não encontrado; realce da mira desativado.", this);
+                return;
+            }
+            materialRealce = new Material(shader) { hideFlags = HideFlags.HideAndDontSave };
+        }
+
+        // Guarda os meshes uma vez; não altera os materiais originais.
+        if (renderersRealce == null)
+        {
+            renderersRealce = GetComponentsInChildren<MeshRenderer>(true);
+            meshesRealce = new Mesh[renderersRealce.Length];
+            for (int i = 0; i < renderersRealce.Length; i++)
+            {
+                var filtro = renderersRealce[i].GetComponent<MeshFilter>();
+                if (filtro != null) meshesRealce[i] = filtro.sharedMesh;
+            }
+        }
+
+        if (propriedadesRealce == null) propriedadesRealce = new MaterialPropertyBlock();
+        propriedadesRealce.SetFloat(intensidadeRealceId, realce * intensidadeDoRealce);
+        for (int i = 0; i < renderersRealce.Length; i++)
+        {
+            var renderer = renderersRealce[i];
+            if (renderer == null || !renderer.enabled || !renderer.gameObject.activeInHierarchy || renderer.forceRenderingOff)
+                continue;
+            if (renderer.isPartOfStaticBatch)
+            {
+                if (!avisouLoteEstatico)
+                {
+                    avisouLoteEstatico = true;
+                    Debug.LogWarning($"Realce ignorado em '{name}': '{renderer.name}' faz parte de um lote estático.", this);
+                }
+                continue;
+            }
+            Mesh mesh = meshesRealce[i];
+            if (mesh == null) continue;
+
+            var parametros = new RenderParams(materialRealce)
+            {
+                matProps = propriedadesRealce,
+                layer = renderer.gameObject.layer,
+                worldBounds = renderer.bounds,
+                shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off,
+                receiveShadows = false,
+                camera = null
+            };
+            for (int submesh = 0; submesh < mesh.subMeshCount; submesh++)
+                Graphics.RenderMesh(in parametros, mesh, submesh, renderer.localToWorldMatrix);
         }
     }
 
@@ -249,6 +352,7 @@ public class ObjetoInspecionavel : MonoBehaviour
         camPrincipal = Camera.main;
         cam = camPrincipal.transform;
         emInspecao = this;
+        realce = 0f;
 
         GameObject fonte = modeloInspecao != null ? modeloInspecao : gameObject;
         GameObject clone = Instantiate(fonte, fonte.transform.position, fonte.transform.rotation);
@@ -554,6 +658,7 @@ public class ObjetoInspecionavel : MonoBehaviour
 
     void OnDisable()
     {
+        realce = 0f;
         if (emInspecao == this) Fechar();
     }
 
@@ -608,19 +713,27 @@ public class ObjetoInspecionavel : MonoBehaviour
 
         if (mostrandoAviso)
         {
-            GUI.Label(new Rect(0, Screen.height - 130, Screen.width, 40),
-                $"[{teclaInteracao.ToUpper()}] Examinar: {nome}", estilo);
+            HudInteracao.Interagir(teclaInteracao);
+            var pilha = PilhaDeDocumentos.De(this);
+            if (pilha != null && pilha.Total > 1)
+            {
+                int total = pilha.Total;
+                int naoLidas = pilha.NaoLidas;
+                string aviso = $"{total} papéis aqui";
+                if (naoLidas == total) aviso += " · nenhum lido";
+                else if (naoLidas > 0) aviso += $" · {naoLidas} não lidos";
+                HudInteracao.Texto(aviso, 0.5f + 0.045f + 0.032f, 0.75f);
+            }
         }
         else
         {
-            GUI.Label(new Rect(Screen.width * 0.2f, 30, Screen.width * 0.6f, 40), nome, estilo);
-            if (!string.IsNullOrEmpty(descricao))
-                GUI.Label(new Rect(Screen.width * 0.2f, 75, Screen.width * 0.6f, 120), descricao, estilo);
             string texto = !string.IsNullOrEmpty(instrucoes) ? instrucoes
                 : manipulador != null && !string.IsNullOrEmpty(manipulador.Instrucoes) ? manipulador.Instrucoes
                 : "Clique e arraste: girar  |  Scroll: zoom";
-            GUI.Label(new Rect(0, Screen.height - 60, Screen.width, 40),
-                $"{texto}  |  [{teclaInteracao.ToUpper()}] ou [Esc]: fechar", estilo);
+            var pilha = PilhaDeDocumentos.De(this);
+            if (pilha != null && pilha.Total > 1)
+                texto += $"  |  ← →: outro papel ({pilha.Indice(this) + 1}/{pilha.Total})";
+            HudInteracao.Texto($"{texto}  |  {teclaInteracao.ToUpper()} ou Esc: fechar", 0.94f);
         }
     }
 

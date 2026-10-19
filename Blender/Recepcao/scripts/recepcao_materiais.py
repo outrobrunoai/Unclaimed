@@ -420,6 +420,25 @@ def make_all(G_class, model):
             "inox_escuro": metal("Inox escuro - ferragens", (0.36, 0.36, 0.36), 0.40),
             "fenda": tela("Fenda escura - cilindro"),
         },
+        # Reception-archive door: the circulation door's materials (its own copies, so its bake stays separate).
+        "PortaArquivoFixos": {
+            "marco": laminado("Pintura acetinada - marco arquivo", (0.29, 0.30, 0.31), kick=0.18, rough=0.42),
+            "folha": laminado("Pintura acetinada - folha secundaria arquivo", (0.60, 0.62, 0.62), kick=0.22, rough=0.40),
+            "granito": granito("Granito - soleira arquivo", -10.0, -10.0),
+            "inox": metal("Inox escovado - ferragens arquivo", (0.74, 0.74, 0.73), 0.30),
+            "inox_escuro": metal("Inox escuro - ferragens arquivo", (0.36, 0.36, 0.36), 0.40),
+            "borracha": borracha("Borracha - batedor arquivo"),
+        },
+        "PortaArquivoFolha": {
+            "folha": laminado("Pintura acetinada - folha ativa arquivo", (0.60, 0.62, 0.62), kick=0.22, rough=0.40),
+            "inox": metal("Inox escovado - ferragens arquivo", (0.74, 0.74, 0.73), 0.30),
+            "inox_escuro": metal("Inox escuro - ferragens arquivo", (0.36, 0.36, 0.36), 0.40),
+            "fenda": tela("Fenda escura - cilindro arquivo"),
+        },
+        "PortaArquivoTrinco": {
+            "inox": metal("Inox escovado - trinco", (0.74, 0.74, 0.73), 0.28),
+            "inox_escuro": metal("Inox escuro - trinco", (0.36, 0.36, 0.36), 0.40),
+        },
         "Lixeira": {
             "inox": metal("Inox - lixeira", (0.70, 0.70, 0.69), 0.34),
             "plastico": plastico("Plastico preto - lixeira", (0.03, 0.03, 0.03), 0.5),

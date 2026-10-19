@@ -1,0 +1,806 @@
+{
+  "documentos": [
+    {
+      "id": "d01_copia_arquivo",
+      "titulo": "Ficha de entrada · 083",
+      "tamanho": [
+        0.21,
+        0.11
+      ],
+      "papel": "#F1EFE7",
+      "acabamento": "papel",
+      "fonte": "sans",
+      "margem": 10,
+      "blocos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "NECROTÉRIO · RECEPÇÃO",
+          "tamanho": 3.6
+        },
+        {
+          "tipo": "titulo",
+          "texto": "FICHA DE ENTRADA",
+          "tamanho": 7.2
+        },
+        {
+          "tipo": "campos",
+          "colunas": 2,
+          "tamanhoRotulo": 3.7,
+          "tamanhoValor": 6.6,
+          "itens": [
+            {
+              "rotulo": "Data e hora de entrada",
+              "valor": "18/11/2026, 21h50"
+            },
+            {
+              "rotulo": "Registro",
+              "valor": "083"
+            },
+            {
+              "rotulo": "Nome",
+              "valor": "Léo Martins"
+            },
+            {
+              "rotulo": "Pertences",
+              "valor": "P26"
+            },
+            {
+              "rotulo": "Acomodação prevista",
+              "valor": "C-03"
+            },
+            {
+              "rotulo": "Exame",
+              "valor": "pendente"
+            }
+          ]
+        },
+        {
+          "tipo": "rodape",
+          "texto": "2ª via · arquivo",
+          "tamanho": 3.4
+        }
+      ],
+      "amassado": 0.5,
+      "vincos": [],
+      "transcricao": "18/11/2026, 21h50. Registro 083. Léo Martins. Pertences P26. Acomodação prevista C-03. Exame pendente.\n2ª via · arquivo"
+    },
+    {
+      "id": "ficha_081",
+      "titulo": "Ficha de entrada · 081",
+      "tamanho": [
+        0.21,
+        0.11
+      ],
+      "papel": "#F1EFE7",
+      "acabamento": "papel",
+      "fonte": "sans",
+      "margem": 10,
+      "blocos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "NECROTÉRIO · RECEPÇÃO",
+          "tamanho": 3.6
+        },
+        {
+          "tipo": "titulo",
+          "texto": "FICHA DE ENTRADA",
+          "tamanho": 7.2
+        },
+        {
+          "tipo": "campos",
+          "colunas": 2,
+          "tamanhoRotulo": 3.7,
+          "tamanhoValor": 6.6,
+          "itens": [
+            {
+              "rotulo": "Data e hora de entrada",
+              "valor": "18/11/2026, 20h40"
+            },
+            {
+              "rotulo": "Registro",
+              "valor": "081"
+            },
+            {
+              "rotulo": "Nome",
+              "valor": "João Ferraz"
+            },
+            {
+              "rotulo": "Pertences",
+              "valor": "P24"
+            },
+            {
+              "rotulo": "Acomodação prevista",
+              "valor": "C-01"
+            },
+            {
+              "rotulo": "Exame",
+              "valor": "pendente"
+            }
+          ]
+        },
+        {
+          "tipo": "rodape",
+          "texto": "2ª via · arquivo",
+          "tamanho": 3.4
+        }
+      ],
+      "amassado": 0.5,
+      "vincos": [],
+      "transcricao": "18/11/2026, 20h40. Registro 081. João Ferraz. Pertences P24. Acomodação prevista C-01. Exame pendente.\n2ª via · arquivo"
+    },
+    {
+      "id": "ficha_082",
+      "titulo": "Ficha de entrada · 082",
+      "tamanho": [
+        0.21,
+        0.11
+      ],
+      "papel": "#F1EFE7",
+      "acabamento": "papel",
+      "fonte": "sans",
+      "margem": 10,
+      "blocos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "NECROTÉRIO · RECEPÇÃO",
+          "tamanho": 3.6
+        },
+        {
+          "tipo": "titulo",
+          "texto": "FICHA DE ENTRADA",
+          "tamanho": 7.2
+        },
+        {
+          "tipo": "campos",
+          "colunas": 2,
+          "tamanhoRotulo": 3.7,
+          "tamanhoValor": 6.6,
+          "itens": [
+            {
+              "rotulo": "Data e hora de entrada",
+              "valor": "18/11/2026, 21h15"
+            },
+            {
+              "rotulo": "Registro",
+              "valor": "082"
+            },
+            {
+              "rotulo": "Nome",
+              "valor": "Célia Prado"
+            },
+            {
+              "rotulo": "Pertences",
+              "valor": "P25"
+            },
+            {
+              "rotulo": "Acomodação prevista",
+              "valor": "C-04"
+            },
+            {
+              "rotulo": "Exame",
+              "valor": "pendente"
+            }
+          ]
+        },
+        {
+          "tipo": "rodape",
+          "texto": "2ª via · arquivo",
+          "tamanho": 3.4
+        }
+      ],
+      "amassado": 0.5,
+      "vincos": [],
+      "transcricao": "18/11/2026, 21h15. Registro 082. Célia Prado. Pertences P25. Acomodação prevista C-04. Exame pendente.\n2ª via · arquivo"
+    },
+    {
+      "id": "pendencias_nina",
+      "titulo": "Pendências",
+      "tamanho": [
+        0.148,
+        0.21
+      ],
+      "papel": "#EEE8D8",
+      "acabamento": "papel",
+      "fonte": "hand",
+      "margem": 10,
+      "amassado": 0.32,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "Repor lacres numerados (caixa no fim)\nLigar p/ manutenção — vedação da C-03\nConferir original de 15/08/2024 nas pastas antigas da coordenação\nDevolver manual da impressora\nPedir toner\nEtiquetas da guarda G [riscado]\nN.",
+      "blocos": [
+        {
+          "tipo": "titulo",
+          "texto": "Pendências",
+          "tamanho": 5
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Repor lacres numerados (caixa no fim)\nLigar p/ manutenção — vedação da C-03\nConferir original de 15/08/2024 nas pastas antigas da coordenação\nDevolver manual da impressora\nPedir toner",
+          "tamanho": 5
+        },
+        {
+          "tipo": "riscado",
+          "texto": "Etiquetas da guarda G",
+          "tamanho": 5
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "N.",
+          "tamanho": 5
+        }
+      ]
+    },
+    {
+      "id": "bilhete_impressora",
+      "titulo": "Bilhete da impressora",
+      "tamanho": [
+        0.1,
+        0.1
+      ],
+      "papel": "#EEE8D8",
+      "acabamento": "papel",
+      "fonte": "hand",
+      "margem": 7,
+      "amassado": 0.32,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "Se atolar papel: abrir a tampa de trás, devagar. O manual está no porta-revistas, na pasta cinza (a da aba amarela). Nina.",
+      "blocos": [
+        {
+          "tipo": "titulo",
+          "texto": "",
+          "tamanho": 3.8
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Se atolar papel: abrir a tampa de trás, devagar. O manual está no porta-revistas, na pasta cinza (a da aba amarela). Nina.",
+          "tamanho": 5
+        }
+      ]
+    },
+    {
+      "id": "h03_comprovante",
+      "titulo": "Comprovante",
+      "tamanho": [
+        0.1,
+        0.15
+      ],
+      "papel": "#F1EFE7",
+      "acabamento": "papel",
+      "fonte": "sans",
+      "margem": 7,
+      "amassado": 0.32,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "Cemitério Santa Amélia. Recebimento referente ao caso 041. Setor C, registro 12. 15 de agosto de 2024.",
+      "blocos": [
+        {
+          "tipo": "titulo",
+          "texto": "Comprovante",
+          "tamanho": 3.8
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Cemitério Santa Amélia. Recebimento referente ao caso 041. Setor C, registro 12. 15 de agosto de 2024.",
+          "tamanho": 3.8
+        }
+      ]
+    },
+    {
+      "id": "h06_recado_irene",
+      "titulo": "Recado de Irene",
+      "tamanho": [
+        0.148,
+        0.21
+      ],
+      "papel": "#EEE8D8",
+      "acabamento": "papel",
+      "fonte": "hand",
+      "margem": 10,
+      "amassado": 0.32,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "Obrigada por procurar. Se encontrar o destino do 041, me avise antes de mandar qualquer coisa para jornal. Quero falar com a dona Lúcia primeiro. Meu endereço continua o mesmo. Irene.",
+      "blocos": [
+        {
+          "tipo": "titulo",
+          "texto": "",
+          "tamanho": 5
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Obrigada por procurar. Se encontrar o destino do 041, me avise antes de mandar qualquer coisa para jornal. Quero falar com a dona Lúcia primeiro. Meu endereço continua o mesmo. Irene.",
+          "tamanho": 5
+        }
+      ]
+    },
+    {
+      "id": "h02_pedido_irene",
+      "titulo": "Pedido de suspensão",
+      "tamanho": [
+        0.148,
+        0.21
+      ],
+      "papel": "#F1EFE7",
+      "acabamento": "papel",
+      "fonte": "sans",
+      "margem": 10,
+      "amassado": 0.32,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "Caso 041. 14 de agosto de 2024, 21h10. Vinculada a bolsa de pertences P17 ao registro de entrada. Cartão de trabalho em nome de Samuel Reis. Contato familiar localizado, retorno pendente. Solicito suspensão da saída até confirmação. Irene Farias.",
+      "blocos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "NECROTÉRIO · ADMINISTRAÇÃO",
+          "tamanho": 2.4
+        },
+        {
+          "tipo": "titulo",
+          "texto": "Pedido de suspensão",
+          "tamanho": 5
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Caso 041. 14 de agosto de 2024, 21h10. Vinculada a bolsa de pertences P17 ao registro de entrada. Cartão de trabalho em nome de Samuel Reis. Contato familiar localizado, retorno pendente. Solicito suspensão da saída até confirmação. Irene Farias.",
+          "tamanho": 3.8
+        }
+      ]
+    },
+    {
+      "id": "ordem_conserto",
+      "titulo": "Manutenção",
+      "tamanho": [
+        0.21,
+        0.297
+      ],
+      "papel": "#F1EFE7",
+      "acabamento": "papel",
+      "fonte": "sans",
+      "margem": 10,
+      "amassado": 0.32,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "Ordem de serviço nº 0217. 13/08/2024. Local: câmara fria, posição C-05. Serviço: troca da borracha de vedação da porta. Solicitante: H. Duarte. Executado em 16/08/2024 — Mauro Nunes.",
+      "blocos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "NECROTÉRIO · ADMINISTRAÇÃO",
+          "tamanho": 2.4
+        },
+        {
+          "tipo": "titulo",
+          "texto": "Manutenção",
+          "tamanho": 5
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Ordem de serviço nº 0217. 13/08/2024. Local: câmara fria, posição C-05. Serviço: troca da borracha de vedação da porta. Solicitante: H. Duarte. Executado em 16/08/2024 — Mauro Nunes.",
+          "tamanho": 3.8
+        }
+      ]
+    },
+    {
+      "id": "h07_autorizacao",
+      "titulo": "Autorização de saída",
+      "tamanho": [
+        0.21,
+        0.297
+      ],
+      "papel": "#F1EFE7",
+      "acabamento": "papel",
+      "fonte": "sans",
+      "margem": 10,
+      "amassado": 0.32,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "Caso 041. 15 de agosto de 2024, 06h20. Saída mantida conforme programação. Identificação não confirmada. Responsável: Helena Duarte.\nPedido de revisão recebido às 21h10 do dia 14/08/2024. H.D.",
+      "blocos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "NECROTÉRIO · ADMINISTRAÇÃO",
+          "tamanho": 2.4
+        },
+        {
+          "tipo": "titulo",
+          "texto": "Autorização de saída",
+          "tamanho": 5
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Caso 041. 15 de agosto de 2024, 06h20. Saída mantida conforme programação. Identificação não confirmada. Responsável: Helena Duarte.",
+          "tamanho": 3.8
+        },
+        {
+          "tipo": "anotacao",
+          "texto": "Pedido de revisão recebido às 21h10 do dia 14/08/2024. H.D.",
+          "tamanho": 5,
+          "margem": true
+        }
+      ]
+    },
+    {
+      "id": "h04_relatorio",
+      "titulo": "Coordenação do setor",
+      "tamanho": [
+        0.21,
+        0.297
+      ],
+      "papel": "#F1EFE7",
+      "acabamento": "papel",
+      "fonte": "sans",
+      "margem": 10,
+      "amassado": 0.32,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "Caso 041. O comunicado de possível identificação foi recebido após a saída do corpo. A falha de atualização do registro foi atribuída à responsável pelo arquivo, Irene Farias. Coordenação do setor: Helena Duarte.\n20/08/2024",
+      "blocos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "NECROTÉRIO · COORDENAÇÃO",
+          "tamanho": 2.4
+        },
+        {
+          "tipo": "titulo",
+          "texto": "Relatório de ocorrência",
+          "tamanho": 5
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Caso 041. O comunicado de possível identificação foi recebido após a saída do corpo. A falha de atualização do registro foi atribuída à responsável pelo arquivo, Irene Farias. Coordenação do setor: Helena Duarte.",
+          "tamanho": 3.8
+        },
+        {
+          "tipo": "rodape",
+          "texto": "20/08/2024",
+          "tamanho": 3
+        }
+      ]
+    },
+    {
+      "id": "proposta_transferencia",
+      "titulo": "Ofício",
+      "tamanho": [
+        0.21,
+        0.297
+      ],
+      "papel": "#F1EFE7",
+      "acabamento": "papel",
+      "fonte": "sans",
+      "margem": 10,
+      "amassado": 0.32,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "Proposta de transferência. Vaga: coordenação técnica regional. Indicada: Helena Duarte, coordenação do setor. Início previsto: janeiro de 2025, condicionado à avaliação do setor. 06/08/2024.",
+      "blocos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "NECROTÉRIO · ADMINISTRAÇÃO",
+          "tamanho": 2.4
+        },
+        {
+          "tipo": "titulo",
+          "texto": "Ofício",
+          "tamanho": 5
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Proposta de transferência. Vaga: coordenação técnica regional. Indicada: Helena Duarte, coordenação do setor. Início previsto: janeiro de 2025, condicionado à avaliação do setor. 06/08/2024.",
+          "tamanho": 3.8
+        }
+      ]
+    },
+    {
+      "id": "desculpas_riscadas",
+      "titulo": "Rascunho de desculpas",
+      "tamanho": [
+        0.21,
+        0.297
+      ],
+      "papel": "#EEE8D8",
+      "acabamento": "papel",
+      "fonte": "hand",
+      "margem": 10,
+      "amassado": 0.32,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "Irene, eu sei que você\nIrene, sobre o relatório, eu não queria que\nMe desculpa. Eu deveria ter",
+      "blocos": [
+        {
+          "tipo": "riscado",
+          "texto": "Irene, eu sei que você",
+          "tamanho": 5
+        },
+        {
+          "tipo": "riscado",
+          "texto": "Irene, sobre o relatório, eu não queria que",
+          "tamanho": 5
+        },
+        {
+          "tipo": "riscado",
+          "texto": "Me desculpa. Eu deveria ter",
+          "tamanho": 5
+        }
+      ]
+    },
+    {
+      "id": "d09_retirada",
+      "titulo": "Retirada de item",
+      "tamanho": [
+        0.148,
+        0.21
+      ],
+      "papel": "#F1EFE7",
+      "acabamento": "papel",
+      "fonte": "sans",
+      "margem": 10,
+      "amassado": 0.32,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "18/11/2026, 22h05. P26, item 03, gravador portátil. Separado por ruptura do compartimento da bolsa. Encaminhado para guarda G-B2. Nina Rocha.",
+      "blocos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "NECROTÉRIO · ADMINISTRAÇÃO",
+          "tamanho": 2.4
+        },
+        {
+          "tipo": "titulo",
+          "texto": "Retirada de item",
+          "tamanho": 5
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "18/11/2026, 22h05. P26, item 03, gravador portátil. Separado por ruptura do compartimento da bolsa. Encaminhado para guarda G-B2. Nina Rocha.",
+          "tamanho": 3.8
+        }
+      ]
+    },
+    {
+      "id": "d10_recibo_objeto",
+      "titulo": "Recibo de guarda",
+      "tamanho": [
+        0.1,
+        0.15
+      ],
+      "papel": "#F1EFE7",
+      "acabamento": "papel",
+      "fonte": "sans",
+      "margem": 7,
+      "amassado": 0.32,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "G-B2. P26 / item 03. Recebido às 22h05. Lacre conferido por Nina Rocha. G: guarda separada. Endereço: coluna e nível.\nvia do objeto",
+      "blocos": [
+        {
+          "tipo": "titulo",
+          "texto": "Recibo de guarda",
+          "tamanho": 3.8
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "G-B2. P26 / item 03. Recebido às 22h05. Lacre conferido por Nina Rocha. G: guarda separada. Endereço: coluna e nível.",
+          "tamanho": 3.8
+        },
+        {
+          "tipo": "rodape",
+          "texto": "via do objeto",
+          "tamanho": 3
+        }
+      ]
+    },
+    {
+      "id": "d10_recibo_pasta",
+      "titulo": "Recibo de guarda",
+      "tamanho": [
+        0.1,
+        0.15
+      ],
+      "papel": "#F1EFE7",
+      "acabamento": "papel",
+      "fonte": "sans",
+      "margem": 7,
+      "amassado": 0.32,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "G-B2. P26 / item 03. Recebido às 22h05. Lacre conferido por Nina Rocha. G: guarda separada. Endereço: coluna e nível.\nvia da pasta",
+      "blocos": [
+        {
+          "tipo": "titulo",
+          "texto": "Recibo de guarda",
+          "tamanho": 3.8
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "G-B2. P26 / item 03. Recebido às 22h05. Lacre conferido por Nina Rocha. G: guarda separada. Endereço: coluna e nível.",
+          "tamanho": 3.8
+        },
+        {
+          "tipo": "rodape",
+          "texto": "via da pasta",
+          "tamanho": 3
+        }
+      ]
+    },
+    {
+      "id": "legenda_armario",
+      "titulo": "GUARDA DE PERTENCES",
+      "tamanho": [
+        0.18,
+        0.12
+      ],
+      "papel": "#F1EFE7",
+      "acabamento": "plastificado",
+      "fonte": "sans",
+      "margem": 10,
+      "amassado": 0.32,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "GUARDA DE PERTENCES\nColunas A · B — níveis 1 · 2 · 3 (1 = em cima)\nG: guarda separada\nEndereço: coluna e nível.",
+      "blocos": [
+        {
+          "tipo": "titulo",
+          "texto": "GUARDA DE PERTENCES",
+          "tamanho": 5
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Colunas A · B — níveis 1 · 2 · 3 (1 = em cima)\nG: guarda separada\nEndereço: coluna e nível.",
+          "tamanho": 3.8
+        }
+      ]
+    },
+    {
+      "id": "d11_cobranca_784",
+      "titulo": "Cobrança",
+      "tamanho": [
+        0.148,
+        0.21
+      ],
+      "papel": "#F1EFE7",
+      "acabamento": "papel",
+      "fonte": "sans",
+      "margem": 10,
+      "amassado": 0.32,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "Referência 784. Dois transportes extraordinários. Aprovação: Daniel Vilar, LV-12. Limiar Serviços.\nConferir saídas. Não encontrei execução dessas duas viagens.",
+      "blocos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "NECROTÉRIO · ADMINISTRAÇÃO",
+          "tamanho": 2.4
+        },
+        {
+          "tipo": "titulo",
+          "texto": "Cobrança",
+          "tamanho": 5
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Referência 784. Dois transportes extraordinários. Aprovação: Daniel Vilar, LV-12. Limiar Serviços.",
+          "tamanho": 3.8
+        },
+        {
+          "tipo": "anotacao",
+          "texto": "Conferir saídas. Não encontrei execução dessas duas viagens.",
+          "tamanho": 5,
+          "rodape": true
+        }
+      ]
+    },
+    {
+      "id": "d12_pessoas_contrato",
+      "titulo": "Pessoas vinculadas",
+      "tamanho": [
+        0.148,
+        0.21
+      ],
+      "papel": "#F1EFE7",
+      "acabamento": "papel",
+      "fonte": "sans",
+      "margem": 10,
+      "amassado": 0.32,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "João Ferraz — motorista. Célia Prado — apoio administrativo. Léo Martins — conferência. Daniel Vilar — supervisão, LV-12.",
+      "blocos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "NECROTÉRIO · ADMINISTRAÇÃO",
+          "tamanho": 2.4
+        },
+        {
+          "tipo": "titulo",
+          "texto": "Pessoas vinculadas",
+          "tamanho": 5
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "João Ferraz — motorista. Célia Prado — apoio administrativo. Léo Martins — conferência. Daniel Vilar — supervisão, LV-12.",
+          "tamanho": 3.8
+        }
+      ]
+    }
+  ]
+}

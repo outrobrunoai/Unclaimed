@@ -477,6 +477,17 @@ public static partial class UnclaimedMorgueGenerator
         }
 
         // Electricity: concrete service post behind the low wall, meter box in a masonry pillar, cables.
+        if(UnclaimedPostes.Available("Poste_DT_Rede") && UnclaimedPostes.Available("Poste_Entrada")){
+            var post=PlacePoleAsset("Poste_Entrada",facade,new Vector3(-7.5f,-.05f,LotS+.35f),Quaternion.Euler(0,180,0),"Poste de entrada");
+            m.Box(-7.2f, -.1f, LotS-.17f, -6.65f, 1.6f, LotS+.17f, exWallPlaster);
+            m.Box(-7.225f, 1.6f, LotS-.195f, -6.625f, 1.64f, LotS+.195f, exConcrete);
+            m.Box(-7.1f, .85f, LotS-.2f, -6.75f, 1.45f, LotS-.17f, exPvc);
+            m.Box(-7.0f, 1.15f, LotS-.205f, -6.85f, 1.3f, LotS-.2f, exDarkGlass);
+            var service=new ExtMesh();
+            service.Twisted(PlannedPoleAnchor(-4.5f,true,"secundaria",1),post.transform.TransformPoint(UnclaimedPostes.Anchor("Poste_Entrada","ramal_rua")),.3f,.006f,1,.6f,exCable,exBareAluminium);
+            service.Twisted(post.transform.TransformPoint(UnclaimedPostes.Anchor("Poste_Entrada","ramal_predio")),new Vector3(-7,3.75f,ReceptionFace-.05f),.3f,.006f,1,.6f,exCable,exBareAluminium);
+            service.Emit("Ramal de entrada",facade,false,.2f,ShadowCastingMode.Off);
+        }else{
         Vector3 postFoot = new Vector3(-7.5f, -0.05f, LotS + 0.35f), postTop = postFoot + Vector3.up * 6.05f;
         m.Cylinder(postFoot, postTop, 0.1f, 0.08f, 10, exPolePaint);
         m.Box(-7.2f, -0.1f, LotS - 0.17f, -6.65f, 1.6f, LotS + 0.17f, exWallPlaster);
@@ -489,6 +500,7 @@ public static partial class UnclaimedMorgueGenerator
         wires.Cable(postTop + new Vector3(0.3f, -0.2f, 0f), new Vector3(-7.0f, 3.75f, ReceptionFace - 0.05f), 0.35f, 0.014f, exCable, 8);
         wires.Cable(postTop + new Vector3(-0.3f, -0.2f, 0f), StreetPoleTop(-4.5f, true) + new Vector3(0f, -1.2f, 0f), 0.3f, 0.014f, exCable, 8);
         wires.Emit("Ramal de entrada", facade, false, 0.2f, ShadowCastingMode.Off);
+        }
         m.Emit("Instalacoes da fachada", facade, false);
         Collider("Colisor - poste de entrada", facade, -7.6f, LotS + 0.25f, -7.4f, LotS + 0.45f, 0f, 3f);
 

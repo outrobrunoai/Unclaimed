@@ -30,7 +30,7 @@ public static partial class UnclaimedMorgueGenerator
     // Shared exterior materials (one per finish / colour, reused by every piece).
     private static Material exLawn, exSparseGrass, exSoil, exLeafLitter, exGravel, exScreed, exConcrete, exPavers, exAsphalt,
         exDriveway, exWallPlaster, exBlock, exRoofTiles, exMetalRoof, exShutter, exRailing, exGalvanized, exDarkGlass,
-        exPvc, exFascia, exPolePaint, exCable, exGrate, exWhitePaint, exCurtainLit, exCurtainOff, exInterior, exGlobe,
+        exPvc, exFascia, exPolePaint, exCable, exBareAluminium, exGrate, exWhitePaint, exCurtainLit, exCurtainOff, exInterior, exGlobe,
         exSodium, exLed, exWarmBulb, exClearGlass, exRoomShadow, exDoorWood, exSteelSheet, exWater, exStain;
 
     private static void Exterior(Transform outside)
@@ -116,6 +116,7 @@ public static partial class UnclaimedMorgueGenerator
         exFascia = Mat(f, "Testeira pintada", new Color(0.42f, 0.3f, 0.22f), 0.2f);
         exPolePaint = Mat(f, "Concreto do poste", new Color(0.58f, 0.58f, 0.56f), 0.1f);
         exCable = Mat(f, "Cabo", new Color(0.04f, 0.04f, 0.04f), 0.3f);
+        exBareAluminium = Mat(f, "Aluminio nu", new Color(.42f, .43f, .44f), .45f, .8f);
         exGrate = Mat(f, "Grelha", new Color(0.09f, 0.09f, 0.09f), 0.35f, 0.6f);
         exWhitePaint = Mat(f, "Pintura branca gasta", new Color(0.78f, 0.78f, 0.74f), 0.15f);
         exDoorWood = Mat(f, "Porta de madeira", new Color(0.33f, 0.22f, 0.14f), 0.25f);
@@ -271,6 +272,117 @@ public static partial class UnclaimedMorgueGenerator
                 Vector3 p = Vector3.Lerp(a, b, t) + Vector3.down * (sag * 4 * t * (1 - t));
                 Cylinder(prev, p, radius, radius, 4, m, false);
                 prev = p;
+            }
+        }
+
+        // Shared rings, radial normals and a parallel-transport frame; only the UV seam is duplicated.
+        public void Tube(List<Vector3> path, float radius, Material m, int sides = 6)
+        {
+            if(path.Count<2 || radius<=0)return;
+            sides=Mathf.Max(3,sides);
+            int start=v.Count;float distance=0;
+            Vector3 previous=(path[1]-path[0]).normalized;
+            Vector3 frame=Vector3.Cross(previous,Mathf.Abs(previous.y)>.95f?Vector3.right:Vector3.up).normalized;
+            for(int i=0;i<path.Count;i++){
+                Vector3 tangent=(path[Mathf.Min(i+1,path.Count-1)]-path[Mathf.Max(0,i-1)]).normalized;
+                frame=Quaternion.FromToRotation(previous,tangent)*frame;
+                frame=(frame-tangent*Vector3.Dot(frame,tangent)).normalized;
+                Vector3 binormal=Vector3.Cross(tangent,frame);
+                if(i>0)distance+=Vector3.Distance(path[i-1],path[i]);
+                for(int k=0;k<=sides;k++){
+                    float angle=2*Mathf.PI*k/sides;
+                    Vector3 radial=frame*Mathf.Cos(angle)+binormal*Mathf.Sin(angle);
+                    v.Add(path[i]+radial*radius);n.Add(radial);uv.Add(new Vector2(k/(float)sides,distance));
+                }
+                previous=tangent;
+            }
+            var indices=Sub(m);
+            for(int i=0;i<path.Count-1;i++)for(int k=0;k<sides;k++){
+                int a=start+i*(sides+1)+k,b=a+sides+1;
+                indices.AddRange(new[]{a,a+1,b+1,a,b+1,b});
+            }
+        }
+
+        public static Vector3 WirePoint(Vector3 a,Vector3 b,float sag,float t) =>
+            Vector3.Lerp(a,b,t)+Vector3.down*(4*sag*t*(1-t));
+
+        static List<Vector3> WirePath(Vector3 a,Vector3 b,float sag,int segments)
+        {
+            var path=new List<Vector3>(segments+1);
+            for(int i=0;i<=segments;i++)path.Add(WirePoint(a,b,sag,i/(float)segments));
+            return path;
+        }
+
+        public void Wire(Vector3 a,Vector3 b,float sag,float radius,Material m,int sides=6)
+        {
+            Tube(WirePath(a,b,sag,Mathf.Max(12,Mathf.CeilToInt(Vector3.Distance(a,b)/.5f))),radius,m,sides);
+        }
+
+        public void Twisted(Vector3 a,Vector3 b,float sag,float strandRadius,int phases,float pitch,Material insulated,Material neutral)
+        {
+            pitch=Mathf.Max(.05f,pitch);phases=Mathf.Max(1,phases);
+            // Arc-length upper bound also keeps at least ten samples per turn on sloped spans.
+            int segments=Mathf.Max(12,Mathf.CeilToInt((Vector3.Distance(a,b)+2*Mathf.Abs(sag))*10/pitch));
+            var axis=WirePath(a,b,sag,segments);
+            Wire(a,b,sag,strandRadius*.85f,neutral);
+            Vector3 previous=(axis[1]-axis[0]).normalized;
+            Vector3 frame=Vector3.Cross(previous,Mathf.Abs(previous.y)>.95f?Vector3.right:Vector3.up).normalized;
+            var paths=new List<Vector3>[phases];for(int k=0;k<phases;k++)paths[k]=new List<Vector3>();
+            float distance=0;
+            for(int i=0;i<axis.Count;i++){
+                Vector3 tangent=(axis[Mathf.Min(i+1,segments)]-axis[Mathf.Max(0,i-1)]).normalized;
+                frame=Quaternion.FromToRotation(previous,tangent)*frame;
+                frame=(frame-tangent*Vector3.Dot(frame,tangent)).normalized;
+                Vector3 binormal=Vector3.Cross(tangent,frame);
+                if(i>0)distance+=Vector3.Distance(axis[i-1],axis[i]);
+                for(int k=0;k<phases;k++){
+                    float angle=2*Mathf.PI*(distance/pitch+k/(float)phases);
+                    paths[k].Add(axis[i]+strandRadius*1.9f*(frame*Mathf.Cos(angle)+binormal*Mathf.Sin(angle)));
+                }
+                previous=tangent;
+            }
+            foreach(var path in paths)Tube(path,strandRadius,insulated);
+        }
+
+        public void Bundle(Vector3 a,Vector3 b,float sag,float[] radii,float spread,float tieSpacing,Material m,int seed)
+        {
+            if(radii==null || radii.Length==0)return;
+            tieSpacing=Mathf.Max(.1f,tieSpacing);
+            var random=new System.Random(seed);
+            int segments=Mathf.Max(12,Mathf.CeilToInt(Vector3.Distance(a,b)/.25f));
+            var axis=WirePath(a,b,sag,segments);
+            var lengths=new float[axis.Count];
+            for(int i=1;i<axis.Count;i++)lengths[i]=lengths[i-1]+Vector3.Distance(axis[i-1],axis[i]);
+            Vector3 tangent=(b-a).normalized;
+            Vector3 lateral=Vector3.Cross(tangent,Mathf.Abs(tangent.y)>.95f?Vector3.right:Vector3.up).normalized;
+            Vector3 vertical=Vector3.Cross(tangent,lateral);
+            float total=lengths[segments],maxRadius=0;
+            // Independent cables fan out between ties, then converge to a compact cross section.
+            for(int k=0;k<radii.Length;k++){
+                float variation=(float)(random.NextDouble()*2-1)*.06f;
+                float angle=(float)random.NextDouble()*2*Mathf.PI,offset=(float)random.NextDouble()*spread;
+                Vector3 direction=lateral*Mathf.Cos(angle)+vertical*Mathf.Sin(angle);
+                float packedAngle=2*Mathf.PI*k/radii.Length;
+                Vector3 packed=(lateral*Mathf.Cos(packedAngle)+vertical*Mathf.Sin(packedAngle))*.012f;
+                var path=new List<Vector3>();
+                for(int i=0;i<axis.Count;i++){
+                    float t=i/(float)segments,mod=Mathf.Abs(Mathf.Sin(Mathf.PI*lengths[i]/tieSpacing));
+                    path.Add(WirePoint(a,b,sag,t)+packed+direction*offset*mod+Vector3.down*(sag*variation*4*t*(1-t)*mod));
+                }
+                Tube(path,radii[k],m);maxRadius=Mathf.Max(maxRadius,radii[k]);
+            }
+            int cursor=1;
+            for(float distance=tieSpacing;distance<total;distance+=tieSpacing){
+                while(cursor<segments && lengths[cursor]<distance)cursor++;
+                float f=Mathf.InverseLerp(lengths[cursor-1],lengths[cursor],distance);
+                float t=(cursor-1+f)/segments;
+                Vector3 centre=WirePoint(a,b,sag,t);
+                var ring=new List<Vector3>();
+                for(int k=0;k<=8;k++){
+                    float angle=2*Mathf.PI*k/8;
+                    ring.Add(centre+(lateral*Mathf.Cos(angle)+vertical*Mathf.Sin(angle))*(.012f+maxRadius+.004f));
+                }
+                Tube(ring,.004f,m);
             }
         }
 

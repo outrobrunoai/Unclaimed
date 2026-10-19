@@ -140,6 +140,63 @@ public static partial class UnclaimedMorgueGenerator
         Decal("Riscos - porta do WC", wear, new Vector3(-10.64f, 0.55f, RzMax - 0.006f), south, Vector3.left, Vector3.up, 0.5f, 0.45f, decalScuffs);
         RecepcaoLighting(ceiling);
         EntranceDoor();
+        PlaceRecepcaoDocuments(room);
+        PlacePatioDocuments();
+    }
+
+    // Narrative papers (Tools > Unclaimed > Build Documentos Recepcao): the entry form on the counter's visitor
+    // ledge, the routine notice taped beside the circulation
+    // door. Replaces the group when run again; a missing prefab is skipped.
+    public static void PlaceRecepcaoDocuments(Transform room)
+    {
+        var old = room.Find(UnclaimedDocumentosRecepcao.GroupName);
+        if (old != null) Undo.DestroyObjectImmediate(old.gameObject);
+        Transform g = Sub(room, UnclaimedDocumentosRecepcao.GroupName);
+        // prefab faces -Z with its top on +Y: Euler(90, yaw, 0) lays it face up with the top towards yaw (-90 = west, 90 = east)
+        (string id, Vector3 pos, Quaternion rot)[] papers =
+        {
+            ("d01_ficha_entrada", new Vector3(-12.35f, 1.1006f, -9.95f), Quaternion.Euler(90f, -87f, 0f)),
+            // "palavras_cruzadas" (prefab kept) is NOT placed: the design doc puts it "na mesa de Nina", and everything it
+            // locates on Nina's desk (her folders, pending list, printer manuals) is in the archive, so it belongs to the archive pass.
+            ("aviso_circulacao", new Vector3(-9.35f, 1.55f, AlcoveZ - FinishOffset - 0.001f), Quaternion.identity),
+        };
+        foreach (var (id, pos, rot) in papers)
+        {
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(UnclaimedDocumentosRecepcao.PrefabPath(id));
+            if (prefab == null) { Debug.LogWarning("Unclaimed: missing document prefab " + id); continue; }
+            var obj = (GameObject)PrefabUtility.InstantiatePrefab(prefab, g);
+            Undo.RegisterCreatedObjectUndo(obj, "Create " + id);
+            obj.name = id;
+            obj.transform.SetPositionAndRotation(pos, rot);
+        }
+    }
+
+    // D08, the collection schedule: laminated sheet on the patio face of the receiving room's east wall (x = 12.85),
+    // beside the service-patio double door (z 7.375..9.375), taped at eye level. Replaced when run again.
+    public static void PlacePatioDocuments()
+    {
+        Transform rooms = roomsGroup != null ? roomsGroup : GameObject.Find("Ambientes")?.transform;
+        Transform room = rooms != null ? rooms.Find("Recebimento de corpos") ?? Sub(rooms, "Recebimento de corpos") : null;
+        if (room == null) return;
+        var old = room.Find(UnclaimedDocumentosRecepcao.GroupName);
+        if (old != null) Undo.DestroyObjectImmediate(old.gameObject);
+        var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(UnclaimedDocumentosRecepcao.PrefabPath("agenda_coleta"));
+        if (prefab == null) { Debug.LogWarning("Unclaimed: missing document prefab agenda_coleta"); return; }
+        Transform g = Sub(room, UnclaimedDocumentosRecepcao.GroupName);
+        var obj = (GameObject)PrefabUtility.InstantiatePrefab(prefab, g);
+        Undo.RegisterCreatedObjectUndo(obj, "Create agenda_coleta");
+        obj.name = "agenda_coleta";
+        // prefab faces -Z: yaw -90 turns it to face +X (the patio)
+        obj.transform.SetPositionAndRotation(new Vector3(12.85f + FinishOffset + 0.002f, 1.5f, 10.15f), Quaternion.Euler(0f, -90f, 0f));
+        // Small wall lamp over the sheet; its light is a child of the prefab (also lights the inspected copy), because the patio face is otherwise unlit.
+        var housing = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        UnityEngine.Object.DestroyImmediate(housing.GetComponent<Collider>());
+        Undo.RegisterCreatedObjectUndo(housing, "Create patio sheet lamp");
+        housing.name = "Luminaria - agenda de coleta";
+        housing.transform.SetParent(g, false);
+        housing.transform.position = new Vector3(12.85f + 0.07f, 2.32f, 10.15f);
+        housing.transform.localScale = new Vector3(0.14f, 0.09f, 0.32f);
+        housing.GetComponent<Renderer>().sharedMaterial = Mat(BaseFolder, "Ferragem da porta", new Color(0.62f, 0.63f, 0.62f), 0.55f, 0.85f);
     }
 
     // Two-leaf glass door (Blender/Recepcao, prefab "Porta de vidro - entrada") in the main entrance's

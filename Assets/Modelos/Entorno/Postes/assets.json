@@ -1,0 +1,527 @@
+{
+  "assets": {
+    "Poste_DT_Rede": {
+      "triangles": 4604,
+      "materials": [
+        "Concreto_Poste",
+        "Furo",
+        "Argamassa",
+        "Placa_ID",
+        "Aco_Galvanizado",
+        "Concreto_Cruzeta",
+        "Polimero_Cinza",
+        "Porcelana_Branca"
+      ],
+      "size_blender": [
+        0.4935920834541321,
+        2.0,
+        9.420000076293945
+      ]
+    },
+    "Poste_DT_Transformador": {
+      "triangles": 12216,
+      "materials": [
+        "Concreto_Poste",
+        "Furo",
+        "Argamassa",
+        "Placa_ID",
+        "Aco_Galvanizado",
+        "Concreto_Cruzeta",
+        "Polimero_Cinza",
+        "Porcelana_Branca",
+        "Tanque_Trafo",
+        "Porcelana_Marrom",
+        "Cobre_Nu",
+        "Aluminio_Nu",
+        "Cabo_Isolado",
+        "PVC_Cinza"
+      ],
+      "size_blender": [
+        0.6200000047683716,
+        2.0,
+        9.420000076293945
+      ]
+    },
+    "Poste_DT_Baixa": {
+      "triangles": 1372,
+      "materials": [
+        "Concreto_Poste",
+        "Furo",
+        "Argamassa",
+        "Placa_ID",
+        "Aco_Galvanizado",
+        "Porcelana_Branca",
+        "Concreto_Cruzeta"
+      ],
+      "size_blender": [
+        0.47999998927116394,
+        0.6000000238418579,
+        9.454999923706055
+      ]
+    },
+    "Poste_Entrada": {
+      "triangles": 2344,
+      "materials": [
+        "Concreto_Poste",
+        "Argamassa",
+        "Aco_Galvanizado",
+        "Porcelana_Branca",
+        "Cabo_Isolado",
+        "Placa_ID"
+      ],
+      "size_blender": [
+        0.3199999928474426,
+        0.35943999886512756,
+        6.269999980926514
+      ]
+    },
+    "Luminaria_Sodio": {
+      "triangles": 2664,
+      "materials": [
+        "Aco_Galvanizado",
+        "Aluminio_Fundido",
+        "Lente_Luminaria",
+        "Plastico_Preto",
+        "Plastico_Claro"
+      ],
+      "size_blender": [
+        0.33918139338493347,
+        2.5972301959991455,
+        1.068000078201294
+      ]
+    },
+    "Luminaria_LED": {
+      "triangles": 2444,
+      "materials": [
+        "Aco_Galvanizado",
+        "Aluminio_Fundido",
+        "Lente_Luminaria",
+        "Plastico_Preto",
+        "Plastico_Claro"
+      ],
+      "size_blender": [
+        0.25999999046325684,
+        2.6072301864624023,
+        1.0049999952316284
+      ]
+    },
+    "Telecom_Caixa_Emenda": {
+      "triangles": 528,
+      "materials": [
+        "Plastico_Preto",
+        "Aco_Galvanizado",
+        "Cabo_Isolado"
+      ],
+      "size_blender": [
+        0.6399999856948853,
+        0.15600000321865082,
+        0.22300000488758087
+      ]
+    },
+    "Telecom_Reserva": {
+      "triangles": 2436,
+      "materials": [
+        "Aco_Galvanizado",
+        "Cabo_Isolado",
+        "Plastico_Preto"
+      ],
+      "size_blender": [
+        0.09000007063150406,
+        0.9390377998352051,
+        0.9390377998352051
+      ]
+    },
+    "Telecom_CTO": {
+      "triangles": 932,
+      "materials": [
+        "Aco_Galvanizado",
+        "Plastico_Claro",
+        "Plastico_Preto",
+        "Cabo_Isolado"
+      ],
+      "size_blender": [
+        0.25771182775497437,
+        0.43723297119140625,
+        0.9107047319412231
+      ]
+    }
+  },
+  "materials": {
+    "Concreto_Poste": [
+      [
+        1,
+        1,
+        1
+      ],
+      0,
+      0.1
+    ],
+    "Concreto_Cruzeta": [
+      [
+        0.9,
+        0.9,
+        0.88
+      ],
+      0,
+      0.1
+    ],
+    "Argamassa": [
+      [
+        0.5,
+        0.49,
+        0.46
+      ],
+      0,
+      0.06
+    ],
+    "Furo": [
+      [
+        0.015,
+        0.015,
+        0.015
+      ],
+      0,
+      0
+    ],
+    "Aco_Galvanizado": [
+      [
+        0.46,
+        0.48,
+        0.48
+      ],
+      0.7,
+      0.34
+    ],
+    "Aco_Oxidado": [
+      [
+        0.3,
+        0.22,
+        0.16
+      ],
+      0.35,
+      0.2
+    ],
+    "Porcelana_Marrom": [
+      [
+        0.26,
+        0.12,
+        0.055
+      ],
+      0,
+      0.78
+    ],
+    "Porcelana_Branca": [
+      [
+        0.78,
+        0.77,
+        0.72
+      ],
+      0,
+      0.72
+    ],
+    "Polimero_Cinza": [
+      [
+        0.4,
+        0.42,
+        0.42
+      ],
+      0,
+      0.38
+    ],
+    "Aluminio_Fundido": [
+      [
+        0.52,
+        0.53,
+        0.53
+      ],
+      0.55,
+      0.32
+    ],
+    "Lente_Luminaria": [
+      [
+        0.06,
+        0.06,
+        0.06
+      ],
+      0,
+      0.85
+    ],
+    "Tanque_Trafo": [
+      [
+        0.44,
+        0.47,
+        0.47
+      ],
+      0.25,
+      0.32
+    ],
+    "Cabo_Isolado": [
+      [
+        0.03,
+        0.03,
+        0.03
+      ],
+      0,
+      0.3
+    ],
+    "Aluminio_Nu": [
+      [
+        0.42,
+        0.43,
+        0.44
+      ],
+      0.8,
+      0.45
+    ],
+    "Cobre_Nu": [
+      [
+        0.4,
+        0.21,
+        0.11
+      ],
+      0.8,
+      0.4
+    ],
+    "PVC_Cinza": [
+      [
+        0.42,
+        0.43,
+        0.42
+      ],
+      0,
+      0.3
+    ],
+    "Plastico_Preto": [
+      [
+        0.035,
+        0.035,
+        0.035
+      ],
+      0,
+      0.32
+    ],
+    "Plastico_Claro": [
+      [
+        0.68,
+        0.69,
+        0.66
+      ],
+      0,
+      0.3
+    ],
+    "Placa_ID": [
+      [
+        0.72,
+        0.58,
+        0.1
+      ],
+      0.3,
+      0.35
+    ]
+  },
+  "anchors": {
+    "Poste_DT_Rede": {
+      "primaria": [
+        [
+          0.1136,
+          9.073,
+          -0.9
+        ],
+        [
+          0.1136,
+          9.073,
+          0.3
+        ],
+        [
+          0.1136,
+          9.073,
+          0.9
+        ]
+      ],
+      "secundaria": [
+        [
+          0,
+          6.9,
+          0.2347
+        ],
+        [
+          0,
+          6.7,
+          0.2366
+        ],
+        [
+          0,
+          6.5,
+          0.2384
+        ],
+        [
+          0,
+          6.3,
+          0.2403
+        ]
+      ],
+      "telecom": [
+        [
+          0,
+          5.45,
+          0.1912
+        ],
+        [
+          0,
+          5.15,
+          0.194
+        ]
+      ],
+      "cto": [
+        [
+          0,
+          4.8,
+          0.1203
+        ]
+      ],
+      "luminaria": [
+        [
+          0,
+          7.35,
+          0.1005
+        ]
+      ]
+    },
+    "Poste_DT_Transformador": {
+      "primaria": [
+        [
+          0.1136,
+          9.073,
+          -0.9
+        ],
+        [
+          0.1136,
+          9.073,
+          0.3
+        ],
+        [
+          0.1136,
+          9.073,
+          0.9
+        ]
+      ],
+      "secundaria": [
+        [
+          0,
+          6.9,
+          0.2347
+        ],
+        [
+          0,
+          6.7,
+          0.2366
+        ],
+        [
+          0,
+          6.5,
+          0.2384
+        ],
+        [
+          0,
+          6.3,
+          0.2403
+        ]
+      ],
+      "telecom": [
+        [
+          0,
+          5.45,
+          0.1912
+        ],
+        [
+          0,
+          5.15,
+          0.194
+        ]
+      ],
+      "cto": [
+        [
+          0,
+          4.8,
+          0.1203
+        ]
+      ],
+      "luminaria": [
+        [
+          0,
+          7.35,
+          0.1005
+        ]
+      ]
+    },
+    "Poste_DT_Baixa": {
+      "multiplex": [
+        [
+          0,
+          7.0,
+          0.2338
+        ]
+      ],
+      "telecom": [
+        [
+          0,
+          5.45,
+          0.1912
+        ],
+        [
+          0,
+          5.15,
+          0.194
+        ]
+      ],
+      "cto": [
+        [
+          0,
+          4.8,
+          0.1203
+        ]
+      ],
+      "luminaria": [
+        [
+          0,
+          7.35,
+          0.1005
+        ]
+      ]
+    },
+    "Poste_Entrada": {
+      "ramal_rua": [
+        [
+          0,
+          5.8,
+          0.1697
+        ]
+      ],
+      "ramal_predio": [
+        [
+          0,
+          5.8,
+          -0.1697
+        ]
+      ]
+    },
+    "Luminaria_Sodio": {
+      "luz": [
+        [
+          0,
+          0.515,
+          2.12
+        ]
+      ]
+    },
+    "Luminaria_LED": {
+      "luz": [
+        [
+          0,
+          0.5,
+          2.07
+        ]
+      ]
+    }
+  }
+}

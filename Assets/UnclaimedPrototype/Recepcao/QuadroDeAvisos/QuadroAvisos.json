@@ -260,7 +260,7 @@
   },
   {
    "id": "edital",
-   "titulo": "Edital nº 07/2025 — corpos não reclamados",
+   "titulo": "Edital nº 07/2026 — corpos não reclamados",
    "tamanho": [
     0.21,
     0.297
@@ -309,7 +309,7 @@
     },
     {
      "tipo": "titulo",
-     "texto": "EDITAL Nº 07/2025",
+     "texto": "EDITAL Nº 07/2026",
      "tamanho": 10.08,
      "alinhamento": "centro"
     },
@@ -345,8 +345,8 @@
      "linhas": [
       {
        "c": [
-        "098/2025",
-        "30/08/2025",
+        "098/2026",
+        "01/10/2026",
         "Masc., 60 a 70 anos",
         "Via pública — Centro",
         "Identificado: Jorge Alberto Siqueira. Familiares não localizados. Tatuagem de âncora no antebraço esquerdo."
@@ -354,8 +354,8 @@
       },
       {
        "c": [
-        "104/2025",
-        "03/09/2025",
+        "104/2026",
+        "05/10/2026",
         "Fem., 30 a 40 anos",
         "Hospital Municipal",
         "Sem documentos. Cicatriz cirúrgica no abdome. Aliança dourada sem gravação."
@@ -363,8 +363,8 @@
       },
       {
        "c": [
-        "109/2025",
-        "11/09/2025",
+        "109/2026",
+        "13/10/2026",
         "Masc., 45 a 55 anos",
         "UPA Zona Norte",
         "Identificado: Antônio Carlos Ribeiro. Último endereço conhecido desatualizado."
@@ -373,8 +373,8 @@
       },
       {
        "c": [
-        "115/2025",
-        "19/09/2025",
+        "115/2026",
+        "21/10/2026",
         "Masc., 70 a 80 anos",
         "Via pública — Rodoviária",
         "Sem documentos. Prótese dentária superior. Camisa de time de futebol, calça social cinza."
@@ -393,7 +393,7 @@
      "rubrica": "Helena Duarte",
      "tamanho": 5.22,
      "assinatura": [
-      "22 de setembro de 2025",
+      "23 de outubro de 2026",
       "",
       "Dra. Helena Duarte",
       "Coordenação do Necrotério"
@@ -402,7 +402,7 @@
    ],
    "manuscritos": [
     {
-     "texto": "109/2025: reclamado em 08/10 — a família veio. N.R.",
+     "texto": "109/2026: reclamado em 09/11 — a família veio. N.R.",
      "x": 0.47,
      "y": 0.905,
      "rot": -2.5,
@@ -620,7 +620,7 @@
   },
   {
    "id": "escala",
-   "titulo": "Escala de outubro/2025",
+   "titulo": "Escala de novembro/2026",
    "tamanho": [
     0.297,
     0.21
@@ -659,7 +659,7 @@
     },
     {
      "tipo": "titulo",
-     "texto": "ESCALA DE TRABALHO — OUTUBRO/2025",
+     "texto": "ESCALA DE TRABALHO — NOVEMBRO/2026",
      "tamanho": 8.28
     },
     {
@@ -722,7 +722,7 @@
    ],
    "manuscritos": [
     {
-     "texto": "21/10: manutenção da câmara — Mauro entra às 6h",
+     "texto": "24/11: manutenção da câmara — Mauro entra às 6h",
      "x": 0.06,
      "y": 0.85,
      "rot": 0.5,
@@ -823,7 +823,7 @@
     },
     {
      "tipo": "paragrafo",
-     "texto": "Manutenção preventiva em 21/10/2025, terça-feira, das 8h às 12h.",
+     "texto": "Manutenção preventiva em 24/11/2026, terça-feira, das 8h às 12h.",
      "tamanho": 5.94,
      "negrito": true
     },
@@ -842,11 +842,11 @@
      "numerada": false,
      "tamanho": 5.04,
      "itens": [
-      "11/08 — ruído no compressor 2.",
-      "12/08 — chamado aberto.",
-      "03/09 — chamado reiterado.",
-      "29/09 — chamado reiterado.",
-      "15/10 — resposta recebida. Visita marcada."
+      "12/09 — ruído no compressor 2.",
+      "14/09 — chamado aberto.",
+      "05/10 — chamado reiterado.",
+      "30/10 — chamado reiterado.",
+      "16/11 — resposta recebida. Visita marcada."
      ]
     },
     {
@@ -1005,7 +1005,7 @@
     },
     {
      "tipo": "paragrafo",
-     "texto": "Saiu de casa na Vila Esperança em 29/09/2025, pela manhã. Vestia blusa lilás, saia cinza e chinelo azul. Tem Alzheimer e pode não saber dizer o próprio nome. Usa óculos de armação marrom.",
+     "texto": "Saiu de casa na Vila Esperança em 30/10/2026, pela manhã. Vestia blusa lilás, saia cinza e chinelo azul. Tem Alzheimer e pode não saber dizer o próprio nome. Usa óculos de armação marrom.",
      "tamanho": 4.95
     },
     {

@@ -2,6 +2,7 @@
 // thick walls, real openings, eaves, front walls and gates. No interiors: windows show dark glass, a curtain or
 // a shallow dark room box. Conventions in UnclaimedMorgueGenerator.Entorno.cs.
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -464,6 +465,13 @@ public static partial class UnclaimedMorgueGenerator
         h = House("Casa do fim da rua", 61.5f, -30f, 70f, -20f, RoofKind.GableZ, pink, exRoofTiles, 2);
         Row(h, 3, 1, "w-c"); Row(h, 3, 0, "---");
         houses.Add(h);
+        if(streetEnergy!=null && streetTelecom!=null){
+            var energy=new ExtMesh();var telecom=new ExtMesh();var fittings=new ExtMesh();
+            foreach(var spec in houses)HouseService(spec,energy,telecom,fittings);
+            energy.Emit("Ramais das casas",streetEnergy,false,.2f,ShadowCastingMode.Off);
+            telecom.Emit("Ramais das casas",streetTelecom,false,.2f,ShadowCastingMode.Off);
+            fittings.Emit("Postes - ferragens dos ramais",streetEnergy.parent,false);
+        }
         neighbourRoofs.Clear();
         foreach (HouseSpec spec in houses)
         {
@@ -625,6 +633,12 @@ public static partial class UnclaimedMorgueGenerator
         drains.Cylinder(new Vector3(2f, AsphaltTop - 0.01f, -25f), new Vector3(2f, AsphaltTop + 0.008f, -25f), 0.32f, 0.32f, 20, exGrate);
         drains.Emit("Bocas de lobo e tampa", street, false, 0.2f, ShadowCastingMode.Off);
 
+        if(UnclaimedPostes.Available("Poste_DT_Rede")){
+            BuildModelledStreetPoles(street);
+            return;
+        }
+        streetPoleInstances.Clear();streetEnergy=null;streetTelecom=null;
+
         // Concrete poles with arms and lamps, cross-arms, wires between poles on each side, a transformer.
         var poles = new ExtMesh();
         var lenses = new ExtMesh();
@@ -643,6 +657,159 @@ public static partial class UnclaimedMorgueGenerator
         poles.Emit("Postes", street, false);
         lenses.Emit("Luminarias publicas", street, false, 0.2f, ShadowCastingMode.Off);
         Collider("Colisor - poste", street, -4.65f, CurbNear + 0.25f, -4.35f, CurbNear + 0.55f, -0.2f, 3f);
+    }
+
+    private static readonly Dictionary<string,GameObject> streetPoleInstances=new Dictionary<string,GameObject>();
+    private static Transform streetEnergy,streetTelecom;
+    private static string PoleKey(float x,bool near) => (near?"N":"F")+x;
+    private static string PoleAsset(float x,bool near) => near?(x==22f?"Poste_DT_Transformador":"Poste_DT_Rede"):"Poste_DT_Baixa";
+    private static Vector3 PoleFoot(float x,bool near)
+    {
+        var p=StreetPoleTop(x,near);p.y=SidewalkTop;return p;
+    }
+    private static Quaternion PoleRotation(bool near) => near?Quaternion.Euler(0,180,0):Quaternion.identity;
+
+    private static GameObject PlacePoleAsset(string asset,Transform parent,Vector3 position,Quaternion rotation,string name=null)
+    {
+        var prefab=AssetDatabase.LoadAssetAtPath<GameObject>(UnclaimedPostes.PrefabPath(asset));
+        if(prefab==null)throw new System.InvalidOperationException("Build pole prefab first: "+asset);
+        var go=(GameObject)PrefabUtility.InstantiatePrefab(prefab,parent);
+        Undo.RegisterCreatedObjectUndo(go,"Place pole fitting");
+        go.name=name??asset;go.transform.SetPositionAndRotation(position,rotation);return go;
+    }
+
+    private static Vector3 PoleAnchor(float x,bool near,string key,int index=0) =>
+        streetPoleInstances[PoleKey(x,near)].transform.TransformPoint(UnclaimedPostes.Anchor(PoleAsset(x,near),key,index));
+
+    // The facade is built before the street; use the same prefab placement for its incoming service.
+    private static Vector3 PlannedPoleAnchor(float x,bool near,string key,int index=0) =>
+        PoleFoot(x,near)+PoleRotation(near)*UnclaimedPostes.Anchor(PoleAsset(x,near),key,index);
+
+    private static float HorizontalSpan(Vector3 a,Vector3 b) => new Vector2(b.x-a.x,b.z-a.z).magnitude;
+    private static float WireSag(Vector3 a,Vector3 b,float fraction,int seed)
+    {
+        uint hash=unchecked((uint)seed*747796405u+2891336453u);
+        hash=unchecked((hash^(hash>>16))*2246822519u);
+        return HorizontalSpan(a,b)*fraction*(.92f+.16f*(hash&65535)/65535f);
+    }
+
+    private static void ModelledStreetPole(Transform street,float x,bool near)
+    {
+        string asset=PoleAsset(x,near);
+        var pole=PlacePoleAsset(asset,street,PoleFoot(x,near),PoleRotation(near),"Poste x"+x+(near?" (proximo)":" (distante)"));
+        streetPoleInstances[PoleKey(x,near)]=pole;
+        bool sodium=near && x== -4.5f,lit=sodium || x==22f || !near;
+        string lampAsset=sodium?"Luminaria_Sodio":"Luminaria_LED";
+        var lamp=PlacePoleAsset(lampAsset,pole.transform,pole.transform.TransformPoint(UnclaimedPostes.Anchor(asset,"luminaria")),pole.transform.rotation);
+        lamp.transform.localRotation=Quaternion.identity;
+        foreach(var r in lamp.GetComponentsInChildren<Renderer>(true)){
+            var materials=r.sharedMaterials;
+            for(int i=0;i<materials.Length;i++)if(materials[i]!=null && materials[i].name=="Lente_Luminaria")
+                materials[i]=lit?(sodium?exSodium:exLed):exDarkGlass;
+            r.sharedMaterials=materials;
+        }
+        if(lit){
+            float toRoad=near?-1f:1f;
+            ExteriorSpot((sodium?"poste de sodio x":"poste LED x")+x,lamp.transform.TransformPoint(UnclaimedPostes.Anchor(lampAsset,"luz")),new Vector3(0,-1,-toRoad*.3f),
+                sodium?120f:110f,sodium?18f:15f,sodium?8f:3f,sodium?2100f:4000f,sodium);
+        }
+        if(!near && (x==9f || x==40f) && UnclaimedPostes.Available("Telecom_CTO")){
+            var cto=PlacePoleAsset("Telecom_CTO",pole.transform,PoleAnchor(x,near,"cto"),pole.transform.rotation);
+            cto.transform.localRotation=Quaternion.identity;
+        }
+    }
+
+    private static void ModelledWireSpan(ExtMesh energy,ExtMesh telecom,float[] poles,bool near)
+    {
+        for(int i=0;i+1<poles.Length;i++){
+            float x=poles[i],next=poles[i+1];int seed=(near?1000:2000)+i*100;
+            if(near){
+                for(int k=0;k<3;k++){
+                    Vector3 a=PoleAnchor(x,true,"primaria",k),b=PoleAnchor(next,true,"primaria",k);
+                    energy.Wire(a,b,WireSag(a,b,.012f,seed+k),.008f,exBareAluminium);
+                }
+                for(int k=0;k<4;k++){
+                    Vector3 a=PoleAnchor(x,true,"secundaria",k),b=PoleAnchor(next,true,"secundaria",k);
+                    energy.Wire(a,b,WireSag(a,b,.018f,seed+10+k),.007f,exBareAluminium);
+                }
+            }else{
+                Vector3 a=PoleAnchor(x,false,"multiplex"),b=PoleAnchor(next,false,"multiplex");
+                energy.Twisted(a,b,WireSag(a,b,.022f,seed),.008f,3,.9f,exCable,exBareAluminium);
+            }
+            for(int k=0;k<2;k++){
+                Vector3 a=PoleAnchor(x,near,"telecom",k),b=PoleAnchor(next,near,"telecom",k);
+                float sag=WireSag(a,b,k==0?.02f:.025f,seed+20+k);
+                telecom.Bundle(a,b,sag,k==0?new[]{.007f,.006f,.009f,.005f}:new[]{.011f,.010f,.006f},k==0?.05f:.04f,k==0?2.5f:3f,exCable,seed+30+k);
+                if(near && x== -31f && k==1)SpanFitting("Telecom_Reserva",streetTelecom,a,b,sag,DistanceAlongWire(a,b,sag,1.6f));
+                if(k==0 && ((near && x== -4.5f) || (!near && x== -32f)))
+                    SpanFitting("Telecom_Caixa_Emenda",streetTelecom,a,b,sag,near?.4f:.55f);
+            }
+        }
+    }
+
+    private static float DistanceAlongWire(Vector3 a,Vector3 b,float sag,float distance)
+    {
+        int segments=Mathf.Max(12,Mathf.CeilToInt(Vector3.Distance(a,b)/.1f));
+        float travelled=0;Vector3 previous=a;
+        for(int i=1;i<=segments;i++){
+            var point=ExtMesh.WirePoint(a,b,sag,i/(float)segments);float length=Vector3.Distance(previous,point);
+            if(travelled+length>=distance)return (i-1+(distance-travelled)/length)/segments;
+            travelled+=length;previous=point;
+        }
+        return 1;
+    }
+
+    private static void SpanFitting(string asset,Transform parent,Vector3 a,Vector3 b,float sag,float t)
+    {
+        if(!UnclaimedPostes.Available(asset))return;
+        Vector3 tangent=(b-a)+Vector3.down*(4*sag*(1-2*t));
+        Quaternion rotation=Quaternion.LookRotation(tangent.normalized,Vector3.up)*Quaternion.Euler(0,-90,0);
+        PlacePoleAsset(asset,parent,ExtMesh.WirePoint(a,b,sag,t),rotation);
+    }
+
+    private static void BuildModelledStreetPoles(Transform street)
+    {
+        streetPoleInstances.Clear();
+        streetEnergy=Sub(street,"Fiacao - energia");streetTelecom=Sub(street,"Fiacao - telecom");
+        foreach(float x in NearPoles)ModelledStreetPole(street,x,true);
+        foreach(float x in FarPoles)ModelledStreetPole(street,x,false);
+        var energy=new ExtMesh();var telecom=new ExtMesh();
+        ModelledWireSpan(energy,telecom,NearPoles,true);ModelledWireSpan(energy,telecom,FarPoles,false);
+        Vector3 a=PoleAnchor(22,true,"secundaria",3),b=PoleAnchor(40,false,"multiplex");
+        energy.Twisted(a,b,WireSag(a,b,.03f,3001),.008f,3,.9f,exCable,exBareAluminium);
+        a=PoleAnchor(-4.5f,true,"telecom",1);b=PoleAnchor(9,false,"telecom",1);
+        telecom.Bundle(a,b,WireSag(a,b,.03f,3002),new[]{.011f,.010f,.006f},.04f,3,exCable,3003);
+        energy.Emit("Rede eletrica",streetEnergy,false,.2f,ShadowCastingMode.Off);
+        telecom.Emit("Cabos de telecom",streetTelecom,false,.2f,ShadowCastingMode.Off);
+        Collider("Colisor - poste",street,-4.6f,CurbNear+.22f,-4.4f,CurbNear+.58f,-.2f,3);
+    }
+
+    private static void HouseService(HouseSpec h,ExtMesh energy,ExtMesh telecom,ExtMesh fittings)
+    {
+        bool near=false,hasEnergy=true;float poleX;
+        switch(h.Name){
+            case "Casa 1":case "Casa 14":poleX=-32;break;
+            case "Casa 4":case "Casa 3":poleX=9;break;
+            case "Casa 15":case "Casa 16 - deposito":poleX=40;break;
+            case "Casa 6":poleX=-31;near=true;break;
+            case "Casa 7":poleX=22;near=true;break;
+            case "Casa 5 - mercearia":poleX=9;hasEnergy=false;break;
+            default:return;
+        }
+        // Outer wall plane, 35 cm below the ground-floor wall top, near the closest corner.
+        float x=Mathf.Abs(poleX-h.X0)<=Mathf.Abs(poleX-h.X1)?h.X0+1.5f:h.X1-1.5f;
+        Vector3 point=new Vector3(x,h.FloorHeight-.35f,near?h.Z0:h.Z1);
+        Vector3 normal=near?Vector3.back:Vector3.forward;
+        if(hasEnergy){
+            Vector3 source=PoleAnchor(poleX,near,near?"secundaria":"multiplex",near?2:0);
+            Vector3 bracket=point+normal*.03f;
+            fittings.Box(bracket-new Vector3(.025f,.06f,.03f),bracket+new Vector3(.025f,.06f,.03f),exGalvanized);
+            fittings.Cylinder(point+normal*.06f,point+normal*.12f,.025f,.025f,8,exWhitePaint);
+            energy.Twisted(source,point+normal*.12f,Mathf.Lerp(.25f,.45f,Mathf.Clamp01(HorizontalSpan(source,point)/20)),.006f,1,.6f,exCable,exBareAluminium);
+        }
+        // Fibre drops leave from the CTO's bottom glands (Telecom_CTO frame), not from the pole face.
+        if(h.Name=="Casa 4" || h.Name=="Casa 5 - mercearia" || h.Name=="Casa 15")
+            telecom.Wire(PoleAnchor(poleX,false,"cto")+PoleRotation(false)*new Vector3(.015f,-.3f,.09f),point+normal*.12f+Vector3.down*.6f,.3f,.0035f,exCable);
     }
 
     private static void StreetPole(ExtMesh m, ExtMesh lens, Transform street, float x, bool near)

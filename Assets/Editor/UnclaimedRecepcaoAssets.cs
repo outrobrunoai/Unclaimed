@@ -70,6 +70,9 @@ public static class UnclaimedRecepcaoAssets
         // Restricted circulation door (frame with the fixed leaf, active leaf): composite prefab below.
         new Asset("PortaCirculacaoFixos", null, 1024),
         new Asset("PortaCirculacaoFolha", null, 1024),
+        new Asset("PortaArquivoFixos", null, 1024),
+        new Asset("PortaArquivoFolha", null, 1024),
+        new Asset("PortaArquivoTrinco", null, 1024),
         // Entrance frame (aluminium lining, casings, sill): thin colliders on the jambs only.
         new Asset("BatenteEntrada", EntranceFramePrefab, 1024,
             new Bounds(new Vector3(-0.985f, 1.1f, 0f), new Vector3(0.03f, 2.2f, 0.21f)),
@@ -150,6 +153,7 @@ public static class UnclaimedRecepcaoAssets
         BuildMirror();
         BuildWCDoor();
         BuildCirculationDoor();
+        BuildArchiveDoor();
         AssetDatabase.SaveAssets();
         Debug.Log("Unclaimed: reception and bathroom prefabs rebuilt in " + Folder + " and " + WCFolder + ".");
     }
@@ -936,6 +940,71 @@ public static class UnclaimedRecepcaoAssets
             door.avisoDestrancada = "Porta destrancada.";
             door.avisoSemChave = "Trancada. Precisa da chave da circulação.";
             PrefabUtility.SaveAsPrefabAsset(root, PrefabPath(CirculationDoorPrefab));
+        }
+        finally { Object.DestroyImmediate(root); }
+    }
+
+    public const string ArchiveDoorPrefab = "Porta do arquivo";
+
+    private static void BuildArchiveDoor()
+    {
+        Mesh frame = MeshOf("PortaArquivoFixos"), leafMesh = MeshOf("PortaArquivoFolha"), boltMesh = MeshOf("PortaArquivoTrinco");
+        if (frame == null || leafMesh == null || boltMesh == null) { Debug.LogWarning("Unclaimed: missing archive door meshes."); return; }
+        var root = new GameObject(ArchiveDoorPrefab);
+        try
+        {
+            root.AddComponent<MeshFilter>().sharedMesh = frame;
+            root.AddComponent<MeshRenderer>().sharedMaterial = BakedMaterial("PortaArquivoFixos");
+            foreach (float sx in new[] { -1f, 1f })
+            {
+                var stop = root.AddComponent<BoxCollider>();
+                stop.center = new Vector3(sx * 0.7275f, 1.1f, -0.02f);
+                stop.size = new Vector3(0.045f, 2.2f, 0.19f);
+                var rebate = root.AddComponent<BoxCollider>();
+                rebate.center = new Vector3(sx * 0.735f, 1.1f, 0.095f);
+                rebate.size = new Vector3(0.03f, 2.2f, 0.04f);
+            }
+            var fixedLeaf = root.AddComponent<BoxCollider>();
+            fixedLeaf.center = new Vector3(0.432f, 1.0895f, 0.095f);
+            fixedLeaf.size = new Vector3(0.57f, 2.155f, 0.04f);
+            var leaf = new GameObject("Folha").transform;
+            leaf.SetParent(root.transform, false);
+            leaf.localPosition = CircPivot;
+            MeshObject("Malha", leaf, leafMesh, BakedMaterial("PortaArquivoFolha"));
+            var box = leaf.gameObject.AddComponent<BoxCollider>();
+            box.center = CircLeafCenter;
+            box.size = CircLeafSize;
+            var body = leaf.gameObject.AddComponent<Rigidbody>();
+            body.isKinematic = true;
+            body.useGravity = false;
+            var door = leaf.gameObject.AddComponent<FolhaDePorta>();
+            door.sentido = -1;         // local +Z points into the archive with yaw +90
+            door.anguloMaximo = 95f;
+            door.duracao = 1.1f;
+            door.alcance = 2f;
+            door.iniciarAberta = false;
+            door.fonte = AddAudio(leaf.gameObject);
+            door.textoAbrir = "Abrir porta";
+            door.textoFechar = "Fechar porta";
+            door.trancada = true;
+            door.chaveNecessaria = "";
+            door.textoTrancada = "Porta trancada";
+            door.avisoSemChave = "Está trancada. Parece haver um ferrolho do outro lado.";
+
+            // Bolt meshes share the leaf's hinge frame.
+            var bolt = new GameObject("Ferrolho");
+            bolt.transform.SetParent(leaf, false);
+            var boltBox = bolt.AddComponent<BoxCollider>();
+            boltBox.center = new Vector3(0.7715f, 1.45f, 0.019f);
+            boltBox.size = new Vector3(0.20f, 0.08f, 0.06f);
+            var bar = MeshObject("Trinco", bolt.transform, boltMesh, BakedMaterial("PortaArquivoTrinco"));
+            var latch = bolt.AddComponent<FerrolhoDePorta>();
+            latch.porta = door;
+            latch.trinco = bar.transform;
+            latch.deslocamento = new Vector3(-0.05f, 0f, 0f);
+            latch.alcance = 2f;
+            latch.fonte = AddAudio(bolt);
+            PrefabUtility.SaveAsPrefabAsset(root, PrefabPath(ArchiveDoorPrefab));
         }
         finally { Object.DestroyImmediate(root); }
     }

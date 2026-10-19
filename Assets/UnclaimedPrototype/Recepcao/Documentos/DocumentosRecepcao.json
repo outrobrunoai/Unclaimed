@@ -1,0 +1,266 @@
+{
+ "documentos": [
+  {
+   "id": "d01_ficha_entrada",
+   "titulo": "Ficha de entrada",
+   "tamanho": [
+    0.21,
+    0.11
+   ],
+   "papel": "#F1EFE7",
+   "acabamento": "papel",
+   "fonte": "sans",
+   "margem": 10,
+   "blocos": [
+    {
+     "tipo": "cabecalho",
+     "texto": "NECROTÉRIO · RECEPÇÃO",
+     "tamanho": 3.6
+    },
+    {
+     "tipo": "titulo",
+     "texto": "FICHA DE ENTRADA",
+     "tamanho": 7.2
+    },
+    {
+     "tipo": "campos",
+     "colunas": 2,
+     "tamanhoRotulo": 3.7,
+     "tamanhoValor": 6.6,
+     "itens": [
+      {
+       "rotulo": "Data e hora de entrada",
+       "valor": "18/11/2026, 21h50"
+      },
+      {
+       "rotulo": "Registro",
+       "valor": "083"
+      },
+      {
+       "rotulo": "Nome",
+       "valor": "Léo Martins"
+      },
+      {
+       "rotulo": "Pertences",
+       "valor": "P26"
+      },
+      {
+       "rotulo": "Acomodação prevista",
+       "valor": "C-03"
+      },
+      {
+       "rotulo": "Exame",
+       "valor": "pendente"
+      }
+     ]
+    },
+    {
+     "tipo": "rodape",
+     "texto": "1ª via · recepção",
+     "tamanho": 3.4
+    }
+   ],
+   "amassado": 0.5,
+   "vincos": []
+  },
+  {
+   "id": "aviso_circulacao",
+   "titulo": "Aviso: circulação restrita",
+   "tamanho": [
+    0.297,
+    0.165
+   ],
+   "papel": "#F4F3EE",
+   "acabamento": "plastificado",
+   "fonte": "sans",
+   "margem": 14,
+   "blocos": [
+    {
+     "tipo": "cabecalho",
+     "texto": "NECROTÉRIO · RECEPÇÃO",
+     "tamanho": 5.0
+    },
+    {
+     "tipo": "faixa",
+     "texto": "CIRCULAÇÃO RESTRITA",
+     "tamanho": 13.0,
+     "cor": "#9A1F1F"
+    },
+    {
+     "tipo": "subtitulo",
+     "texto": "Rotina do plantão noturno",
+     "tamanho": 8.6
+    },
+    {
+     "tipo": "lista",
+     "numerada": false,
+     "tamanho": 8.4,
+     "itens": [
+      "Circulação restrita: porta sempre trancada. A chave fica no armário de apoio da recepção.",
+      "Senhas e combinações não são anotadas em papel nem enviadas por escrito."
+     ]
+    },
+    {
+     "tipo": "rodape",
+     "texto": "Revisão de 02/11/2026 · Coordenação: Dra. Helena Duarte",
+     "tamanho": 4.6
+    }
+   ],
+   "amassado": 0.15,
+   "vincos": []
+  },
+  {
+   "id": "palavras_cruzadas",
+   "titulo": "Palavras cruzadas (cópia)",
+   "tamanho": [
+    0.21,
+    0.19
+   ],
+   "papel": "#F2F2EE",
+   "acabamento": "fotocopia",
+   "fonte": "serif",
+   "margem": 13,
+   "blocos": [
+    {
+     "tipo": "cabecalho",
+     "texto": "CONCURSO MENSAL",
+     "tamanho": 3.6
+    },
+    {
+     "tipo": "titulo",
+     "texto": "PALAVRAS CRUZADAS",
+     "tamanho": 9.0
+    },
+    {
+     "tipo": "dicas",
+     "tamanho": 4.3,
+     "horizontais": [
+      [
+       "1",
+       "Contrário de dia. (5)"
+      ],
+      [
+       "3",
+       "Artigo definido masculino plural. (2)"
+      ],
+      [
+       "5",
+       "Satélite natural da Terra. (3)"
+      ],
+      [
+       "7",
+       "Fruto da videira. (3)"
+      ],
+      [
+       "9",
+       "Utensílio para cortar papel. (7)"
+      ],
+      [
+       "11",
+       "Aquele que cuida de um portão. (8)"
+      ],
+      [
+       "13",
+       "Ave símbolo da paz. (5)"
+      ],
+      [
+       "14",
+       "Dia seguinte ao sábado. (7)"
+      ]
+     ],
+     "verticais": [
+      [
+       "2",
+       "Metal precioso amarelo. (4)"
+      ],
+      [
+       "4",
+       "Capital da Bahia. (8)"
+      ],
+      [
+       "6",
+       "Peça de roupa para os pés. (4)"
+      ],
+      [
+       "8",
+       "Que não é novo. (5)"
+      ]
+     ]
+    }
+   ],
+   "manuscritos": [
+    {
+     "texto": "Celso, palavra de oito letras para",
+     "x": 0.5,
+     "y": 0.585,
+     "rot": -1.5,
+     "tamanho": 7.8,
+     "cor": "#24409A"
+    },
+    {
+     "texto": "pessoa que promete devolver vinte reais e não devolve?",
+     "x": 0.5,
+     "y": 0.645,
+     "rot": -1.5,
+     "tamanho": 7.8,
+     "cor": "#24409A"
+    },
+    {
+     "texto": "Esqueci. Amanhã te pago.",
+     "x": 0.4,
+     "y": 0.76,
+     "rot": 1.5,
+     "tamanho": 8.6,
+     "cor": "#2A2A2E"
+    },
+    {
+     "texto": "Esqueci tem sete.",
+     "x": 0.62,
+     "y": 0.88,
+     "rot": -3,
+     "tamanho": 8.8,
+     "cor": "#B02A22"
+    }
+   ],
+   "amassado": 0.6,
+   "vincos": [
+    {
+     "eixo": "v",
+     "pos": 0.5
+    }
+   ]
+  },
+  {
+   "id": "agenda_coleta",
+   "titulo": "Agenda de coleta",
+   "tamanho": [
+    0.297,
+    0.125
+   ],
+   "papel": "#F3F3EF",
+   "acabamento": "plastificado",
+   "fonte": "sans",
+   "margem": 14,
+   "blocos": [
+    {
+     "tipo": "cabecalho",
+     "texto": "NECROTÉRIO · RECEBIMENTO",
+     "tamanho": 5.0
+    },
+    {
+     "tipo": "faixa",
+     "texto": "AGENDA DE COLETA",
+     "tamanho": 13.0,
+     "cor": "#1F3A5F"
+    },
+    {
+     "tipo": "paragrafo",
+     "texto": "18/11. Não há coletas autorizadas após 22h30, incluindo retirada de equipamentos. Qualquer exceção depende de conferência local.",
+     "tamanho": 10.0
+    }
+   ],
+   "amassado": 0.1,
+   "vincos": []
+  }
+ ]
+}

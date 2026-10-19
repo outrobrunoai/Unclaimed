@@ -19,7 +19,6 @@ public static class MiraDeInteracao
     static int frame = -1, bloqueadoAte = -1;
     static AlvoDeInteracao alvo;
     static RaycastHit acerto;
-    static GUIStyle estilo;
 
     /// <summary>Alvo mirado e ao alcance neste frame (null se nenhum).</summary>
     public static AlvoDeInteracao Alvo { get { Atualizar(); return alvo; } }
@@ -59,19 +58,18 @@ public static class MiraDeInteracao
         int mascara = ~(1 << 2);   // ignora a layer "Ignore Raycast"
         if (!Physics.Raycast(raio, out acerto, DistanciaMaxima, mascara, QueryTriggerInteraction.Ignore)) return;
         AlvoDeInteracao a = acerto.collider.GetComponentInParent<AlvoDeInteracao>();
+        // Uma pista guardada dentro de uma gaveta ou porta (papel na gaveta, legenda colada na porta) é dela:
+        // mirando o próprio objeto, a inspeção vence a peça que o carrega.
+        var pista = acerto.collider.GetComponentInParent<ObjetoInspecionavel>();
+        if (a != null && pista != null && pista.isActiveAndEnabled && pista.transform.IsChildOf(a.transform) && pista.transform != a.transform)
+            a = null;
         if (a != null && a.isActiveAndEnabled && acerto.distance <= a.AlcanceDeInteracao) alvo = a;
     }
 
-    /// <summary>Indicação discreta, logo abaixo do centro da tela: "E — Abrir gaveta".</summary>
+    /// <summary>Indicação sob a mira: só "Aperte E para interagir" (o texto da ação não aparece).</summary>
     public static void Indicar(string tecla, string texto)
     {
-        if (string.IsNullOrEmpty(texto)) return;
-        if (estilo == null)
-        {
-            estilo = new GUIStyle(GUI.skin.label) { fontSize = 18, alignment = TextAnchor.MiddleCenter };
-            estilo.normal.textColor = new Color(1f, 1f, 1f, 0.8f);
-        }
-        GUI.Label(new Rect(0, Screen.height * 0.5f + 40, Screen.width, 30), $"{tecla.ToUpper()} — {texto}", estilo);
+        if (!string.IsNullOrEmpty(texto)) HudInteracao.Interagir(tecla);
     }
 
     public static bool TeclaApertada(string nomeTecla)
@@ -91,9 +89,6 @@ public class AvisoNaTela : MonoBehaviour
     static AvisoNaTela instancia;
     string texto;
     float ate;
-    GUIStyle estilo;
-    Texture2D fundo;
-
     public static string Atual => instancia != null && Time.unscaledTime < instancia.ate ? instancia.texto : "";
 
     public static void Mostrar(string texto, float segundos)
@@ -112,23 +107,6 @@ public class AvisoNaTela : MonoBehaviour
     void OnGUI()
     {
         if (Time.unscaledTime >= ate || string.IsNullOrEmpty(texto)) return;
-        float s = Mathf.Max(0.5f, Screen.height / 1080f);
-        if (estilo == null || estilo.fontSize != Mathf.RoundToInt(19 * s))
-        {
-            fundo ??= new Texture2D(1, 1) { hideFlags = HideFlags.HideAndDontSave };
-            fundo.SetPixel(0, 0, new Color(0.06f, 0.07f, 0.08f, 0.72f));
-            fundo.Apply();
-            estilo = new GUIStyle { fontSize = Mathf.RoundToInt(19 * s), alignment = TextAnchor.MiddleCenter, wordWrap = false };
-            estilo.normal.background = fundo;
-            estilo.normal.textColor = new Color(0.95f, 0.95f, 0.93f);
-            estilo.padding = new RectOffset(Mathf.RoundToInt(18 * s), Mathf.RoundToInt(18 * s), Mathf.RoundToInt(8 * s), Mathf.RoundToInt(8 * s));
-        }
-        var c = new GUIContent(texto);
-        Vector2 tam = estilo.CalcSize(c);
-        float alfa = Mathf.Clamp01((ate - Time.unscaledTime) / 0.4f);
-        Color antes = GUI.color;
-        GUI.color = new Color(1f, 1f, 1f, alfa);
-        GUI.Box(new Rect((Screen.width - tam.x) / 2f, Screen.height * 0.72f, tam.x, tam.y), c, estilo);
-        GUI.color = antes;
+        HudInteracao.Texto(texto, 0.72f, Mathf.Clamp01((ate - Time.unscaledTime) / 0.4f));
     }
 }

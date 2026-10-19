@@ -1,0 +1,2763 @@
+{
+ "atlas": [
+  4096,
+  3584
+ ],
+ "etiquetas": [
+  {
+   "id": "admin_000",
+   "prefab": "Armario de pertences",
+   "parte": "",
+   "nome": "Placa A1",
+   "texto": "A1",
+   "centro": [
+    -0.22250000000000003,
+    1.261666666666667,
+    -0.252
+   ],
+   "tamanho": [
+    0.076,
+    0.018
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    0,
+    0,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_001",
+   "prefab": "Armario de pertences",
+   "parte": "Porta A1",
+   "nome": "Porta-cartao",
+   "texto": "",
+   "centro": [
+    0.20550000000000002,
+    0.3993333333333333,
+    -0.021
+   ],
+   "tamanho": [
+    0.092,
+    0.052
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    512,
+    0,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_002",
+   "prefab": "Armario de pertences",
+   "parte": "",
+   "nome": "Placa A2",
+   "texto": "A2",
+   "centro": [
+    -0.22250000000000003,
+    0.6883333333333332,
+    -0.252
+   ],
+   "tamanho": [
+    0.076,
+    0.018
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1024,
+    0,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_003",
+   "prefab": "Armario de pertences",
+   "parte": "Porta A2",
+   "nome": "Porta-cartao",
+   "texto": "",
+   "centro": [
+    0.20550000000000002,
+    0.3993333333333333,
+    -0.021
+   ],
+   "tamanho": [
+    0.092,
+    0.052
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1536,
+    0,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_004",
+   "prefab": "Armario de pertences",
+   "parte": "",
+   "nome": "Placa A3",
+   "texto": "A3",
+   "centro": [
+    -0.22250000000000003,
+    0.115,
+    -0.252
+   ],
+   "tamanho": [
+    0.076,
+    0.018
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    2048,
+    0,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_005",
+   "prefab": "Armario de pertences",
+   "parte": "Porta A3",
+   "nome": "Porta-cartao",
+   "texto": "",
+   "centro": [
+    0.20550000000000002,
+    0.3993333333333333,
+    -0.021
+   ],
+   "tamanho": [
+    0.092,
+    0.052
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    2560,
+    0,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_006",
+   "prefab": "Armario de pertences",
+   "parte": "",
+   "nome": "Placa B1",
+   "texto": "B1",
+   "centro": [
+    0.22250000000000003,
+    1.261666666666667,
+    -0.252
+   ],
+   "tamanho": [
+    0.076,
+    0.018
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    3072,
+    0,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_007",
+   "prefab": "Armario de pertences",
+   "parte": "Porta B1",
+   "nome": "Porta-cartao",
+   "texto": "",
+   "centro": [
+    -0.20550000000000002,
+    0.3993333333333333,
+    -0.021
+   ],
+   "tamanho": [
+    0.092,
+    0.052
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    3584,
+    0,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_008",
+   "prefab": "Armario de pertences",
+   "parte": "",
+   "nome": "Placa B2",
+   "texto": "B2",
+   "centro": [
+    0.22250000000000003,
+    0.6883333333333332,
+    -0.252
+   ],
+   "tamanho": [
+    0.076,
+    0.018
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    0,
+    256,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_009",
+   "prefab": "Armario de pertences",
+   "parte": "Porta B2",
+   "nome": "Porta-cartao",
+   "texto": "G · guarda separada",
+   "centro": [
+    -0.20550000000000002,
+    0.3993333333333333,
+    -0.021
+   ],
+   "tamanho": [
+    0.092,
+    0.052
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    512,
+    256,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_010",
+   "prefab": "Armario de pertences",
+   "parte": "",
+   "nome": "Placa B3",
+   "texto": "B3",
+   "centro": [
+    0.22250000000000003,
+    0.115,
+    -0.252
+   ],
+   "tamanho": [
+    0.076,
+    0.018
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1024,
+    256,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_011",
+   "prefab": "Armario de pertences",
+   "parte": "Porta B3",
+   "nome": "Porta-cartao",
+   "texto": "",
+   "centro": [
+    -0.20550000000000002,
+    0.3993333333333333,
+    -0.021
+   ],
+   "tamanho": [
+    0.092,
+    0.052
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1536,
+    256,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_012",
+   "prefab": "Bolsa de pertences",
+   "parte": "",
+   "nome": "Etiqueta da bolsa",
+   "texto": "P2…",
+   "centro": [
+    0.11,
+    0.175,
+    -0.125
+   ],
+   "tamanho": [
+    0.078,
+    0.048
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "1",
+   "dano": "rasgada",
+   "rect": [
+    2048,
+    256,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_013",
+   "prefab": "Bolsa de pertences",
+   "parte": "",
+   "nome": "Etiqueta da bolsa",
+   "texto": "P…5",
+   "centro": [
+    0.11,
+    0.175,
+    -0.125
+   ],
+   "tamanho": [
+    0.078,
+    0.048
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "2",
+   "dano": "borrada",
+   "rect": [
+    2560,
+    256,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_014",
+   "prefab": "Bolsa de pertences",
+   "parte": "",
+   "nome": "Etiqueta da bolsa",
+   "texto": "…26",
+   "centro": [
+    0.11,
+    0.175,
+    -0.125
+   ],
+   "tamanho": [
+    0.078,
+    0.048
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "3",
+   "dano": "descolada",
+   "rect": [
+    3072,
+    256,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_015",
+   "prefab": "Envelope de guarda",
+   "parte": "",
+   "nome": "Etiqueta do envelope",
+   "texto": "G-B2 · P26 / item 03 · lacre nº 004817",
+   "centro": [
+    0,
+    0.0128,
+    -0.005
+   ],
+   "tamanho": [
+    0.138,
+    0.088
+   ],
+   "normal": [
+    0,
+    1,
+    0
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    3584,
+    256,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_016",
+   "prefab": "Pastas de manuais",
+   "parte": "",
+   "nome": "Aba 041",
+   "texto": "041",
+   "centro": [
+    -0.026,
+    0.28,
+    -0.04
+   ],
+   "tamanho": [
+    0.014,
+    0.018
+   ],
+   "normal": [
+    -1,
+    0,
+    0
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    0,
+    512,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_017",
+   "prefab": "Pasta do contrato",
+   "parte": "",
+   "nome": "Etiqueta da pasta",
+   "texto": "LIMIAR SERVIÇOS · CONTRATO DE TRANSPORTE",
+   "centro": [
+    0,
+    0.0226,
+    0.055
+   ],
+   "tamanho": [
+    0.118,
+    0.068
+   ],
+   "normal": [
+    0,
+    1,
+    0
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    512,
+    512,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_018",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "Aba saidas revisao",
+   "texto": "saídas / revisão",
+   "centro": [
+    -0.18,
+    0.816,
+    -0.176
+   ],
+   "tamanho": [
+    0.058,
+    0.048
+   ],
+   "normal": [
+    0,
+    1,
+    0
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1024,
+    512,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_019",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "AZ 2024 0",
+   "texto": "2024 · JAN",
+   "centro": [
+    -0.399,
+    1.32,
+    -0.1715
+   ],
+   "tamanho": [
+    0.041,
+    0.156
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1536,
+    512,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_020",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "AZ 2024 1",
+   "texto": "2024 · FEV",
+   "centro": [
+    -0.33299999999999996,
+    1.32,
+    -0.1715
+   ],
+   "tamanho": [
+    0.041,
+    0.156
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    2048,
+    512,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_021",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "AZ 2024 2",
+   "texto": "2024 · MAR",
+   "centro": [
+    -0.267,
+    1.32,
+    -0.1715
+   ],
+   "tamanho": [
+    0.041,
+    0.156
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    2560,
+    512,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_022",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "AZ 2024 3",
+   "texto": "2024 · ABR",
+   "centro": [
+    -0.20099999999999998,
+    1.32,
+    -0.1715
+   ],
+   "tamanho": [
+    0.041,
+    0.156
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    3072,
+    512,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_023",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "AZ 2024 4",
+   "texto": "2024 · MAI",
+   "centro": [
+    -0.13499999999999998,
+    1.32,
+    -0.1715
+   ],
+   "tamanho": [
+    0.041,
+    0.156
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    3584,
+    512,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_024",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "AZ 2024 5",
+   "texto": "2024 · JUN",
+   "centro": [
+    -0.06899999999999998,
+    1.32,
+    -0.1715
+   ],
+   "tamanho": [
+    0.041,
+    0.156
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    0,
+    768,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_025",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "AZ 2024 6",
+   "texto": "2024 · JUL",
+   "centro": [
+    -0.002999999999999975,
+    1.32,
+    -0.1715
+   ],
+   "tamanho": [
+    0.041,
+    0.156
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    512,
+    768,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_026",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "AZ 2024 8",
+   "texto": "2024 · SET",
+   "centro": [
+    0.12900000000000003,
+    1.32,
+    -0.1715
+   ],
+   "tamanho": [
+    0.041,
+    0.156
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1024,
+    768,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_027",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "AZ 2024 9",
+   "texto": "2024 · OUT",
+   "centro": [
+    0.1950000000000001,
+    1.32,
+    -0.1715
+   ],
+   "tamanho": [
+    0.041,
+    0.156
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1536,
+    768,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_028",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "AZ 2024 10",
+   "texto": "2024 · NOV",
+   "centro": [
+    0.261,
+    1.32,
+    -0.1715
+   ],
+   "tamanho": [
+    0.041,
+    0.156
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    2048,
+    768,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_029",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "AZ 2024 11",
+   "texto": "2024 · DEZ",
+   "centro": [
+    0.32699999999999996,
+    1.32,
+    -0.1715
+   ],
+   "tamanho": [
+    0.041,
+    0.156
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    2560,
+    768,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_030",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "AGO deitada",
+   "texto": "2024 · AGO · MANUTENÇÃO",
+   "centro": [
+    -0.3,
+    0.8175,
+    -0.1735
+   ],
+   "tamanho": [
+    0.138,
+    0.043
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    3072,
+    768,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_031",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "AZ 2025 0",
+   "texto": "2025 · JAN–FEV",
+   "centro": [
+    -0.039999999999999994,
+    0.98,
+    -0.1715
+   ],
+   "tamanho": [
+    0.048,
+    0.156
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    3584,
+    768,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_032",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "AZ 2025 1",
+   "texto": "2025 · MAR–ABR",
+   "centro": [
+    0.034,
+    0.98,
+    -0.1715
+   ],
+   "tamanho": [
+    0.048,
+    0.156
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    0,
+    1024,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_033",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "AZ 2025 2",
+   "texto": "2025 · MAI–JUN",
+   "centro": [
+    0.108,
+    0.98,
+    -0.1715
+   ],
+   "tamanho": [
+    0.048,
+    0.156
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    512,
+    1024,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_034",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "AZ 2025 3",
+   "texto": "2025 · JUL–AGO",
+   "centro": [
+    0.18199999999999997,
+    0.98,
+    -0.1715
+   ],
+   "tamanho": [
+    0.048,
+    0.156
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1024,
+    1024,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_035",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "AZ 2025 4",
+   "texto": "2025 · SET–OUT",
+   "centro": [
+    0.256,
+    0.98,
+    -0.1715
+   ],
+   "tamanho": [
+    0.048,
+    0.156
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1536,
+    1024,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_036",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "AZ 2025 5",
+   "texto": "2025 · NOV–DEZ",
+   "centro": [
+    0.32999999999999996,
+    0.98,
+    -0.1715
+   ],
+   "tamanho": [
+    0.048,
+    0.156
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    2048,
+    1024,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_037",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "Caixa 1.46 0",
+   "texto": "COORDENAÇÃO 2023 · 1/5",
+   "centro": [
+    -0.3625,
+    1.5899999999999999,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    2560,
+    1024,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_038",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "Caixa 0.44 0",
+   "texto": "2022",
+   "centro": [
+    -0.3625,
+    0.5700000000000001,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    3072,
+    1024,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_039",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "Caixa 1.46 1",
+   "texto": "COORDENAÇÃO 2023 · 2/5",
+   "centro": [
+    -0.21750000000000003,
+    1.5899999999999999,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    3584,
+    1024,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_040",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "Caixa 0.44 1",
+   "texto": "2022",
+   "centro": [
+    -0.21750000000000003,
+    0.5700000000000001,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    0,
+    1280,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_041",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "Caixa 1.46 2",
+   "texto": "COORDENAÇÃO 2023 · 3/5",
+   "centro": [
+    -0.07250000000000001,
+    1.5899999999999999,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    512,
+    1280,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_042",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "Caixa 0.44 2",
+   "texto": "2022",
+   "centro": [
+    -0.07250000000000001,
+    0.5700000000000001,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1024,
+    1280,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_043",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "Caixa 1.46 3",
+   "texto": "COORDENAÇÃO 2023 · 4/5",
+   "centro": [
+    0.07249999999999995,
+    1.5899999999999999,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1536,
+    1280,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_044",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "Caixa 0.44 3",
+   "texto": "2022",
+   "centro": [
+    0.07249999999999995,
+    0.5700000000000001,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    2048,
+    1280,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_045",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "Caixa 1.46 4",
+   "texto": "COORDENAÇÃO 2023 · 5/5",
+   "centro": [
+    0.21749999999999997,
+    1.5899999999999999,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    2560,
+    1280,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_046",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "Caixa 0.44 4",
+   "texto": "2022",
+   "centro": [
+    0.21749999999999997,
+    0.5700000000000001,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    3072,
+    1280,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_047",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "Caixa alta 0",
+   "texto": "DIVERSOS",
+   "centro": [
+    -0.3625,
+    1.93,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    3584,
+    1280,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_048",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "Caixa alta 1",
+   "texto": "DIVERSOS",
+   "centro": [
+    -0.21750000000000003,
+    1.93,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    0,
+    1536,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_049",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "Caixa alta 2",
+   "texto": "DIVERSOS",
+   "centro": [
+    -0.07250000000000001,
+    1.93,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    512,
+    1536,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_050",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "Caixa alta 3",
+   "texto": "DIVERSOS",
+   "centro": [
+    0.07249999999999995,
+    1.93,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1024,
+    1536,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_051",
+   "prefab": "Estante da coordenacao",
+   "parte": "",
+   "nome": "Caixa alta deitada",
+   "texto": "DIVERSOS",
+   "centro": [
+    0.3,
+    1.86,
+    -0.1702
+   ],
+   "tamanho": [
+    0.23,
+    0.08
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1536,
+    1536,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_052",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2018 0",
+   "texto": "ARQUIVO · 2018",
+   "centro": [
+    -0.3625,
+    1.9300000000000002,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    2048,
+    1536,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_053",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2018 1",
+   "texto": "ARQUIVO · 2018",
+   "centro": [
+    -0.21750000000000003,
+    1.9300000000000002,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    2560,
+    1536,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_054",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2018 2",
+   "texto": "ARQUIVO · 2018",
+   "centro": [
+    -0.07250000000000001,
+    1.9300000000000002,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    3072,
+    1536,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_055",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2018 3",
+   "texto": "ARQUIVO · 2018",
+   "centro": [
+    0.07249999999999995,
+    1.9300000000000002,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    3584,
+    1536,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_056",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2018 4",
+   "texto": "ARQUIVO · 2018",
+   "centro": [
+    0.21749999999999997,
+    1.9300000000000002,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    0,
+    1792,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_057",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2019 0",
+   "texto": "ARQUIVO · 2019",
+   "centro": [
+    -0.3625,
+    1.5899999999999999,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    512,
+    1792,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_058",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2019 1",
+   "texto": "ARQUIVO · 2019",
+   "centro": [
+    -0.21750000000000003,
+    1.5899999999999999,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1024,
+    1792,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_059",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2019 2",
+   "texto": "ARQUIVO · 2019",
+   "centro": [
+    -0.07250000000000001,
+    1.5899999999999999,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1536,
+    1792,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_060",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2019 3",
+   "texto": "ARQUIVO · 2019",
+   "centro": [
+    0.07249999999999995,
+    1.5899999999999999,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    2048,
+    1792,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_061",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2020 0",
+   "texto": "ARQUIVO · 2020",
+   "centro": [
+    -0.3625,
+    1.25,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    2560,
+    1792,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_062",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2020 1",
+   "texto": "ARQUIVO · 2020",
+   "centro": [
+    -0.21750000000000003,
+    1.25,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    3072,
+    1792,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_063",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2020 2",
+   "texto": "ARQUIVO · 2020",
+   "centro": [
+    -0.07250000000000001,
+    1.25,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    3584,
+    1792,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_064",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2020 3",
+   "texto": "ARQUIVO · 2020",
+   "centro": [
+    0.07249999999999995,
+    1.25,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    0,
+    2048,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_065",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2020 4",
+   "texto": "ARQUIVO · 2020",
+   "centro": [
+    0.21749999999999997,
+    1.25,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    512,
+    2048,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_066",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2021 0",
+   "texto": "ARQUIVO · 2021",
+   "centro": [
+    -0.3625,
+    0.91,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1024,
+    2048,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_067",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2021 1",
+   "texto": "ARQUIVO · 2021",
+   "centro": [
+    -0.21750000000000003,
+    0.91,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1536,
+    2048,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_068",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2021 2",
+   "texto": "ARQUIVO · 2021",
+   "centro": [
+    -0.07250000000000001,
+    0.91,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    2048,
+    2048,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_069",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2021 3",
+   "texto": "ARQUIVO · 2021",
+   "centro": [
+    0.07249999999999995,
+    0.91,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    2560,
+    2048,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_070",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2021 4",
+   "texto": "ARQUIVO · 2021",
+   "centro": [
+    0.21749999999999997,
+    0.91,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    3072,
+    2048,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_071",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2022 0",
+   "texto": "ARQUIVO · 2022",
+   "centro": [
+    -0.3625,
+    0.5700000000000001,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    3584,
+    2048,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_072",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2022 1",
+   "texto": "ARQUIVO · 2022",
+   "centro": [
+    -0.21750000000000003,
+    0.5700000000000001,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    0,
+    2304,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_073",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2022 2",
+   "texto": "ARQUIVO · 2022",
+   "centro": [
+    -0.07250000000000001,
+    0.5700000000000001,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    512,
+    2304,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_074",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2022 3",
+   "texto": "ARQUIVO · 2022",
+   "centro": [
+    0.07249999999999995,
+    0.5700000000000001,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1024,
+    2304,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_075",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2022 4",
+   "texto": "ARQUIVO · 2022",
+   "centro": [
+    0.21749999999999997,
+    0.5700000000000001,
+    -0.1702
+   ],
+   "tamanho": [
+    0.116,
+    0.09
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1536,
+    2304,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_076",
+   "prefab": "Estante de aco",
+   "parte": "",
+   "nome": "Caixa 2019 deitada",
+   "texto": "ARQUIVO · 2019",
+   "centro": [
+    0.3,
+    1.52,
+    -0.1702
+   ],
+   "tamanho": [
+    0.23,
+    0.08
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    2048,
+    2304,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_077",
+   "prefab": "Arquivo de aco",
+   "parte": "Gaveta 1",
+   "nome": "Porta-etiqueta",
+   "texto": "PRONTUÁRIOS 2021 · 1º SEM.",
+   "centro": [
+    0,
+    0.23986000000000002,
+    -0.0235
+   ],
+   "tamanho": [
+    0.08,
+    0.024
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "1",
+   "dano": "",
+   "rect": [
+    2560,
+    2304,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_078",
+   "prefab": "Arquivo de aco",
+   "parte": "Gaveta 2",
+   "nome": "Porta-etiqueta",
+   "texto": "2021 · 2º SEM.",
+   "centro": [
+    0,
+    0.23986000000000002,
+    -0.0235
+   ],
+   "tamanho": [
+    0.08,
+    0.024
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "1",
+   "dano": "",
+   "rect": [
+    3072,
+    2304,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_079",
+   "prefab": "Arquivo de aco",
+   "parte": "Gaveta 3",
+   "nome": "Porta-etiqueta",
+   "texto": "2022 · 1º",
+   "centro": [
+    0,
+    0.23986000000000002,
+    -0.0235
+   ],
+   "tamanho": [
+    0.08,
+    0.024
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "1",
+   "dano": "",
+   "rect": [
+    3584,
+    2304,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_080",
+   "prefab": "Arquivo de aco",
+   "parte": "Gaveta 4",
+   "nome": "Porta-etiqueta",
+   "texto": "2022 · 2º",
+   "centro": [
+    0,
+    0.23986000000000002,
+    -0.0235
+   ],
+   "tamanho": [
+    0.08,
+    0.024
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "1",
+   "dano": "",
+   "rect": [
+    0,
+    2560,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_081",
+   "prefab": "Arquivo de aco",
+   "parte": "Gaveta 1",
+   "nome": "Porta-etiqueta",
+   "texto": "2023 · 1º",
+   "centro": [
+    0,
+    0.23986000000000002,
+    -0.0235
+   ],
+   "tamanho": [
+    0.08,
+    0.024
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "2",
+   "dano": "",
+   "rect": [
+    512,
+    2560,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_082",
+   "prefab": "Arquivo de aco",
+   "parte": "Gaveta 2",
+   "nome": "Porta-etiqueta",
+   "texto": "2023 · 2º",
+   "centro": [
+    0,
+    0.23986000000000002,
+    -0.0235
+   ],
+   "tamanho": [
+    0.08,
+    0.024
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "2",
+   "dano": "",
+   "rect": [
+    1024,
+    2560,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_083",
+   "prefab": "Arquivo de aco",
+   "parte": "Gaveta 3",
+   "nome": "Porta-etiqueta",
+   "texto": "2024 · 1º SEM.",
+   "centro": [
+    0,
+    0.23986000000000002,
+    -0.0235
+   ],
+   "tamanho": [
+    0.08,
+    0.024
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "2",
+   "dano": "",
+   "rect": [
+    1536,
+    2560,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_084",
+   "prefab": "Arquivo de aco",
+   "parte": "Gaveta 4",
+   "nome": "Porta-etiqueta",
+   "texto": "2024 · 2º SEM. (JUL–DEZ)",
+   "centro": [
+    0,
+    0.23986000000000002,
+    -0.0235
+   ],
+   "tamanho": [
+    0.08,
+    0.024
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "2",
+   "dano": "",
+   "rect": [
+    2048,
+    2560,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_085",
+   "prefab": "Arquivo de aco",
+   "parte": "Gaveta 1",
+   "nome": "Porta-etiqueta",
+   "texto": "2025 · 1º",
+   "centro": [
+    0,
+    0.23986000000000002,
+    -0.0235
+   ],
+   "tamanho": [
+    0.08,
+    0.024
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "3",
+   "dano": "",
+   "rect": [
+    2560,
+    2560,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_086",
+   "prefab": "Arquivo de aco",
+   "parte": "Gaveta 2",
+   "nome": "Porta-etiqueta",
+   "texto": "2025 · 2º",
+   "centro": [
+    0,
+    0.23986000000000002,
+    -0.0235
+   ],
+   "tamanho": [
+    0.08,
+    0.024
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "3",
+   "dano": "",
+   "rect": [
+    3072,
+    2560,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_087",
+   "prefab": "Arquivo de aco",
+   "parte": "Gaveta 3",
+   "nome": "Porta-etiqueta",
+   "texto": "2026 · 1º",
+   "centro": [
+    0,
+    0.23986000000000002,
+    -0.0235
+   ],
+   "tamanho": [
+    0.08,
+    0.024
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "3",
+   "dano": "",
+   "rect": [
+    3584,
+    2560,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_088",
+   "prefab": "Arquivo de aco",
+   "parte": "Gaveta 4",
+   "nome": "Porta-etiqueta",
+   "texto": "2026 · 2º",
+   "centro": [
+    0,
+    0.23986000000000002,
+    -0.0235
+   ],
+   "tamanho": [
+    0.08,
+    0.024
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "3",
+   "dano": "",
+   "rect": [
+    0,
+    2816,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_089",
+   "prefab": "Armario de pertences",
+   "parte": "Porta A1",
+   "nome": "Endereco grande",
+   "texto": "A1",
+   "centro": [
+    0.085,
+    0.115,
+    -0.0185
+   ],
+   "tamanho": [
+    0.1,
+    0.05
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    512,
+    2816,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_090",
+   "prefab": "Armario de pertences",
+   "parte": "Porta A2",
+   "nome": "Endereco grande",
+   "texto": "A2",
+   "centro": [
+    0.085,
+    0.115,
+    -0.0185
+   ],
+   "tamanho": [
+    0.1,
+    0.05
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1024,
+    2816,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_091",
+   "prefab": "Armario de pertences",
+   "parte": "Porta A3",
+   "nome": "Endereco grande",
+   "texto": "A3",
+   "centro": [
+    0.085,
+    0.115,
+    -0.0185
+   ],
+   "tamanho": [
+    0.1,
+    0.05
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    1536,
+    2816,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_092",
+   "prefab": "Armario de pertences",
+   "parte": "Porta B1",
+   "nome": "Endereco grande",
+   "texto": "B1",
+   "centro": [
+    -0.085,
+    0.115,
+    -0.0185
+   ],
+   "tamanho": [
+    0.1,
+    0.05
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    2048,
+    2816,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_093",
+   "prefab": "Armario de pertences",
+   "parte": "Porta B2",
+   "nome": "Endereco grande",
+   "texto": "B2",
+   "centro": [
+    -0.085,
+    0.115,
+    -0.0185
+   ],
+   "tamanho": [
+    0.1,
+    0.05
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    2560,
+    2816,
+    512,
+    256
+   ]
+  },
+  {
+   "id": "admin_094",
+   "prefab": "Armario de pertences",
+   "parte": "Porta B3",
+   "nome": "Endereco grande",
+   "texto": "B3",
+   "centro": [
+    -0.085,
+    0.115,
+    -0.0185
+   ],
+   "tamanho": [
+    0.1,
+    0.05
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "variante": "",
+   "dano": "",
+   "rect": [
+    3072,
+    2816,
+    512,
+    256
+   ]
+  }
+ ]
+}

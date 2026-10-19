@@ -463,7 +463,7 @@ public static class UnclaimedQuadroDeAvisos
     /// folds) as the normal map and a tileable fibre detail every 4 cm, with no environment reflection or
     /// specular highlight on plain paper (they made it read as plastic).
     /// </summary>
-    private static void PaperSurface(Material m, QuadroDados.Documento d, Texture2D relief)
+    internal static void PaperSurface(Material m, QuadroDados.Documento d, Texture2D relief)
     {
         bool laminated = d.acabamento == "plastificado", sticker = d.acabamento == "adesivo";
         m.SetFloat("_Smoothness", laminated ? 0.72f : sticker ? 0.32f : d.acabamento == "desbotado" ? 0.04f : 0.07f);
@@ -485,7 +485,7 @@ public static class UnclaimedQuadroDeAvisos
         EditorUtility.SetDirty(m);
     }
 
-    private static Texture2D Tex(string path, bool normal, bool linear = false)
+    internal static Texture2D Tex(string path, bool normal, bool linear = false)
     {
         if (AssetImporter.GetAtPath(path) is TextureImporter ti)
         {

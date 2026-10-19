@@ -1,10 +1,16 @@
-# Procedural night sky for Unity Skybox/Panoramic, drawn with numpy + Pillow (no Blender).
-# Every field is evaluated in unit-direction space; curved cloud shells provide perspective,
-# spherical stars retain their angular size, and both poles and the longitude seam are continuous.
-# python3 Blender/Ceu/ceu_noturno.py --preview --out Blender/Ceu/previews/Ceu_Noturno.png
-# Default output: Assets/UnclaimedPrototype/Iluminacao/Ceu_Noturno.png (8192 x 4096, RGB sRGB).
-# The moon remains opposite the forward direction of the generator's "Luz da lua" light.
+"""Procedural night sky for Unity, drawn with numpy + Pillow (no Blender).
+
+Export an RGB sRGB panorama, an RGBA sRGB background (_Fundo.png, linear
+moon/opening noise in alpha), linear RGBA cloud fields (_Nuvens.png), and
+a JSON with channel-by-basis exposure coefficients and moon metadata.
+compose_layers is the reference for the shader "Unclaimed/Ceu noturno".
+Fields use unit directions, continuous poles and longitude wrap. The moon
+remains opposite the forward direction of the generator's "Luz da lua" light.
+Default panorama: Assets/UnclaimedPrototype/Iluminacao/Ceu_Noturno.png (8192 x 4096).
+Example: python3 Blender/Ceu/ceu_noturno.py --preview --verify-layers
+"""
 import argparse
+import json
 import os
 import time
 import numpy as np
@@ -112,7 +118,7 @@ def shell(d, height, scale):
     return p / scale + np.array([23.4, 11.7, -38.2], dtype=np.float32)
 
 
-def cloud_fields(d):
+def cloud_fields(d, layers=False):
     """Low rain-cloud density, thin high veil, and subtle moon-facing relief."""
     m = moon_direction().astype(np.float32)
     angle = np.degrees(np.arccos(np.clip(d @ m, -1, 1)))
@@ -125,10 +131,12 @@ def cloud_fields(d):
     mass = fbm(q, 13, 6, foot)
     threshold = COVER_BASE + COVER_SPREAD * (broad - 0.5)
     density = smooth(threshold, threshold + SOFTNESS, mass)
+    deck = density.copy() if layers else None
     # Second, lower and finer broken layer: overlapping lumps give the deck depth.
     p2 = shell(d, 1.3, CLOUD_SCALE * 0.55)
     mass2 = fbm(p2 + warp * WARP * 0.5, 211, 5, footprint(d, 1.3, CLOUD_SCALE * 0.55))
-    density = np.maximum(density, 0.8 * smooth(threshold + 0.06, threshold + 0.06 + SOFTNESS, mass2))
+    layer2 = smooth(threshold + 0.06, threshold + 0.06 + SOFTNESS, mass2)
+    density = np.maximum(density, 0.8 * layer2)
     # An irregular opening follows the 3D field rather than a circular cutout.
     opening_radius = 10.5 + 4.0 * (noise(d * 19, 233) - 0.5)
     opening = smooth(opening_radius * 0.50, opening_radius * 1.35, angle)
@@ -141,10 +149,12 @@ def cloud_fields(d):
     tangent = m - normal * (normal @ m)[..., None]
     shifted = fbm(q + tangent * 0.18, 13, 6, foot)
     relief = np.clip((mass - shifted) * 4.0, -0.3, 0.3)
+    if layers:
+        return density, high, relief, angle, deck, layer2
     return density, high, relief, angle
 
 
-def render_block(d):
+def render_block(d, layers=False):
     """Compose linear radiance and cloud transmission for a block of directions."""
     alt = np.degrees(np.arcsin(np.clip(d[..., 1], -1, 1)))
     angle = np.degrees(np.arccos(np.clip(d @ moon_direction(), -1, 1)))
@@ -154,10 +164,19 @@ def render_block(d):
     below = np.clip(-alt / 3, 0, 1)[..., None]
     sky = sky * (1 - below) + np.array([0.008, 0.009, 0.011]) * below
     sky *= (0.85 + 0.15 * np.clip(alt / 12, 0, 1))[..., None]
+    if layers:
+        background = sky.astype(np.float32)
+        fields = np.zeros(d.shape[:-1] + (4,), dtype=np.uint8)
+        aux = noise(d * 19, 233)
     transmission = np.zeros(alt.shape, dtype=np.float32)
     visible = alt > 0
     if np.any(visible):
-        low, high, relief, ang = cloud_fields(d[visible])
+        values = cloud_fields(d[visible], layers)
+        low, high, relief, ang = values[:4]
+        if layers:
+            fields[visible] = np.clip(np.stack(
+                [values[4], relief / 0.6 + 0.5, high, values[5]], axis=-1
+            ) * 255 + 0.5, 0, 255).astype(np.uint8)
         haze = smooth(0, 12, alt[visible])
         low_alpha = (1 - np.exp(-low * 7)) * haze
         high_alpha = (1 - np.exp(-high)) * haze
@@ -178,6 +197,8 @@ def render_block(d):
         r = MOON_DIAMETER / 2
         disc = 1 - smooth(r * 0.88, r, ang)
         maria = fbm(d[visible] * 180, 907, 3)
+        if layers:
+            aux[visible] = np.where(ang < MOON_DIAMETER / 2, maria, aux[visible])
         limb = np.clip(1 - (ang / r) ** 2, 0, 1) ** 0.25
         face = np.array([1.0, 1.0, 0.95]) * (0.69 + 0.31 * maria[:, None])
         # The disc shows through a thin streaky veil (finer than the high layer), so it reads as half-hidden.
@@ -189,10 +210,12 @@ def render_block(d):
         halo = (0.05 * np.exp(-out / 1.4) + 0.012 * np.exp(-out / 7)) * (0.6 + 0.8 * veil)
         patch += (halo * np.exp(-low * 3))[:, None] * np.array([0.75, 0.85, 1.0])
         sky[visible] = patch
+    if layers:
+        return sky.astype(np.float32), background, fields, (aux * 255 + 0.5).astype(np.uint8)
     return sky.astype(np.float32), transmission
 
 
-def add_stars(img):
+def add_stars(img, clouds=True):
     """Rasterize spherical Gaussian stars in angular windows, including longitude wrap."""
     rng = np.random.default_rng(11)
     n = 4500
@@ -201,7 +224,10 @@ def add_stars(img):
     stars = np.stack([np.sqrt(1-y*y)*np.cos(lon), y, np.sqrt(1-y*y)*np.sin(lon)], axis=-1).astype(np.float32)
     low, high, _, angle = cloud_fields(stars)
     brightness = (0.06 + 0.6 * rng.power(4, n)**6) * np.clip(np.degrees(np.arcsin(y))/15, 0, 1)
-    brightness *= np.clip((angle-4)/20, 0, 1) * np.exp(-low*10-high)
+    if clouds:
+        brightness *= np.clip((angle-4)/20, 0, 1) * np.exp(-low*10-high)
+    else:
+        brightness *= np.clip((angle-4)/20, 0, 1)
     widths = np.radians(rng.uniform(0.04, 0.08, n))
     tints = np.stack([rng.uniform(0.85, 1, n), rng.uniform(0.9, 1, n), np.ones(n)], axis=-1)
     for s, longitude, sigma, bright, tint in zip(stars, lon, widths, brightness, tints):
@@ -247,16 +273,19 @@ def regions():
 
 
 def match_radiance(img):
-    """Fit a smooth altitude-only exposure curve to the approved upper-sky means."""
+    """Apply the approved altitude exposure and return coefficients (channel x basis)."""
     alt, weights, masks = regions()
     bases = np.stack([np.ones(H), 1-smooth(15, 45, alt), smooth(40, 70, alt)], axis=-1)
     means = img.mean(axis=1)
     target = np.array([[0.0244, 0.0311, 0.0524], [0.0139, 0.0201, 0.0434], [0.0296, 0.0367, 0.0569]])
+    fitted = []
     for channel in range(3):
         matrix = np.array([(bases[mask]* (means[mask, channel]*weights[mask])[:, None]).sum(axis=0)/weights[mask].sum() for mask in masks[:3]])
         coefficients = np.linalg.solve(matrix, target[:, channel])
+        fitted.append(coefficients)
         gain = bases @ coefficients
         img[alt > 0, :, channel] *= gain[alt > 0, None]
+    return np.array(fitted)
 
 
 def report(rgb):
@@ -270,19 +299,102 @@ def report(rgb):
     print('Mean absolute seam / adjacent RGB:', np.abs(rgb[:, 0].astype(float)-rgb[:, -1]).mean(), np.abs(rgb[:, 0].astype(float)-rgb[:, 1]).mean())
 
 
-def sample_panorama(rgb, d):
+def sample_panorama(rgb, d, as_float=False, decode=False, shift=0):
     """Bilinear lat-long sampling with horizontal wrap and vertical clamp."""
     height, width = rgb.shape[:2]
-    x = ((0.5-np.arctan2(d[..., 2], d[..., 0])/(2*np.pi))*width-0.5) % width
+    x = ((0.5-np.arctan2(d[..., 2], d[..., 0])/(2*np.pi)+shift)*width-0.5) % width
     y = np.arccos(np.clip(d[..., 1], -1, 1))/np.pi*(height-1)
     x0, y0 = np.floor(x).astype(int), np.floor(y).astype(int)
     fx, fy = (x-x0)[..., None], (y-y0)[..., None]
     y1 = np.minimum(y0+1, height-1)
-    return ((rgb[y0, x0]*(1-fx)+rgb[y0, (x0+1)%width]*fx)*(1-fy)
-            +(rgb[y1, x0]*(1-fx)+rgb[y1, (x0+1)%width]*fx)*fy).astype(np.uint8)
+    def texel(rows, cols):
+        """Decode before filtering, as for an sRGB GPU texture."""
+        value = rgb[rows, cols]
+        if decode:
+            value = value.astype(np.float32) / 255
+            value[..., :3] = to_linear(value[..., :3])
+        return value
+    result = ((texel(y0, x0)*(1-fx)+texel(y0, (x0+1)%width)*fx)*(1-fy)
+              +(texel(y1, x0)*(1-fx)+texel(y1, (x0+1)%width)*fx)*fy)
+    return result.astype(np.float32) if as_float else result.astype(np.uint8)
 
 
-def previews(rgb, folder, prefix):
+def compose_layers(fundo_rgba_u8, nuvens_rgba_u8, d, shift=(0, 0, 0),
+                   gap_floor=0.035, gain=((1, 0, 0), (1, 0, 0), (1, 0, 0))):
+    """Reference linear-radiance composition for shader "Unclaimed/Ceu noturno".
+
+    Fundo is sRGB RGB with linear moon/opening noise in alpha; Nuvens is
+    linear RGBA (deck, encoded relief, high veil, second deck). Decode RGB
+    before bilinear lat-long filtering, with horizontal wrap and pole clamp.
+    shift gives u offsets in turns for deck/relief, second deck, and high veil.
+    The moon/opening remain fixed; gain is channel x basis, with bases
+    [1, 1-smooth(15,45,alt), smooth(40,70,alt)]. Stars use cloud alpha and
+    the moon veil uses high, approximating the original procedural panorama.
+    """
+    d = np.asarray(d)
+    shape = d.shape
+    rays = d.reshape(-1, 3)
+    fundo = sample_panorama(fundo_rgba_u8, rays, as_float=True, decode=True)
+    result = fundo[:, :3].copy()
+    altitude = np.degrees(np.arcsin(np.clip(rays[:, 1], -1, 1)))
+    visible = altitude > 0
+    if not np.any(visible):
+        return result.reshape(shape)
+    rays, alt = rays[visible], altitude[visible]
+    aux = fundo[visible, 3]
+    main = sample_panorama(nuvens_rgba_u8[..., :2], rays, as_float=True, shift=shift[0]) / 255
+    layer2 = sample_panorama(nuvens_rgba_u8[..., 3:4], rays, as_float=True, shift=shift[1])[:, 0] / 255
+    high = sample_panorama(nuvens_rgba_u8[..., 2:3], rays, as_float=True, shift=shift[2])[:, 0] / 255
+    deck, relief = main[:, 0], (main[:, 1] - 0.5) * 0.6
+    angle = np.degrees(np.arccos(np.clip(rays @ moon_direction(), -1, 1)))
+    low = np.maximum(deck, 0.8 * layer2)
+    r_open = 10.5 + 4 * (aux - 0.5)
+    opening = smooth(0.5 * r_open, 1.35 * r_open, angle)
+    low *= gap_floor + (1 - gap_floor) * opening
+    haze = smooth(0, 12, alt)
+    la = (1 - np.exp(-7 * low)) * haze
+    ha = (1 - np.exp(-high)) * haze
+    near = np.exp(-angle / 17)
+    thick = smooth(0.55, 1, low)
+    cc = ((np.array([0.029, 0.036, 0.056])
+           + relief[:, None] * np.array([0.030, 0.034, 0.042])
+           + near[:, None] * np.array([0.014, 0.017, 0.024]))
+          * (1 - 0.22 * thick)[:, None])
+    cc += (1 - smooth(10, 70, alt))[:, None] * np.array([0.002, 0.003, 0.004])
+    p = result[visible] * (1 - ha[:, None]) + np.array([0.025, 0.032, 0.052]) * ha[:, None]
+    p = p * (1 - la[:, None]) + cc * la[:, None]
+    r = MOON_DIAMETER / 2
+    disc = 1 - smooth(0.88 * r, r, angle)
+    limb = np.clip(1 - (angle / r) ** 2, 0, 1) ** 0.25
+    face = np.array([1, 1, 0.95]) * (0.69 + 0.31 * aux[:, None])
+    veil = 0.18 + 0.45 * smooth(0.35, 0.75, (high - 0.36) / 0.28)
+    seen = np.exp(-10 * low - veil)
+    p = p * (1 - (disc * seen)[:, None]) + face * (limb * disc * seen)[:, None]
+    out = np.maximum(angle - r, 0) * (1 - disc)
+    halo = (0.05 * np.exp(-out / 1.4) + 0.012 * np.exp(-out / 7)) * (0.6 + 0.8 * veil)
+    p += (halo * np.exp(-3 * low))[:, None] * np.array([0.75, 0.85, 1])
+    bases = np.stack([np.ones_like(alt), 1 - smooth(15, 45, alt), smooth(40, 70, alt)], axis=-1)
+    result[visible] = p * (bases @ np.asarray(gain).T)
+    return result.reshape(shape)
+
+
+def verify_layers(fundo, fields, gain, rgb):
+    """Report absolute sRGB errors in byte levels over 200,000 uniform upper-sky rays."""
+    rng = np.random.default_rng(2026)
+    y = rng.uniform(0, 1, 200000)
+    lon = rng.uniform(-np.pi, np.pi, len(y))
+    radius = np.sqrt(1 - y * y)
+    d = np.stack([radius * np.cos(lon), y, radius * np.sin(lon)], axis=-1)
+    linear = compose_layers(fundo, fields, d, gain=gain)
+    composed = np.clip(np.where(linear <= 0.0031308, linear * 12.92,
+                       1.055 * np.maximum(linear, 0) ** (1 / 2.4) - 0.055), 0, 1) * 255
+    reference = sample_panorama(rgb, d, as_float=True)
+    error = np.abs(composed - reference)
+    print('Layers absolute error (8-bit sRGB): mean %.6f, p99 %.6f' %
+          (error.mean(), np.percentile(error, 99)))
+
+
+def previews(rgb, folder, prefix, sampler=None):
     """Render a 120-degree zenith view and four 70-degree horizon perspectives."""
     os.makedirs(folder, exist_ok=True)
     views = [('zenite', None)] + list(zip(('N', 'L', 'S', 'O'), (0, 90, 180, 270)))
@@ -301,7 +413,8 @@ def previews(rgb, folder, prefix):
         y = (1-(np.arange(height)+0.5)/height*2)*np.tan(np.radians(fov/2))*height/width
         d = forward + x[None, :, None]*right + y[:, None, None]*up
         d /= np.linalg.norm(d, axis=-1)[..., None]
-        Image.fromarray(sample_panorama(rgb, d)).save(os.path.join(folder, prefix+'_'+name+'.png'))
+        pixels = sample_panorama(rgb, d) if sampler is None else encode(sampler(d))
+        Image.fromarray(pixels).save(os.path.join(folder, prefix+'_'+name+'.png'))
 
 
 def main():
@@ -310,6 +423,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', default=OUT, help='Output panorama PNG')
     parser.add_argument('--preview', action='store_true')
+    parser.add_argument('--verify-layers', action='store_true', help='Compare the shader reference with the panorama')
     parser.add_argument('--preview-dir', default=os.path.join(HERE, 'previews'))
     parser.add_argument('--preview-only', metavar='PNG')
     parser.add_argument('--width', type=int, default=W, help='Panorama width (height = width / 2)')
@@ -324,18 +438,41 @@ def main():
         previews(rgb, args.preview_dir, os.path.splitext(os.path.basename(args.preview_only))[0])
     else:
         img = np.empty((H, W, 3), dtype=np.float32)
+        background = np.empty_like(img)
+        fields = np.empty((H, W, 4), dtype=np.uint8)
+        fundo = np.empty_like(fields)
         for start in range(0, H, 64):
             stop = min(start+64, H)
-            img[start:stop], _ = render_block(directions(start, stop))
+            block, back, clouds, aux = render_block(directions(start, stop), layers=True)
+            img[start:stop], background[start:stop] = block, back
+            fields[start:stop], fundo[start:stop, :, 3] = clouds, aux
         add_stars(img)
-        match_radiance(img)
+        add_stars(background, clouds=False)
+        fundo[..., :3] = encode(background)
+        del background
+        gain = match_radiance(img)
         rgb = encode(img, args.dither)
+        del img
         os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
         Image.fromarray(rgb).save(args.out)
+        base = os.path.splitext(args.out)[0]
+        Image.fromarray(fundo).save(base + '_Fundo.png')
+        Image.fromarray(fields).save(base + '_Nuvens.png')
+        with open(base + '.json', 'w', encoding='utf-8') as output:
+            json.dump(dict(gain=gain.tolist(), moon_direction=moon_direction().tolist(),
+                           moon_diameter=MOON_DIAMETER, gap_floor=0.035, width=W, height=H),
+                      output, indent=2)
+            output.write('\n')
         print(args.out, 'moon dir', np.round(moon_direction(), 3))
         report(rgb)
+        if args.verify_layers:
+            verify_layers(fundo, fields, gain, rgb)
         if args.preview:
-            previews(rgb, args.preview_dir, os.path.splitext(os.path.basename(args.out))[0])
+            prefix = os.path.splitext(os.path.basename(args.out))[0]
+            previews(rgb, args.preview_dir, prefix)
+            if args.verify_layers:
+                previews(None, args.preview_dir, prefix + '_camadas',
+                         lambda d: compose_layers(fundo, fields, d, gain=gain))
     print('Elapsed: %.2f s' % (time.perf_counter()-started))
 
 
