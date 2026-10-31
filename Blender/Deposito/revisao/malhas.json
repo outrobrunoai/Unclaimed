@@ -1,0 +1,236 @@
+{
+  "EstanteRasa": {
+    "triangles": 19416,
+    "texelsPerMetre": 1023,
+    "size": [
+      0.9304,
+      0.4088,
+      1.98
+    ]
+  },
+  "EstanteEstreita": {
+    "triangles": 19416,
+    "texelsPerMetre": 1078,
+    "size": [
+      0.9304,
+      0.3088,
+      1.98
+    ]
+  },
+  "EstanteFunda": {
+    "triangles": 17268,
+    "texelsPerMetre": 986,
+    "size": [
+      0.9304,
+      0.6088,
+      1.98
+    ]
+  },
+  "CaixaAberta": {
+    "triangles": 398,
+    "texelsPerMetre": 1497,
+    "size": [
+      0.4764,
+      0.3387,
+      0.2408
+    ]
+  },
+  "CaixaOrganizadora": {
+    "triangles": 850,
+    "texelsPerMetre": 781,
+    "size": [
+      0.454,
+      0.322,
+      0.207
+    ]
+  },
+  "Bin": {
+    "triangles": 502,
+    "texelsPerMetre": 699,
+    "size": [
+      0.15,
+      0.26,
+      0.13
+    ]
+  },
+  "Estrado": {
+    "triangles": 1956,
+    "texelsPerMetre": 985,
+    "size": [
+      1.2,
+      1.0,
+      0.14
+    ]
+  },
+  "Carrinho": {
+    "triangles": 7608,
+    "texelsPerMetre": 768,
+    "size": [
+      0.644,
+      0.9555,
+      0.9455
+    ]
+  },
+  "GalaoFormol": {
+    "triangles": 1194,
+    "texelsPerMetre": 1991,
+    "size": [
+      0.19,
+      0.125,
+      0.308
+    ]
+  },
+  "Bandeja": {
+    "triangles": 262,
+    "texelsPerMetre": 792,
+    "size": [
+      0.64,
+      0.44,
+      0.075
+    ]
+  },
+  "RoloLencol": {
+    "triangles": 472,
+    "texelsPerMetre": 1232,
+    "size": [
+      0.7,
+      0.11,
+      0.11
+    ]
+  },
+  "Ferramenta": {
+    "triangles": 2404,
+    "texelsPerMetre": 1500,
+    "size": [
+      0.298,
+      0.1243,
+      0.0386
+    ]
+  },
+  "CaixaSacoCadaver": {
+    "triangles": 238,
+    "texelsPerMetre": 1708,
+    "size": [
+      0.5012,
+      0.35,
+      0.3
+    ]
+  },
+  "CaixaLuvas": {
+    "triangles": 238,
+    "texelsPerMetre": 1708,
+    "size": [
+      0.5012,
+      0.35,
+      0.3
+    ]
+  },
+  "CaixaAventais": {
+    "triangles": 238,
+    "texelsPerMetre": 2087,
+    "size": [
+      0.4012,
+      0.3,
+      0.24
+    ]
+  },
+  "CaixaAlgodao": {
+    "triangles": 238,
+    "texelsPerMetre": 2087,
+    "size": [
+      0.4012,
+      0.3,
+      0.24
+    ]
+  },
+  "CaixaCompressas": {
+    "triangles": 238,
+    "texelsPerMetre": 1303,
+    "size": [
+      0.3212,
+      0.24,
+      0.18
+    ]
+  },
+  "CaixaMascaras": {
+    "triangles": 238,
+    "texelsPerMetre": 1303,
+    "size": [
+      0.3212,
+      0.24,
+      0.18
+    ]
+  },
+  "LuvaM": {
+    "triangles": 42,
+    "texelsPerMetre": 1489,
+    "size": [
+      0.24,
+      0.125,
+      0.065
+    ]
+  },
+  "LuvaG": {
+    "triangles": 42,
+    "texelsPerMetre": 1489,
+    "size": [
+      0.24,
+      0.125,
+      0.065
+    ]
+  },
+  "LuvaNitrilica": {
+    "triangles": 42,
+    "texelsPerMetre": 1489,
+    "size": [
+      0.24,
+      0.125,
+      0.065
+    ]
+  },
+  "Mascaras": {
+    "triangles": 42,
+    "texelsPerMetre": 1538,
+    "size": [
+      0.19,
+      0.095,
+      0.09
+    ]
+  },
+  "PFF2": {
+    "triangles": 42,
+    "texelsPerMetre": 1378,
+    "size": [
+      0.2,
+      0.115,
+      0.11
+    ]
+  },
+  "Laminas": {
+    "triangles": 42,
+    "texelsPerMetre": 3395,
+    "size": [
+      0.12,
+      0.055,
+      0.026
+    ]
+  },
+  "FioSutura": {
+    "triangles": 42,
+    "texelsPerMetre": 2627,
+    "size": [
+      0.13,
+      0.07,
+      0.036
+    ]
+  },
+  "LampadaLED": {
+    "triangles": 42,
+    "texelsPerMetre": 840,
+    "size": [
+      0.62,
+      0.04,
+      0.04
+    ]
+  }
+}

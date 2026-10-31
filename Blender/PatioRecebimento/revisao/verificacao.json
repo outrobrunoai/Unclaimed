@@ -1,0 +1,49 @@
+{
+  "routes": [
+    {
+      "route": "portao-patio",
+      "samples": 33,
+      "blockedBy": []
+    },
+    {
+      "route": "ligacao-recebimento",
+      "samples": 20,
+      "blockedBy": []
+    },
+    {
+      "route": "circulacao-norte",
+      "samples": 27,
+      "blockedBy": []
+    },
+    {
+      "route": "recuo",
+      "samples": 20,
+      "blockedBy": []
+    },
+    {
+      "route": "frente-portas",
+      "samples": 28,
+      "blockedBy": []
+    },
+    {
+      "route": "agenda-coleta",
+      "samples": 6,
+      "blockedBy": []
+    }
+  ],
+  "vehicleEnvelope": {
+    "width": 2.3,
+    "length": 5.0,
+    "blockedBy": []
+  },
+  "rain": {
+    "underCanopy": 0.0,
+    "outdoors": 1.0,
+    "roofHeight": 3.15300059,
+    "exteriorDepthUnderCanopy": 0.0
+  },
+  "missingMeshes": [],
+  "badMaterials": [],
+  "instances": 6,
+  "lightmaps": 3
+}

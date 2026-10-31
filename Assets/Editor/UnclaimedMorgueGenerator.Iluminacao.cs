@@ -86,19 +86,14 @@ public static partial class UnclaimedMorgueGenerator
             ("Camara fria", 10.25f, 3.4f, 4.2f, cold, false),
             ("Recebimento de corpos", 5.6f, 8.4f, 4.5f, k, false),
             ("Recebimento de corpos", 10.4f, 8.4f, 4.5f, k, false),
-            ("Vestibulo de servico", 5.375f, 4.45f, 3.4f, k, false),
-            ("Circulacao", -7.25f, -4.925f, 3.6f, k, false),
-            ("Circulacao", -3.9f, -4.925f, 3.6f, k, false),
-            ("Circulacao", -3.625f, -1.5f, 3.6f, k, true),
-            ("Circulacao", -3.25f, 2.25f, 3.6f, k, true),
-            ("Circulacao", -0.625f, 4.7f, 3.6f, k, false),
+            // Corridors: CorridorLights (UnclaimedMorgueGenerator.Circulacao.cs).
         };
         var count = new Dictionary<string, int>();
         foreach (var (room, x, z, intensity, kelvin, alongZ) in rooms)
         {
             count[room] = count.TryGetValue(room, out int n) ? n + 1 : 1;
             CeilingFixture(Sub(ceilingRoot, "Luminarias - " + room), "Luz - " + room + " - luminaria " + count[room],
-                "Luminaria " + count[room], x, z, 0, intensity, kelvin, false, alongZ, model: room == "WC" || room == "Arquivo e escritorio");   // finished rooms: modelled fitting
+                "Luminaria " + count[room], x, z, 0, intensity, kelvin, false, alongZ, model: room == "Sala tecnica" || room == "Deposito" || room == "WC" || room == "Arquivo e escritorio" || room == "Recebimento de corpos");
         }
 
         // Outside: a wall lamp over the main entrance and two floodlights on the building over the yard.
@@ -106,9 +101,9 @@ public static partial class UnclaimedMorgueGenerator
         WallLamp(outside, "Arandela - entrada principal", new Vector3(-11.375f, 2.55f, -12.375f - WallThickness / 2), Vector3.back,
             135f, 3.2f, 10f, 3300f, model: true);
         WallLamp(outside, "Refletor - porta do patio", new Vector3(12.75f + WallThickness / 2, 3.0f, 8.375f), Vector3.right,
-            120f, 3.5f, 13f, 4300f);
+            120f, 3.5f, 13f, 4300f, model: true);
         WallLamp(outside, "Refletor - patio norte", new Vector3(11f, 3.0f, 11.5f + WallThickness / 2), Vector3.forward,
-            120f, 3.5f, 13f, 4300f);
+            120f, 3.5f, 13f, 4300f, model: true);
     }
 
     // Lamp fixed to a wall face (point on the face, outward normal), aimed down and out. model: the
@@ -332,12 +327,83 @@ public static partial class UnclaimedMorgueGenerator
     }
 
     // Lightmap UVs for the structure, GI flags, light probes and reflection probes.
-    private static void PrepareStaticLighting(List<Zone> zones)
+    private static void PrepareStaticLighting(List<Zone> zones, string room = null)
+    {
+        PrepareStaticFlags(room);
+        // A room patch keeps the existing probe grid: the building's envelope has not changed.
+        if (room != null) return;
+        LightProbeGrid(zones);
+        ReflectionProbes(zones);
+    }
+
+    // Leaves of the interior door kit (Blender/Portas) swing, so they are lit by probes and never baked: a baked leaf
+    // would leave its shadow and its own lightmap in the closed position. The bake still sees them closed through
+    // a shadows-only blocker on each leaf, so the rooms stay isolated from the corridor as before.
+    private static bool IsKitLeaf(FolhaDePorta leaf)
+    {
+        GameObject door = PrefabUtility.GetNearestPrefabInstanceRoot(leaf.gameObject);
+        GameObject source = door != null ? PrefabUtility.GetCorrespondingObjectFromOriginalSource(door) : null;
+        return source != null && AssetDatabase.GetAssetPath(source).StartsWith(UnclaimedPortasAssets.Folder);
+    }
+
+    private static void EnsureLightBlocker(FolhaDePorta leaf)
+    {
+        const string blockerName = "Bloqueio de luz (bake)";
+        var box = leaf.GetComponent<BoxCollider>();
+        if (box == null || leaf.iniciarAberta) return;
+        Transform blocker = leaf.transform.Find(blockerName);
+        if (blocker == null)
+        {
+            var obj = new GameObject(blockerName);
+            Undo.RegisterCreatedObjectUndo(obj, "Create light blocker");
+            blocker = obj.transform;
+            blocker.SetParent(leaf.transform, false);
+            obj.AddComponent<MeshFilter>().sharedMesh = Resources.GetBuiltinResource<Mesh>("Cube.fbx");
+            var mr = obj.AddComponent<MeshRenderer>();
+            mr.sharedMaterial = frameMat;
+            mr.shadowCastingMode = ShadowCastingMode.ShadowsOnly;
+            mr.receiveGI = ReceiveGI.LightProbes;
+        }
+        blocker.localPosition = box.center;
+        blocker.localRotation = Quaternion.identity;
+        blocker.localScale = box.size;
+        GameObjectUtility.SetStaticEditorFlags(blocker.gameObject, StaticEditorFlags.ContributeGI);
+    }
+
+    private static void PrepareStaticFlags(string room = null)
     {
         var staticGroups = new HashSet<Transform>();
         foreach (string g in StaticGroups) staticGroups.Add(root.Find(g));
+        var roomGroups = new HashSet<Transform>();
+        if (room != null)
+        {
+            roomGroups.Add(root.Find("Ambientes/" + room));
+            roomGroups.Add(root.Find("Revestimentos/" + room));
+            foreach (Transform strip in Children(root.Find("Rodapes")))
+                if (strip.name == "Rodape - " + room || strip.name.StartsWith("Rodape - " + room + " ")) roomGroups.Add(strip);
+            foreach (Transform panel in Children(root.Find("Tetos")))
+                if (panel.name == "Forro - " + room || panel.name.StartsWith("Forro - " + room + " ") || panel.name == "Luminarias - " + room) roomGroups.Add(panel);
+        }
+        bool InScope(Transform child)
+        {
+            if (room == null) return true;
+            for (Transform t = child; t != null && t != root; t = t.parent)
+                if (roomGroups.Contains(t)) return true;
+            return false;
+        }
+        if (room == null)
+            foreach (FolhaDePorta leaf in root.GetComponentsInChildren<FolhaDePorta>(true))
+                if (IsKitLeaf(leaf)) EnsureLightBlocker(leaf);
         foreach (MeshRenderer r in root.GetComponentsInChildren<MeshRenderer>(true))
         {
+            if (!InScope(r.transform)) continue;
+            FolhaDePorta owner = r.GetComponentInParent<FolhaDePorta>();
+            if (owner != null && IsKitLeaf(owner))
+            {
+                GameObjectUtility.SetStaticEditorFlags(r.gameObject, GameObjectUtility.GetStaticEditorFlags(r.gameObject) & ~StaticEditorFlags.ContributeGI);
+                r.receiveGI = ReceiveGI.LightProbes;
+                continue;
+            }
             bool structural = false;
             for (Transform t = r.transform; t != null && t != root; t = t.parent)
                 if (staticGroups.Contains(t)) { structural = true; break; }
@@ -370,8 +436,6 @@ public static partial class UnclaimedMorgueGenerator
                 top.name == "Area externa" ? 0.15f : top.name == "Fechamento externo" ? 0.3f : 1f;
             so.ApplyModifiedPropertiesWithoutUndo();
         }
-        LightProbeGrid(zones);
-        ReflectionProbes(zones);
     }
 
     // Copy of Unity's cube with lightmap UVs laid out in proportion to the faces' real sizes, so scaled
@@ -557,6 +621,7 @@ public static partial class UnclaimedMorgueGenerator
             Debug.LogWarning("Unclaimed: this scene does not use 'Iluminacao noturna'; run Tools > Unclaimed > Apply Night Environment first.");
             return;
         }
+        BakeOcclusionCulling();   // the structure may have been regenerated: keep the occlusion data in step
         Lightmapping.BakeAsync();
     }
 }

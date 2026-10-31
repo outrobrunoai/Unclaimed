@@ -20,7 +20,11 @@ public class Movimento : MonoBehaviour
     [Header("Física")]
     [SerializeField] private float gravidade = -9.81f;
 
+    // Mantém a sensibilidade do mouse igual à que se tinha a ~125 FPS, quando ela ainda dependia do FPS.
+    private const float PassoDeReferencia = 0.008f;
+
     private CharacterController characterController;
+    private InputAction acaoOlhar;
     private Vector3 velocidadeVertical;
     private float rotacaoVertical = 0.0f;
 
@@ -35,6 +39,8 @@ public class Movimento : MonoBehaviour
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        if (TryGetComponent(out PlayerInput playerInput) && playerInput.actions != null)
+            acaoOlhar = playerInput.actions.FindAction("Look");
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -80,10 +86,15 @@ public class Movimento : MonoBehaviour
         LidarComAgachamento();
 
         // 1. Rotação da Câmera e do Personagem (Olhar)
-        float rotacaoHorizontal = olhar.x * sensibilidadeMouse * Time.deltaTime;
+        // O mouse já entrega o deslocamento do quadro: multiplicar por deltaTime fazia um quadro lento girar a
+        // câmera pelo quadrado da duração (o "teleporte" num engasgo). Analógico é velocidade: esse usa deltaTime.
+        InputControl controleOlhar = acaoOlhar?.activeControl;
+        bool analogico = controleOlhar != null && !(controleOlhar.device is Pointer);
+        float escalaOlhar = sensibilidadeMouse * (analogico ? Time.deltaTime : PassoDeReferencia);
+        float rotacaoHorizontal = olhar.x * escalaOlhar;
         transform.Rotate(0, rotacaoHorizontal, 0);
 
-        rotacaoVertical -= olhar.y * sensibilidadeMouse * Time.deltaTime;
+        rotacaoVertical -= olhar.y * escalaOlhar;
         rotacaoVertical = Mathf.Clamp(rotacaoVertical, -80f, 80f);
         camera.localRotation = Quaternion.Euler(rotacaoVertical, 0, 0);
 

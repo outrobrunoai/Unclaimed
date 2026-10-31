@@ -1,0 +1,17 @@
+{
+  "models": 7,
+  "triangles": 40492,
+  "degenerateFaces": 0,
+  "lightsUnchanged": true,
+  "existingMonoBehavioursChanged": [],
+  "addedMonoBehaviours": 0,
+  "routesClear": true,
+  "capsuleSamples": 134,
+  "rain": {
+    "underCanopy": 0.0,
+    "outdoors": 1.0,
+    "roofHeight": 3.15300059,
+    "exteriorDepthUnderCanopy": 0.0
+  },
+  "lightmaps": 3
+}

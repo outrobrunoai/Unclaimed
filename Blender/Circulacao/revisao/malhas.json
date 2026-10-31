@@ -1,0 +1,56 @@
+{
+  "Extintor": {
+    "triangles": 8328,
+    "texelsPerMetre": 1196,
+    "size": [
+      0.2016,
+      0.176,
+      0.4079
+    ]
+  },
+  "ExtintorEtiqueta": {
+    "triangles": 32,
+    "texelsPerMetre": 0,
+    "size": [
+      0.1164,
+      0.0292,
+      0.13
+    ]
+  },
+  "BlocoEmergencia": {
+    "triangles": 3938,
+    "texelsPerMetre": 1488,
+    "size": [
+      0.36,
+      0.176,
+      0.13
+    ]
+  },
+  "ExtintorMostrador": {
+    "triangles": 32,
+    "texelsPerMetre": 0,
+    "size": [
+      0.0356,
+      0.0,
+      0.0356
+    ]
+  },
+  "Acionador": {
+    "triangles": 492,
+    "texelsPerMetre": 1573,
+    "size": [
+      0.098,
+      0.0404,
+      0.098
+    ]
+  },
+  "AcionadorFrente": {
+    "triangles": 2,
+    "texelsPerMetre": 0,
+    "size": [
+      0.084,
+      0.0,
+      0.084
+    ]
+  }
+}

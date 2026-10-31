@@ -1,0 +1,128 @@
+{
+  "PortaInstMarco": {
+    "triangles": 304,
+    "texelsPerMetre": 477,
+    "size": [
+      1.59,
+      0.23,
+      2.257
+    ]
+  },
+  "PortaInstAdm": {
+    "triangles": 7472,
+    "texelsPerMetre": 380,
+    "size": [
+      0.8684,
+      0.1981,
+      2.155
+    ]
+  },
+  "PortaInstAdmSec": {
+    "triangles": 6100,
+    "texelsPerMetre": 465,
+    "size": [
+      0.5786,
+      0.143,
+      2.155
+    ]
+  },
+  "PortaInstDescanso": {
+    "triangles": 6880,
+    "texelsPerMetre": 391,
+    "size": [
+      0.8684,
+      0.1781,
+      2.155
+    ]
+  },
+  "PortaInstDescansoSec": {
+    "triangles": 6100,
+    "texelsPerMetre": 465,
+    "size": [
+      0.5786,
+      0.143,
+      2.155
+    ]
+  },
+  "PortaInstDeposito": {
+    "triangles": 8420,
+    "texelsPerMetre": 298,
+    "size": [
+      0.8684,
+      0.1981,
+      2.155
+    ]
+  },
+  "PortaInstDepositoSec": {
+    "triangles": 7048,
+    "texelsPerMetre": 349,
+    "size": [
+      0.5786,
+      0.143,
+      2.155
+    ]
+  },
+  "PortaTecAtiva": {
+    "triangles": 9188,
+    "texelsPerMetre": 242,
+    "size": [
+      0.8684,
+      0.1981,
+      2.155
+    ]
+  },
+  "PortaTecSec": {
+    "triangles": 7816,
+    "texelsPerMetre": 305,
+    "size": [
+      0.5786,
+      0.143,
+      2.155
+    ]
+  },
+  "PortaClinicaMarco": {
+    "triangles": 304,
+    "texelsPerMetre": 219,
+    "size": [
+      1.6,
+      0.23,
+      2.262
+    ]
+  },
+  "PortaClinicaFolha": {
+    "triangles": 5604,
+    "texelsPerMetre": 312,
+    "size": [
+      0.7265,
+      0.071,
+      2.155
+    ]
+  },
+  "PortaClinicaVidro": {
+    "triangles": 44,
+    "texelsPerMetre": 0,
+    "size": [
+      0.318,
+      0.008,
+      0.568
+    ]
+  },
+  "PortaFriaMarco": {
+    "triangles": 628,
+    "texelsPerMetre": 214,
+    "size": [
+      1.62,
+      0.23,
+      2.272
+    ]
+  },
+  "PortaFriaFolha": {
+    "triangles": 4976,
+    "texelsPerMetre": 620,
+    "size": [
+      0.7245,
+      0.2115,
+      2.1555
+    ]
+  }
+}

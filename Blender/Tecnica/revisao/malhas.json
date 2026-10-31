@@ -1,0 +1,83 @@
+{
+  "PainelContingencia": {
+    "triangles": 9640,
+    "texelsPerMetre": 1024,
+    "size": [
+      0.6118,
+      0.211,
+      0.764
+    ]
+  },
+  "QuadroGeral": {
+    "triangles": 6216,
+    "texelsPerMetre": 1042,
+    "size": [
+      0.6085,
+      0.191,
+      0.964
+    ]
+  },
+  "QuadroCamaraFria": {
+    "triangles": 7316,
+    "texelsPerMetre": 710,
+    "size": [
+      0.4085,
+      0.1718,
+      0.564
+    ]
+  },
+  "Seletor": {
+    "triangles": 992,
+    "texelsPerMetre": 2975,
+    "size": [
+      0.0292,
+      0.022,
+      0.0292
+    ]
+  },
+  "SeletorChave": {
+    "triangles": 1116,
+    "texelsPerMetre": 3136,
+    "size": [
+      0.0292,
+      0.0305,
+      0.0292
+    ]
+  },
+  "Sinaleiro": {
+    "triangles": 760,
+    "texelsPerMetre": 3626,
+    "size": [
+      0.0292,
+      0.0048,
+      0.0292
+    ]
+  },
+  "SinaleiroLente": {
+    "triangles": 380,
+    "texelsPerMetre": 1165,
+    "size": [
+      0.0215,
+      0.004,
+      0.0215
+    ]
+  },
+  "Infraestrutura": {
+    "triangles": 16882,
+    "texelsPerMetre": 1030,
+    "size": [
+      3.107,
+      0.2699,
+      3.24
+    ]
+  },
+  "Bancada": {
+    "triangles": 17872,
+    "texelsPerMetre": 1308,
+    "size": [
+      1.2,
+      0.6365,
+      1.76
+    ]
+  }
+}

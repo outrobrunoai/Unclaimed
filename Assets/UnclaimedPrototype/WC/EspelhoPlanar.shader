@@ -1,6 +1,8 @@
 // Face of the bathroom mirror. With EspelhoPlanar running (_ReflexoAtivo = 1) it shows the planar reflection
 // rendered by the mirror's reflection camera, read in screen space with u flipped (that camera uses a proper
-// rotation, so its image is the mirror image flipped horizontally). Otherwise (Edit Mode, mirror off screen)
+// rotation, so its image is the mirror image flipped horizontally). The camera only renders the window the mirror
+// covers on screen: _ReflexoJanela = (origin, size) of that window in the flipped image, (0,0,1,1) = whole
+// frame. Otherwise (Edit Mode, mirror off screen)
 // it falls back to the room's reflection probe. Wipe streaks and dried splashes (alpha of _ManchasTex, the
 // mirror's smoothness map) dull and blur the reflection locally.
 Shader "Unclaimed/Espelho planar"
@@ -12,6 +14,7 @@ Shader "Unclaimed/Espelho planar"
         _Manchas ("Intensidade das manchas", Range(0, 1)) = 0.6
         [NoScaleOffset] _ReflexoTex ("Reflexo (definido pelo script)", 2D) = "black" {}
         _ReflexoAtivo ("Reflexo planar ativo", Float) = 0
+        _ReflexoJanela ("Janela do reflexo (origem, tamanho)", Vector) = (0, 0, 1, 1)
     }
     SubShader
     {
@@ -42,6 +45,7 @@ Shader "Unclaimed/Espelho planar"
                 float4 _ManchasTex_ST;
                 half _Manchas;
                 half _ReflexoAtivo;
+                float4 _ReflexoJanela;
             CBUFFER_END
 
             struct Attributes { float4 positionOS : POSITION; float3 normalOS : NORMAL; float2 uv : TEXCOORD0; };
@@ -77,7 +81,9 @@ Shader "Unclaimed/Espelho planar"
                 half mancha = saturate((0.975 - lisura) * 7) * _Manchas;
 
                 half3 sonda = GlossyEnvironmentReflection(r, i.positionWS, 0.02, 1.0, tela);
-                half3 planar = SAMPLE_TEXTURE2D(_ReflexoTex, sampler_ReflexoTex, float2(1.0 - tela.x, tela.y)).rgb;
+                float2 uvReflexo = float2(1.0 - tela.x, tela.y) - _ReflexoJanela.xy;
+                uvReflexo = clamp(uvReflexo, 0.0005, max(0.0005, _ReflexoJanela.zw - 0.0005));
+                half3 planar = SAMPLE_TEXTURE2D(_ReflexoTex, sampler_ReflexoTex, uvReflexo).rgb;
                 half3 reflexo = lerp(sonda, planar, saturate(_ReflexoAtivo));
 
                 // Manchas: reflexo mais fosco (sonda borrada) e um véu claro e fraco por cima.

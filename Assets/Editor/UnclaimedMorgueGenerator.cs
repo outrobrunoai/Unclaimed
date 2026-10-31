@@ -86,6 +86,8 @@ public static partial class UnclaimedMorgueGenerator
         }
     }
 
+    private static string PortaPrefab(string name) => UnclaimedPortasAssets.PrefabPath(name);
+
     private static readonly Door[] Doors =
     {
         new Door("Entrada principal", false, -12.375f, -11.375f, 2f,
@@ -99,16 +101,18 @@ public static partial class UnclaimedMorgueGenerator
             frame: UnclaimedRecepcaoAssets.Folder + "/" + UnclaimedRecepcaoAssets.CirculationDoorPrefab + ".prefab"),
         new Door("Porta recepcao - arquivo", true, -6.5f, -8f, 1.5f,
             frame: UnclaimedRecepcaoAssets.Folder + "/" + UnclaimedRecepcaoAssets.ArchiveDoorPrefab + ".prefab", yaw: 90f),
-        new Door("Porta arquivo - circulacao", true, -2f, -4.75f, 1.5f),
-        new Door("Porta descanso", true, -5.25f, -0.25f, 1.5f),
-        new Door("Porta deposito", true, -4.5f, 3.5f, 1.5f),
-        new Door("Porta sala tecnica", false, 5.75f, -3.5f, 1.5f),
-        new Door("Porta autopsia - circulacao", true, -2f, 0f, 1.5f),
-        new Door("Porta autopsia - camara fria", true, 7.5f, 0.25f, 1.5f),
-        new Door("Porta camara fria - recebimento", false, 5.25f, 9.75f, 1.5f),
+        // Interior door kit (Blender/Portas, UnclaimedPortasAssets): families per use; they swing into the room, away from the corridor.
+        new Door("Porta arquivo - circulacao", true, -2f, -4.75f, 1.5f, frame: PortaPrefab(UnclaimedPortasAssets.Adm), yaw: 90f),
+        new Door("Porta descanso", true, -5.25f, -0.25f, 1.5f, frame: PortaPrefab(UnclaimedPortasAssets.Descanso), yaw: -90f),
+        new Door("Porta deposito", true, -4.5f, 3.5f, 1.5f, frame: PortaPrefab(UnclaimedPortasAssets.Deposito), yaw: -90f),
+        new Door("Porta sala tecnica", false, 5.75f, -3.5f, 1.5f, frame: PortaPrefab(UnclaimedPortasAssets.Tecnica), yaw: 0f),
+        new Door("Porta autopsia - circulacao", true, -2f, 0f, 1.5f, frame: PortaPrefab(UnclaimedPortasAssets.Clinica), yaw: 90f),
+        // Cold-room doors open out of the cold room (back face inside), with an inside safety release.
+        new Door("Porta autopsia - camara fria", true, 7.5f, 0.25f, 1.5f, frame: PortaPrefab(UnclaimedPortasAssets.Fria), yaw: -90f),
+        new Door("Porta camara fria - recebimento", false, 5.25f, 9.75f, 1.5f, frame: PortaPrefab(UnclaimedPortasAssets.Fria), yaw: 0f),
         new Door("Porta circulacao - vestibulo", true, 3.25f, 4.5f, 1.25f),
         // Not drawn on the plan: closes the service loop corridor -> recebimento -> camara fria -> autopsia.
-        new Door("Porta vestibulo - recebimento", false, 5.25f, 5.375f, 1.5f),
+        new Door("Porta vestibulo - recebimento", false, 5.25f, 5.375f, 1.5f, frame: PortaPrefab(UnclaimedPortasAssets.Clinica), yaw: 0f),
         new Door("Porta dupla recebimento - patio", true, 12.75f, 8.375f, 2f),
         new Door("Portao de servico", false, 5.25f, 18f, 2.5f, header: false),
     };
@@ -145,27 +149,17 @@ public static partial class UnclaimedMorgueGenerator
         Undo.RegisterCreatedObjectUndo(container, "Generate morgue");
         root = container.transform;
 
-        floorPublic = GetMaterial("Floor - publico", new Color(0.44f, 0.40f, 0.33f));
-        floorStaff = GetMaterial("Floor - equipe", new Color(0.31f, 0.36f, 0.42f));
-        floorClinical = GetMaterial("Floor - clinico", new Color(0.30f, 0.40f, 0.37f));
-        corridorMat = GetMaterial("Corridor", new Color(0.20f, 0.25f, 0.27f));
-        patioMat = GetMaterial("Patio", new Color(0.40f, 0.40f, 0.38f));
-        exteriorMat = GetMaterial("Exterior", new Color(0.17f, 0.19f, 0.16f));
-        wallMat = GetMaterial("Walls", new Color(0.68f, 0.72f, 0.69f));
-        furnitureMat = GetMaterial("Furniture", new Color(0.28f, 0.36f, 0.40f));
-        bodyMat = GetMaterial("Body placeholders", new Color(0.58f, 0.60f, 0.56f));
-        clueMat = GetMaterial("Clue placeholders", new Color(0.90f, 0.66f, 0.17f));
-        ceilingMat = Mat(BaseFolder, "Teto", new Color(0.80f, 0.80f, 0.78f), 0.1f);
-        frameMat = Mat(BaseFolder, "Batente", new Color(0.50f, 0.52f, 0.50f), 0.35f);
-        thresholdMat = Mat(BaseFolder, "Soleira", new Color(0.24f, 0.24f, 0.24f), 0.45f);
-        skirtingMat = Mat(BaseFolder, "Rodape", new Color(0.24f, 0.25f, 0.25f), 0.3f);
-        facadeMat = Mat(BaseFolder, "Fachada", new Color(0.60f, 0.60f, 0.56f), 0.1f);
-        facadeBaseMat = Mat(BaseFolder, "Barrado externo", new Color(0.33f, 0.33f, 0.31f), 0.15f);
-        copingMat = Mat(BaseFolder, "Capeamento", new Color(0.46f, 0.47f, 0.47f), 0.35f, 0.3f);
+        PrepareMaterials();
         finishes = new Dictionary<string, ZoneFinish> { ["Autopsia"] = AutopsiaFinish() };
         finishes["Recepcao"] = RecepcaoFinish();   // after the autopsy: reuses its ceiling, decals and fittings
         finishes["WC"] = WCFinish();
         finishes["Arquivo e escritorio"] = ArquivoFinish();
+        corridorLegs = null;
+        finishes[CirculacaoRoom] = CorridorFinish(0);   // leg 0; the other legs are picked per wall face (CladCorridor)
+        finishes[VestibuleRoom] = CorridorFinish(2);
+        finishes[DescansoRoom] = DescansoFinish();
+        finishes["Deposito"] = DepositoFinish();
+        finishes["Sala tecnica"] = TecnicaFinish();
 
         floorsGroup = Group("Pisos");
         wallsGroup = Group("Paredes");
@@ -194,9 +188,16 @@ public static partial class UnclaimedMorgueGenerator
         BuildRecepcao(Sub(roomsGroup, "Recepcao"));
         BuildArquivo(Sub(roomsGroup, "Arquivo e escritorio"));
         BuildWC(Sub(roomsGroup, "WC"));
+        BuildDescanso(Sub(roomsGroup, DescansoRoom));
+        BuildDeposito(Sub(roomsGroup, "Deposito"));
+        BuildTecnica(Sub(roomsGroup, "Sala tecnica"));
+        BuildCirculacao(Sub(roomsGroup, CirculacaoRoom));
         Clues(clues);
+        UnclaimedRecebimentoAssets.InstallGenerated(Sub(roomsGroup, "Recebimento de corpos"));
+        UnclaimedPatioRecebimentoAssets.InstallGenerated(outside);
         Markers(markers);
         RoomLights(ceilingsGroup);
+        CorridorLights(ceilingsGroup);
         NightEnvironment();
         PrepareStaticLighting(zones);
 
@@ -208,6 +209,28 @@ public static partial class UnclaimedMorgueGenerator
         SceneView.lastActiveSceneView?.FrameSelected();
         Undo.CollapseUndoOperations(undoGroup);
         Debug.Log("Unclaimed: prototype generated from planta_necroterio.png. Save the scene and add your player controller at INICIO.");
+    }
+
+    // Shared materials (created once, reused when they already exist); the corridor patch needs them too.
+    private static void PrepareMaterials()
+    {
+        floorPublic = GetMaterial("Floor - publico", new Color(0.44f, 0.40f, 0.33f));
+        floorStaff = GetMaterial("Floor - equipe", new Color(0.31f, 0.36f, 0.42f));
+        floorClinical = GetMaterial("Floor - clinico", new Color(0.30f, 0.40f, 0.37f));
+        corridorMat = GetMaterial("Corridor", new Color(0.20f, 0.25f, 0.27f));
+        patioMat = GetMaterial("Patio", new Color(0.40f, 0.40f, 0.38f));
+        exteriorMat = GetMaterial("Exterior", new Color(0.17f, 0.19f, 0.16f));
+        wallMat = GetMaterial("Walls", new Color(0.68f, 0.72f, 0.69f));
+        furnitureMat = GetMaterial("Furniture", new Color(0.28f, 0.36f, 0.40f));
+        bodyMat = GetMaterial("Body placeholders", new Color(0.58f, 0.60f, 0.56f));
+        clueMat = GetMaterial("Clue placeholders", new Color(0.90f, 0.66f, 0.17f));
+        ceilingMat = Mat(BaseFolder, "Teto", new Color(0.80f, 0.80f, 0.78f), 0.1f);
+        frameMat = Mat(BaseFolder, "Batente", new Color(0.50f, 0.52f, 0.50f), 0.35f);
+        thresholdMat = Mat(BaseFolder, "Soleira", new Color(0.24f, 0.24f, 0.24f), 0.45f);
+        skirtingMat = Mat(BaseFolder, "Rodape", new Color(0.24f, 0.25f, 0.25f), 0.3f);
+        facadeMat = Mat(BaseFolder, "Fachada", new Color(0.60f, 0.60f, 0.56f), 0.1f);
+        facadeBaseMat = Mat(BaseFolder, "Barrado externo", new Color(0.33f, 0.33f, 0.31f), 0.15f);
+        copingMat = Mat(BaseFolder, "Capeamento", new Color(0.46f, 0.47f, 0.47f), 0.35f, 0.3f);
     }
 
     private static GameObject FindExistingMorgue(Scene scene)
@@ -257,7 +280,8 @@ public static partial class UnclaimedMorgueGenerator
                 Block("Piso - " + zone.Name + suffix, floorsGroup, r.xMin, r.yMin, r.xMax, r.yMax, -0.2f, 0.2f, zone.Floor);
                 if (finishes.TryGetValue(zone.Name, out ZoneFinish f) && f.Floor != null)
                     Panel("Piso acabado - " + zone.Name + suffix, Sub(claddingGroup, zone.Name),
-                        new Vector3(r.xMin, FinishOffset, r.yMin), Vector3.right, Vector3.forward, r.width, r.height, Vector3.up, f.Floor);
+                        new Vector3(r.xMin, FinishOffset, r.yMin), Vector3.right, Vector3.forward, r.width, r.height, Vector3.up,
+                        CorridorFloor(zone.Name, i, f.Floor));
             }
     }
 
@@ -433,6 +457,14 @@ public static partial class UnclaimedMorgueGenerator
     private static void CladFace(string room, ZoneFinish f, bool vertical, float face, float sign, float a, float b, float fromY,
         bool wrapStart = false, bool wrapEnd = false)
     {
+        // The corridors change finish leg by leg (UnclaimedMorgueGenerator.Circulacao.cs).
+        if (room == CirculacaoRoom || room == VestibuleRoom) CladCorridor(room, vertical, face, sign, a, b, fromY, wrapStart, wrapEnd);
+        else CladFaceCore(room, f, vertical, face, sign, a, b, fromY, wrapStart, wrapEnd);
+    }
+
+    private static void CladFaceCore(string room, ZoneFinish f, bool vertical, float face, float sign, float a, float b, float fromY,
+        bool wrapStart = false, bool wrapEnd = false)
+    {
         Transform parent = Sub(claddingGroup, room);
         if (f.Wainscot != null && f.WainscotHeight > fromY)
             FacePanel("Revestimento - " + room, parent, vertical, face, sign, a, b, fromY, Mathf.Min(f.WainscotHeight, WallHeight), f.Wainscot);
@@ -490,6 +522,7 @@ public static partial class UnclaimedMorgueGenerator
                 foreach (FolhaDePorta leaf in frame.GetComponentsInChildren<FolhaDePorta>()) leaf.AplicarEstadoInicial();
             }
             if (framePrefab == null && d.Name == ArchiveDoorName) ArchiveDoorLeaf(g, d);
+            if (d.Name == UnclaimedPatioRecebimentoAssets.DoorGroup) UnclaimedPatioRecebimentoAssets.PlaceDoorIn(g);
             float depth = half + FrameProjection;
             if (framePrefab == null)
             {
@@ -540,16 +573,9 @@ public static partial class UnclaimedMorgueGenerator
         ReceptionFurniture(p);
 
 
-        Block("Armarios do vestiario", p, -12.8f, -2.75f, -12.2f, 0f, 0, 2f, furnitureMat);
-        Block("Banco do vestiario", p, -10.5f, -2.65f, -8.7f, -2.25f, 0, 0.45f, furnitureMat);
-        Block("Bancada de cafe", p, -7.5f, -3.7f, -5.5f, -3.1f, 0, 0.9f, furnitureMat);
+        // Descanso e vestiario: lockers, benches and the coffee corner come from BuildDescanso (Descanso.cs).
 
-        Block("Estante do deposito", p, -7.8f, 3f, -7.3f, 5.5f, 0, 2f, furnitureMat);
-        Block("Balde e esfregao", p, -5.875f, 1.5f, -5.375f, 2f, 0, 0.5f, furnitureMat);
-
-        Block("Quadro eletrico", p, -3.125f, 8.5f, -2.125f, 8.8f, 0, 2f, furnitureMat);
-        Block("Condensadora", p, 0.75f, 5.95f, 2.25f, 6.95f, 0, 1f, furnitureMat);
-        Block("Tubulacao", p, -1f, 8.5f, 3f, 8.8f, 2.4f, 0.3f, furnitureMat);
+        // Technical-room equipment comes from BuildTecnica (Tecnica.cs).
 
         // Recebimento: fixtures on the walls, stretcher in the middle with at least 1.2 m all around it.
         Block("Pia de lavagem de corpos", p, 3.45f, 7.3f, 4.35f, 9.5f, 0, 0.9f, furnitureMat);

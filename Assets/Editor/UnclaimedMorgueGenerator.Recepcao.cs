@@ -189,14 +189,11 @@ public static partial class UnclaimedMorgueGenerator
         // prefab faces -Z: yaw -90 turns it to face +X (the patio)
         obj.transform.SetPositionAndRotation(new Vector3(12.85f + FinishOffset + 0.002f, 1.5f, 10.15f), Quaternion.Euler(0f, -90f, 0f));
         // Small wall lamp over the sheet; its light is a child of the prefab (also lights the inspected copy), because the patio face is otherwise unlit.
-        var housing = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        UnityEngine.Object.DestroyImmediate(housing.GetComponent<Collider>());
+        var lampPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(UnclaimedRecepcaoAssets.PrefabPath(UnclaimedRecepcaoAssets.WallLampPrefab));
+        var housing = (GameObject)PrefabUtility.InstantiatePrefab(lampPrefab, g);
         Undo.RegisterCreatedObjectUndo(housing, "Create patio sheet lamp");
         housing.name = "Luminaria - agenda de coleta";
-        housing.transform.SetParent(g, false);
-        housing.transform.position = new Vector3(12.85f + 0.07f, 2.32f, 10.15f);
-        housing.transform.localScale = new Vector3(0.14f, 0.09f, 0.32f);
-        housing.GetComponent<Renderer>().sharedMaterial = Mat(BaseFolder, "Ferragem da porta", new Color(0.62f, 0.63f, 0.62f), 0.55f, 0.85f);
+        housing.transform.SetPositionAndRotation(new Vector3(12.85f + FinishOffset, 2.32f, 10.15f), Quaternion.Euler(0f, -90f, 0f));
     }
 
     // Two-leaf glass door (Blender/Recepcao, prefab "Porta de vidro - entrada") in the main entrance's

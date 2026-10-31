@@ -1,0 +1,1289 @@
+{
+  "lights": [
+    {
+      "name": "Directional Light",
+      "pos": [
+        0.0,
+        3.0,
+        0.0
+      ],
+      "intensity": 1.0,
+      "range": 10.0
+    },
+    {
+      "name": "Luz da folha",
+      "pos": [
+        13.255,
+        2.25,
+        10.15
+      ],
+      "intensity": 1.8,
+      "range": 3.0
+    },
+    {
+      "name": "Luz - autopsia - luminaria 1",
+      "pos": [
+        0.0,
+        3.09,
+        -1.9
+      ],
+      "intensity": 5.6,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - autopsia - luminaria 2",
+      "pos": [
+        2.75,
+        3.09,
+        -1.9
+      ],
+      "intensity": 5.6,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - autopsia - luminaria 3",
+      "pos": [
+        5.5,
+        3.09,
+        -1.9
+      ],
+      "intensity": 3.08,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - autopsia - luminaria 5",
+      "pos": [
+        2.75,
+        3.09,
+        1.4
+      ],
+      "intensity": 5.6,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - autopsia - luminaria 6",
+      "pos": [
+        5.5,
+        3.09,
+        1.4
+      ],
+      "intensity": 5.6,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - autopsia - foco cirurgico",
+      "pos": [
+        2.7,
+        2.23,
+        -0.45
+      ],
+      "intensity": 3.0,
+      "range": 4.0
+    },
+    {
+      "name": "Luz - recepcao - luminaria 1",
+      "pos": [
+        -13.0,
+        3.11950016,
+        -8.45
+      ],
+      "intensity": 4.2,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - recepcao - luminaria 2",
+      "pos": [
+        -10.35,
+        3.11950016,
+        -8.45
+      ],
+      "intensity": 4.2,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - recepcao - luminaria 3",
+      "pos": [
+        -7.7,
+        3.11950016,
+        -8.45
+      ],
+      "intensity": 4.2,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - recepcao - luminaria 4",
+      "pos": [
+        -13.0,
+        3.11950016,
+        -10.95
+      ],
+      "intensity": 4.2,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - recepcao - luminaria 5",
+      "pos": [
+        -10.35,
+        3.11950016,
+        -10.95
+      ],
+      "intensity": 2.31,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - recepcao - luminaria 6",
+      "pos": [
+        -7.7,
+        3.11950016,
+        -10.95
+      ],
+      "intensity": 4.2,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - WC - luminaria 1",
+      "pos": [
+        -12.55,
+        3.11950016,
+        -5.5
+      ],
+      "intensity": 3.6,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - Descanso e vestiario - luminaria 1",
+      "pos": [
+        -11.0,
+        3.09,
+        -1.5
+      ],
+      "intensity": 3.9,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - Descanso e vestiario - luminaria 2",
+      "pos": [
+        -7.3,
+        3.09,
+        -1.5
+      ],
+      "intensity": 3.9,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - Deposito - luminaria 1",
+      "pos": [
+        -6.25,
+        3.09,
+        3.45
+      ],
+      "intensity": 3.4,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - Sala tecnica - luminaria 1",
+      "pos": [
+        -2.4,
+        3.09,
+        7.4
+      ],
+      "intensity": 3.6,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - Sala tecnica - luminaria 2",
+      "pos": [
+        1.4,
+        3.09,
+        7.4
+      ],
+      "intensity": 3.6,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - Camara fria - luminaria 1",
+      "pos": [
+        10.25,
+        3.09,
+        -1.6
+      ],
+      "intensity": 4.2,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - Camara fria - luminaria 2",
+      "pos": [
+        10.25,
+        3.09,
+        3.4
+      ],
+      "intensity": 4.2,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - Recebimento de corpos - luminaria 1",
+      "pos": [
+        5.6,
+        3.09,
+        8.4
+      ],
+      "intensity": 4.5,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - Recebimento de corpos - luminaria 2",
+      "pos": [
+        10.4,
+        3.09,
+        8.4
+      ],
+      "intensity": 4.5,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - Vestibulo de servico - luminaria 1",
+      "pos": [
+        5.375,
+        3.09,
+        4.45
+      ],
+      "intensity": 3.4,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - Circulacao - luminaria 1",
+      "pos": [
+        -7.25,
+        3.09,
+        -4.925
+      ],
+      "intensity": 3.6,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - Circulacao - luminaria 2",
+      "pos": [
+        -3.9,
+        3.09,
+        -4.925
+      ],
+      "intensity": 3.6,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - Circulacao - luminaria 3",
+      "pos": [
+        -3.625,
+        3.09,
+        -1.5
+      ],
+      "intensity": 3.6,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - Circulacao - luminaria 4",
+      "pos": [
+        -3.25,
+        3.09,
+        2.25
+      ],
+      "intensity": 3.6,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - Circulacao - luminaria 5",
+      "pos": [
+        -0.625,
+        3.09,
+        4.7
+      ],
+      "intensity": 3.6,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - Arandela - entrada principal",
+      "pos": [
+        -11.375,
+        2.49,
+        -12.55
+      ],
+      "intensity": 3.2,
+      "range": 10.0
+    },
+    {
+      "name": "Luz - Refletor - porta do patio",
+      "pos": [
+        12.9100008,
+        2.93,
+        8.375
+      ],
+      "intensity": 3.5,
+      "range": 13.0
+    },
+    {
+      "name": "Luz - Refletor - patio norte",
+      "pos": [
+        11.0,
+        2.93,
+        11.6600008
+      ],
+      "intensity": 3.5,
+      "range": 13.0
+    },
+    {
+      "name": "Luz da lua",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "intensity": 0.12,
+      "range": 10.0
+    },
+    {
+      "name": "Luz - Refletor - nicho do arquivo",
+      "pos": [
+        3.65999985,
+        2.93,
+        -10.0
+      ],
+      "intensity": 2.5,
+      "range": 10.0
+    },
+    {
+      "name": "Luz - poste de jardim",
+      "pos": [
+        -13.0,
+        2.67,
+        -16.8
+      ],
+      "intensity": 1.5,
+      "range": 6.0
+    },
+    {
+      "name": "Luz - guarita - interior",
+      "pos": [
+        12.2,
+        2.39999986,
+        -17.15
+      ],
+      "intensity": 0.4,
+      "range": 4.0
+    },
+    {
+      "name": "Luz - Refletor - guarita",
+      "pos": [
+        13.46,
+        2.38,
+        -16.9
+      ],
+      "intensity": 2.5,
+      "range": 11.0
+    },
+    {
+      "name": "Luz - poste de sodio x-4.5",
+      "pos": [
+        -4.5,
+        7.745,
+        -23.3205
+      ],
+      "intensity": 8.0,
+      "range": 18.0
+    },
+    {
+      "name": "Luz - poste LED x22",
+      "pos": [
+        22.0,
+        7.73,
+        -23.2705
+      ],
+      "intensity": 3.0,
+      "range": 15.0
+    },
+    {
+      "name": "Luz - poste LED x-32",
+      "pos": [
+        -32.0,
+        7.73,
+        -26.7295
+      ],
+      "intensity": 3.0,
+      "range": 15.0
+    },
+    {
+      "name": "Luz - poste LED x9",
+      "pos": [
+        9.0,
+        7.73,
+        -26.7295
+      ],
+      "intensity": 3.0,
+      "range": 15.0
+    },
+    {
+      "name": "Luz - poste LED x40",
+      "pos": [
+        40.0,
+        7.73,
+        -26.7295
+      ],
+      "intensity": 3.0,
+      "range": 15.0
+    },
+    {
+      "name": "Luz - alpendre - casa 3",
+      "pos": [
+        -2.5,
+        2.35,
+        -34.7600021
+      ],
+      "intensity": 1.2,
+      "range": 6.0
+    },
+    {
+      "name": "Luz - Arquivo e escritorio - luminaria 1",
+      "pos": [
+        -4.2,
+        3.11950016,
+        -8.1
+      ],
+      "intensity": 4.2,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - Arquivo e escritorio - luminaria 2",
+      "pos": [
+        -0.2,
+        3.11950016,
+        -8.1
+      ],
+      "intensity": 4.2,
+      "range": 8.0
+    },
+    {
+      "name": "Luz - Arquivo e escritorio - luminaria 3",
+      "pos": [
+        0.75,
+        3.11950016,
+        -4.75
+      ],
+      "intensity": 3.6,
+      "range": 8.0
+    }
+  ],
+  "lightmaps": 3,
+  "objects": [
+    {
+      "name": "Pia de lavagem de corpos",
+      "parent": "Moveis",
+      "pos": [
+        3.9,
+        0.45,
+        8.4
+      ],
+      "scale": [
+        0.899999857,
+        0.9,
+        2.19999981
+      ],
+      "components": [
+        "Transform",
+        "MeshFilter",
+        "BoxCollider",
+        "MeshRenderer"
+      ],
+      "renderers": [
+        {
+          "name": "Pia de lavagem de corpos",
+          "enabled": false,
+          "center": [
+            3.9,
+            0.45,
+            8.4
+          ],
+          "size": [
+            0.899999857,
+            0.9,
+            2.19999981
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bancada com pia - recebimento",
+      "parent": "Moveis",
+      "pos": [
+        6.0,
+        0.45,
+        11.05
+      ],
+      "scale": [
+        2.0,
+        0.9,
+        0.6000004
+      ],
+      "components": [
+        "Transform",
+        "MeshFilter",
+        "BoxCollider",
+        "MeshRenderer"
+      ],
+      "renderers": [
+        {
+          "name": "Bancada com pia - recebimento",
+          "enabled": false,
+          "center": [
+            6.0,
+            0.45,
+            11.05
+          ],
+          "size": [
+            2.0,
+            0.9,
+            0.6000004
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Maca de recebimento",
+      "parent": "Moveis",
+      "pos": [
+        8.0,
+        0.425,
+        8.375
+      ],
+      "scale": [
+        2.10000038,
+        0.85,
+        0.75
+      ],
+      "components": [
+        "Transform",
+        "MeshFilter",
+        "BoxCollider",
+        "MeshRenderer"
+      ],
+      "renderers": [
+        {
+          "name": "Maca de recebimento",
+          "enabled": false,
+          "center": [
+            8.0,
+            0.425,
+            8.375
+          ],
+          "size": [
+            2.10000038,
+            0.85,
+            0.75
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Corpo provisório - recebimento",
+      "parent": "Moveis",
+      "pos": [
+        8.0,
+        0.925,
+        8.375
+      ],
+      "scale": [
+        1.70000029,
+        0.15,
+        0.6499996
+      ],
+      "components": [
+        "Transform",
+        "MeshFilter",
+        "BoxCollider",
+        "MeshRenderer"
+      ],
+      "renderers": [
+        {
+          "name": "Corpo provisório - recebimento",
+          "enabled": false,
+          "center": [
+            8.0,
+            0.925,
+            8.375
+          ],
+          "size": [
+            1.70000029,
+            0.15,
+            0.6499996
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mesa auxiliar",
+      "parent": "Moveis",
+      "pos": [
+        12.2000008,
+        0.4,
+        11.05
+      ],
+      "scale": [
+        0.8000002,
+        0.8,
+        0.6000004
+      ],
+      "components": [
+        "Transform",
+        "MeshFilter",
+        "BoxCollider",
+        "MeshRenderer"
+      ],
+      "renderers": [
+        {
+          "name": "Mesa auxiliar",
+          "enabled": false,
+          "center": [
+            12.2000008,
+            0.4,
+            11.05
+          ],
+          "size": [
+            0.8000002,
+            0.8,
+            0.6000004
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Recebimento - equipamentos",
+      "parent": "Recebimento de corpos",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "components": [
+        "Transform"
+      ],
+      "renderers": [
+        {
+          "name": "Maca de recebimento",
+          "enabled": true,
+          "center": [
+            8.0,
+            0.4834106,
+            8.361833
+          ],
+          "size": [
+            2.18648481,
+            0.9668212,
+            0.733666062
+          ]
+        },
+        {
+          "name": "Pia de lavagem de corpos",
+          "enabled": true,
+          "center": [
+            3.89238024,
+            0.668,
+            8.4
+          ],
+          "size": [
+            0.8527608,
+            1.316,
+            2.20000029
+          ]
+        },
+        {
+          "name": "Bancada com pia - recebimento",
+          "enabled": true,
+          "center": [
+            6.0,
+            0.58962667,
+            11.0145035
+          ],
+          "size": [
+            2.0,
+            1.16925335,
+            0.650994
+          ]
+        },
+        {
+          "name": "Mesa auxiliar",
+          "enabled": true,
+          "center": [
+            12.19327,
+            0.465700477,
+            10.9516287
+          ],
+          "size": [
+            0.8762407,
+            0.931400955,
+            0.6614107
+          ]
+        },
+        {
+          "name": "Corpo provisório - recebimento",
+          "enabled": true,
+          "center": [
+            8.0,
+            0.9638616,
+            8.375
+          ],
+          "size": [
+            2.0,
+            0.50066787,
+            0.78000015
+          ]
+        },
+        {
+          "name": "SuporteEPI",
+          "enabled": true,
+          "center": [
+            7.85,
+            1.405,
+            11.2837238
+          ],
+          "size": [
+            0.86,
+            0.37,
+            0.202551514
+          ]
+        },
+        {
+          "name": "LixeiraClinica",
+          "enabled": true,
+          "center": [
+            7.37,
+            0.288,
+            11.0785007
+          ],
+          "size": [
+            0.35,
+            0.5059999,
+            0.397
+          ]
+        },
+        {
+          "name": "KitBancada",
+          "enabled": true,
+          "center": [
+            6.5449996,
+            1.038,
+            11.055
+          ],
+          "size": [
+            0.61,
+            0.27,
+            0.210000053
+          ]
+        },
+        {
+          "name": "Oeste - azulejo",
+          "enabled": true,
+          "center": [
+            3.352,
+            1.05,
+            8.375
+          ],
+          "size": [
+            0.0,
+            2.1,
+            6.04600048
+          ]
+        },
+        {
+          "name": "Oeste - pintura",
+          "enabled": true,
+          "center": [
+            3.352,
+            2.65,
+            8.375
+          ],
+          "size": [
+            0.0,
+            1.10000014,
+            6.04600048
+          ]
+        },
+        {
+          "name": "Norte - azulejo",
+          "enabled": true,
+          "center": [
+            8.0,
+            1.05,
+            11.398
+          ],
+          "size": [
+            9.296,
+            2.1,
+            0.0
+          ]
+        },
+        {
+          "name": "Norte - pintura",
+          "enabled": true,
+          "center": [
+            8.0,
+            2.65,
+            11.398
+          ],
+          "size": [
+            9.296,
+            1.10000014,
+            0.0
+          ]
+        },
+        {
+          "name": "Leste sul - azulejo",
+          "enabled": true,
+          "center": [
+            12.648,
+            1.05,
+            6.3635
+          ],
+          "size": [
+            0.0,
+            2.1,
+            2.02299976
+          ]
+        },
+        {
+          "name": "Leste sul - pintura",
+          "enabled": true,
+          "center": [
+            12.648,
+            2.65,
+            6.3635
+          ],
+          "size": [
+            0.0,
+            1.10000014,
+            2.02299976
+          ]
+        },
+        {
+          "name": "Leste norte - azulejo",
+          "enabled": true,
+          "center": [
+            12.648,
+            1.05,
+            10.3864994
+          ],
+          "size": [
+            0.0,
+            2.1,
+            2.02299976
+          ]
+        },
+        {
+          "name": "Leste norte - pintura",
+          "enabled": true,
+          "center": [
+            12.648,
+            2.65,
+            10.3864994
+          ],
+          "size": [
+            0.0,
+            1.10000014,
+            2.02299976
+          ]
+        },
+        {
+          "name": "Sobre porta patio - pintura",
+          "enabled": true,
+          "center": [
+            12.648,
+            2.7,
+            8.375
+          ],
+          "size": [
+            0.0,
+            1.0,
+            2.0
+          ]
+        },
+        {
+          "name": "Sul 3.352 - azulejo",
+          "enabled": true,
+          "center": [
+            3.9885,
+            1.05,
+            5.352
+          ],
+          "size": [
+            1.273,
+            2.1,
+            0.0
+          ]
+        },
+        {
+          "name": "Sul 3.352 - pintura",
+          "enabled": true,
+          "center": [
+            3.9885,
+            2.65,
+            5.352
+          ],
+          "size": [
+            1.273,
+            1.10000014,
+            0.0
+          ]
+        },
+        {
+          "name": "Sul 6.125 - azulejo",
+          "enabled": true,
+          "center": [
+            7.5625,
+            1.05,
+            5.352
+          ],
+          "size": [
+            2.875,
+            2.1,
+            0.0
+          ]
+        },
+        {
+          "name": "Sul 6.125 - pintura",
+          "enabled": true,
+          "center": [
+            7.5625,
+            2.65,
+            5.352
+          ],
+          "size": [
+            2.875,
+            1.10000014,
+            0.0
+          ]
+        },
+        {
+          "name": "Sul 10.5 - azulejo",
+          "enabled": true,
+          "center": [
+            11.5739994,
+            1.05,
+            5.352
+          ],
+          "size": [
+            2.14799976,
+            2.1,
+            0.0
+          ]
+        },
+        {
+          "name": "Sul 10.5 - pintura",
+          "enabled": true,
+          "center": [
+            11.5739994,
+            2.65,
+            5.352
+          ],
+          "size": [
+            2.14799976,
+            1.10000014,
+            0.0
+          ]
+        },
+        {
+          "name": "Sobre porta sul 4.625 - pintura",
+          "enabled": true,
+          "center": [
+            5.375,
+            2.7,
+            5.352
+          ],
+          "size": [
+            1.5,
+            1.0,
+            0.0
+          ]
+        },
+        {
+          "name": "Sobre porta sul 9 - pintura",
+          "enabled": true,
+          "center": [
+            9.75,
+            2.7,
+            5.352
+          ],
+          "size": [
+            1.5,
+            1.0,
+            0.0
+          ]
+        },
+        {
+          "name": "Protetor norte",
+          "enabled": true,
+          "center": [
+            9.47,
+            0.79,
+            11.37
+          ],
+          "size": [
+            2.8,
+            0.13,
+            0.035
+          ]
+        },
+        {
+          "name": "Protetor sul",
+          "enabled": true,
+          "center": [
+            7.54,
+            0.79,
+            5.38
+          ],
+          "size": [
+            2.55,
+            0.13,
+            0.035
+          ]
+        },
+        {
+          "name": "Saboneteira",
+          "enabled": true,
+          "center": [
+            5.0,
+            1.4155,
+            11.3125
+          ],
+          "size": [
+            0.110000007,
+            0.209,
+            0.11500001
+          ]
+        },
+        {
+          "name": "Toalheiro de papel",
+          "enabled": true,
+          "center": [
+            6.46,
+            1.6675,
+            11.3035
+          ],
+          "size": [
+            0.280000031,
+            0.405000031,
+            0.133000016
+          ]
+        },
+        {
+          "name": "Piso acabado",
+          "enabled": true,
+          "center": [
+            8.0,
+            0.003,
+            8.375
+          ],
+          "size": [
+            9.299999,
+            0.0,
+            6.04999971
+          ]
+        },
+        {
+          "name": "Forro acabado",
+          "enabled": true,
+          "center": [
+            8.0,
+            3.197,
+            8.375
+          ],
+          "size": [
+            9.299999,
+            0.0,
+            6.04999971
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Maca de recebimento",
+      "parent": "Recebimento - equipamentos",
+      "pos": [
+        8.0,
+        0.0,
+        8.375
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "components": [
+        "Transform",
+        "MeshFilter",
+        "MeshRenderer",
+        "BoxCollider"
+      ],
+      "renderers": [
+        {
+          "name": "Maca de recebimento",
+          "enabled": true,
+          "center": [
+            8.0,
+            0.4834106,
+            8.361833
+          ],
+          "size": [
+            2.18648481,
+            0.9668212,
+            0.733666062
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Pia de lavagem de corpos",
+      "parent": "Recebimento - equipamentos",
+      "pos": [
+        3.9,
+        0.0,
+        8.4
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "components": [
+        "Transform",
+        "MeshFilter",
+        "MeshRenderer",
+        "BoxCollider"
+      ],
+      "renderers": [
+        {
+          "name": "Pia de lavagem de corpos",
+          "enabled": true,
+          "center": [
+            3.89238024,
+            0.668,
+            8.4
+          ],
+          "size": [
+            0.8527608,
+            1.316,
+            2.20000029
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bancada com pia - recebimento",
+      "parent": "Recebimento - equipamentos",
+      "pos": [
+        6.0,
+        0.0,
+        11.04
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "components": [
+        "Transform",
+        "MeshFilter",
+        "MeshRenderer",
+        "BoxCollider"
+      ],
+      "renderers": [
+        {
+          "name": "Bancada com pia - recebimento",
+          "enabled": true,
+          "center": [
+            6.0,
+            0.58962667,
+            11.0145035
+          ],
+          "size": [
+            2.0,
+            1.16925335,
+            0.650994
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mesa auxiliar",
+      "parent": "Recebimento - equipamentos",
+      "pos": [
+        12.18,
+        0.0,
+        10.95
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "components": [
+        "Transform",
+        "MeshFilter",
+        "MeshRenderer",
+        "BoxCollider"
+      ],
+      "renderers": [
+        {
+          "name": "Mesa auxiliar",
+          "enabled": true,
+          "center": [
+            12.19327,
+            0.465700477,
+            10.9516287
+          ],
+          "size": [
+            0.8762407,
+            0.931400955,
+            0.6614107
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Corpo provisório - recebimento",
+      "parent": "Recebimento - equipamentos",
+      "pos": [
+        8.0,
+        0.0,
+        8.375
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "components": [
+        "Transform",
+        "MeshFilter",
+        "MeshRenderer"
+      ],
+      "renderers": [
+        {
+          "name": "Corpo provisório - recebimento",
+          "enabled": true,
+          "center": [
+            8.0,
+            0.9638616,
+            8.375
+          ],
+          "size": [
+            2.0,
+            0.50066787,
+            0.78000015
+          ]
+        }
+      ]
+    }
+  ]
+}

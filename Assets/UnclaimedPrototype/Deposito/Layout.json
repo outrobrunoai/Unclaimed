@@ -1,0 +1,2723 @@
+{
+ "pecas": [
+  {
+   "nome": "Estante O1",
+   "prefab": "EstanteRasa",
+   "pai": "",
+   "pos": [
+    -7.625,
+    0.0,
+    1.52
+   ],
+   "yaw": -90.0
+  },
+  {
+   "nome": "Estante O2",
+   "prefab": "EstanteRasa",
+   "pai": "",
+   "pos": [
+    -7.625,
+    0.0,
+    2.45
+   ],
+   "yaw": -90.0
+  },
+  {
+   "nome": "Estante O3",
+   "prefab": "EstanteRasa",
+   "pai": "",
+   "pos": [
+    -7.625,
+    0.0,
+    3.38
+   ],
+   "yaw": -90.0
+  },
+  {
+   "nome": "Estante O4",
+   "prefab": "EstanteRasa",
+   "pai": "",
+   "pos": [
+    -7.625,
+    0.0,
+    4.31
+   ],
+   "yaw": -90.0
+  },
+  {
+   "nome": "Estante N1",
+   "prefab": "EstanteFunda",
+   "pai": "",
+   "pos": [
+    -7.365,
+    0.0,
+    5.525
+   ],
+   "yaw": 0.0
+  },
+  {
+   "nome": "Estante N2",
+   "prefab": "EstanteFunda",
+   "pai": "",
+   "pos": [
+    -6.435,
+    0.0,
+    5.525
+   ],
+   "yaw": 0.0
+  },
+  {
+   "nome": "Estante N3",
+   "prefab": "EstanteFunda",
+   "pai": "",
+   "pos": [
+    -5.505,
+    0.0,
+    5.525
+   ],
+   "yaw": 0.0
+  },
+  {
+   "nome": "Estante L1",
+   "prefab": "EstanteEstreita",
+   "pai": "",
+   "pos": [
+    -4.825,
+    0.0,
+    4.81
+   ],
+   "yaw": 90.0
+  },
+  {
+   "nome": "Estante O1 - CaixaLuvas 1",
+   "prefab": "CaixaLuvas",
+   "pai": "Estante O1",
+   "pos": [
+    -0.1668,
+    0.101,
+    0.0026
+   ],
+   "yaw": -0.31
+  },
+  {
+   "nome": "Estante O1 - CaixaMascaras 2",
+   "prefab": "CaixaMascaras",
+   "pai": "Estante O1",
+   "pos": [
+    0.2514,
+    0.101,
+    -0.0589
+   ],
+   "yaw": -0.24
+  },
+  {
+   "nome": "Estante O1 - caixa aberta de luvas",
+   "prefab": "CaixaAberta",
+   "pai": "Estante O1",
+   "pos": [
+    -0.17,
+    0.471,
+    -0.0256
+   ],
+   "yaw": -0.67
+  },
+  {
+   "nome": "Estante O1 - luva na caixa aberta 1",
+   "prefab": "LuvaM",
+   "pai": "Estante O1",
+   "pos": [
+    -0.1679,
+    0.475,
+    -0.091
+   ],
+   "yaw": -1.99
+  },
+  {
+   "nome": "Estante O1 - luva na caixa aberta 2",
+   "prefab": "LuvaM",
+   "pai": "Estante O1",
+   "pos": [
+    -0.1641,
+    0.475,
+    0.041
+   ],
+   "yaw": -1.79
+  },
+  {
+   "nome": "Estante O1 - luva na caixa aberta 3",
+   "prefab": "LuvaM",
+   "pai": "Estante O1",
+   "pos": [
+    -0.1759,
+    0.54,
+    0.041
+   ],
+   "yaw": -0.9
+  },
+  {
+   "nome": "Estante O1 - LuvaG 4",
+   "prefab": "LuvaG",
+   "pai": "Estante O1",
+   "pos": [
+    0.2407,
+    0.471,
+    -0.1123
+   ],
+   "yaw": 0.5
+  },
+  {
+   "nome": "Estante O1 - LuvaG 5",
+   "prefab": "LuvaG",
+   "pai": "Estante O1",
+   "pos": [
+    0.2391,
+    0.536,
+    -0.1136
+   ],
+   "yaw": 0.1
+  },
+  {
+   "nome": "Estante O1 - LuvaG 6",
+   "prefab": "LuvaG",
+   "pai": "Estante O1",
+   "pos": [
+    0.2388,
+    0.471,
+    0.0183
+   ],
+   "yaw": -0.54
+  },
+  {
+   "nome": "Estante O1 - LuvaM 7",
+   "prefab": "LuvaM",
+   "pai": "Estante O1",
+   "pos": [
+    -0.2988,
+    0.841,
+    -0.1135
+   ],
+   "yaw": 0.38
+  },
+  {
+   "nome": "Estante O1 - LuvaM 8",
+   "prefab": "LuvaM",
+   "pai": "Estante O1",
+   "pos": [
+    -0.2998,
+    0.906,
+    -0.1112
+   ],
+   "yaw": -0.42
+  },
+  {
+   "nome": "Estante O1 - LuvaM 9",
+   "prefab": "LuvaM",
+   "pai": "Estante O1",
+   "pos": [
+    -0.3003,
+    0.971,
+    -0.1129
+   ],
+   "yaw": 0.26
+  },
+  {
+   "nome": "Estante O1 - LuvaM 10",
+   "prefab": "LuvaM",
+   "pai": "Estante O1",
+   "pos": [
+    -0.3013,
+    0.841,
+    0.0192
+   ],
+   "yaw": -0.25
+  },
+  {
+   "nome": "Estante O1 - LuvaM 11",
+   "prefab": "LuvaM",
+   "pai": "Estante O1",
+   "pos": [
+    -0.2997,
+    0.906,
+    0.019
+   ],
+   "yaw": -0.15
+  },
+  {
+   "nome": "Estante O1 - LuvaM 12",
+   "prefab": "LuvaM",
+   "pai": "Estante O1",
+   "pos": [
+    -0.0535,
+    0.841,
+    -0.1128
+   ],
+   "yaw": -0.28
+  },
+  {
+   "nome": "Estante O1 - LuvaM 13",
+   "prefab": "LuvaM",
+   "pai": "Estante O1",
+   "pos": [
+    -0.0534,
+    0.906,
+    -0.1116
+   ],
+   "yaw": 0.32
+  },
+  {
+   "nome": "Estante O1 - LuvaM 14",
+   "prefab": "LuvaM",
+   "pai": "Estante O1",
+   "pos": [
+    -0.0552,
+    0.971,
+    -0.1134
+   ],
+   "yaw": 0.08
+  },
+  {
+   "nome": "Estante O1 - LuvaM 15",
+   "prefab": "LuvaM",
+   "pai": "Estante O1",
+   "pos": [
+    -0.053,
+    0.841,
+    0.0183
+   ],
+   "yaw": 0.45
+  },
+  {
+   "nome": "Estante O1 - LuvaM 16",
+   "prefab": "LuvaM",
+   "pai": "Estante O1",
+   "pos": [
+    -0.0536,
+    0.906,
+    0.0187
+   ],
+   "yaw": -0.52
+  },
+  {
+   "nome": "Estante O1 - LuvaM 17",
+   "prefab": "LuvaM",
+   "pai": "Estante O1",
+   "pos": [
+    -0.0533,
+    0.971,
+    0.0177
+   ],
+   "yaw": -0.04
+  },
+  {
+   "nome": "Estante O1 - LuvaM 18",
+   "prefab": "LuvaM",
+   "pai": "Estante O1",
+   "pos": [
+    0.1921,
+    0.841,
+    -0.1132
+   ],
+   "yaw": 0.55
+  },
+  {
+   "nome": "Estante O1 - LuvaNitrilica 19",
+   "prefab": "LuvaNitrilica",
+   "pai": "Estante O1",
+   "pos": [
+    -0.3012,
+    1.211,
+    -0.1134
+   ],
+   "yaw": -0.53
+  },
+  {
+   "nome": "Estante O1 - LuvaNitrilica 20",
+   "prefab": "LuvaNitrilica",
+   "pai": "Estante O1",
+   "pos": [
+    -0.3014,
+    1.276,
+    -0.1137
+   ],
+   "yaw": -0.28
+  },
+  {
+   "nome": "Estante O1 - LuvaNitrilica 21",
+   "prefab": "LuvaNitrilica",
+   "pai": "Estante O1",
+   "pos": [
+    -0.2999,
+    1.211,
+    0.0181
+   ],
+   "yaw": 0.24
+  },
+  {
+   "nome": "Estante O1 - LuvaNitrilica 22",
+   "prefab": "LuvaNitrilica",
+   "pai": "Estante O1",
+   "pos": [
+    -0.2993,
+    1.276,
+    0.0173
+   ],
+   "yaw": 0.4
+  },
+  {
+   "nome": "Estante O1 - LuvaNitrilica 23",
+   "prefab": "LuvaNitrilica",
+   "pai": "Estante O1",
+   "pos": [
+    -0.301,
+    1.341,
+    0.0194
+   ],
+   "yaw": -0.55
+  },
+  {
+   "nome": "Estante O1 - LuvaNitrilica 24",
+   "prefab": "LuvaNitrilica",
+   "pai": "Estante O1",
+   "pos": [
+    -0.0541,
+    1.211,
+    -0.1113
+   ],
+   "yaw": -0.43
+  },
+  {
+   "nome": "Estante O1 - LuvaNitrilica 25",
+   "prefab": "LuvaNitrilica",
+   "pai": "Estante O1",
+   "pos": [
+    -0.0541,
+    1.211,
+    0.0174
+   ],
+   "yaw": 0.59
+  },
+  {
+   "nome": "Estante O1 - LuvaNitrilica 26",
+   "prefab": "LuvaNitrilica",
+   "pai": "Estante O1",
+   "pos": [
+    -0.0526,
+    1.276,
+    0.0179
+   ],
+   "yaw": 0.38
+  },
+  {
+   "nome": "Estante O1 - LuvaG 27",
+   "prefab": "LuvaG",
+   "pai": "Estante O1",
+   "pos": [
+    0.2193,
+    1.211,
+    -0.113
+   ],
+   "yaw": 0.39
+  },
+  {
+   "nome": "Estante O1 - LuvaG 28",
+   "prefab": "LuvaG",
+   "pai": "Estante O1",
+   "pos": [
+    0.2207,
+    1.276,
+    -0.1139
+   ],
+   "yaw": -0.19
+  },
+  {
+   "nome": "Estante O1 - LuvaG 29",
+   "prefab": "LuvaG",
+   "pai": "Estante O1",
+   "pos": [
+    0.2202,
+    1.341,
+    -0.1123
+   ],
+   "yaw": -0.04
+  },
+  {
+   "nome": "Estante O1 - LuvaG 30",
+   "prefab": "LuvaG",
+   "pai": "Estante O1",
+   "pos": [
+    0.2191,
+    1.211,
+    0.018
+   ],
+   "yaw": -0.32
+  },
+  {
+   "nome": "Estante O1 - LuvaG 31",
+   "prefab": "LuvaG",
+   "pai": "Estante O1",
+   "pos": [
+    0.2189,
+    1.276,
+    0.0178
+   ],
+   "yaw": 0.14
+  },
+  {
+   "nome": "Estante O1 - Mascaras 32",
+   "prefab": "Mascaras",
+   "pai": "Estante O1",
+   "pos": [
+    -0.3245,
+    1.581,
+    -0.1274
+   ],
+   "yaw": -0.1
+  },
+  {
+   "nome": "Estante O1 - Mascaras 33",
+   "prefab": "Mascaras",
+   "pai": "Estante O1",
+   "pos": [
+    -0.3247,
+    1.671,
+    -0.1276
+   ],
+   "yaw": 0.39
+  },
+  {
+   "nome": "Estante O1 - Mascaras 34",
+   "prefab": "Mascaras",
+   "pai": "Estante O1",
+   "pos": [
+    -0.3236,
+    1.581,
+    -0.0276
+   ],
+   "yaw": 0.46
+  },
+  {
+   "nome": "Estante O1 - Mascaras 35",
+   "prefab": "Mascaras",
+   "pai": "Estante O1",
+   "pos": [
+    -0.3248,
+    1.671,
+    -0.0254
+   ],
+   "yaw": -0.4
+  },
+  {
+   "nome": "Estante O1 - Mascaras 36",
+   "prefab": "Mascaras",
+   "pai": "Estante O1",
+   "pos": [
+    -0.3253,
+    1.581,
+    0.0738
+   ],
+   "yaw": 0.14
+  },
+  {
+   "nome": "Estante O1 - Mascaras 37",
+   "prefab": "Mascaras",
+   "pai": "Estante O1",
+   "pos": [
+    -0.1294,
+    1.581,
+    -0.0271
+   ],
+   "yaw": 0.05
+  },
+  {
+   "nome": "Estante O1 - Mascaras 38",
+   "prefab": "Mascaras",
+   "pai": "Estante O1",
+   "pos": [
+    -0.1277,
+    1.671,
+    -0.027
+   ],
+   "yaw": 0.19
+  },
+  {
+   "nome": "Estante O1 - Mascaras 39",
+   "prefab": "Mascaras",
+   "pai": "Estante O1",
+   "pos": [
+    -0.1276,
+    1.581,
+    0.0733
+   ],
+   "yaw": -0.03
+  },
+  {
+   "nome": "Estante O1 - Mascaras 40",
+   "prefab": "Mascaras",
+   "pai": "Estante O1",
+   "pos": [
+    -0.1298,
+    1.671,
+    0.0758
+   ],
+   "yaw": 0.48
+  },
+  {
+   "nome": "Estante O1 - Mascaras 41",
+   "prefab": "Mascaras",
+   "pai": "Estante O1",
+   "pos": [
+    0.0661,
+    1.581,
+    -0.1269
+   ],
+   "yaw": 0.03
+  },
+  {
+   "nome": "Estante O1 - Mascaras 42",
+   "prefab": "Mascaras",
+   "pai": "Estante O1",
+   "pos": [
+    0.0659,
+    1.581,
+    -0.0268
+   ],
+   "yaw": 0.11
+  },
+  {
+   "nome": "Estante O1 - Mascaras 43",
+   "prefab": "Mascaras",
+   "pai": "Estante O1",
+   "pos": [
+    0.0668,
+    1.671,
+    -0.0264
+   ],
+   "yaw": 0.22
+  },
+  {
+   "nome": "Estante O1 - Mascaras 44",
+   "prefab": "Mascaras",
+   "pai": "Estante O1",
+   "pos": [
+    0.0681,
+    1.581,
+    0.0757
+   ],
+   "yaw": -0.02
+  },
+  {
+   "nome": "Estante O1 - Mascaras 45",
+   "prefab": "Mascaras",
+   "pai": "Estante O1",
+   "pos": [
+    0.067,
+    1.671,
+    0.0735
+   ],
+   "yaw": -0.39
+  },
+  {
+   "nome": "Estante O1 - Mascaras 46",
+   "prefab": "Mascaras",
+   "pai": "Estante O1",
+   "pos": [
+    0.2641,
+    1.581,
+    -0.0262
+   ],
+   "yaw": 0.15
+  },
+  {
+   "nome": "Estante O1 - Mascaras 47",
+   "prefab": "Mascaras",
+   "pai": "Estante O1",
+   "pos": [
+    0.2637,
+    1.671,
+    -0.0263
+   ],
+   "yaw": -0.46
+  },
+  {
+   "nome": "Estante O1 - Mascaras 48",
+   "prefab": "Mascaras",
+   "pai": "Estante O1",
+   "pos": [
+    0.2639,
+    1.581,
+    0.0759
+   ],
+   "yaw": 0.29
+  },
+  {
+   "nome": "Estante O1 - Mascaras 49",
+   "prefab": "Mascaras",
+   "pai": "Estante O1",
+   "pos": [
+    0.2618,
+    1.671,
+    0.0742
+   ],
+   "yaw": 0.16
+  },
+  {
+   "nome": "Estante O1 - CaixaMascaras 50",
+   "prefab": "CaixaMascaras",
+   "pai": "Estante O1",
+   "pos": [
+    -0.2375,
+    1.981,
+    -0.0547
+   ],
+   "yaw": -0.24
+  },
+  {
+   "nome": "Estante O2 - CaixaAventais 1",
+   "prefab": "CaixaAventais",
+   "pai": "Estante O2",
+   "pos": [
+    -0.2226,
+    0.101,
+    -0.0284
+   ],
+   "yaw": -0.08
+  },
+  {
+   "nome": "Estante O2 - CaixaAventais 2",
+   "prefab": "CaixaAventais",
+   "pai": "Estante O2",
+   "pos": [
+    0.2166,
+    0.101,
+    -0.0271
+   ],
+   "yaw": -0.99
+  },
+  {
+   "nome": "Estante O2 - caixa organizadora oculos",
+   "prefab": "CaixaOrganizadora",
+   "pai": "Estante O2",
+   "pos": [
+    0.2008,
+    0.471,
+    -0.0145
+   ],
+   "yaw": -0.27
+  },
+  {
+   "nome": "Estante O2 - PFF2 4",
+   "prefab": "PFF2",
+   "pai": "Estante O2",
+   "pos": [
+    -0.3213,
+    0.841,
+    -0.1174
+   ],
+   "yaw": -0.16
+  },
+  {
+   "nome": "Estante O2 - PFF2 5",
+   "prefab": "PFF2",
+   "pai": "Estante O2",
+   "pos": [
+    -0.3214,
+    0.951,
+    -0.1177
+   ],
+   "yaw": -0.52
+  },
+  {
+   "nome": "Estante O2 - PFF2 6",
+   "prefab": "PFF2",
+   "pai": "Estante O2",
+   "pos": [
+    -0.3215,
+    0.841,
+    0.0043
+   ],
+   "yaw": 0.26
+  },
+  {
+   "nome": "Estante O2 - PFF2 7",
+   "prefab": "PFF2",
+   "pai": "Estante O2",
+   "pos": [
+    -0.1133,
+    0.841,
+    0.0047
+   ],
+   "yaw": -0.5
+  },
+  {
+   "nome": "Estante O2 - PFF2 8",
+   "prefab": "PFF2",
+   "pai": "Estante O2",
+   "pos": [
+    -0.1134,
+    0.951,
+    0.005
+   ],
+   "yaw": -0.43
+  },
+  {
+   "nome": "Estante O2 - PFF2 9",
+   "prefab": "PFF2",
+   "pai": "Estante O2",
+   "pos": [
+    0.0922,
+    0.841,
+    -0.1186
+   ],
+   "yaw": 0.01
+  },
+  {
+   "nome": "Estante O2 - PFF2 10",
+   "prefab": "PFF2",
+   "pai": "Estante O2",
+   "pos": [
+    0.0927,
+    0.841,
+    0.0037
+   ],
+   "yaw": -0.06
+  },
+  {
+   "nome": "Estante O2 - caixa organizadora toucas",
+   "prefab": "CaixaOrganizadora",
+   "pai": "Estante O2",
+   "pos": [
+    -0.1984,
+    1.211,
+    -0.0167
+   ],
+   "yaw": -0.34
+  },
+  {
+   "nome": "Estante O2 - caixa organizadora propes",
+   "prefab": "CaixaOrganizadora",
+   "pai": "Estante O2",
+   "pos": [
+    0.2006,
+    1.581,
+    -0.0157
+   ],
+   "yaw": -0.34
+  },
+  {
+   "nome": "Estante O2 - Mascaras 13",
+   "prefab": "Mascaras",
+   "pai": "Estante O2",
+   "pos": [
+    -0.3264,
+    1.581,
+    -0.1281
+   ],
+   "yaw": 0.46
+  },
+  {
+   "nome": "Estante O2 - Mascaras 14",
+   "prefab": "Mascaras",
+   "pai": "Estante O2",
+   "pos": [
+    -0.3239,
+    1.671,
+    -0.1283
+   ],
+   "yaw": 0.54
+  },
+  {
+   "nome": "Estante O2 - Mascaras 15",
+   "prefab": "Mascaras",
+   "pai": "Estante O2",
+   "pos": [
+    -0.3242,
+    1.581,
+    -0.0278
+   ],
+   "yaw": 0.02
+  },
+  {
+   "nome": "Estante O2 - Mascaras 16",
+   "prefab": "Mascaras",
+   "pai": "Estante O2",
+   "pos": [
+    -0.1293,
+    1.581,
+    -0.1287
+   ],
+   "yaw": -0.04
+  },
+  {
+   "nome": "Estante O2 - Mascaras 17",
+   "prefab": "Mascaras",
+   "pai": "Estante O2",
+   "pos": [
+    -0.1278,
+    1.671,
+    -0.1278
+   ],
+   "yaw": -0.43
+  },
+  {
+   "nome": "Estante O2 - Mascaras 18",
+   "prefab": "Mascaras",
+   "pai": "Estante O2",
+   "pos": [
+    -0.1277,
+    1.581,
+    -0.0267
+   ],
+   "yaw": -0.59
+  },
+  {
+   "nome": "Estante O2 - Mascaras 19",
+   "prefab": "Mascaras",
+   "pai": "Estante O2",
+   "pos": [
+    -0.1296,
+    1.671,
+    -0.0275
+   ],
+   "yaw": -0.55
+  },
+  {
+   "nome": "Estante O2 - CaixaMascaras 20",
+   "prefab": "CaixaMascaras",
+   "pai": "Estante O2",
+   "pos": [
+    0.2001,
+    1.981,
+    -0.0535
+   ],
+   "yaw": 0.36
+  },
+  {
+   "nome": "Estante O2 - CaixaAventais 21",
+   "prefab": "CaixaAventais",
+   "pai": "Estante O2",
+   "pos": [
+    -0.2225,
+    1.981,
+    -0.0247
+   ],
+   "yaw": -0.35
+  },
+  {
+   "nome": "Estante O3 - CaixaCompressas 1",
+   "prefab": "CaixaCompressas",
+   "pai": "Estante O3",
+   "pos": [
+    -0.2568,
+    0.101,
+    -0.0532
+   ],
+   "yaw": 0.78
+  },
+  {
+   "nome": "Estante O3 - CaixaCompressas 2",
+   "prefab": "CaixaCompressas",
+   "pai": "Estante O3",
+   "pos": [
+    0.2016,
+    0.101,
+    -0.0557
+   ],
+   "yaw": 0.1
+  },
+  {
+   "nome": "Estante O3 - CaixaAlgodao 3",
+   "prefab": "CaixaAlgodao",
+   "pai": "Estante O3",
+   "pos": [
+    -0.2175,
+    0.471,
+    -0.029
+   ],
+   "yaw": 0.69
+  },
+  {
+   "nome": "Estante O3 - CaixaCompressas 4",
+   "prefab": "CaixaCompressas",
+   "pai": "Estante O3",
+   "pos": [
+    0.2436,
+    0.471,
+    -0.0533
+   ],
+   "yaw": 0.74
+  },
+  {
+   "nome": "Estante O3 - bin 1",
+   "prefab": "Bin",
+   "pai": "Estante O3",
+   "pos": [
+    -0.34,
+    0.841,
+    -0.046
+   ],
+   "yaw": -0.65
+  },
+  {
+   "nome": "Estante O3 - bin 1 - Laminas 1",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    -0.3375,
+    0.844,
+    0.0083
+   ],
+   "yaw": 3.21
+  },
+  {
+   "nome": "Estante O3 - bin 1 - Laminas 2",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    -0.3438,
+    0.844,
+    -0.1078
+   ],
+   "yaw": -2.97
+  },
+  {
+   "nome": "Estante O3 - bin 1 - Laminas 3",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    -0.3401,
+    0.87,
+    0.007
+   ],
+   "yaw": 3.91
+  },
+  {
+   "nome": "Estante O3 - bin 1 - Laminas 4",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    -0.338,
+    0.87,
+    -0.1039
+   ],
+   "yaw": 1.55
+  },
+  {
+   "nome": "Estante O3 - bin 1 - Laminas 5",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    -0.3388,
+    0.896,
+    0.0067
+   ],
+   "yaw": 3.47
+  },
+  {
+   "nome": "Estante O3 - bin 2",
+   "prefab": "Bin",
+   "pai": "Estante O3",
+   "pos": [
+    -0.17,
+    0.841,
+    -0.046
+   ],
+   "yaw": 0.02
+  },
+  {
+   "nome": "Estante O3 - bin 2 - Laminas 1",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    -0.1695,
+    0.844,
+    0.0069
+   ],
+   "yaw": -0.18
+  },
+  {
+   "nome": "Estante O3 - bin 2 - Laminas 2",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    -0.1681,
+    0.844,
+    -0.1068
+   ],
+   "yaw": -1.81
+  },
+  {
+   "nome": "Estante O3 - bin 2 - Laminas 3",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    -0.1705,
+    0.87,
+    0.0116
+   ],
+   "yaw": 2.84
+  },
+  {
+   "nome": "Estante O3 - bin 2 - Laminas 4",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    -0.1694,
+    0.87,
+    -0.1034
+   ],
+   "yaw": -1.77
+  },
+  {
+   "nome": "Estante O3 - bin 3",
+   "prefab": "Bin",
+   "pai": "Estante O3",
+   "pos": [
+    0.0,
+    0.841,
+    -0.046
+   ],
+   "yaw": -0.36
+  },
+  {
+   "nome": "Estante O3 - bin 3 - FioSutura 1",
+   "prefab": "FioSutura",
+   "pai": "Estante O3",
+   "pos": [
+    0.0021,
+    0.844,
+    0.0095
+   ],
+   "yaw": 0.63
+  },
+  {
+   "nome": "Estante O3 - bin 3 - FioSutura 2",
+   "prefab": "FioSutura",
+   "pai": "Estante O3",
+   "pos": [
+    -0.0012,
+    0.844,
+    -0.1041
+   ],
+   "yaw": 1.2
+  },
+  {
+   "nome": "Estante O3 - bin 3 - FioSutura 3",
+   "prefab": "FioSutura",
+   "pai": "Estante O3",
+   "pos": [
+    -0.0001,
+    0.88,
+    0.0098
+   ],
+   "yaw": -3.43
+  },
+  {
+   "nome": "Estante O3 - bin 4",
+   "prefab": "Bin",
+   "pai": "Estante O3",
+   "pos": [
+    0.17,
+    0.841,
+    -0.046
+   ],
+   "yaw": -0.6
+  },
+  {
+   "nome": "Estante O3 - bin 5",
+   "prefab": "Bin",
+   "pai": "Estante O3",
+   "pos": [
+    0.34,
+    0.841,
+    -0.046
+   ],
+   "yaw": -0.21
+  },
+  {
+   "nome": "Estante O3 - bin 5 - FioSutura 1",
+   "prefab": "FioSutura",
+   "pai": "Estante O3",
+   "pos": [
+    0.3427,
+    0.844,
+    0.0113
+   ],
+   "yaw": 2.29
+  },
+  {
+   "nome": "Estante O3 - bin 5 - FioSutura 2",
+   "prefab": "FioSutura",
+   "pai": "Estante O3",
+   "pos": [
+    0.3367,
+    0.844,
+    -0.1068
+   ],
+   "yaw": -0.04
+  },
+  {
+   "nome": "Estante O3 - bin 5 - FioSutura 3",
+   "prefab": "FioSutura",
+   "pai": "Estante O3",
+   "pos": [
+    0.343,
+    0.88,
+    0.0076
+   ],
+   "yaw": -0.45
+  },
+  {
+   "nome": "Estante O3 - FioSutura 5",
+   "prefab": "FioSutura",
+   "pai": "Estante O3",
+   "pos": [
+    -0.3593,
+    1.211,
+    -0.1415
+   ],
+   "yaw": -0.21
+  },
+  {
+   "nome": "Estante O3 - FioSutura 6",
+   "prefab": "FioSutura",
+   "pai": "Estante O3",
+   "pos": [
+    -0.3601,
+    1.247,
+    -0.1391
+   ],
+   "yaw": -0.47
+  },
+  {
+   "nome": "Estante O3 - FioSutura 7",
+   "prefab": "FioSutura",
+   "pai": "Estante O3",
+   "pos": [
+    -0.3606,
+    1.211,
+    -0.0653
+   ],
+   "yaw": 0.31
+  },
+  {
+   "nome": "Estante O3 - FioSutura 8",
+   "prefab": "FioSutura",
+   "pai": "Estante O3",
+   "pos": [
+    -0.3602,
+    1.247,
+    -0.0647
+   ],
+   "yaw": 0.47
+  },
+  {
+   "nome": "Estante O3 - FioSutura 9",
+   "prefab": "FioSutura",
+   "pai": "Estante O3",
+   "pos": [
+    -0.3592,
+    1.283,
+    -0.0638
+   ],
+   "yaw": 0.53
+  },
+  {
+   "nome": "Estante O3 - FioSutura 10",
+   "prefab": "FioSutura",
+   "pai": "Estante O3",
+   "pos": [
+    -0.3606,
+    1.211,
+    0.0131
+   ],
+   "yaw": 0.44
+  },
+  {
+   "nome": "Estante O3 - FioSutura 11",
+   "prefab": "FioSutura",
+   "pai": "Estante O3",
+   "pos": [
+    -0.2241,
+    1.211,
+    -0.1406
+   ],
+   "yaw": -0.37
+  },
+  {
+   "nome": "Estante O3 - FioSutura 12",
+   "prefab": "FioSutura",
+   "pai": "Estante O3",
+   "pos": [
+    -0.2235,
+    1.247,
+    -0.1413
+   ],
+   "yaw": 0.11
+  },
+  {
+   "nome": "Estante O3 - FioSutura 13",
+   "prefab": "FioSutura",
+   "pai": "Estante O3",
+   "pos": [
+    -0.223,
+    1.211,
+    -0.0635
+   ],
+   "yaw": -0.15
+  },
+  {
+   "nome": "Estante O3 - FioSutura 14",
+   "prefab": "FioSutura",
+   "pai": "Estante O3",
+   "pos": [
+    -0.2244,
+    1.247,
+    -0.065
+   ],
+   "yaw": -0.5
+  },
+  {
+   "nome": "Estante O3 - FioSutura 15",
+   "prefab": "FioSutura",
+   "pai": "Estante O3",
+   "pos": [
+    -0.2231,
+    1.283,
+    -0.0634
+   ],
+   "yaw": 0.32
+  },
+  {
+   "nome": "Estante O3 - FioSutura 16",
+   "prefab": "FioSutura",
+   "pai": "Estante O3",
+   "pos": [
+    -0.2243,
+    1.211,
+    0.0132
+   ],
+   "yaw": 0.24
+  },
+  {
+   "nome": "Estante O3 - Laminas 17",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.101,
+    1.211,
+    -0.1487
+   ],
+   "yaw": -0.21
+  },
+  {
+   "nome": "Estante O3 - Laminas 18",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.1002,
+    1.237,
+    -0.1465
+   ],
+   "yaw": -0.19
+  },
+  {
+   "nome": "Estante O3 - Laminas 19",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.1009,
+    1.263,
+    -0.148
+   ],
+   "yaw": -0.09
+  },
+  {
+   "nome": "Estante O3 - Laminas 20",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.1,
+    1.211,
+    -0.0875
+   ],
+   "yaw": 0.52
+  },
+  {
+   "nome": "Estante O3 - Laminas 21",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.1001,
+    1.237,
+    -0.0865
+   ],
+   "yaw": 0.48
+  },
+  {
+   "nome": "Estante O3 - Laminas 22",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.0998,
+    1.211,
+    -0.0255
+   ],
+   "yaw": 0.5
+  },
+  {
+   "nome": "Estante O3 - Laminas 23",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.0986,
+    1.237,
+    -0.0261
+   ],
+   "yaw": -0.26
+  },
+  {
+   "nome": "Estante O3 - Laminas 24",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.0996,
+    1.263,
+    -0.0245
+   ],
+   "yaw": -0.27
+  },
+  {
+   "nome": "Estante O3 - Laminas 25",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.0991,
+    1.289,
+    -0.0263
+   ],
+   "yaw": 0.53
+  },
+  {
+   "nome": "Estante O3 - Laminas 26",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.1006,
+    1.211,
+    0.0341
+   ],
+   "yaw": -0.27
+  },
+  {
+   "nome": "Estante O3 - Laminas 27",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.1004,
+    1.237,
+    0.037
+   ],
+   "yaw": -0.24
+  },
+  {
+   "nome": "Estante O3 - Laminas 28",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.227,
+    1.211,
+    -0.1464
+   ],
+   "yaw": -0.09
+  },
+  {
+   "nome": "Estante O3 - Laminas 29",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.227,
+    1.237,
+    -0.1476
+   ],
+   "yaw": 0.17
+  },
+  {
+   "nome": "Estante O3 - Laminas 30",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.2251,
+    1.263,
+    -0.1488
+   ],
+   "yaw": -0.3
+  },
+  {
+   "nome": "Estante O3 - Laminas 31",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.226,
+    1.211,
+    -0.0862
+   ],
+   "yaw": 0.02
+  },
+  {
+   "nome": "Estante O3 - Laminas 32",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.2251,
+    1.237,
+    -0.0856
+   ],
+   "yaw": 0.26
+  },
+  {
+   "nome": "Estante O3 - Laminas 33",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.2268,
+    1.211,
+    -0.0247
+   ],
+   "yaw": 0.51
+  },
+  {
+   "nome": "Estante O3 - Laminas 34",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.2268,
+    1.237,
+    -0.0254
+   ],
+   "yaw": 0.14
+  },
+  {
+   "nome": "Estante O3 - Laminas 35",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.2268,
+    1.263,
+    -0.0252
+   ],
+   "yaw": 0.48
+  },
+  {
+   "nome": "Estante O3 - Laminas 36",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.227,
+    1.289,
+    -0.0268
+   ],
+   "yaw": -0.23
+  },
+  {
+   "nome": "Estante O3 - Laminas 37",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.226,
+    1.211,
+    0.0369
+   ],
+   "yaw": -0.1
+  },
+  {
+   "nome": "Estante O3 - Laminas 38",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.2252,
+    1.237,
+    0.0355
+   ],
+   "yaw": 0.29
+  },
+  {
+   "nome": "Estante O3 - Laminas 39",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.3532,
+    1.211,
+    -0.0855
+   ],
+   "yaw": -0.27
+  },
+  {
+   "nome": "Estante O3 - Laminas 40",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.3517,
+    1.237,
+    -0.0866
+   ],
+   "yaw": 0.27
+  },
+  {
+   "nome": "Estante O3 - Laminas 41",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.3512,
+    1.211,
+    -0.0264
+   ],
+   "yaw": -0.54
+  },
+  {
+   "nome": "Estante O3 - Laminas 42",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.3519,
+    1.237,
+    -0.024
+   ],
+   "yaw": -0.3
+  },
+  {
+   "nome": "Estante O3 - Laminas 43",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.3522,
+    1.263,
+    -0.024
+   ],
+   "yaw": -0.18
+  },
+  {
+   "nome": "Estante O3 - Laminas 44",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.3507,
+    1.289,
+    -0.0242
+   ],
+   "yaw": -0.41
+  },
+  {
+   "nome": "Estante O3 - Laminas 45",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.353,
+    1.211,
+    0.0346
+   ],
+   "yaw": 0.08
+  },
+  {
+   "nome": "Estante O3 - Laminas 46",
+   "prefab": "Laminas",
+   "pai": "Estante O3",
+   "pos": [
+    0.3522,
+    1.237,
+    0.0354
+   ],
+   "yaw": 0.37
+  },
+  {
+   "nome": "Estante O3 - CaixaCompressas 47",
+   "prefab": "CaixaCompressas",
+   "pai": "Estante O3",
+   "pos": [
+    -0.2533,
+    1.581,
+    -0.0564
+   ],
+   "yaw": -0.61
+  },
+  {
+   "nome": "Estante O3 - CaixaAlgodao 48",
+   "prefab": "CaixaAlgodao",
+   "pai": "Estante O3",
+   "pos": [
+    0.2,
+    1.981,
+    -0.0225
+   ],
+   "yaw": -0.95
+  },
+  {
+   "nome": "Estante O4 - CaixaAventais 1",
+   "prefab": "CaixaAventais",
+   "pai": "Estante O4",
+   "pos": [
+    0.2159,
+    0.101,
+    -0.0248
+   ],
+   "yaw": 0.94
+  },
+  {
+   "nome": "Estante O4 - caixa organizadora etiquetas",
+   "prefab": "CaixaOrganizadora",
+   "pai": "Estante O4",
+   "pos": [
+    -0.1999,
+    0.471,
+    -0.0131
+   ],
+   "yaw": 0.26
+  },
+  {
+   "nome": "Estante O4 - caixa organizadora lacres",
+   "prefab": "CaixaOrganizadora",
+   "pai": "Estante O4",
+   "pos": [
+    -0.199,
+    0.841,
+    -0.0143
+   ],
+   "yaw": 0.13
+  },
+  {
+   "nome": "Estante O4 - caixa organizadora sacos_visceras",
+   "prefab": "CaixaOrganizadora",
+   "pai": "Estante O4",
+   "pos": [
+    0.2018,
+    1.581,
+    -0.0136
+   ],
+   "yaw": -0.22
+  },
+  {
+   "nome": "Estante O4 - caixa organizadora pulseiras",
+   "prefab": "CaixaOrganizadora",
+   "pai": "Estante O4",
+   "pos": [
+    -0.0008,
+    1.211,
+    -0.0137
+   ],
+   "yaw": -0.06
+  },
+  {
+   "nome": "Estante O4 - CaixaMascaras 6",
+   "prefab": "CaixaMascaras",
+   "pai": "Estante O4",
+   "pos": [
+    -0.2375,
+    1.581,
+    -0.0585
+   ],
+   "yaw": -0.02
+  },
+  {
+   "nome": "Estante N1 - CaixaSacoCadaver 1",
+   "prefab": "CaixaSacoCadaver",
+   "pai": "Estante N1",
+   "pos": [
+    -0.2184,
+    0.101,
+    -0.0253
+   ],
+   "yaw": 90.78
+  },
+  {
+   "nome": "Estante N1 - CaixaSacoCadaver 2",
+   "prefab": "CaixaSacoCadaver",
+   "pai": "Estante N1",
+   "pos": [
+    0.2039,
+    0.101,
+    -0.0288
+   ],
+   "yaw": 89.67
+  },
+  {
+   "nome": "Estante N1 - CaixaSacoCadaver 3",
+   "prefab": "CaixaSacoCadaver",
+   "pai": "Estante N1",
+   "pos": [
+    -0.2186,
+    0.551,
+    -0.0256
+   ],
+   "yaw": 90.04
+  },
+  {
+   "nome": "Estante N1 - CaixaSacoCadaver 4",
+   "prefab": "CaixaSacoCadaver",
+   "pai": "Estante N1",
+   "pos": [
+    0.1993,
+    0.551,
+    -0.0258
+   ],
+   "yaw": 89.83
+  },
+  {
+   "nome": "Estante N1 - CaixaSacoCadaver 5",
+   "prefab": "CaixaSacoCadaver",
+   "pai": "Estante N1",
+   "pos": [
+    -0.2237,
+    1.001,
+    -0.0278
+   ],
+   "yaw": 89.1
+  },
+  {
+   "nome": "Estante N1 - CaixaOrganizadora 6",
+   "prefab": "CaixaOrganizadora",
+   "pai": "Estante N1",
+   "pos": [
+    0.1985,
+    1.451,
+    -0.1176
+   ],
+   "yaw": 0.3
+  },
+  {
+   "nome": "Estante N2 - rolo 0.0",
+   "prefab": "RoloLencol",
+   "pai": "Estante N2",
+   "pos": [
+    0.0058,
+    0.101,
+    -0.195
+   ],
+   "yaw": -0.24
+  },
+  {
+   "nome": "Estante N2 - rolo 0.1",
+   "prefab": "RoloLencol",
+   "pai": "Estante N2",
+   "pos": [
+    0.0051,
+    0.101,
+    -0.081
+   ],
+   "yaw": -0.08
+  },
+  {
+   "nome": "Estante N2 - rolo 0.2",
+   "prefab": "RoloLencol",
+   "pai": "Estante N2",
+   "pos": [
+    -0.0157,
+    0.101,
+    0.033
+   ],
+   "yaw": -0.0
+  },
+  {
+   "nome": "Estante N2 - rolo 0.3",
+   "prefab": "RoloLencol",
+   "pai": "Estante N2",
+   "pos": [
+    -0.0072,
+    0.101,
+    0.147
+   ],
+   "yaw": 0.05
+  },
+  {
+   "nome": "Estante N2 - rolo 0.4",
+   "prefab": "RoloLencol",
+   "pai": "Estante N2",
+   "pos": [
+    0.0019,
+    0.1973,
+    -0.14
+   ],
+   "yaw": 0.03
+  },
+  {
+   "nome": "Estante N2 - rolo 0.5",
+   "prefab": "RoloLencol",
+   "pai": "Estante N2",
+   "pos": [
+    -0.018,
+    0.1973,
+    -0.026
+   ],
+   "yaw": 0.04
+  },
+  {
+   "nome": "Estante N2 - rolo 0.6",
+   "prefab": "RoloLencol",
+   "pai": "Estante N2",
+   "pos": [
+    0.0033,
+    0.1973,
+    0.088
+   ],
+   "yaw": 0.1
+  },
+  {
+   "nome": "Estante N2 - rolo 1.0",
+   "prefab": "RoloLencol",
+   "pai": "Estante N2",
+   "pos": [
+    0.0092,
+    0.551,
+    -0.195
+   ],
+   "yaw": 0.26
+  },
+  {
+   "nome": "Estante N2 - rolo 1.1",
+   "prefab": "RoloLencol",
+   "pai": "Estante N2",
+   "pos": [
+    0.0163,
+    0.551,
+    -0.081
+   ],
+   "yaw": 0.01
+  },
+  {
+   "nome": "Estante N2 - rolo 1.2",
+   "prefab": "RoloLencol",
+   "pai": "Estante N2",
+   "pos": [
+    -0.019,
+    0.551,
+    0.033
+   ],
+   "yaw": -0.19
+  },
+  {
+   "nome": "Estante N2 - rolo 1.3",
+   "prefab": "RoloLencol",
+   "pai": "Estante N2",
+   "pos": [
+    -0.0054,
+    0.551,
+    0.147
+   ],
+   "yaw": -0.21
+  },
+  {
+   "nome": "Estante N2 - rolo 1.4",
+   "prefab": "RoloLencol",
+   "pai": "Estante N2",
+   "pos": [
+    -0.0159,
+    0.6473,
+    -0.14
+   ],
+   "yaw": 0.06
+  },
+  {
+   "nome": "Estante N2 - rolo 2.0",
+   "prefab": "RoloLencol",
+   "pai": "Estante N2",
+   "pos": [
+    -0.0196,
+    1.001,
+    -0.195
+   ],
+   "yaw": 0.14
+  },
+  {
+   "nome": "Estante N2 - rolo 2.1",
+   "prefab": "RoloLencol",
+   "pai": "Estante N2",
+   "pos": [
+    0.0125,
+    1.001,
+    -0.081
+   ],
+   "yaw": -0.09
+  },
+  {
+   "nome": "Estante N2 - CaixaAventais 1",
+   "prefab": "CaixaAventais",
+   "pai": "Estante N2",
+   "pos": [
+    -0.1989,
+    1.451,
+    -0.1268
+   ],
+   "yaw": -0.27
+  },
+  {
+   "nome": "Estante N3 - bandeja de contencao",
+   "prefab": "Bandeja",
+   "pai": "Estante N3",
+   "pos": [
+    0.0,
+    0.101,
+    -0.05
+   ],
+   "yaw": 0.0
+  },
+  {
+   "nome": "Estante N3 - galao de formol 1",
+   "prefab": "GalaoFormol",
+   "pai": "Estante N3",
+   "pos": [
+    -0.2142,
+    0.105,
+    -0.1071
+   ],
+   "yaw": -0.29
+  },
+  {
+   "nome": "Estante N3 - galao de formol 2",
+   "prefab": "GalaoFormol",
+   "pai": "Estante N3",
+   "pos": [
+    -0.0039,
+    0.105,
+    -0.1076
+   ],
+   "yaw": -0.83
+  },
+  {
+   "nome": "Estante N3 - galao de formol 3",
+   "prefab": "GalaoFormol",
+   "pai": "Estante N3",
+   "pos": [
+    0.22,
+    0.105,
+    0.02
+   ],
+   "yaw": 84.0
+  },
+  {
+   "nome": "Estante N3 - CaixaOrganizadora 1",
+   "prefab": "CaixaOrganizadora",
+   "pai": "Estante N3",
+   "pos": [
+    -0.2014,
+    0.551,
+    -0.1132
+   ],
+   "yaw": 0.13
+  },
+  {
+   "nome": "Estante N3 - CaixaCompressas 2",
+   "prefab": "CaixaCompressas",
+   "pai": "Estante N3",
+   "pos": [
+    0.1991,
+    1.001,
+    -0.1576
+   ],
+   "yaw": 0.1
+  },
+  {
+   "nome": "Estante N3 - CaixaMascaras 3",
+   "prefab": "CaixaMascaras",
+   "pai": "Estante N3",
+   "pos": [
+    -0.2202,
+    1.451,
+    -0.1578
+   ],
+   "yaw": 0.88
+  },
+  {
+   "nome": "Estante L1 - lampada 1.0",
+   "prefab": "LampadaLED",
+   "pai": "Estante L1",
+   "pos": [
+    -0.008,
+    0.471,
+    -0.1
+   ],
+   "yaw": -0.89
+  },
+  {
+   "nome": "Estante L1 - lampada 1.1",
+   "prefab": "LampadaLED",
+   "pai": "Estante L1",
+   "pos": [
+    0.0044,
+    0.471,
+    -0.054
+   ],
+   "yaw": -0.49
+  },
+  {
+   "nome": "Estante L1 - lampada 1.2",
+   "prefab": "LampadaLED",
+   "pai": "Estante L1",
+   "pos": [
+    0.0097,
+    0.511,
+    -0.1
+   ],
+   "yaw": -0.79
+  },
+  {
+   "nome": "Estante L1 - lampada 5.0",
+   "prefab": "LampadaLED",
+   "pai": "Estante L1",
+   "pos": [
+    -0.0006,
+    1.981,
+    -0.1
+   ],
+   "yaw": -0.27
+  },
+  {
+   "nome": "Estante L1 - lampada 5.1",
+   "prefab": "LampadaLED",
+   "pai": "Estante L1",
+   "pos": [
+    -0.0097,
+    1.981,
+    -0.054
+   ],
+   "yaw": -0.18
+  },
+  {
+   "nome": "Estante L1 - bin 1",
+   "prefab": "Bin",
+   "pai": "Estante L1",
+   "pos": [
+    -0.24,
+    0.841,
+    -0.011
+   ],
+   "yaw": 0.0
+  },
+  {
+   "nome": "Estante L1 - bin 2",
+   "prefab": "Bin",
+   "pai": "Estante L1",
+   "pos": [
+    0.0,
+    0.841,
+    -0.011
+   ],
+   "yaw": 0.0
+  },
+  {
+   "nome": "Estante L1 - bin 3",
+   "prefab": "Bin",
+   "pai": "Estante L1",
+   "pos": [
+    0.24,
+    0.841,
+    -0.011
+   ],
+   "yaw": 0.0
+  },
+  {
+   "nome": "Ferramenta de cabo adaptado",
+   "prefab": "Ferramenta",
+   "pai": "Estante L1",
+   "pos": [
+    -0.12,
+    1.211,
+    -0.02
+   ],
+   "yaw": 8.0
+  },
+  {
+   "nome": "Estante L1 - bin 4",
+   "prefab": "Bin",
+   "pai": "Estante L1",
+   "pos": [
+    0.26,
+    1.211,
+    -0.011
+   ],
+   "yaw": 0.0
+  },
+  {
+   "nome": "Estrado da entrega",
+   "prefab": "Estrado",
+   "pai": "",
+   "pos": [
+    -5.84,
+    0.0,
+    1.7
+   ],
+   "yaw": 90.0
+  },
+  {
+   "nome": "Entrega - CaixaSacoCadaver 0.00",
+   "prefab": "CaixaSacoCadaver",
+   "pai": "",
+   "pos": [
+    -6.0926,
+    0.14,
+    1.3381
+   ],
+   "yaw": -0.08
+  },
+  {
+   "nome": "Entrega - CaixaSacoCadaver 0.01",
+   "prefab": "CaixaSacoCadaver",
+   "pai": "",
+   "pos": [
+    -6.0929,
+    0.14,
+    1.7008
+   ],
+   "yaw": 179.65
+  },
+  {
+   "nome": "Entrega - CaixaSacoCadaver 0.02",
+   "prefab": "CaixaSacoCadaver",
+   "pai": "",
+   "pos": [
+    -6.091,
+    0.14,
+    2.0607
+   ],
+   "yaw": -0.2
+  },
+  {
+   "nome": "Entrega - CaixaSacoCadaver 0.10",
+   "prefab": "CaixaSacoCadaver",
+   "pai": "",
+   "pos": [
+    -5.5883,
+    0.14,
+    1.3411
+   ],
+   "yaw": 179.71
+  },
+  {
+   "nome": "Entrega - CaixaSacoCadaver 0.11",
+   "prefab": "CaixaSacoCadaver",
+   "pai": "",
+   "pos": [
+    -5.5865,
+    0.14,
+    1.7008
+   ],
+   "yaw": 0.13
+  },
+  {
+   "nome": "Entrega - CaixaSacoCadaver 0.12",
+   "prefab": "CaixaSacoCadaver",
+   "pai": "",
+   "pos": [
+    -5.5869,
+    0.14,
+    2.0587
+   ],
+   "yaw": 180.27
+  },
+  {
+   "nome": "Entrega - CaixaLuvas 1.00",
+   "prefab": "CaixaLuvas",
+   "pai": "",
+   "pos": [
+    -6.0924,
+    0.44,
+    1.338
+   ],
+   "yaw": 180.04
+  },
+  {
+   "nome": "Entrega - CaixaLuvas 1.01",
+   "prefab": "CaixaLuvas",
+   "pai": "",
+   "pos": [
+    -6.0932,
+    0.44,
+    1.6984
+   ],
+   "yaw": -0.2
+  },
+  {
+   "nome": "Entrega - CaixaLuvas 1.02",
+   "prefab": "CaixaLuvas",
+   "pai": "",
+   "pos": [
+    -6.0932,
+    0.44,
+    2.0588
+   ],
+   "yaw": 179.94
+  },
+  {
+   "nome": "Entrega - CaixaLuvas 1.10",
+   "prefab": "CaixaLuvas",
+   "pai": "",
+   "pos": [
+    -5.5885,
+    0.44,
+    1.3402
+   ],
+   "yaw": -0.13
+  },
+  {
+   "nome": "Entrega - CaixaLuvas 1.11",
+   "prefab": "CaixaLuvas",
+   "pai": "",
+   "pos": [
+    -5.5864,
+    0.44,
+    1.7017
+   ],
+   "yaw": 179.99
+  },
+  {
+   "nome": "Entrega - CaixaLuvas 1.12",
+   "prefab": "CaixaLuvas",
+   "pai": "",
+   "pos": [
+    -5.5867,
+    0.44,
+    2.0609
+   ],
+   "yaw": -0.1
+  },
+  {
+   "nome": "Entrega - CaixaLuvas 2.00",
+   "prefab": "CaixaLuvas",
+   "pai": "",
+   "pos": [
+    -6.093,
+    0.74,
+    1.3405
+   ],
+   "yaw": -0.32
+  },
+  {
+   "nome": "Entrega - CaixaLuvas 2.01",
+   "prefab": "CaixaLuvas",
+   "pai": "",
+   "pos": [
+    -6.0927,
+    0.74,
+    1.7
+   ],
+   "yaw": 179.78
+  },
+  {
+   "nome": "Entrega - CaixaLuvas 2.02",
+   "prefab": "CaixaLuvas",
+   "pai": "",
+   "pos": [
+    -6.0915,
+    0.74,
+    2.0594
+   ],
+   "yaw": 0.04
+  },
+  {
+   "nome": "Entrega - CaixaLuvas 2.11",
+   "prefab": "CaixaLuvas",
+   "pai": "",
+   "pos": [
+    -5.5879,
+    0.74,
+    1.7008
+   ],
+   "yaw": -0.19
+  },
+  {
+   "nome": "Carrinho plataforma",
+   "prefab": "Carrinho",
+   "pai": "",
+   "pos": [
+    -4.972,
+    0.0,
+    1.52
+   ],
+   "yaw": 0.0
+  }
+ ],
+ "etiquetas": [
+  {
+   "id": "placa_epi_luvas",
+   "pai": "Estante O1",
+   "pos": [
+    0.0,
+    1.9635,
+    -0.2012
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "placa_epi",
+   "pai": "Estante O2",
+   "pos": [
+    0.0,
+    1.9635,
+    -0.2012
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "placa_necropsia",
+   "pai": "Estante O3",
+   "pos": [
+    0.0,
+    1.9635,
+    -0.2012
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "placa_identificacao",
+   "pai": "Estante O4",
+   "pos": [
+    0.0,
+    1.9635,
+    -0.2012
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "placa_sacos",
+   "pai": "Estante N1",
+   "pos": [
+    0.0,
+    1.9635,
+    -0.3012
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "placa_lencois",
+   "pai": "Estante N2",
+   "pos": [
+    0.0,
+    1.9635,
+    -0.3012
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "placa_quimicos",
+   "pai": "Estante N3",
+   "pos": [
+    0.0,
+    1.9635,
+    -0.3012
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "placa_manutencao",
+   "pai": "Estante L1",
+   "pos": [
+    0.0,
+    1.9635,
+    -0.1512
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "lip_luva_m",
+   "pai": "Estante O1",
+   "pos": [
+    -0.3,
+    0.8235,
+    -0.2012
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "lip_luva_nitrilica",
+   "pai": "Estante O1",
+   "pos": [
+    -0.3,
+    1.1935,
+    -0.2012
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "lip_luva_g",
+   "pai": "Estante O1",
+   "pos": [
+    0.22,
+    1.1935,
+    -0.2012
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "lip_mascara",
+   "pai": "Estante O1",
+   "pos": [
+    -0.325,
+    1.5635,
+    -0.2012
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "org_oculos",
+   "pai": "Estante O2",
+   "pos": [
+    0.2,
+    0.571,
+    -0.1549
+   ],
+   "yaw": 0.0,
+   "pitch": 7.8
+  },
+  {
+   "id": "lip_pff2",
+   "pai": "Estante O2",
+   "pos": [
+    -0.32,
+    0.8235,
+    -0.2012
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "org_toucas",
+   "pai": "Estante O2",
+   "pos": [
+    -0.2,
+    1.311,
+    -0.1549
+   ],
+   "yaw": 0.0,
+   "pitch": 7.8
+  },
+  {
+   "id": "org_propes",
+   "pai": "Estante O2",
+   "pos": [
+    0.2,
+    1.681,
+    -0.1549
+   ],
+   "yaw": 0.0,
+   "pitch": 7.8
+  },
+  {
+   "id": "bin_lamina",
+   "pai": "Estante O3",
+   "pos": [
+    -0.34,
+    0.884,
+    -0.1735
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "bin_lamina",
+   "pai": "Estante O3",
+   "pos": [
+    -0.17,
+    0.884,
+    -0.1735
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "bin_fio",
+   "pai": "Estante O3",
+   "pos": [
+    0.0,
+    0.884,
+    -0.1735
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "bin_vazio",
+   "pai": "Estante O3",
+   "pos": [
+    0.17,
+    0.884,
+    -0.1735
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "bin_fio",
+   "pai": "Estante O3",
+   "pos": [
+    0.34,
+    0.884,
+    -0.1735
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "lip_fio",
+   "pai": "Estante O3",
+   "pos": [
+    -0.36,
+    1.1935,
+    -0.2012
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "lip_lamina",
+   "pai": "Estante O3",
+   "pos": [
+    0.1,
+    1.1935,
+    -0.2012
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "org_etiquetas",
+   "pai": "Estante O4",
+   "pos": [
+    -0.2,
+    0.571,
+    -0.1549
+   ],
+   "yaw": 0.0,
+   "pitch": 7.8
+  },
+  {
+   "id": "org_lacres",
+   "pai": "Estante O4",
+   "pos": [
+    -0.2,
+    0.941,
+    -0.1549
+   ],
+   "yaw": 0.0,
+   "pitch": 7.8
+  },
+  {
+   "id": "org_sacos_visceras",
+   "pai": "Estante O4",
+   "pos": [
+    0.2,
+    1.681,
+    -0.1549
+   ],
+   "yaw": 0.0,
+   "pitch": 7.8
+  },
+  {
+   "id": "org_pulseiras",
+   "pai": "Estante O4",
+   "pos": [
+    0.0,
+    1.311,
+    -0.1549
+   ],
+   "yaw": 0.0,
+   "pitch": 7.8
+  },
+  {
+   "id": "org_etiquetas_saco",
+   "pai": "Estante N1",
+   "pos": [
+    0.2,
+    1.551,
+    -0.2549
+   ],
+   "yaw": 0.0,
+   "pitch": 7.8
+  },
+  {
+   "id": "lip_lencol",
+   "pai": "Estante N2",
+   "pos": [
+    -0.3,
+    0.5335,
+    -0.3012
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "org_reserva",
+   "pai": "Estante N3",
+   "pos": [
+    -0.2,
+    0.651,
+    -0.2549
+   ],
+   "yaw": 0.0,
+   "pitch": 7.8
+  },
+  {
+   "id": "lip_lampada",
+   "pai": "Estante L1",
+   "pos": [
+    -0.3,
+    0.4535,
+    -0.1512
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "bin_eletrica",
+   "pai": "Estante L1",
+   "pos": [
+    -0.24,
+    0.884,
+    -0.1385
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "bin_hidraulica",
+   "pai": "Estante L1",
+   "pos": [
+    0.0,
+    0.884,
+    -0.1385
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "bin_fixacao",
+   "pai": "Estante L1",
+   "pos": [
+    0.24,
+    0.884,
+    -0.1385
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  },
+  {
+   "id": "bin_reposicao",
+   "pai": "Estante L1",
+   "pos": [
+    0.26,
+    1.254,
+    -0.1385
+   ],
+   "yaw": 0.0,
+   "pitch": 0.0
+  }
+ ]
+}

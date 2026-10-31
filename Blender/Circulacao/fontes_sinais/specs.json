@@ -1,0 +1,72 @@
+{
+ "ID_Arquivo": {
+  "w": 630.0,
+  "h": 170.0,
+  "kind": "room"
+ },
+ "ID_Descanso": {
+  "w": 550.0,
+  "h": 170.0,
+  "kind": "room"
+ },
+ "ID_Deposito": {
+  "w": 280.0,
+  "h": 170.0,
+  "kind": "room"
+ },
+ "ID_Autopsia": {
+  "w": 580.0,
+  "h": 215.0,
+  "kind": "room"
+ },
+ "ID_SalaTecnica": {
+  "w": 350.0,
+  "h": 215.0,
+  "kind": "room"
+ },
+ "ID_Recebimento": {
+  "w": 610.0,
+  "h": 170.0,
+  "kind": "room"
+ },
+ "ID_CamaraFria": {
+  "w": 340.0,
+  "h": 170.0,
+  "kind": "room"
+ },
+ "OR_Diretorio": {
+  "w": 950.0,
+  "h": 470.0,
+  "kind": "orient"
+ },
+ "OR_Recebimento": {
+  "w": 770.0,
+  "h": 194.0,
+  "kind": "orient"
+ },
+ "SEG_Extintor": {
+  "w": 200.0,
+  "h": 200.0,
+  "kind": "safety"
+ },
+ "SEG_Alarme": {
+  "w": 170.0,
+  "h": 268.0,
+  "kind": "safety"
+ },
+ "SEG_Risco": {
+  "w": 220.0,
+  "h": 340.0,
+  "kind": "safety"
+ },
+ "SEG_Saida_Frente": {
+  "w": 300.0,
+  "h": 140.0,
+  "kind": "exit"
+ },
+ "SEG_Saida_Direita": {
+  "w": 370.0,
+  "h": 140.0,
+  "kind": "exit"
+ }
+}

@@ -1,0 +1,15 @@
+{
+  "models": 9,
+  "triangles": 86500,
+  "degenerateFaces": 0,
+  "routeSamples": 127,
+  "routesClear": true,
+  "clueReachable": true,
+  "lightsUnchanged": true,
+  "lightmaps": 3,
+  "preexistingMonoBehavioursChanged": [],
+  "baselineFilesUnchanged": true,
+  "sourceCompilation": "14 combined generator/integrator files: dry-run passed",
+  "editorAutomaticCompilation": "pending, no failure reported",
+  "verificationMode": "Edit Mode"
+}

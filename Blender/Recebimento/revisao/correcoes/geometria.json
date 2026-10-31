@@ -1,0 +1,21 @@
+{
+  "sheetStretcherIntersectingTrianglePairs": 0,
+  "assets": {
+    "CorpoCoberto": {
+      "triangles": 33008,
+      "degenerate": 0
+    },
+    "EstacaoLavagem": {
+      "triangles": 10952,
+      "degenerate": 0
+    },
+    "CarroAuxiliar": {
+      "triangles": 12708,
+      "degenerate": 0
+    },
+    "SuporteEPI": {
+      "triangles": 3602,
+      "degenerate": 0
+    }
+  }
+}

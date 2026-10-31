@@ -1,0 +1,92 @@
+{
+  "MacaRecebimento": {
+    "triangles": 18420,
+    "texelsPerMetre": 451,
+    "size": [
+      2.1864848136901855,
+      0.7336660027503967,
+      0.9668211936950684
+    ],
+    "degenerate": 0
+  },
+  "EstacaoLavagem": {
+    "triangles": 10952,
+    "texelsPerMetre": 405,
+    "size": [
+      2.200000047683716,
+      0.9409999847412109,
+      1.2350000143051147
+    ],
+    "degenerate": 0
+  },
+  "BancadaRecebimento": {
+    "triangles": 7306,
+    "texelsPerMetre": 406,
+    "size": [
+      2.0,
+      0.6407005190849304,
+      1.1692533493041992
+    ],
+    "degenerate": 0
+  },
+  "CarroAuxiliar": {
+    "triangles": 12708,
+    "texelsPerMetre": 335,
+    "size": [
+      0.8132609128952026,
+      0.5665217638015747,
+      0.9314009547233582
+    ],
+    "degenerate": 0
+  },
+  "CorpoCoberto": {
+    "triangles": 33008,
+    "texelsPerMetre": 647,
+    "size": [
+      1.950382947921753,
+      0.8098397254943848,
+      0.47287750244140625
+    ],
+    "degenerate": 0
+  },
+  "SuporteEPI": {
+    "triangles": 3602,
+    "texelsPerMetre": 593,
+    "size": [
+      0.8600000143051147,
+      0.1379999965429306,
+      0.25
+    ],
+    "degenerate": 0
+  },
+  "LixeiraClinica": {
+    "triangles": 2948,
+    "texelsPerMetre": 577,
+    "size": [
+      0.3499999940395355,
+      0.3970000147819519,
+      0.5059999227523804
+    ],
+    "degenerate": 0
+  },
+  "KitBancada": {
+    "triangles": 2848,
+    "texelsPerMetre": 1017,
+    "size": [
+      0.6100000143051147,
+      0.21000000834465027,
+      0.27000001072883606
+    ],
+    "degenerate": 0
+  },
+  "InstrumentoRecebimento": {
+    "triangles": 3664,
+    "texelsPerMetre": 2533,
+    "size": [
+      0.24100340902805328,
+      0.1510033905506134,
+      0.03450000286102295
+    ],
+    "degenerate": 0
+  }
+}

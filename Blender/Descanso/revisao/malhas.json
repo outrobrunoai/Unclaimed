@@ -1,0 +1,173 @@
+{
+  "Roupeiro": {
+    "triangles": 2406,
+    "texelsPerMetre": 492,
+    "size": [
+      0.66,
+      0.482,
+      1.92
+    ]
+  },
+  "PortaRoupeiro": {
+    "triangles": 1852,
+    "texelsPerMetre": 544,
+    "size": [
+      0.3437,
+      0.0669,
+      1.79
+    ]
+  },
+  "Cadeado": {
+    "triangles": 272,
+    "texelsPerMetre": 1731,
+    "size": [
+      0.04,
+      0.0155,
+      0.082
+    ]
+  },
+  "Banco": {
+    "triangles": 8296,
+    "texelsPerMetre": 467,
+    "size": [
+      1.6032,
+      0.319,
+      0.4512
+    ]
+  },
+  "Cabideiro": {
+    "triangles": 3148,
+    "texelsPerMetre": 410,
+    "size": [
+      1.2,
+      0.0764,
+      0.0834
+    ]
+  },
+  "Jaleco": {
+    "triangles": 42858,
+    "texelsPerMetre": 705,
+    "size": [
+      0.7593,
+      0.2398,
+      1.0298
+    ]
+  },
+  "CapaDeChuva": {
+    "triangles": 31068,
+    "texelsPerMetre": 369,
+    "size": [
+      0.7,
+      0.1246,
+      1.0646
+    ]
+  },
+  "Mochila": {
+    "triangles": 9144,
+    "texelsPerMetre": 225,
+    "size": [
+      0.3721,
+      0.2743,
+      0.5339
+    ]
+  },
+  "Tamancos": {
+    "triangles": 15386,
+    "texelsPerMetre": 416,
+    "size": [
+      0.2367,
+      0.3034,
+      0.0853
+    ]
+  },
+  "Botas": {
+    "triangles": 19984,
+    "texelsPerMetre": 280,
+    "size": [
+      0.292,
+      0.3084,
+      0.3616
+    ]
+  },
+  "Mesa": {
+    "triangles": 1456,
+    "texelsPerMetre": 344,
+    "size": [
+      0.9032,
+      0.9032,
+      0.74
+    ]
+  },
+  "BalcaoCopa": {
+    "triangles": 1610,
+    "texelsPerMetre": 396,
+    "size": [
+      1.824,
+      0.6128,
+      0.98
+    ]
+  },
+  "Frigobar": {
+    "triangles": 886,
+    "texelsPerMetre": 409,
+    "size": [
+      0.5,
+      0.546,
+      0.86
+    ]
+  },
+  "Marmita": {
+    "triangles": 462,
+    "texelsPerMetre": 364,
+    "size": [
+      0.24,
+      0.16,
+      0.07
+    ]
+  },
+  "ItensCopa": {
+    "triangles": 16960,
+    "texelsPerMetre": 736,
+    "size": [
+      1.4644,
+      0.2469,
+      0.288
+    ]
+  },
+  "Relogio": {
+    "triangles": 920,
+    "texelsPerMetre": 918,
+    "size": [
+      0.3,
+      0.0427,
+      0.3
+    ]
+  },
+  "RelogioMostrador": {
+    "triangles": 46,
+    "texelsPerMetre": 0,
+    "size": [
+      0.272,
+      0.0,
+      0.272
+    ]
+  },
+  "QuadroAvisos": {
+    "triangles": 708,
+    "texelsPerMetre": 295,
+    "size": [
+      0.9,
+      0.022,
+      0.6
+    ]
+  },
+  "JalecoV2": {
+    "triangles": 45800,
+    "texelsPerMetre": 781,
+    "size": [
+      0.6194,
+      0.145,
+      1.028
+    ]
+  }
+}

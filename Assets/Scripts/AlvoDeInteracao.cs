@@ -30,6 +30,8 @@ public abstract class AlvoDeInteracao : MonoBehaviour
 
     protected virtual void OnGUI()
     {
+        // Só GUI.* aqui e nas interfaces: sem o passe de Layout, que alocava a cada frame por componente.
+        useGUILayout = false;
         if (MiraDeInteracao.Alvo == this) MiraDeInteracao.Indicar(Tecla, Indicacao);
     }
 }

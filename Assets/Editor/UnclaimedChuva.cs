@@ -373,7 +373,10 @@ public static class UnclaimedChuva
                 Vector3 origin = new Vector3(MinX + (x + 0.5f) * Cell, FloorProbe, MinZ + (z + 0.5f) * Cell);
                 int n = physics.Raycast(origin, Vector3.down, hits, FloorProbe + 1, ~0, QueryTriggerInteraction.Ignore);
                 for (int h = 0; h < n; h++)
+                    // The generated Pisos group also contains the service patio. A new outdoor canopy
+                    // shelters its floor from drops without turning that floor into building interior.
                     if (sources.TryGetValue(hits[h].collider, out MeshRenderer renderer) && UnderGroup(renderer.transform, "Pisos")
+                        && !renderer.name.StartsWith("Piso - Patio de servico", StringComparison.Ordinal)
                         && heights[index] > hits[h].point.y + 2) { interior[index] = true; break; }
             }
         GameObject building = FindRoot(scene, "Unclaimed - Necroterio (planta)");

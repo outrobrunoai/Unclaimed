@@ -1,0 +1,95 @@
+{
+  "routes": [
+    {
+      "route": "vestibulo",
+      "samples": 23,
+      "blockedBy": []
+    },
+    {
+      "route": "camara-fria",
+      "samples": 21,
+      "blockedBy": []
+    },
+    {
+      "route": "patio",
+      "samples": 12,
+      "blockedBy": []
+    },
+    {
+      "route": "sul-da-maca",
+      "samples": 33,
+      "blockedBy": []
+    },
+    {
+      "route": "norte-da-maca",
+      "samples": 33,
+      "blockedBy": []
+    },
+    {
+      "route": "acesso-bancada",
+      "samples": 5,
+      "blockedBy": []
+    }
+  ],
+  "clueReachable": true,
+  "clueFirstHit": "Pista - instrumento deslocado",
+  "clueDistance": 0.8969083,
+  "missingMeshes": [],
+  "badMaterials": [],
+  "instances": [
+    {
+      "name": "Maca de recebimento",
+      "prefab": "Assets/Modelos/Recebimento/Prefabs/MacaRecebimento.prefab",
+      "position": "(8.00, 0.00, 8.38)"
+    },
+    {
+      "name": "Pia de lavagem de corpos",
+      "prefab": "Assets/Modelos/Recebimento/Prefabs/EstacaoLavagem.prefab",
+      "position": "(3.90, 0.00, 8.40)"
+    },
+    {
+      "name": "Bancada com pia - recebimento",
+      "prefab": "Assets/Modelos/Recebimento/Prefabs/BancadaRecebimento.prefab",
+      "position": "(6.00, 0.00, 11.04)"
+    },
+    {
+      "name": "Mesa auxiliar",
+      "prefab": "Assets/Modelos/Recebimento/Prefabs/CarroAuxiliar.prefab",
+      "position": "(12.18, 0.00, 10.95)"
+    },
+    {
+      "name": "Corpo provisório - recebimento",
+      "prefab": "Assets/Modelos/Recebimento/Prefabs/CorpoCoberto.prefab",
+      "position": "(8.00, 0.00, 8.38)"
+    },
+    {
+      "name": "SuporteEPI",
+      "prefab": "Assets/Modelos/Recebimento/Prefabs/SuporteEPI.prefab",
+      "position": "(7.85, 1.22, 11.37)"
+    },
+    {
+      "name": "LixeiraClinica",
+      "prefab": "Assets/Modelos/Recebimento/Prefabs/LixeiraClinica.prefab",
+      "position": "(7.37, 0.00, 11.10)"
+    },
+    {
+      "name": "KitBancada",
+      "prefab": "Assets/Modelos/Recebimento/Prefabs/KitBancada.prefab",
+      "position": "(6.45, 0.90, 11.04)"
+    },
+    {
+      "name": "Saboneteira",
+      "prefab": "Assets/Modelos/WC/Saboneteira.prefab",
+      "position": "(5.00, 1.32, 11.37)"
+    },
+    {
+      "name": "Toalheiro de papel",
+      "prefab": "Assets/Modelos/WC/Toalheiro de papel.prefab",
+      "position": "(6.46, 1.54, 11.37)"
+    }
+  ],
+  "lights": 47,
+  "lightsUnchanged": true,
+  "lightmaps": 3,
+  "temporaryCameras": []
+}

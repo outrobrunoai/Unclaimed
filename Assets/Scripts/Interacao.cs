@@ -165,24 +165,41 @@ public class ObjetoInspecionavel : MonoBehaviour
 
     // A "mira" é um raio que sai do centro da câmera. Só vale se o primeiro objeto sólido
     // atingido for este (paredes e outros objetos na frente bloqueiam).
-    static readonly RaycastHit[] acertos = new RaycastHit[32];
+    // O raio é o mesmo para todas as pistas no frame: cada combinação de alcance e folga é lançada
+    // uma vez só e as outras pistas reaproveitam os acertos.
+    sealed class Lance
+    {
+        public int frame = -1, n;
+        public float distancia, folga;
+        public readonly RaycastHit[] acertos = new RaycastHit[32];
+    }
+    static readonly System.Collections.Generic.List<Lance> lances = new System.Collections.Generic.List<Lance>();
+
+    static Lance Lancar(Ray raio, float distancia, float folga)
+    {
+        Lance lance = null;
+        foreach (Lance l in lances)
+            if (l.distancia == distancia && l.folga == folga) { lance = l; break; }
+        if (lance == null) lances.Add(lance = new Lance { distancia = distancia, folga = folga });
+        if (lance.frame != Time.frameCount)
+        {
+            lance.frame = Time.frameCount;
+            lance.n = folga > 0f
+                ? Physics.SphereCastNonAlloc(raio, folga, lance.acertos, distancia, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide)
+                : Physics.RaycastNonAlloc(raio, lance.acertos, distancia, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);
+        }
+        return lance;
+    }
 
     bool EstaApontando(Camera c, out float distancia)
     {
         var raio = new Ray(c.transform.position, c.transform.forward);
 
         // 1) Mira exata (centro da tela).
-        int n = Physics.RaycastNonAlloc(raio, acertos, distanciaMaxima,
-            Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);
-        if (Avaliar(n, out distancia)) return true;
+        if (Avaliar(Lancar(raio, distanciaMaxima, 0f), out distancia)) return true;
 
         // 2) Com folga, para facilitar a mira em objetos pequenos.
-        if (folgaDaMira > 0f)
-        {
-            n = Physics.SphereCastNonAlloc(raio, folgaDaMira, acertos, distanciaMaxima,
-                Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);
-            if (Avaliar(n, out distancia)) return true;
-        }
+        if (folgaDaMira > 0f && Avaliar(Lancar(raio, distanciaMaxima, folgaDaMira), out distancia)) return true;
 
         distancia = 0f;
         return false;
@@ -190,14 +207,14 @@ public class ObjetoInspecionavel : MonoBehaviour
 
     // Entre tudo que o raio atravessou: este objeto precisa estar mais perto do que qualquer
     // coisa sólida. Triggers de outros objetos (zonas de evento etc.) não bloqueiam a mira.
-    bool Avaliar(int n, out float distancia)
+    bool Avaliar(Lance lance, out float distancia)
     {
         float meu = float.MaxValue;
         float bloqueio = float.MaxValue;
 
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < lance.n; i++)
         {
-            RaycastHit h = acertos[i];
+            RaycastHit h = lance.acertos[i];
             if (h.collider == null) continue;
             if (h.distance <= 0f) continue; // já estava sobreposto na origem (ex.: o próprio jogador)
 
@@ -696,6 +713,7 @@ public class ObjetoInspecionavel : MonoBehaviour
     // ---------- Interface simples (sem precisar criar Canvas) ----------
     void OnGUI()
     {
+        useGUILayout = false;   // só GUI.*: sem o passe de Layout nem a alocação dele a cada frame
         bool mostrandoAviso = emInspecao == null && melhor == this;
         bool inspecionando = emInspecao == this;
         if (!mostrandoAviso && !inspecionando) return;
