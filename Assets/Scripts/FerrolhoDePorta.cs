@@ -4,7 +4,7 @@ using UnityEngine;
 /// Ferrolho no lado de dentro de uma porta trancada: ao interagir, recolhe o trinco e destrava a folha
 /// de vez (ela nunca volta a trancar). Do lado de fora, quem responde é a própria FolhaDePorta trancada.
 /// </summary>
-public class FerrolhoDePorta : AlvoDeInteracao
+public class FerrolhoDePorta : AlvoDeInteracao, ISalvavel
 {
     public FolhaDePorta porta;
     [Tooltip("Parte móvel do ferrolho.")] public Transform trinco;
@@ -39,6 +39,18 @@ public class FerrolhoDePorta : AlvoDeInteracao
         if (fonte != null && somAbrir != null) fonte.PlayOneShot(somAbrir);
         MiraDeInteracao.Avisar(avisoAberto);
         // Sem collider, a mira volta a achar a folha por trás e a abre/fecha normalmente.
+        foreach (Collider c in GetComponentsInChildren<Collider>()) c.enabled = false;
+    }
+
+    // Save: só se já foi aberto. A tranca da folha é salva pela própria FolhaDePorta.
+    public string Salvar() => liberado ? "1" : "0";
+
+    public void Carregar(string estado)
+    {
+        if (estado != "1" || liberado) return;
+        liberado = true;
+        progresso = 1f;
+        if (trinco != null) trinco.localPosition = origem + deslocamento;
         foreach (Collider c in GetComponentsInChildren<Collider>()) c.enabled = false;
     }
 

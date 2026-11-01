@@ -26,6 +26,16 @@ public class BotaoSangueHover : MonoBehaviour, IPointerEnterHandler, IPointerExi
         }
     }
 
+    // Menu escondido (ex.: abriu as opções) com o mouse em cima: o OnPointerExit não chega, então apaga aqui
+    void OnDisable()
+    {
+        corrotinaAtual = null;
+        if (rastroSangueImage != null)
+        {
+            rastroSangueImage.fillAmount = 0f;
+        }
+    }
+
     // Chamado automaticamente quando o mouse entra no botão
     public void OnPointerEnter(PointerEventData eventData)
     {

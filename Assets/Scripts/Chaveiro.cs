@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Chaves e itens de acesso que o jogador carrega, por identificador ("chave_circulacao"). Estado só desta
-/// sessão de jogo: o projeto ainda não tem salvamento, então reinicia ao sair do Play Mode. Não é um inventário:
-/// só responde "tem / não tem".
+/// Chaves e itens de acesso que o jogador carrega, por identificador ("chave_circulacao"). O Salvamento grava e
+/// restaura a lista; Novo jogo e Continuar a limpam antes. Não é um inventário: só responde "tem / não tem".
 /// </summary>
 public static class Chaveiro
 {
@@ -12,6 +11,8 @@ public static class Chaveiro
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void Reiniciar() => itens.Clear();
+
+    public static void Limpar() => itens.Clear();
 
     public static bool Tem(string id) => !string.IsNullOrEmpty(id) && itens.Contains(id);
 

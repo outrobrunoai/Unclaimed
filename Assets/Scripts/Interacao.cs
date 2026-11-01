@@ -21,7 +21,7 @@ using UnityEngine.InputSystem;
 /// scroll) não gira nem aproxima o objeto. Opcionalmente o original fica oculto durante a inspeção (sem
 /// duplicata visível) e o Movimento do jogador é travado sem precisar ligá-lo no Inspector.
 /// </summary>
-public class ObjetoInspecionavel : MonoBehaviour
+public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
 {
     [Header("Informações da pista")]
     public string nome = "Pista";
@@ -356,6 +356,10 @@ public class ObjetoInspecionavel : MonoBehaviour
         Abrir();
         return emInspecao == this;
     }
+
+    // Save: já examinada (aoPrimeiraInspecao não dispara de novo depois de continuar o jogo).
+    public string Salvar() => jaExaminado ? "1" : "0";
+    public void Carregar(string estado) => jaExaminado = estado == "1";
 
     /// <summary>Encerra a inspeção deste objeto (se estiver aberta), devolvendo controles e cursor.</summary>
     public void EncerrarInspecao()

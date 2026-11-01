@@ -19,7 +19,7 @@ using UnityEngine.InputSystem;
 /// por cima do tampo e é deitado nele. Só então a aba do fecho gira para fora e as portas são liberadas.
 /// </summary>
 [RequireComponent(typeof(ObjetoInspecionavel))]
-public class CadeadoCombinacao : MonoBehaviour, IManipulavelNaInspecao
+public class CadeadoCombinacao : MonoBehaviour, IManipulavelNaInspecao, ISalvavel
 {
     [Header("Combinação")]
     [Tooltip("Quatro dígitos que abrem o cadeado.")]
@@ -163,6 +163,45 @@ public class CadeadoCombinacao : MonoBehaviour, IManipulavelNaInspecao
 
     /// <summary>Compatibilidade: o mesmo que puxar o arco.</summary>
     public bool TentarAbrir() => PuxarArco();
+
+    // ---------- Save (ISalvavel) ----------
+
+    [System.Serializable] struct EstadoSalvo { public string digitos; public bool destrancado; }
+
+    public string Salvar() => JsonUtility.ToJson(new EstadoSalvo { digitos = Atual, destrancado = destrancado });
+
+    /// <summary>Dígitos como estavam; aberto vai direto para a pose final da retirada (sem animação).</summary>
+    public void Carregar(string estado)
+    {
+        var e = JsonUtility.FromJson<EstadoSalvo>(estado);
+        for (int i = 0; i < 4; i++)
+            if (e.digitos != null && e.digitos.Length > i && char.IsDigit(e.digitos[i]))
+            {
+                alvo[i] = e.digitos[i] - '0';
+                visual[i] = inicioVisual[i] = alvo[i];
+            }
+        if (e.destrancado && !destrancado) RestaurarAberto();
+        Aplicar();
+    }
+
+    void RestaurarAberto()
+    {
+        destrancado = true;
+        retirando = puxando = false;
+        arcoAtual = cursoDoArco.magnitude;
+        if (inspecao != null) inspecao.enabled = false;
+        foreach (Collider c in GetComponentsInChildren<Collider>()) c.enabled = false;
+
+        // Mesma pose final de Abrir().
+        Vector3 p0 = transform.localPosition;
+        Quaternion r0 = transform.localRotation;
+        Vector3 pFora = p0 + Vector3.up * subidaParaSoltar + frente.normalized * afastamento;
+        Vector3 pouso = pousoAberto != null ? transform.parent.InverseTransformPoint(pousoAberto.position) : pFora;
+        Quaternion rPouso = pousoAberto != null ? Quaternion.Inverse(transform.parent.rotation) * pousoAberto.rotation : r0;
+        transform.SetLocalPositionAndRotation(pouso, rPouso);
+        if (abaDoFecho != null) abaDoFecho.localRotation *= Quaternion.AngleAxis(giroDaAba, Vector3.up);
+        foreach (PecaDeMovel p in portas) if (p != null) p.trancada = false;
+    }
 
     // ---------- Animação ----------
 

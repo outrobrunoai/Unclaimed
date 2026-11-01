@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
+    path: Assets/Scenes/main.unity
+    guid: 25a63479f9a60cf499e8172d90c98698
+  - enabled: 1
+    path: Assets/Scenes/PrototipoNecroterio.unity
+    guid: 9a0bd98f41d5454a0ab6a3b0194980e0
+  - enabled: 0
     path: Assets/Morgue.unity
     guid: c16fe44c187b99421b882054f6b87dd3
   - enabled: 0

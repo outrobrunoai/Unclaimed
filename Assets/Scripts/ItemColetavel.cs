@@ -6,7 +6,7 @@ using UnityEngine;
 /// registra a posse no Chaveiro, mostra um aviso curto e sai do cenário. Não coleta duas vezes.
 /// </summary>
 [DisallowMultipleComponent]
-public class ItemColetavel : AlvoDeInteracao
+public class ItemColetavel : AlvoDeInteracao, ISalvavel
 {
     [Tooltip("Identificador da posse (o mesmo que a porta pede).")]
     public string id = "chave_circulacao";
@@ -27,5 +27,13 @@ public class ItemColetavel : AlvoDeInteracao
         if (somColeta != null) AudioSource.PlayClipAtPoint(somColeta, transform.position);
         MiraDeInteracao.Avisar(aviso);
         gameObject.SetActive(false);
+    }
+
+    // Save: coletado = já saiu do cenário (a posse em si vai no Chaveiro).
+    public string Salvar() => gameObject.activeSelf ? "0" : "1";
+
+    public void Carregar(string estado)
+    {
+        if (estado == "1") gameObject.SetActive(false);
     }
 }

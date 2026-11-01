@@ -24,7 +24,7 @@ using UnityEngine.Events;
 /// Bloqueada, a folha fica parada até nova interação (que inverte o sentido).
 /// </summary>
 [DisallowMultipleComponent]
-public class FolhaDePorta : AlvoDeInteracao
+public class FolhaDePorta : AlvoDeInteracao, ISalvavel
 {
     [Header("Movimento (giro em torno de eixoLocal, no espaço do objeto pai)")]
     [Tooltip("Eixo de giro no espaço do pai. Para portas comuns: (0, 1, 0).")]
@@ -122,6 +122,22 @@ public class FolhaDePorta : AlvoDeInteracao
         trancada = false;   // a chave fica com o jogador; a porta continua destrancada nesta sessão
         Tocar(somDestrancar);
         MiraDeInteracao.Avisar(avisoDestrancada);
+    }
+
+    // Save: abertura (para onde ia, se estava em movimento) e tranca.
+    [Serializable] struct EstadoSalvo { public float abertura; public bool trancada; }
+
+    public string Salvar() =>
+        JsonUtility.ToJson(new EstadoSalvo { abertura = movendo ? destino : abertura, trancada = trancada });
+
+    public void Carregar(string estado)
+    {
+        var e = JsonUtility.FromJson<EstadoSalvo>(estado);
+        trancada = e.trancada;
+        abertura = destino = Mathf.Clamp(e.abertura, 0f, anguloMaximo);
+        movendo = bloqueada = false;
+        iniciada = true;
+        AplicarRotacao(abertura);
     }
 
     /// <summary>Destranca sem chave (ex.: ferrolho do outro lado). Não volta a trancar.</summary>

@@ -143577,6 +143577,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7861691286291208383, guid: d66fc21c506ebba78b3637532770eb95, type: 3}
   m_PrefabInstance: {fileID: 852520432}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &853382224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 853382226}
+  - component: {fileID: 853382225}
+  m_Layer: 0
+  m_Name: Menudepausa
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &853382225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853382224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c55e90cd7c2dec64c94d2c14c93876a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuPausa
+  cenaDoMenu: main
+  fonte: {fileID: 11400000, guid: 868ea6c7cc7b6dc4ba9be3324c47d56d, type: 2}
+  corTexto: {r: 0.82, g: 0.82, b: 0.82, a: 1}
+  corDestaque: {r: 0.62, g: 0.06, b: 0.05, a: 1}
+  corPainel: {r: 0.03, g: 0.05, b: 0.05, a: 0.92}
+--- !u!4 &853382226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853382224}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 559.32007, y: 419.72855, z: 1723.4221}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &853722464
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -312641,12 +312690,19 @@ MonoBehaviour:
   camera: {fileID: 43220424}
   entradasJogador: {x: 0, y: 0}
   olhar: {x: 0, y: 0}
-  velocidadeJogador: 4
+  velocidadeJogador: 2.3
   sensibilidadeMouse: 5
-  velocidadeAgachado: 2
+  velocidadeAgachado: 1.15
   alturaAgachado: 1
   velocidadeTransicao: 10
   gravidade: -9.81
+  comprimentoDoPasso: 1.3
+  comprimentoDoPassoAgachado: 0.75
+  balancoVertical: 0.035
+  balancoLateral: 0.02
+  balancoInclinacao: 0.4
+  multiplicadorAgachado: 0.6
+  suavidadeBalanco: 6
 --- !u!143 &1821500670
 CharacterController:
   m_ObjectHideFlags: 0
@@ -312665,7 +312721,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
+  m_Height: 1.8
   m_Radius: 0.35
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -371589,3 +371645,4 @@ SceneRoots:
   - {fileID: 255260060}
   - {fileID: 207054974}
   - {fileID: 603972546}
+  - {fileID: 853382226}

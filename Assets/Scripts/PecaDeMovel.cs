@@ -17,7 +17,7 @@ using UnityEngine;
 /// livre. Não empurra ninguém.
 /// </summary>
 [DisallowMultipleComponent]
-public class PecaDeMovel : AlvoDeInteracao
+public class PecaDeMovel : AlvoDeInteracao, ISalvavel
 {
     public enum TipoDePeca { Gaveta, Porta }
 
@@ -109,6 +109,22 @@ public class PecaDeMovel : AlvoDeInteracao
     public void Alternar() { if (!trancada) IrPara(destino > 0f ? 0f : Maximo); }
     public void Abrir() { if (!trancada) IrPara(Maximo); }
     public void Fechar() => IrPara(0f);
+
+    // Save: abertura (para onde ia, se estava em movimento) e tranca.
+    [Serializable] struct EstadoSalvo { public float abertura; public bool trancada; }
+
+    public string Salvar() =>
+        JsonUtility.ToJson(new EstadoSalvo { abertura = movendo ? destino : abertura, trancada = trancada });
+
+    public void Carregar(string estado)
+    {
+        Iniciar();
+        var e = JsonUtility.FromJson<EstadoSalvo>(estado);
+        trancada = e.trancada;
+        abertura = destino = Mathf.Clamp(e.abertura, 0f, Maximo);
+        movendo = bloqueada = false;
+        Aplicar(abertura);
+    }
 
     /// <summary>Fecha na hora, sem animação (estado de partida).</summary>
     public void FecharImediatamente()
