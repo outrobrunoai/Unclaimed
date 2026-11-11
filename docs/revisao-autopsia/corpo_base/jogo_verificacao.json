@@ -1,0 +1,15 @@
+{
+  "reduzidos_visiveis": 1,
+  "olhos_player": 216,
+  "corpo_vertices_vistos": 3729,
+  "corpo_vertices_mantidos": 5713,
+  "corpo_tris_fonte": 26756,
+  "corpo_tris_jogo": 16404,
+  "lencol_tris_fonte": 22736,
+  "lencol_tris_jogo": 10230,
+  "corpo_atravessa_lencol": 0,
+  "folga_min_mm": 4.31,
+  "corpo_abaixo_do_aco": 0,
+  "adesivo_tris": 96,
+  "etiqueta_tris": 676
+}

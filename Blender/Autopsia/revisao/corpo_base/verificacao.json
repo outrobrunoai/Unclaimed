@@ -1,0 +1,59 @@
+{
+  "altura_m": 1.757,
+  "vertices": 13380,
+  "contato_vertices": 1056,
+  "abaixo_do_aco": 0,
+  "cabeca_z_min": 0.9502,
+  "apoio_cabeca_z": 0.9487,
+  "mao_dir_y": [
+    -0.319,
+    -0.22
+  ],
+  "mao_esq_y": [
+    0.22,
+    0.32
+  ],
+  "pes_x_max": 0.664,
+  "coroa_x": -1.135,
+  "maos_folga_m": {
+    "inclinacao_l": -6.5,
+    "polegar_l": 0.001,
+    "mao_l": 0.0008,
+    "palma_l": 0.0093,
+    "thumb_l": 0.001,
+    "index_l": 0.0053,
+    "middle_l": 0.0009,
+    "ring_l": 0.0008,
+    "pinky_l": 0.0016,
+    "inclinacao_r": -7.2,
+    "polegar_r": 0.0014,
+    "mao_r": 0.0008,
+    "palma_r": 0.0095,
+    "thumb_r": 0.0014,
+    "index_r": 0.0071,
+    "middle_r": 0.0025,
+    "ring_r": 0.0008,
+    "pinky_r": 0.0035
+  },
+  "maos_excluidas_do_assentamento": 3560,
+  "punho_l": [
+    -0.275,
+    0.262,
+    0.939
+  ],
+  "cotovelo_l": [
+    -0.54,
+    0.25,
+    0.972
+  ],
+  "punho_r": [
+    -0.275,
+    -0.262,
+    0.939
+  ],
+  "cotovelo_r": [
+    -0.54,
+    -0.25,
+    0.972
+  ]
+}

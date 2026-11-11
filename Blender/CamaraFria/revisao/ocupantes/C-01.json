@@ -1,0 +1,49 @@
+{
+  "altura_m": 1.748,
+  "coroa_y": 0.215,
+  "pes_y": 2.007,
+  "largura": [
+    -0.238,
+    0.244
+  ],
+  "topo_z": 0.34,
+  "contato_bandeja": 934,
+  "antebracos_assentados": 372,
+  "abaixo_da_bandeja": 0,
+  "vertices_braco": 4246,
+  "vertices_antebraco_mao": 3720,
+  "punho_l": [
+    0.06,
+    0.754,
+    0.316
+  ],
+  "cotovelo_l": [
+    -0.173,
+    0.807,
+    0.212
+  ],
+  "punho_r": [
+    -0.05,
+    0.874,
+    0.307
+  ],
+  "cotovelo_r": [
+    0.175,
+    0.811,
+    0.191
+  ],
+  "tecido_aparado": 2503,
+  "envelope_x": [
+    -0.297,
+    0.297
+  ],
+  "envelope_z_max": 0.346,
+  "envelope_z_min": -0.029,
+  "tecido_fora_trilhos": 0,
+  "tecido_y": [
+    0.079,
+    2.059
+  ],
+  "tecido_dentro_do_corpo": 2,
+  "cabeca_coberta": 0.986
+}

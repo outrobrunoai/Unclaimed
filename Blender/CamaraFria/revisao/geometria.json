@@ -1,0 +1,26 @@
+[
+  {
+    "rollerTop": 0.312,
+    "stageAngleDegrees": 1.417,
+    "stageRise": 0.0225,
+    "span": 0.9097,
+    "carCenterY": -1.01,
+    "cabinetGap": 0.02
+  },
+  {
+    "rollerTop": 1.062,
+    "stageAngleDegrees": 25.901,
+    "stageRise": 0.3975,
+    "span": 0.8186,
+    "carCenterY": -1.01,
+    "cabinetGap": 0.02
+  },
+  {
+    "rollerTop": 1.812,
+    "stageAngleDegrees": 58.092,
+    "stageRise": 0.7725,
+    "span": 0.481,
+    "carCenterY": -1.01,
+    "cabinetGap": 0.02
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "presos_na_bandeja": 3166,
+  "deriva_ultimos_10_quadros_mm": 6.0,
+  "lencol_dentro_mesa": 0,
+  "etiqueta_dist_max_mm": 3.72,
+  "etiqueta_centro": [
+    -0.408,
+    0.398,
+    0.927
+  ],
+  "lencol_z_min": 0.438,
+  "lencol_y": [
+    0.113,
+    0.486
+  ],
+  "lencol_tris_fonte": 22736,
+  "lencol_tris": 10230,
+  "etiqueta_tris": 676,
+  "sola_tris": 2
+}

@@ -1,0 +1,27 @@
+{
+  "dorso_mao_direita_exposto": [
+    0.987,
+    1060
+  ],
+  "antebraco_esquerdo_exposto": [
+    0.698,
+    126
+  ],
+  "cabeca_coberta": 1.0,
+  "cabeca_visivel_do_player": 0.0,
+  "lencol_dentro": {
+    "corpo": 0,
+    "mesa": 0
+  },
+  "bainha_sul": {
+    "-0.45": -0.274,
+    "-0.3": -0.247,
+    "-0.2": -0.216
+  },
+  "bainha_norte": {
+    "-0.5": 0.256,
+    "-0.4": 0.239,
+    "-0.3": 0.224
+  },
+  "lencol_tris": 22736
+}

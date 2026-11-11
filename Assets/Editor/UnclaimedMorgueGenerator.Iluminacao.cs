@@ -93,7 +93,7 @@ public static partial class UnclaimedMorgueGenerator
         {
             count[room] = count.TryGetValue(room, out int n) ? n + 1 : 1;
             CeilingFixture(Sub(ceilingRoot, "Luminarias - " + room), "Luz - " + room + " - luminaria " + count[room],
-                "Luminaria " + count[room], x, z, 0, intensity, kelvin, false, alongZ, model: room == "Sala tecnica" || room == "Deposito" || room == "WC" || room == "Arquivo e escritorio" || room == "Recebimento de corpos");
+                "Luminaria " + count[room], x, z, 0, intensity, kelvin, false, alongZ, model: room == "Sala tecnica" || room == "Deposito" || room == "WC" || room == "Arquivo e escritorio" || room == "Recebimento de corpos" || room == "Camara fria");
         }
 
         // Outside: a wall lamp over the main entrance and two floodlights on the building over the yard.
@@ -517,6 +517,10 @@ public static partial class UnclaimedMorgueGenerator
             foreach (float z in new[] { -12.8f, -14.0f, -15.5f })
                 foreach (float h in new[] { 0.4f, 1.8f })
                     points.Add(new Vector3(x, h, z));
+        // Replace, never add: the room updates (Descanso, Circulacao) call this on an existing map, and each call
+        // used to stack another identical grid. "Sondas de luz - entorno" has its own name and is not touched.
+        foreach (Transform old in Children(lightsGroup))
+            if (old.name == "Sondas de luz") Undo.DestroyObjectImmediate(old.gameObject);
         var obj = new GameObject("Sondas de luz");
         Undo.RegisterCreatedObjectUndo(obj, "Create light probes");
         obj.transform.SetParent(lightsGroup, false);
@@ -527,6 +531,9 @@ public static partial class UnclaimedMorgueGenerator
     private static void ReflectionProbes(List<Zone> zones)
     {
         Transform group = Sub(lightsGroup, "Sondas de reflexo");
+        // Replace, never add (same reason as LightProbeGrid): everything in this group is created right below.
+        // The autopsy room's custom probe lives in its room, outside this group.
+        foreach (Transform old in Children(group)) Undo.DestroyObjectImmediate(old.gameObject);
         foreach (Zone zone in zones)
         {
             if (zone.Kind != Kind.Interior || zone.Name == "Autopsia") continue;

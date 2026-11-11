@@ -1,0 +1,244 @@
+{
+  "BancadaAutopsia": {
+    "triangles": 11436,
+    "texelsPerMetre": 254,
+    "size": [
+      3.82,
+      0.6552,
+      1.2128
+    ],
+    "bounds": [
+      [
+        -1.91,
+        -0.6552,
+        0.0
+      ],
+      [
+        1.91,
+        0.0,
+        1.2128
+      ]
+    ],
+    "degenerate": 0
+  },
+  "ArmarioSuspenso": {
+    "triangles": 7380,
+    "texelsPerMetre": 269,
+    "size": [
+      1.6,
+      0.33,
+      0.7
+    ],
+    "bounds": [
+      [
+        -0.8,
+        -0.33,
+        0.0
+      ],
+      [
+        0.8,
+        0.0,
+        0.7
+      ]
+    ],
+    "degenerate": 0
+  },
+  "ArmarioSuspensoVidro": {
+    "triangles": 132,
+    "texelsPerMetre": 0,
+    "size": [
+      1.568,
+      0.307,
+      0.64
+    ],
+    "bounds": [
+      [
+        -0.784,
+        -0.323,
+        0.03
+      ],
+      [
+        0.784,
+        -0.016,
+        0.67
+      ]
+    ],
+    "degenerate": 0
+  },
+  "ArmarioInstrumental": {
+    "triangles": 8588,
+    "texelsPerMetre": 363,
+    "size": [
+      1.41,
+      0.5042,
+      1.95
+    ],
+    "bounds": [
+      [
+        -0.705,
+        -0.5042,
+        0.0
+      ],
+      [
+        0.705,
+        0.0,
+        1.95
+      ]
+    ],
+    "degenerate": 0
+  },
+  "ArmarioInstrumentalVidro": {
+    "triangles": 176,
+    "texelsPerMetre": 0,
+    "size": [
+      1.36,
+      0.444,
+      0.99
+    ],
+    "bounds": [
+      [
+        -0.68,
+        -0.464,
+        0.908
+      ],
+      [
+        0.68,
+        -0.02,
+        1.898
+      ]
+    ],
+    "degenerate": 0
+  },
+  "LavatorioJoelho": {
+    "triangles": 5694,
+    "texelsPerMetre": 424,
+    "size": [
+      0.6,
+      0.478,
+      0.7734
+    ],
+    "bounds": [
+      [
+        -0.3,
+        -0.478,
+        0.468
+      ],
+      [
+        0.3,
+        0.0,
+        1.2414
+      ]
+    ],
+    "degenerate": 0
+  },
+  "BalancaVisceras": {
+    "triangles": 11024,
+    "texelsPerMetre": 682,
+    "size": [
+      0.343,
+      0.5215,
+      0.87
+    ],
+    "bounds": [
+      [
+        -0.1715,
+        -0.5215,
+        1.23
+      ],
+      [
+        0.1715,
+        0.0,
+        2.1
+      ]
+    ],
+    "degenerate": 0
+  },
+  "LuminariaExame": {
+    "triangles": 7184,
+    "texelsPerMetre": 559,
+    "size": [
+      0.91,
+      0.4948,
+      1.2225
+    ],
+    "bounds": [
+      [
+        -0.085,
+        -0.2474,
+        -1.2225
+      ],
+      [
+        0.825,
+        0.2474,
+        0.0
+      ]
+    ],
+    "degenerate": 0
+  },
+  "LuminariaExameLente": {
+    "triangles": 128,
+    "texelsPerMetre": 0,
+    "size": [
+      0.388,
+      0.388,
+      0.0
+    ],
+    "bounds": [
+      [
+        0.426,
+        -0.194,
+        -1.139
+      ],
+      [
+        0.814,
+        0.194,
+        -1.139
+      ]
+    ],
+    "degenerate": 0
+  },
+  "ComandoLuminaria": {
+    "triangles": 2684,
+    "texelsPerMetre": 417,
+    "size": [
+      0.09,
+      2.2793,
+      1.96
+    ],
+    "bounds": [
+      [
+        -0.045,
+        -2.2793,
+        1.24
+      ],
+      [
+        0.045,
+        0.0,
+        3.2
+      ]
+    ],
+    "degenerate": 0
+  },
+  "QuadroBranco": {
+    "triangles": 1412,
+    "texelsPerMetre": 718,
+    "size": [
+      0.8,
+      0.062,
+      0.612
+    ],
+    "bounds": [
+      [
+        -0.4,
+        -0.062,
+        1.088
+      ],
+      [
+        0.4,
+        0.0,
+        1.7
+      ]
+    ],
+    "degenerate": 0
+  }
+}

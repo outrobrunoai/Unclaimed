@@ -1,0 +1,172 @@
+{
+  "ModuloCamara": {
+    "triangles": 23116,
+    "texelsPerMetre": 154,
+    "size": [
+      2.33,
+      2.386,
+      1.69
+    ],
+    "degenerate": 0
+  },
+  "PortaCompartimentoD": {
+    "triangles": 3074,
+    "texelsPerMetre": 575,
+    "size": [
+      0.823,
+      0.1332,
+      0.55
+    ],
+    "degenerate": 0
+  },
+  "PortaCompartimentoE": {
+    "triangles": 3074,
+    "texelsPerMetre": 573,
+    "size": [
+      0.823,
+      0.1332,
+      0.55
+    ],
+    "degenerate": 0
+  },
+  "TrilhoIntermediario": {
+    "triangles": 824,
+    "texelsPerMetre": 235,
+    "size": [
+      0.698,
+      1.86,
+      0.034
+    ],
+    "degenerate": 0
+  },
+  "MacaCompartimento": {
+    "triangles": 4636,
+    "texelsPerMetre": 349,
+    "size": [
+      0.676,
+      2.0527,
+      0.1082
+    ],
+    "degenerate": 0
+  },
+  "ControladorCamara": {
+    "triangles": 1268,
+    "texelsPerMetre": 1109,
+    "size": [
+      0.204,
+      0.0775,
+      0.166
+    ],
+    "degenerate": 0
+  },
+  "QuadroOcupacao": {
+    "triangles": 928,
+    "texelsPerMetre": 388,
+    "size": [
+      0.636,
+      0.065,
+      0.501
+    ],
+    "degenerate": 0
+  },
+  "InstalacoesCamara": {
+    "triangles": 11394,
+    "texelsPerMetre": 195,
+    "size": [
+      4.1245,
+      2.87,
+      2.677
+    ],
+    "degenerate": 0,
+    "bakeSeconds": 2.4,
+    "bakePasses": {
+      "base": 0.4,
+      "rough": 0.4,
+      "metal": 0.3,
+      "normal": 0.5,
+      "ao": 0.8
+    }
+  },
+  "UnidadeCondensadora": {
+    "triangles": 3944,
+    "texelsPerMetre": 341,
+    "size": [
+      1.1609,
+      0.42,
+      1.3312
+    ],
+    "degenerate": 0
+  },
+  "ModuloTorre": {
+    "triangles": 15678,
+    "texelsPerMetre": 173,
+    "size": [
+      1.165,
+      2.386,
+      2.44
+    ],
+    "degenerate": 0,
+    "bakeSeconds": 23.8,
+    "bakePasses": {
+      "base": 2.0,
+      "rough": 2.0,
+      "metal": 1.2,
+      "normal": 6.1,
+      "ao": 12.5
+    }
+  },
+  "CarroElevador": {
+    "triangles": 18636,
+    "texelsPerMetre": 161,
+    "size": [
+      0.692,
+      2.015,
+      1.267
+    ],
+    "degenerate": 0,
+    "bakeSeconds": 6.5,
+    "bakePasses": {
+      "base": 0.9,
+      "rough": 0.9,
+      "metal": 0.7,
+      "normal": 1.4,
+      "ao": 2.6
+    }
+  },
+  "SuporteBandejas": {
+    "triangles": 13284,
+    "texelsPerMetre": 154,
+    "size": [
+      2.0527,
+      0.3801,
+      1.035
+    ],
+    "degenerate": 0,
+    "bakeSeconds": 8.2,
+    "bakePasses": {
+      "base": 1.1,
+      "rough": 1.0,
+      "metal": 0.7,
+      "normal": 2.0,
+      "ao": 3.4
+    }
+  },
+  "PostoConferencia": {
+    "triangles": 4312,
+    "texelsPerMetre": 833,
+    "size": [
+      0.6,
+      0.3108,
+      0.3706
+    ],
+    "degenerate": 0,
+    "bakeSeconds": 11.0,
+    "bakePasses": {
+      "base": 1.3,
+      "rough": 1.5,
+      "metal": 0.6,
+      "normal": 2.7,
+      "ao": 4.9
+    }
+  }
+}

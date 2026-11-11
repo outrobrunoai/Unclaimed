@@ -1,0 +1,196 @@
+{
+  "dimensoes": [
+    2.33,
+    1.69,
+    2.33
+  ],
+  "compartimentos": {
+    "C-01": {
+      "coluna": 0,
+      "nivel": 1,
+      "porta": "PortaCompartimentoE",
+      "pinoPorta": [
+        -0.9945,
+        0.985,
+        -0.045
+      ],
+      "aberturaPortaGraus": 95.0,
+      "referencia": [
+        -0.5825,
+        1.05,
+        0.0
+      ],
+      "cursoMaca": 1.0,
+      "cursoIntermediario": 0.5,
+      "cursoTotal": 1.95,
+      "abertura": [
+        -0.9525,
+        1.0051,
+        -0.2125,
+        1.5149
+      ]
+    },
+    "C-02": {
+      "coluna": 1,
+      "nivel": 1,
+      "porta": "PortaCompartimentoD",
+      "pinoPorta": [
+        0.9945,
+        0.985,
+        -0.045
+      ],
+      "aberturaPortaGraus": -95.0,
+      "referencia": [
+        0.5825,
+        1.05,
+        0.0
+      ],
+      "cursoMaca": 1.0,
+      "cursoIntermediario": 0.5,
+      "cursoTotal": 1.95,
+      "abertura": [
+        0.2125,
+        1.0051,
+        0.9525,
+        1.5149
+      ]
+    },
+    "C-03": {
+      "coluna": 0,
+      "nivel": 0,
+      "porta": "PortaCompartimentoE",
+      "pinoPorta": [
+        -0.9945,
+        0.235,
+        -0.045
+      ],
+      "aberturaPortaGraus": 95.0,
+      "referencia": [
+        -0.5825,
+        0.3,
+        0.0
+      ],
+      "cursoMaca": 1.0,
+      "cursoIntermediario": 0.5,
+      "cursoTotal": 1.95,
+      "abertura": [
+        -0.9525,
+        0.2551,
+        -0.2125,
+        0.7649
+      ]
+    },
+    "C-04": {
+      "coluna": 1,
+      "nivel": 0,
+      "porta": "PortaCompartimentoD",
+      "pinoPorta": [
+        0.9945,
+        0.235,
+        -0.045
+      ],
+      "aberturaPortaGraus": -95.0,
+      "referencia": [
+        0.5825,
+        0.3,
+        0.0
+      ],
+      "cursoMaca": 1.0,
+      "cursoIntermediario": 0.5,
+      "cursoTotal": 1.95,
+      "abertura": [
+        0.2125,
+        0.2551,
+        0.9525,
+        0.7649
+      ]
+    }
+  },
+  "modulos": {
+    "ModuloTorre": {
+      "dimensoes": [
+        1.165,
+        2.44,
+        2.33
+      ],
+      "compartimentos": {
+        "C-05": {
+          "coluna": 0,
+          "nivel": 2,
+          "porta": "PortaCompartimentoE",
+          "pinoPorta": [
+            -0.412,
+            1.735,
+            -0.045
+          ],
+          "aberturaPortaGraus": 95.0,
+          "referencia": [
+            0.0,
+            1.8,
+            0.0
+          ],
+          "cursoMaca": 1.0,
+          "cursoIntermediario": 0.5,
+          "cursoTotal": 1.95,
+          "abertura": [
+            -0.37,
+            1.7551,
+            0.37,
+            2.2649
+          ]
+        },
+        "C-06": {
+          "coluna": 0,
+          "nivel": 1,
+          "porta": "PortaCompartimentoE",
+          "pinoPorta": [
+            -0.412,
+            0.985,
+            -0.045
+          ],
+          "aberturaPortaGraus": 95.0,
+          "referencia": [
+            0.0,
+            1.05,
+            0.0
+          ],
+          "cursoMaca": 1.0,
+          "cursoIntermediario": 0.5,
+          "cursoTotal": 1.95,
+          "abertura": [
+            -0.37,
+            1.0051,
+            0.37,
+            1.5149
+          ]
+        },
+        "C-07": {
+          "coluna": 0,
+          "nivel": 0,
+          "porta": "PortaCompartimentoE",
+          "pinoPorta": [
+            -0.412,
+            0.235,
+            -0.045
+          ],
+          "aberturaPortaGraus": 95.0,
+          "referencia": [
+            0.0,
+            0.3,
+            0.0
+          ],
+          "cursoMaca": 1.0,
+          "cursoIntermediario": 0.5,
+          "cursoTotal": 1.95,
+          "abertura": [
+            -0.37,
+            0.2551,
+            0.37,
+            0.7649
+          ]
+        }
+      }
+    }
+  },
+  "nota": "Unity local = (x, z, y) of Blender; module origin at the front face centre on the floor."
+}

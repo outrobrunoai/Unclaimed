@@ -44,8 +44,7 @@ public static partial class UnclaimedMorgueGenerator
     private const float CasingWidth = 0.07f, CasingThickness = 0.02f;
     private const float ThresholdHeight = 0.006f;
 
-    // Camara fria drawers sit on the east wall facing west (2.2 m deep, 0.9 m wide). The free strip in
-    // front of each one fits the tray pulled all the way out plus a stretcher lined up after it.
+    // DrawerFaceX/DrawerZ and related dimensions serve only the cold chamber prefab fallback.
     private const float DrawerFaceX = 12.7f, DrawerBackX = 14.9f, DrawerWidth = 0.9f;
     private static readonly float[] DrawerZ = { -3f, -2.05f, -1.1f, 2f, 2.95f, 3.9f };
 
@@ -196,6 +195,7 @@ public static partial class UnclaimedMorgueGenerator
         UnclaimedRecebimentoAssets.InstallGenerated(Sub(roomsGroup, "Recebimento de corpos"));
         UnclaimedPatioRecebimentoAssets.InstallGenerated(outside);
         Markers(markers);
+        UnclaimedCamaraFriaAssets.InstallGenerated(Sub(roomsGroup, "Camara fria"));
         RoomLights(ceilingsGroup);
         CorridorLights(ceilingsGroup);
         NightEnvironment();
@@ -584,15 +584,18 @@ public static partial class UnclaimedMorgueGenerator
         Block("Corpo provisório - recebimento", p, 7.15f, 8.05f, 8.85f, 8.7f, 0.85f, 0.15f, bodyMat);
         Block("Mesa auxiliar", p, 11.8f, 10.75f, 12.6f, 11.35f, 0, 0.8f, furnitureMat);
 
-        // Camara fria: the stretcher is parked between the drawer banks, out of every drawer's free strip.
-        for (int i = 0; i < DrawerZ.Length; i++)
+        // Keep the provisional equipment only until the modular prefab has been built.
+        if (AssetDatabase.LoadAssetAtPath<GameObject>(UnclaimedCamaraFriaAssets.Prefab) == null)
         {
-            float z = DrawerZ[i];
-            Block("Gaveta mortuaria " + (i + 1), p, DrawerFaceX, z, DrawerBackX, z + DrawerWidth, 0, 1.1f, furnitureMat);
-            Block("Corpo provisório " + (i + 1), p, DrawerFaceX + 0.2f, z + 0.125f, DrawerBackX - 0.2f, z + DrawerWidth - 0.125f,
-                1.1f, 0.14f, bodyMat);
+            for (int i = 0; i < DrawerZ.Length; i++)
+            {
+                float z = DrawerZ[i];
+                Block("Gaveta mortuaria " + (i + 1), p, DrawerFaceX, z, DrawerBackX, z + DrawerWidth, 0, 1.1f, furnitureMat);
+                Block("Corpo provisório " + (i + 1), p, DrawerFaceX + 0.2f, z + 0.125f, DrawerBackX - 0.2f, z + DrawerWidth - 0.125f,
+                    1.1f, 0.14f, bodyMat);
+            }
+            Block("Maca da camara fria", p, 12.75f, 0.5f, 14.85f, 1.25f, 0, 0.85f, furnitureMat);
         }
-        Block("Maca da camara fria", p, 12.75f, 0.5f, 14.85f, 1.25f, 0, 0.85f, furnitureMat);
 
         if (!HasAdminPrefab("Mesa do servidor")) OfficeDesk(p);
         if (!HasAdminPrefab("Arquivo de aco")) Block("Arquivo de prontuarios", p, 2.65f, -6.5f, 3.25f, -4f, 0, 1.6f, furnitureMat);
@@ -637,8 +640,9 @@ public static partial class UnclaimedMorgueGenerator
         Marker("EVENTO - objeto muda de lugar", p, 1.25f, -9.375f, 0.5f);
         Marker("EVENTO - som na camara fria", p, 10.25f, 0.875f, 0.5f);
         Marker("FINAL - identificacao do culpado", p, -3.625f, -1.5f, 0.1f);
-        for (int i = 0; i < DrawerZ.Length; i++)
-            Marker("EXAMINAR - corpo " + (i + 1), p, (DrawerFaceX + DrawerBackX) / 2, DrawerZ[i] + DrawerWidth / 2, 1.4f);
+        if (AssetDatabase.LoadAssetAtPath<GameObject>(UnclaimedCamaraFriaAssets.Prefab) == null)
+            for (int i = 0; i < DrawerZ.Length; i++)
+                Marker("EXAMINAR - corpo " + (i + 1), p, (DrawerFaceX + DrawerBackX) / 2, DrawerZ[i] + DrawerWidth / 2, 1.4f);
     }
 
     private static Transform Group(string name) => Sub(root, name);

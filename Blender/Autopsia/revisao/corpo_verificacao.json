@@ -1,0 +1,23 @@
+{
+  "lencol dentro de CorpoMesa": 0,
+  "lencol dentro de MaoDireita": 0,
+  "lencol dentro de MaoEsquerda": 0,
+  "lencol dentro de MesaAutopsia": 0,
+  "abaixo do leito CorpoMesa": 0,
+  "tocando o leito CorpoMesa": 1989,
+  "abaixo do leito MaoDireita": 0,
+  "tocando o leito MaoDireita": 79,
+  "abaixo do leito MaoEsquerda": 0,
+  "tocando o leito MaoEsquerda": 54,
+  "bainha sul em x(maos/antebraco)": {
+    "-0.45": -0.268,
+    "-0.3": -0.256,
+    "-0.2": -0.253
+  },
+  "bainha norte em x": {
+    "-0.5": 0.294,
+    "-0.4": 0.268,
+    "-0.3": 0.268
+  },
+  "lencol z max": 1.158
+}

@@ -1,7 +1,9 @@
 // Finish and dressing of the autopsy room, the reference room for the morgue's look:
 // an everyday workplace with uneven upkeep and signs of use, not a ruin.
-// Models are composed from primitives until real assets replace them.
+// Furniture is placed from the Blender layout; the table and fixed details retain their own builders.
+using System.IO;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -60,9 +62,8 @@ public static partial class UnclaimedMorgueGenerator
             wear = Sub(room, "Marcas de uso"), ceiling = Sub(ceilingsGroup, "Luminarias - Autopsia");
 
         AutopsyTable(furniture);
-        AutopsyCounter(furniture, details);
-        AutopsyStorage(furniture);
-        AutopsyWorkArea(furniture, details);
+        AutopsyFixedDetails(details);
+        AutopsyLayout(room, ceiling);
         AutopsyWear(wear);
         AutopsyLighting(ceiling);
 
@@ -96,7 +97,9 @@ public static partial class UnclaimedMorgueGenerator
             table.transform.SetPositionAndRotation(new Vector3(2.7f, 0f, -0.45f), Quaternion.identity);
         }
 
-        // A body under a sheet, lying head to the west.
+        if (AutopsyBody(p)) return;
+
+        // Fallback body under a sheet, lying head to the west.
         Transform body = Sub(p, "Corpo provisório - autopsia");
         Part("Lencol", body, PrimitiveType.Capsule, new Vector3(2.65f, 1f, -0.45f), new Vector3(0.2f, 0.86f, 0.46f),
             Quaternion.Euler(0f, 0f, 90f), sheet);
@@ -104,179 +107,186 @@ public static partial class UnclaimedMorgueGenerator
         Part("Pes", body, PrimitiveType.Sphere, new Vector3(3.42f, 1.03f, -0.45f), new Vector3(0.12f, 0.14f, 0.34f), Quaternion.identity, sheet);
     }
 
-    // Stainless counter (top at 0.9 m) with a sink and base cabinets along the north wall; the clue
-    // placeholder "Pista - laudo da autopsia" rests on it.
-    private static void AutopsyCounter(Transform p, Transform details)
+    private static bool AutopsyBodyPrefabs(out GameObject occupied, out GameObject p08)
     {
-        Transform c = Solid("Bancada com pia - autopsia", p, 0f, 2.875f, 3.8f, AzMax, 0f, 0.9f);
-        Piece("Rodape recuado", c, 0f, 0f, 2.98f, 3.8f, 0.1f, AzMax, rubber);
-        Piece("Gabinete", c, 0f, 0.1f, 2.925f, 1f, 0.86f, AzMax, steel);
-        Piece("Gabinete", c, 1.6f, 0.1f, 2.925f, 3.8f, 0.86f, AzMax, steel);
-        Piece("Gabinete", c, 1f, 0.1f, 2.925f, 1.6f, 0.6f, AzMax, steel);
-        for (int i = 0; i < 4; i++)
-        {
-            float x0 = 0.02f + i * 0.95f, hx = i % 2 == 0 ? x0 + 0.74f : x0 + 0.05f;
-            Piece("Porta do gabinete", c, x0, 0.14f, 2.91f, x0 + 0.91f, 0.82f, 2.925f, steelWorn);
-            Piece("Puxador", c, hx, 0.72f, 2.885f, hx + 0.12f, 0.74f, 2.91f, rubber);
-        }
-        Piece("Tampo", c, -0.02f, 0.86f, 2.875f, 1f, 0.9f, AzMax, steelWorn);
-        Piece("Tampo", c, 1.6f, 0.86f, 2.875f, 3.82f, 0.9f, AzMax, steelWorn);
-        Piece("Tampo", c, 1f, 0.86f, 2.875f, 1.6f, 0.9f, 2.95f, steelWorn);
-        Piece("Tampo", c, 1f, 0.86f, 3.45f, 1.6f, 0.9f, AzMax, steelWorn);
-        Piece("Cuba - fundo", c, 1f, 0.6f, 2.95f, 1.6f, 0.62f, 3.45f, steel);
-        Piece("Cuba", c, 1f, 0.6f, 2.95f, 1.6f, 0.86f, 2.965f, steel);
-        Piece("Cuba", c, 1f, 0.6f, 3.435f, 1.6f, 0.86f, 3.45f, steel);
-        Piece("Cuba", c, 1f, 0.6f, 2.965f, 1.015f, 0.86f, 3.435f, steel);
-        Piece("Cuba", c, 1.585f, 0.6f, 2.965f, 1.6f, 0.86f, 3.435f, steel);
-        Piece("Espelho", c, -0.02f, 0.9f, 3.495f, 3.82f, 1f, AzMax, steel);
-        Cyl("Torneira", c, new Vector3(1.3f, 1.06f, 3.44f), 0.03f, 0.32f, steel);
-        Piece("Bica", c, 1.285f, 1.2f, 3.21f, 1.315f, 1.225f, 3.455f, steel);
-        Cyl("Arejador", c, new Vector3(1.3f, 1.17f, 3.225f), 0.025f, 0.06f, steel);
-
-        Piece("Balanca de visceras - base", details, 2.19f, 0.9f, 3.07f, 2.51f, 0.96f, 3.33f, whiteMetal);
-        Cyl("Balanca de visceras - prato", details, new Vector3(2.35f, 0.975f, 3.2f), 0.3f, 0.03f, steel);
-        foreach (float x in new[] { 3.35f, 3.5f, 3.65f })
-        {
-            Cyl("Frasco de amostra", details, new Vector3(x, 0.98f, 3.3f), 0.11f, 0.16f, glass);
-            Cyl("Tampa do frasco", details, new Vector3(x, 1.075f, 3.3f), 0.115f, 0.03f, whitePlastic);
-        }
-        Piece("Coletor perfurocortante", details, 0.18f, 0.9f, 3.22f, 0.42f, 1.16f, 3.44f, yellowPlastic);
-        Piece("Prancheta", details, 0.62f, 0.9f, 2.92f, 0.86f, 0.91f, 3.24f, paper);
-        for (int i = 0; i < 3; i++)
-        {
-            float x0 = 0.12f + i * 0.28f;
-            Piece("Caixa de luvas", details, x0, 1.2f, 3.39f, x0 + 0.24f, 1.33f, 3.52f, whitePlastic);
-        }
-
-        // Wall cabinet with glass doors above the counter.
-        Transform w = Solid("Armario suspenso", p, 2.2f, 3.175f, 3.8f, AzMax, 1.5f, 2.2f);
-        Piece("Fundo", w, 2.2f, 1.5f, 3.505f, 3.8f, 2.2f, AzMax, whiteMetal);
-        Piece("Topo", w, 2.2f, 2.18f, 3.175f, 3.8f, 2.2f, 3.505f, whiteMetal);
-        Piece("Base", w, 2.2f, 1.5f, 3.175f, 3.8f, 1.52f, 3.505f, whiteMetal);
-        Piece("Lateral", w, 2.2f, 1.52f, 3.175f, 2.22f, 2.18f, 3.505f, whiteMetal);
-        Piece("Lateral", w, 3.78f, 1.52f, 3.175f, 3.8f, 2.18f, 3.505f, whiteMetal);
-        Piece("Prateleira", w, 2.22f, 1.84f, 3.2f, 3.78f, 1.855f, 3.505f, whiteMetal);
-        Piece("Porta de vidro", w, 2.22f, 1.52f, 3.175f, 2.995f, 2.18f, 3.183f, glass);
-        Piece("Porta de vidro", w, 3.005f, 1.52f, 3.175f, 3.78f, 2.18f, 3.183f, glass);
-        Piece("Montante", w, 2.99f, 1.52f, 3.17f, 3.01f, 2.18f, 3.185f, whiteMetal);
-        Piece("Caixa", w, 2.3f, 1.52f, 3.28f, 2.6f, 1.68f, 3.48f, cardboard);
-        Piece("Caixa", w, 2.65f, 1.52f, 3.3f, 2.9f, 1.64f, 3.48f, whitePlastic);
-        foreach (float x in new[] { 3.15f, 3.3f, 3.45f })
-            Cyl("Frasco", w, new Vector3(x, 1.6f, 3.38f), 0.08f, 0.16f, whitePlastic);
-        Piece("Caixa", w, 2.35f, 1.855f, 3.27f, 2.75f, 2f, 3.48f, cardboard);
-        Piece("Caixa", w, 3.2f, 1.855f, 3.3f, 3.7f, 1.95f, 3.48f, cardboard);
+        occupied = AssetDatabase.LoadAssetAtPath<GameObject>(UnclaimedAutopsiaAssets.PrefabPath("CorpoOcupado"));
+        p08 = AssetDatabase.LoadAssetAtPath<GameObject>(UnclaimedAutopsiaAssets.PrefabPath("P08_LencolCaido"));
+        if (occupied != null && p08 != null) return true;
+        Debug.LogWarning("Unclaimed: missing autopsy body prefabs; run Tools > Unclaimed > Autopsia > Build Body Prefabs.");
+        return false;
     }
 
-    // Tall instrument cabinet (west wall) and open supply shelving (east wall).
-    private static void AutopsyStorage(Transform p)
+    private static bool AutopsyBody(Transform furniture)
     {
-        Transform k = Solid("Armario de instrumental", p, AxMin, -3.1f, -1.45f, -1.7f, 0f, 2f);
-        Piece("Rodape", k, AxMin, 0f, -3.08f, -1.47f, 0.1f, -1.72f, rubber);
-        Piece("Fundo", k, AxMin, 0.1f, -3.1f, -1.88f, 2f, -1.7f, whiteMetal);
-        Piece("Base", k, -1.88f, 0.1f, -3.1f, -1.45f, 0.14f, -1.7f, whiteMetal);
-        Piece("Topo", k, -1.88f, 1.97f, -3.1f, -1.45f, 2f, -1.7f, whiteMetal);
-        Piece("Lateral", k, -1.88f, 0.14f, -3.1f, -1.45f, 1.97f, -3.08f, whiteMetal);
-        Piece("Lateral", k, -1.88f, 0.14f, -1.72f, -1.45f, 1.97f, -1.7f, whiteMetal);
-        foreach (float y in new[] { 0.6f, 1.05f, 1.5f })
-            Piece("Prateleira", k, -1.88f, y, -3.08f, -1.47f, y + 0.015f, -1.72f, whiteMetal);
-        Piece("Porta de vidro", k, -1.458f, 0.14f, -3.08f, -1.45f, 1.97f, -2.405f, glass);
-        Piece("Porta de vidro", k, -1.458f, 0.14f, -2.395f, -1.45f, 1.97f, -1.72f, glass);
-        Piece("Montante", k, -1.46f, 0.14f, -2.41f, -1.445f, 1.97f, -2.39f, whiteMetal);
-        Piece("Campos dobrados", k, -1.85f, 0.14f, -3f, -1.55f, 0.32f, -2.3f, sheet);
-        Piece("Bandeja de instrumental", k, -1.85f, 0.615f, -3f, -1.55f, 0.65f, -2.6f, steel);
-        Piece("Bandeja de instrumental", k, -1.85f, 0.615f, -2.5f, -1.55f, 0.65f, -2.1f, steel);
-        Piece("Caixa", k, -1.85f, 1.065f, -3f, -1.6f, 1.22f, -2.65f, cardboard);
-        Piece("Caixa", k, -1.85f, 1.065f, -2.55f, -1.6f, 1.18f, -2.2f, whitePlastic);
-        foreach (float z in new[] { -2.9f, -2.75f, -2.6f })
-            Cyl("Frasco", k, new Vector3(-1.7f, 1.6f, z), 0.08f, 0.17f, glass);
-        Piece("Caixa", k, -1.85f, 1.515f, -2.2f, -1.6f, 1.68f, -1.8f, cardboard);
-
-        Transform s = Solid("Estante de insumos", p, 6.95f, 1.9f, AxMax, 3.3f, 0f, 2f);
-        foreach (float x in new[] { 6.97f, 7.37f })
-            foreach (float z in new[] { 1.92f, 3.28f })
-                Piece("Coluna", s, x - 0.015f, 0f, z - 0.015f, x + 0.015f, 2f, z + 0.015f, whiteMetal);
-        foreach (float y in new[] { 0.12f, 0.6f, 1.08f, 1.56f, 1.98f })
-            Piece("Prateleira", s, 6.955f, y - 0.02f, 1.905f, 7.395f, y, 3.295f, whiteMetal);
-        Piece("Galao de detergente", s, 7f, 0.12f, 1.98f, 7.3f, 0.5f, 2.3f, whitePlastic);
-        Piece("Galao de detergente", s, 7f, 0.12f, 2.4f, 7.3f, 0.45f, 2.7f, whitePlastic);
-        Piece("Caixa", s, 7f, 0.6f, 2f, 7.35f, 0.85f, 2.5f, cardboard);
-        Piece("Caixa", s, 7f, 0.6f, 2.6f, 7.35f, 0.8f, 3.2f, cardboard);
-        for (int i = 0; i < 4; i++)
-            Piece("Caixa de luvas", s, 7f, 1.08f, 2f + i * 0.3f, 7.3f, 1.2f, 2.25f + i * 0.3f, whitePlastic);
-        Piece("Papel toalha", s, 7f, 1.56f, 2f, 7.35f, 1.8f, 2.9f, paper);
-        Piece("Caixa", s, 7f, 1.98f, 2.2f, 7.35f, 2.15f, 2.8f, cardboard);
+        if (!AutopsyBodyPrefabs(out var occupiedPrefab, out var p08Prefab)) return false;
+        var stateObject = new GameObject("Estado da mesa de autopsia");
+        stateObject.transform.SetParent(furniture, false);
+        // Same world placement as the table: the meshes are exported in the table's frame.
+        stateObject.transform.SetPositionAndRotation(new Vector3(2.7f, 0f, -0.45f), Quaternion.identity);
+        var state = stateObject.AddComponent<EstadoMesaAutopsia>();
+        var occupied = (GameObject)PrefabUtility.InstantiatePrefab(occupiedPrefab, stateObject.transform);
+        occupied.name = "Corpo - autopsia";
+        occupied.transform.localPosition = Vector3.zero;
+        occupied.transform.localRotation = Quaternion.identity;
+        occupied.transform.localScale = Vector3.one;
+        var p08 = (GameObject)PrefabUtility.InstantiatePrefab(p08Prefab, stateObject.transform);
+        p08.name = "P08 - lencol caido";
+        p08.transform.localPosition = Vector3.zero;
+        p08.transform.localRotation = Quaternion.identity;
+        p08.transform.localScale = Vector3.one;
+        var so = new SerializedObject(state);
+        so.FindProperty("ocupado").objectReferenceValue = occupied;
+        so.FindProperty("p08").objectReferenceValue = p08;
+        so.ApplyModifiedPropertiesWithoutUndo();
+        state.MostrarP08(false);
+        Undo.RegisterCreatedObjectUndo(stateObject, "Create autopsy body");
+        return true;
     }
 
-    // Hand-wash sink, bins and wall fittings on the south wall; mobile pieces around the table.
-    private static void AutopsyWorkArea(Transform p, Transform details)
+    [MenuItem("Tools/Unclaimed/Autopsia/Update Autopsy Body")]
+    public static void UpdateAutopsiaCorpo()
     {
-        Transform h = Solid("Pia de lavagem de maos", p, 6f, AzMin, 6.7f, -2.95f, 0f, 0.9f);
-        Piece("Fundo", h, 6f, 0.68f, AzMin, 6.7f, 0.7f, -2.95f, steel);
-        Piece("Cuba", h, 6f, 0.68f, -2.97f, 6.7f, 0.9f, -2.95f, steel);
-        Piece("Cuba", h, 6f, 0.68f, AzMin, 6.02f, 0.9f, -2.97f, steel);
-        Piece("Cuba", h, 6.68f, 0.68f, AzMin, 6.7f, 0.9f, -2.97f, steel);
-        Piece("Espelho", h, 6f, 0.9f, AzMin, 6.7f, 1.05f, AzMin + 0.02f, steel);
-        Piece("Valvula de joelho", h, 6.3f, 0.45f, -3.02f, 6.4f, 0.6f, -2.96f, steel);
-        Piece("Torneira", h, 6.33f, 0.95f, AzMin, 6.37f, 0.99f, -3.15f, steel);
-        Piece("Dispenser de sabonete", details, 5.72f, 1.1f, AzMin, 5.84f, 1.32f, AzMin + 0.1f, whitePlastic);
-        Piece("Dispenser de papel toalha", details, 6.9f, 1.15f, AzMin, 7.2f, 1.47f, AzMin + 0.12f, whitePlastic);
+        var scene = EditorSceneManager.GetActiveScene();
+        GameObject morgue = FindExistingMorgue(scene);
+        if (scene.path != "Assets/Scenes/PrototipoNecroterio.unity" || morgue == null ||
+            morgue.name != GroupName || EditorApplication.isPlayingOrWillChangePlaymode)
+        {
+            Debug.LogWarning("Unclaimed: open PrototipoNecroterio in Edit Mode first.");
+            return;
+        }
+        var furniture = morgue.transform.Find("Ambientes/Autopsia/Mobiliario");
+        if (furniture == null)
+        { Debug.LogWarning("Unclaimed: missing autopsy-room map groups."); return; }
+        // Check before removing the fallback so missing assets leave the scene intact.
+        if (!AutopsyBodyPrefabs(out _, out _)) return;
 
-        Transform bin = Solid("Lixeira infectante", p, 4.55f, -3.37f, 5f, -3f, 0f, 0.62f);
-        Piece("Corpo", bin, 4.56f, 0f, -3.36f, 4.99f, 0.58f, -3.01f, whitePlastic);
-        Piece("Tampa", bin, 4.55f, 0.58f, -3.37f, 5f, 0.62f, -3f, whitePlastic);
-        Piece("Pedal", bin, 4.7f, 0f, -3f, 4.85f, 0.04f, -2.95f, rubber);
-        Transform bin2 = Solid("Lixeira comum", p, 5.1f, -3.37f, 5.45f, -3.05f, 0f, 0.55f);
-        Piece("Corpo", bin2, 5.1f, 0f, -3.37f, 5.45f, 0.55f, -3.05f, steelWorn);
+        Undo.IncrementCurrentGroup();
+        int undoGroup = Undo.GetCurrentGroup();
+        Undo.SetCurrentGroupName("Update autopsy body");
+        try
+        {
+            foreach (Transform child in Children(furniture))
+                if (child.name == "Corpo provisório - autopsia" || child.name == "Estado da mesa de autopsia")
+                    Undo.DestroyObjectImmediate(child.gameObject);
+            AutopsyBody(furniture);
+            EditorSceneManager.MarkSceneDirty(scene);
+        }
+        finally { Undo.CollapseUndoOperations(undoGroup); }
+    }
 
-        Cyl("Mangueira enrolada", details, new Vector3(2.6f, 1.35f, AzMin + 0.06f), 0.45f, 0.1f, rubber, new Vector3(90f, 0f, 0f));
-        Cyl("Suporte da mangueira", details, new Vector3(2.6f, 1.35f, AzMin + 0.13f), 0.12f, 0.05f, steel, new Vector3(90f, 0f, 0f));
+    // Fixed fittings retained as primitives; all replaceable furniture comes from Layout.json.
+    private static void AutopsyFixedDetails(Transform details)
+    {
         Piece("Ralo", details, 3.09f, FinishOffset, -1.71f, 3.31f, 0.008f, -1.49f, drain);
-        Piece("Quadro de avisos", details, AxMin, 1.2f, 1.55f, AxMin + 0.02f, 1.8f, 2.45f, cardboard);
-        Piece("Aviso", details, AxMin + 0.02f, 1.3f, 1.65f, AxMin + 0.024f, 1.6f, 1.9f, paper);
-        Piece("Aviso", details, AxMin + 0.02f, 1.45f, 2f, AxMin + 0.024f, 1.75f, 2.3f, paper);
-        Cyl("Relogio", details, new Vector3(AxMin + 0.02f, 2.65f, 0f), 0.3f, 0.04f, whitePlastic, new Vector3(0f, 0f, 90f));
-        Piece("Ponteiro", details, AxMin + 0.042f, 2.64f, -0.006f, AxMin + 0.046f, 2.75f, 0.006f, rubber);
-        Piece("Ponteiro", details, AxMin + 0.042f, 2.645f, -0.004f, AxMin + 0.046f, 2.655f, 0.12f, rubber);
-
-        // Stretcher bumpers where trolleys rub the walls.
         Piece("Protetor de parede", details, -1.35f, 0.82f, AzMin, 4.45f, 0.96f, AzMin + 0.03f, wallGuard);
         Piece("Protetor de parede", details, 3.95f, 0.82f, AzMax - 0.03f, 7.35f, 0.96f, AzMax, wallGuard);
         Piece("Protetor de parede", details, AxMax - 0.03f, 0.82f, -3.35f, AxMax, 0.96f, -0.65f, wallGuard);
+        Piece("Coletor perfurocortante", details, 3.45f, 0.9f, 3.22f, 3.69f, 1.16f, 3.44f, yellowPlastic);
+        AutopsyProbeFlags(details);
+    }
 
-        Transform tr = Solid("Carrinho de instrumental", p, 4.6f, -1.75f, 5.4f, -1.25f, 0f, 0.92f);
-        foreach (float x in new[] { 4.62f, 5.38f })
-            foreach (float z in new[] { -1.73f, -1.27f })
-            {
-                Cyl("Coluna", tr, new Vector3(x, 0.5f, z), 0.025f, 0.84f, steel);
-                Part("Rodizio", tr, PrimitiveType.Sphere, new Vector3(x, 0.04f, z), Vector3.one * 0.07f, Quaternion.identity, rubber);
-            }
-        Piece("Bandeja", tr, 4.6f, 0.42f, -1.75f, 5.4f, 0.44f, -1.25f, steel);
-        Piece("Bandeja", tr, 4.6f, 0.88f, -1.75f, 5.4f, 0.9f, -1.25f, steel);
-        Piece("Campo", tr, 4.7f, 0.9f, -1.68f, 5.25f, 0.905f, -1.32f, sheet);
-        for (int i = 0; i < 4; i++)
+    [System.Serializable] private class AutopsyLayoutData { public AutopsyLayoutPiece[] pecas; }
+    [System.Serializable] private class AutopsyLayoutPiece { public string nome, prefab, grupo; public float[] pos; public float yaw; }
+
+    private static AutopsyLayoutData ReadAutopsyLayout()
+    {
+        string path = AutopsiaFolder + "/Layout.json";
+        if (!File.Exists(path)) { Debug.LogWarning("Unclaimed: missing " + path); return null; }
+        var layout = JsonUtility.FromJson<AutopsyLayoutData>(File.ReadAllText(path));
+        if (layout == null || layout.pecas == null)
+        { Debug.LogWarning("Unclaimed: invalid " + path); return null; }
+        return layout;
+    }
+
+    private static void AutopsyLayout(Transform room, Transform ceiling)
+    {
+        var layout = ReadAutopsyLayout();
+        if (layout == null) return;
+        foreach (var piece in layout.pecas)
         {
-            float x = 4.78f + i * 0.1f;
-            Piece("Instrumento", tr, x, 0.905f, -1.62f, x + 0.015f, 0.915f, -1.42f, steel);
-        }
-
-        Transform stool = Solid("Banco da autopsia", p, 1.37f, -2.18f, 1.83f, -1.72f, 0f, 0.62f);
-        Cyl("Base", stool, new Vector3(1.6f, 0.02f, -1.95f), 0.46f, 0.04f, steel);
-        Cyl("Coluna", stool, new Vector3(1.6f, 0.31f, -1.95f), 0.045f, 0.56f, steel);
-        Cyl("Assento", stool, new Vector3(1.6f, 0.6f, -1.95f), 0.36f, 0.05f, rubber);
-
-        Transform g = Solid("Maca de transporte", p, 6.6f, -2.75f, 7.35f, -0.65f, 0f, 0.98f);
-        Piece("Leito", g, 6.6f, 0.78f, -2.75f, 7.35f, 0.82f, -0.65f, steelWorn);
-        Piece("Colchonete", g, 6.63f, 0.82f, -2.7f, 7.32f, 0.86f, -0.7f, rubber);
-        Piece("Prateleira", g, 6.63f, 0.25f, -2.6f, 7.32f, 0.27f, -0.8f, steel);
-        Piece("Grade", g, 6.6f, 0.86f, -2.4f, 6.62f, 0.98f, -1f, steel);
-        Piece("Grade", g, 7.33f, 0.86f, -2.4f, 7.35f, 0.98f, -1f, steel);
-        Piece("Lencol dobrado", g, 6.75f, 0.86f, -2.6f, 7.2f, 0.92f, -2.2f, sheet);
-        foreach (float x in new[] { 6.64f, 7.31f })
-            foreach (float z in new[] { -2.71f, -0.69f })
+            if (piece == null || piece.pos == null || piece.pos.Length != 3 ||
+                (piece.grupo != "Mobiliario" && piece.grupo != "Equipamentos e detalhes" && piece.grupo != "Luminaria"))
+            { Debug.LogWarning("Unclaimed: invalid autopsy-room layout piece."); continue; }
+            var asset = AssetDatabase.LoadAssetAtPath<GameObject>(piece.prefab);
+            if (asset == null)
             {
-                Cyl("Coluna", g, new Vector3(x, 0.45f, z), 0.03f, 0.7f, steel);
-                Part("Rodizio", g, PrimitiveType.Sphere, new Vector3(x, 0.05f, z), Vector3.one * 0.1f, Quaternion.identity, rubber);
+                Debug.LogWarning("Unclaimed: missing autopsy-room prefab " + piece.prefab +
+                    "; run Tools > Unclaimed > Autopsia > Build Prefabs.");
+                continue;
             }
+            Transform parent = piece.grupo == "Luminaria" ? Sub(ceiling, "Luminaria de exame") : Sub(room, piece.grupo);
+            var go = (GameObject)PrefabUtility.InstantiatePrefab(asset, parent);
+            Undo.RegisterCreatedObjectUndo(go, "Create " + piece.nome);
+            go.name = piece.nome;
+            go.transform.SetPositionAndRotation(new Vector3(piece.pos[0], piece.pos[1], piece.pos[2]), Quaternion.Euler(0, piece.yaw, 0));
+            var lamp = go.GetComponent<LuminariaExame>();
+            if (lamp != null) lamp.Ligar(false);
+            AutopsyProbeFlags(go.transform);
+        }
+    }
+
+    // Only newly created objects: the general static pass also changes preserved room finishes.
+    private static void AutopsyProbeFlags(Transform parent)
+    {
+        foreach (var r in parent.GetComponentsInChildren<MeshRenderer>(true))
+        {
+            GameObjectUtility.SetStaticEditorFlags(r.gameObject,
+                GameObjectUtility.GetStaticEditorFlags(r.gameObject) & ~StaticEditorFlags.ContributeGI);
+            r.receiveGI = ReceiveGI.LightProbes;
+        }
+    }
+
+    [MenuItem("Tools/Unclaimed/Autopsia/Update Autopsy Room")]
+    public static void UpdateAutopsia()
+    {
+        var scene = EditorSceneManager.GetActiveScene();
+        GameObject morgue = FindExistingMorgue(scene);
+        if (scene.path != "Assets/Scenes/PrototipoNecroterio.unity" || morgue == null ||
+            morgue.name != GroupName || EditorApplication.isPlayingOrWillChangePlaymode)
+        {
+            Debug.LogWarning("Unclaimed: open PrototipoNecroterio in Edit Mode first.");
+            return;
+        }
+        Transform real = morgue.transform;
+        var rooms = real.Find("Ambientes");
+        var room = rooms != null ? rooms.Find("Autopsia") : null;
+        var ceilings = real.Find("Tetos");
+        var lights = real.Find("Luzes");
+        if (room == null || ceilings == null || lights == null)
+        { Debug.LogWarning("Unclaimed: missing autopsy-room map groups."); return; }
+        if (ReadAutopsyLayout() == null) return;
+
+        Undo.IncrementCurrentGroup();
+        int undoGroup = Undo.GetCurrentGroup();
+        Undo.SetCurrentGroupName("Update autopsy furniture");
+        try
+        {
+            root = real; roomsGroup = rooms; ceilingsGroup = ceilings; lightsGroup = lights;
+            yellowPlastic = Mat(AutopsiaFolder, "Plastico amarelo", new Color(.86f, .68f, .10f), .4f);
+            wallGuard = Mat(AutopsiaFolder, "Protetor de parede", new Color(.52f, .58f, .55f), .35f);
+            drain = Mat(AutopsiaFolder, "Ralo", new Color(.16f, .16f, .16f), .4f, .6f);
+
+            Transform furniture = room.Find("Mobiliario");
+            foreach (Transform child in Children(furniture))
+                if (child.name != "Mesa de autopsia" && child.name != "Corpo provisório - autopsia" &&
+                    child.name != "Estado da mesa de autopsia")
+                    Undo.DestroyObjectImmediate(child.gameObject);
+            Transform details = room.Find("Equipamentos e detalhes");
+            if (details != null) Undo.DestroyObjectImmediate(details.gameObject);
+            Transform ceiling = Sub(ceilingsGroup, "Luminarias - Autopsia");
+            foreach (Transform child in Children(ceiling))
+                if (child.name == "Foco cirurgico" || child.name == "Luminaria de exame")
+                    Undo.DestroyObjectImmediate(child.gameObject);
+            foreach (Transform child in Children(lightsGroup))
+                if (child.name == "Luz - autopsia - foco cirurgico") Undo.DestroyObjectImmediate(child.gameObject);
+
+            AutopsyFixedDetails(Sub(room, "Equipamentos e detalhes"));
+            AutopsyLayout(room, ceiling);
+            // PrepareStaticFlags("Autopsia") would also touch the preserved table, wear and finishes.
+            // AutopsyProbeFlags already configures only recreated objects, including glass and lamp children.
+            EditorSceneManager.MarkSceneDirty(scene);
+        }
+        finally { Undo.CollapseUndoOperations(undoGroup); }
     }
 
     // Signs of everyday use and uneven upkeep, kept local: worn floor where people work and walk,
@@ -295,7 +305,7 @@ public static partial class UnclaimedMorgueGenerator
         Decal("Riscos - porta da circulacao", p, new Vector3(AxMin + 0.006f, 0.85f, 1.2f), Vector3.right, Vector3.forward, Vector3.up, 0.7f, 0.6f, decalScuffs);
     }
 
-    // Six surface-mounted fluorescent fixtures (one aged tube, one burnt out) and a surgical lamp over the table.
+    // Six surface-mounted fluorescent fixtures (one aged tube, one burnt out).
     // Only the two fixtures flanking the table cast shadows, so the shadow atlas keeps its resolution.
     // Bounce light comes from the baked indirect lighting (UnclaimedMorgueGenerator.Iluminacao.cs).
     private static void AutopsyLighting(Transform ceiling)
@@ -305,17 +315,12 @@ public static partial class UnclaimedMorgueGenerator
         {
             var (x, z, state) = fixtures[i];
             CeilingFixture(ceiling, "Luz - autopsia - luminaria " + (i + 1), "Luminaria " + (i + 1), x, z, state, 5.6f, 5600f,
-                Mathf.Approximately(x, 2.75f));
+                Mathf.Approximately(x, 2.75f), model: true);
         }
 
-        Transform lamp = Sub(ceiling, "Foco cirurgico");
-        Cyl("Fixacao", lamp, new Vector3(2.7f, 3.17f, -0.45f), 0.22f, 0.06f, whiteMetal);
-        Cyl("Haste", lamp, new Vector3(2.7f, 2.74f, -0.45f), 0.05f, 0.8f, whiteMetal);
-        Cyl("Cupula", lamp, new Vector3(2.7f, 2.3f, -0.45f), 0.62f, 0.1f, whiteMetal);
-        Cyl("Lente", lamp, new Vector3(2.7f, 2.247f, -0.45f), 0.46f, 0.008f, surgicalGlass);
-        SpotLight("Luz - autopsia - foco cirurgico", new Vector3(2.7f, 2.23f, -0.45f), 55f, 30f, 4f, 3f, 4500f, true);
     }
 
+    // Shared by ceiling fixtures and exterior lighting; the examination lamp uses its own prefab light.
     private static Light SpotLight(string name, Vector3 position, float angle, float innerAngle, float range,
         float intensity, float kelvin, bool shadows)
     {

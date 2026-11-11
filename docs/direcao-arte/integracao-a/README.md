@@ -16,7 +16,7 @@ O comando **Tools > Unclaimed > Build Main Sign Only** atualiza só este prefab;
 
 ## Verificação
 
-- Projeto conectado ao vivo: `/mnt/dados/Projetos/Unity/Unclaimed`, Unity 6000.5.9f1; CLI 1.0.0-beta.13.
+- Projeto conectado ao vivo: `/home/umbrunoai/Projetos/Unity/Unclaimed`, Unity 6000.5.9f1; CLI 1.0.0-beta.13.
 - Cena `Assets/Scenes/PrototipoNecroterio.unity` salva fora do Play Mode. Prefab atualizado na instância existente.
 - Renders noturnos reais antes/depois, 1440 × 1080, FOV 60°, mesma câmera em cada par: frente à altura de 1,65 m; ângulo à mesma altura; perto com câmera elevada de inspeção. O script copia os ajustes do Player e remove sua câmera temporária ao terminar.
 - Título legível nas três vistas; vinculação legível de frente e de perto, menor e mais discreta em ângulo. Margens livres, acentos íntegros e sem inversão de UV. Na proximidade a espessura e as fixações são discretas; sombras de árvores continuam sobre a chapa, sem efeito luminoso.

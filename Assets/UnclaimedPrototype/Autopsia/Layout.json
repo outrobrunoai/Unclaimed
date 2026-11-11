@@ -1,0 +1,301 @@
+{
+  "pecas": [
+    {
+      "nome": "Bancada com cuba - autopsia",
+      "prefab": "Assets/Modelos/Autopsia/Prefabs/BancadaAutopsia.prefab",
+      "grupo": "Mobiliario",
+      "pos": [
+        1.9,
+        0.0,
+        3.525
+      ],
+      "yaw": 0
+    },
+    {
+      "nome": "Armario suspenso",
+      "prefab": "Assets/Modelos/Autopsia/Prefabs/ArmarioSuspenso.prefab",
+      "grupo": "Mobiliario",
+      "pos": [
+        3.0,
+        1.5,
+        3.525
+      ],
+      "yaw": 0
+    },
+    {
+      "nome": "Balanca de visceras",
+      "prefab": "Assets/Modelos/Autopsia/Prefabs/BalancaVisceras.prefab",
+      "grupo": "Equipamentos e detalhes",
+      "pos": [
+        1.9,
+        0.0,
+        3.525
+      ],
+      "yaw": 0
+    },
+    {
+      "nome": "Suporte de luvas",
+      "prefab": "Assets/Modelos/Recebimento/Prefabs/SuporteEPI.prefab",
+      "grupo": "Equipamentos e detalhes",
+      "pos": [
+        0.55,
+        1.22,
+        3.525
+      ],
+      "yaw": 0
+    },
+    {
+      "nome": "Armario de instrumental",
+      "prefab": "Assets/Modelos/Autopsia/Prefabs/ArmarioInstrumental.prefab",
+      "grupo": "Mobiliario",
+      "pos": [
+        -1.9,
+        0.0,
+        -2.4
+      ],
+      "yaw": -90
+    },
+    {
+      "nome": "Quadro branco",
+      "prefab": "Assets/Modelos/Autopsia/Prefabs/QuadroBranco.prefab",
+      "grupo": "Equipamentos e detalhes",
+      "pos": [
+        -1.9,
+        0.0,
+        2.0
+      ],
+      "yaw": -90
+    },
+    {
+      "nome": "Relogio de parede",
+      "prefab": "Assets/Modelos/Descanso/Prefabs/Relogio de parede.prefab",
+      "grupo": "Equipamentos e detalhes",
+      "pos": [
+        -1.9,
+        2.68,
+        0.0
+      ],
+      "yaw": -90
+    },
+    {
+      "nome": "Bloco de emergencia - autopsia",
+      "prefab": "Assets/Modelos/Circulacao/Prefabs/Bloco de emergencia.prefab",
+      "grupo": "Equipamentos e detalhes",
+      "pos": [
+        -1.9,
+        2.28,
+        0.0
+      ],
+      "yaw": -90
+    },
+    {
+      "nome": "Lavatorio de joelho",
+      "prefab": "Assets/Modelos/Autopsia/Prefabs/LavatorioJoelho.prefab",
+      "grupo": "Mobiliario",
+      "pos": [
+        6.35,
+        0.0,
+        -3.4
+      ],
+      "yaw": 180
+    },
+    {
+      "nome": "Saboneteira",
+      "prefab": "Assets/Modelos/WC/Saboneteira.prefab",
+      "grupo": "Equipamentos e detalhes",
+      "pos": [
+        5.88,
+        1.05,
+        -3.4
+      ],
+      "yaw": 180
+    },
+    {
+      "nome": "Toalheiro de papel",
+      "prefab": "Assets/Modelos/WC/Toalheiro de papel.prefab",
+      "grupo": "Equipamentos e detalhes",
+      "pos": [
+        6.85,
+        1.15,
+        -3.4
+      ],
+      "yaw": 180
+    },
+    {
+      "nome": "Lixeira clinica",
+      "prefab": "Assets/Modelos/Recebimento/Prefabs/LixeiraClinica.prefab",
+      "grupo": "Mobiliario",
+      "pos": [
+        5.45,
+        0.0,
+        -3.18
+      ],
+      "yaw": 180
+    },
+    {
+      "nome": "Carro auxiliar",
+      "prefab": "Assets/Modelos/Recebimento/Prefabs/CarroAuxiliar.prefab",
+      "grupo": "Mobiliario",
+      "pos": [
+        4.99,
+        0.0,
+        -1.67
+      ],
+      "yaw": 0
+    },
+    {
+      "nome": "Estante de insumos",
+      "prefab": "Assets/Modelos/Deposito/Prefabs/EstanteRasa.prefab",
+      "grupo": "Mobiliario",
+      "pos": [
+        7.195,
+        0.0,
+        2.6
+      ],
+      "yaw": 90
+    },
+    {
+      "nome": "Comando da luminaria de exame",
+      "prefab": "Assets/Modelos/Autopsia/Prefabs/ComandoLuminaria.prefab",
+      "grupo": "Equipamentos e detalhes",
+      "pos": [
+        2.35,
+        0.0,
+        -3.4
+      ],
+      "yaw": 180
+    },
+    {
+      "nome": "Luminaria de exame",
+      "prefab": "Assets/Modelos/Autopsia/Prefabs/LuminariaExame.prefab",
+      "grupo": "Luminaria",
+      "pos": [
+        2.35,
+        3.2,
+        -1.04
+      ],
+      "yaw": -90
+    },
+    {
+      "nome": "Insumo - GalaoFormol 1",
+      "prefab": "Assets/Modelos/Deposito/Prefabs/GalaoFormol.prefab",
+      "grupo": "Equipamentos e detalhes",
+      "pos": [
+        7.195,
+        0.101,
+        2.92
+      ],
+      "yaw": 91.5
+    },
+    {
+      "nome": "Insumo - GalaoFormol 2",
+      "prefab": "Assets/Modelos/Deposito/Prefabs/GalaoFormol.prefab",
+      "grupo": "Equipamentos e detalhes",
+      "pos": [
+        7.215,
+        0.101,
+        2.69
+      ],
+      "yaw": 88
+    },
+    {
+      "nome": "Insumo - CaixaSacoCadaver 3",
+      "prefab": "Assets/Modelos/Deposito/Prefabs/CaixaSacoCadaver.prefab",
+      "grupo": "Equipamentos e detalhes",
+      "pos": [
+        7.195,
+        0.101,
+        2.41
+      ],
+      "yaw": 91
+    },
+    {
+      "nome": "Insumo - CaixaCompressas 4",
+      "prefab": "Assets/Modelos/Deposito/Prefabs/CaixaCompressas.prefab",
+      "grupo": "Equipamentos e detalhes",
+      "pos": [
+        7.215,
+        0.471,
+        2.85
+      ],
+      "yaw": 88.5
+    },
+    {
+      "nome": "Insumo - CaixaAlgodao 5",
+      "prefab": "Assets/Modelos/Deposito/Prefabs/CaixaAlgodao.prefab",
+      "grupo": "Equipamentos e detalhes",
+      "pos": [
+        7.195,
+        0.471,
+        2.42
+      ],
+      "yaw": 92
+    },
+    {
+      "nome": "Insumo - CaixaLuvas 6",
+      "prefab": "Assets/Modelos/Deposito/Prefabs/CaixaLuvas.prefab",
+      "grupo": "Equipamentos e detalhes",
+      "pos": [
+        7.195,
+        0.841,
+        2.78
+      ],
+      "yaw": 91
+    },
+    {
+      "nome": "Insumo - CaixaMascaras 7",
+      "prefab": "Assets/Modelos/Deposito/Prefabs/CaixaMascaras.prefab",
+      "grupo": "Equipamentos e detalhes",
+      "pos": [
+        7.225,
+        0.841,
+        2.33
+      ],
+      "yaw": 87.5
+    },
+    {
+      "nome": "Insumo - CaixaAventais 8",
+      "prefab": "Assets/Modelos/Deposito/Prefabs/CaixaAventais.prefab",
+      "grupo": "Equipamentos e detalhes",
+      "pos": [
+        7.195,
+        1.211,
+        2.82
+      ],
+      "yaw": 89
+    },
+    {
+      "nome": "Insumo - CaixaOrganizadora 9",
+      "prefab": "Assets/Modelos/Deposito/Prefabs/CaixaOrganizadora.prefab",
+      "grupo": "Equipamentos e detalhes",
+      "pos": [
+        7.195,
+        1.211,
+        2.38
+      ],
+      "yaw": 91.5
+    },
+    {
+      "nome": "Insumo - RoloLencol 10",
+      "prefab": "Assets/Modelos/Deposito/Prefabs/RoloLencol.prefab",
+      "grupo": "Equipamentos e detalhes",
+      "pos": [
+        7.155,
+        1.581,
+        2.6
+      ],
+      "yaw": 90
+    },
+    {
+      "nome": "Aviso provisorio",
+      "prefab": "Assets/Modelos/Autopsia/Prefabs/AvisoProvisorio.prefab",
+      "grupo": "Equipamentos e detalhes",
+      "pos": [
+        2.12,
+        1.55,
+        -3.394
+      ],
+      "yaw": 180
+    }
+  ]
+}

@@ -76,6 +76,8 @@ public class PecaDeMovel : AlvoDeInteracao, ISalvavel
     Collider[] proprios = Array.Empty<Collider>();
     readonly HashSet<Collider> ignorar = new HashSet<Collider>();
     readonly Collider[] encontrados = new Collider[16];
+    // Busca do personagem é larga e pega o corpo do móvel inteiro; com buffer pequeno o CharacterController sobrava.
+    static readonly Collider[] arredores = new Collider[128];
 
     float Maximo => Mathf.Abs(curso);
 
@@ -228,14 +230,17 @@ public class PecaDeMovel : AlvoDeInteracao, ISalvavel
     /// </summary>
     bool PersonagemNoVolume(Vector3 centro, Vector3 meia, Quaternion rotacao)
     {
-        int n = Physics.OverlapBoxNonAlloc(centro, meia + new Vector3(0f, 0.6f, 0f), encontrados, rotacao, obstaculos,
+        // Margem horizontal: a cápsula se afasta dentro do skinWidth antes de tocar a caixa, então a busca precisa
+        // achá-la já nessa faixa; o teste de cilindro abaixo decide com o raio exato.
+        int n = Physics.OverlapBoxNonAlloc(centro, meia + new Vector3(0.25f, 0.6f, 0.25f), arredores, rotacao, obstaculos,
             QueryTriggerInteraction.Ignore);
         Quaternion inv = Quaternion.Inverse(rotacao);
         for (int i = 0; i < n; i++)
         {
-            if (!(encontrados[i] is CharacterController cc) || !cc.enabled) continue;
+            if (!(arredores[i] is CharacterController cc) || !cc.enabled) continue;
             Vector3 eixoCc = cc.transform.TransformPoint(cc.center);
-            float raio = cc.radius * Mathf.Max(Mathf.Abs(cc.transform.lossyScale.x), Mathf.Abs(cc.transform.lossyScale.z));
+            // Raio + skinWidth: o controller se afasta de qualquer coisa dentro da pele.
+            float raio = cc.radius * Mathf.Max(Mathf.Abs(cc.transform.lossyScale.x), Mathf.Abs(cc.transform.lossyScale.z)) + cc.skinWidth;
             float baseCc = cc.bounds.min.y;
             if (baseCc > centro.y + meia.y) continue;   // o personagem está acima da peça
             Vector3 local = inv * (new Vector3(eixoCc.x, centro.y, eixoCc.z) - centro);
