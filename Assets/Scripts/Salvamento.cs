@@ -17,16 +17,16 @@ public interface ISalvavel
 
 /// <summary>
 /// Save único do jogo, em JSON no persistentDataPath: cena, posição e olhar do jogador, chaves do Chaveiro e o
-/// estado de todo ISalvavel da cena. Os objetos são identificados pelo caminho na hierarquia + tipo do
+/// estado de todo ISalvavel das cenas carregadas. Os objetos são identificados pela cena + caminho na hierarquia + tipo do
 /// componente (a cena é gerada, sem IDs próprios); nomes repetidos ganham "#n" na ordem da hierarquia.
 /// Renomear ou mover um objeto faz o save antigo simplesmente não achá-lo (ele fica no estado da cena).
 ///
 /// Fluxo: MenuPrincipal chama NovoJogo/Continuar, MenuPausa chama Salvar. Continuar carrega a cena salva e,
-/// quando ela termina de carregar (sceneLoaded), aplica o estado.
+/// quando o mapa e o jogador estão carregados (sceneLoaded), aplica o estado.
 /// </summary>
 public static class Salvamento
 {
-    const int Versao = 1;
+    const int Versao = 2;
 
     [Serializable]
     class Registro
@@ -84,7 +84,7 @@ public static class Salvamento
         return true;
     }
 
-    /// <summary>Grava o estado da cena ativa. False se não há jogador na cena ou a escrita falhou.</summary>
+    /// <summary>Grava o mapa ativo e o estado das cenas carregadas. False se não há jogador ou a escrita falhou.</summary>
     public static bool Salvar()
     {
         Scene cena = SceneManager.GetActiveScene();
@@ -107,7 +107,7 @@ public static class Salvamento
             noite = EstadoDaNoite.Exportar(),
         };
         dados.chaves.AddRange(Chaveiro.Itens);
-        foreach (KeyValuePair<string, ISalvavel> par in Coletar(cena))
+        foreach (KeyValuePair<string, ISalvavel> par in Coletar())
         {
             try { dados.objetos.Add(new Registro { id = par.Key, estado = par.Value.Salvar() }); }
             catch (Exception e) { Debug.LogException(e, par.Value as UnityEngine.Object); }
@@ -152,14 +152,18 @@ public static class Salvamento
 
     static void AoCarregarCena(Scene cena, LoadSceneMode modo)
     {
-        if (pendente == null || cena.name != pendente.cena) return;
+        if (pendente == null) return;
+        Scene mapa = SceneManager.GetSceneByName(pendente.cena);
+        if (!mapa.IsValid() || !mapa.isLoaded) return;
+        Movimento jogador = UnityEngine.Object.FindFirstObjectByType<Movimento>();
+        if (jogador == null) return;
+
         Dados dados = pendente;
-        pendente = null;
 
         EstadoDaNoite.Importar(dados.noite);
         foreach (string chave in dados.chaves) Chaveiro.Adicionar(chave);
 
-        List<KeyValuePair<string, ISalvavel>> salvaveis = Coletar(cena);
+        List<KeyValuePair<string, ISalvavel>> salvaveis = Coletar();
         var registros = new Dictionary<string, string>();
         foreach (Registro r in dados.objetos) registros[r.id] = r.estado;
         foreach (KeyValuePair<string, ISalvavel> par in salvaveis)
@@ -169,27 +173,32 @@ public static class Salvamento
             catch (Exception e) { Debug.LogException(e, par.Value as UnityEngine.Object); }
         }
 
-        Movimento jogador = UnityEngine.Object.FindFirstObjectByType<Movimento>();
-        if (jogador != null) jogador.Teleportar(dados.posicao, dados.giro, dados.inclinacao, dados.agachado);
+        jogador.Teleportar(dados.posicao, dados.giro, dados.inclinacao, dados.agachado);
+        pendente = null;
     }
 
     /// <summary>
-    /// Todo ISalvavel da cena (inclusive inativos), na ordem da hierarquia. Cadeados vão por último: ao abrir,
+    /// Todo ISalvavel das cenas carregadas (inclusive inativos), na ordem das cenas e da hierarquia. Cadeados vão por último: ao abrir,
     /// eles destrancam as portas do armário, por cima do estado salvo delas.
     /// </summary>
-    static List<KeyValuePair<string, ISalvavel>> Coletar(Scene cena)
+    static List<KeyValuePair<string, ISalvavel>> Coletar()
     {
         var lista = new List<MonoBehaviour>();
-        foreach (GameObject raiz in cena.GetRootGameObjects())
-            foreach (MonoBehaviour mb in raiz.GetComponentsInChildren<MonoBehaviour>(true))
-                if (mb is ISalvavel) lista.Add(mb);
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene cena = SceneManager.GetSceneAt(i);
+            if (!cena.isLoaded) continue;
+            foreach (GameObject raiz in cena.GetRootGameObjects())
+                foreach (MonoBehaviour mb in raiz.GetComponentsInChildren<MonoBehaviour>(true))
+                    if (mb is ISalvavel) lista.Add(mb);
+        }
 
         // Ids na ordem da hierarquia (o "#n" dos repetidos não depende dos cadeados irem para o fim).
         var ids = new Dictionary<MonoBehaviour, string>();
         var usados = new HashSet<string>();
         foreach (MonoBehaviour mb in lista)
         {
-            string id = CaminhoNaHierarquia(mb.transform) + ":" + mb.GetType().Name;
+            string id = mb.gameObject.scene.name + "/" + CaminhoNaHierarquia(mb.transform) + ":" + mb.GetType().Name;
             string unico = id;
             for (int n = 2; !usados.Add(unico); n++) unico = id + "#" + n;
             ids[mb] = unico;
