@@ -51854,6 +51854,54 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 305260438}
   m_Mesh: {fileID: 2005293458}
+--- !u!1 &306459288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 306459290}
+  - component: {fileID: 306459289}
+  m_Layer: 0
+  m_Name: Filtro VHS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &306459289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306459288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 361111239a2c11f7491d0b0984d16af7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FiltroVHS
+  ativo: 1
+  intervaloEntreFalhas: {x: 8, y: 22}
+  forcaDasFalhas: {x: 0.15, y: 0.45}
+  duracaoDasFalhas: {x: 0.08, y: 0.3}
+--- !u!4 &306459290
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306459288}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &307719218
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -85577,6 +85625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjetoInspecionavel
   nome: Pista
   descricao: 
+  idEvidencia: 
   teclaInteracao: E
   distanciaMaxima: 1
   folgaDaMira: 0.04
@@ -107167,6 +107216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjetoInspecionavel
   nome: Pista
   descricao: 
+  idEvidencia: 
   teclaInteracao: E
   distanciaMaxima: 1
   folgaDaMira: 0.04
@@ -141463,6 +141513,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjetoInspecionavel
   nome: Pista
   descricao: 
+  idEvidencia: 
   teclaInteracao: E
   distanciaMaxima: 1
   folgaDaMira: 0.04
@@ -279722,6 +279773,76 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5019391116310433293, guid: 9ebbe0d2b38ca19d5a7d94216cbceb43, type: 3}
   m_PrefabInstance: {fileID: 1797145881}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1797626154
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1797626156}
+  - component: {fileID: 1797626155}
+  m_Layer: 0
+  m_Name: Caderno
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1797626155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797626154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09b136a916ecae142b01f5001c62e460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiarioDePistas
+  teclaDiario: Tab
+  pausarJogoAoAbrir: 0
+  desativarComDiarioAberto:
+  - {fileID: 1821500669}
+  fonteTitulo: {fileID: 12800000, guid: 621c63266655c9e41a3e53db03bcaae7, type: 3}
+  fonteTexto: {fileID: 12800000, guid: f5911d78edf084441bacbf1281e36589, type: 3}
+  fonteNegrito: {fileID: 12800000, guid: 55605fd07246b781db3fd4a02f473b22, type: 3}
+  fonteManuscrita: {fileID: 12800000, guid: 89943fb6a970d6cda946f3be7548f6c4, type: 3}
+  fonteManuscritaNegrito: {fileID: 12800000, guid: 352bade41604d70b190a6672c3d9e08b, type: 3}
+  duracaoAbrir: 0.34
+  duracaoFechar: 0.22
+  texturaPagina: {fileID: 2800000, guid: 50c383d2ddd7f1d9ab710eae2b372a08, type: 3}
+  texturaIndice: {fileID: 2800000, guid: 75950a6bf760b713f8f4bb250089578b, type: 3}
+  texturaCapa: {fileID: 2800000, guid: 9fb59cdb36e4290c9b10cb07662ec952, type: 3}
+  texturaDivisoria: {fileID: 2800000, guid: fb36d72d5cecec08ca0a9e015cff4a2d, type: 3}
+  texturaNota: {fileID: 2800000, guid: 8b40bac0ca3ba05e5b9534d654972e97, type: 3}
+  texturaEspiral: {fileID: 2800000, guid: 5be1dfbe9ed53bd13b4740041e1fba5b, type: 3}
+  aoRegistrarPista:
+    m_PersistentCalls:
+      m_Calls: []
+  aoAbrirDiario:
+    m_PersistentCalls:
+      m_Calls: []
+  aoFecharDiario:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &1797626156
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797626154}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1797765176
 Mesh:
   m_ObjectHideFlags: 0
@@ -336477,3 +336598,5 @@ SceneRoots:
   - {fileID: 207054974}
   - {fileID: 603972546}
   - {fileID: 853382226}
+  - {fileID: 1797626156}
+  - {fileID: 306459290}

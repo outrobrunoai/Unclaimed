@@ -23,6 +23,10 @@ public class FlickerFluorescente : MonoBehaviour
     [Header("Som (Opcional)")]
     public AudioSource somChoqueEletrico;
 
+    [Header("Filtro VHS")]
+    [Tooltip("Quando a luz quase apaga, a imagem dá uma pequena falha no filtro VHS.")]
+    public bool falhaNoFiltro = true;
+
     void Start()
     {
         if (luzFluorescente == null) luzFluorescente = GetComponent<Light>();
@@ -59,6 +63,7 @@ public class FlickerFluorescente : MonoBehaviour
                     // Falha grave (quase apaga)
                     AplicarIntensidade(intensidadeMinima, 0f);
                     TocarSomZumbido(0.023f);
+                    if (falhaNoFiltro) FiltroVHS.Falha(0.2f, 0.15f); // a câmera "sente" a queda de energia
                     yield return new WaitForSeconds(Random.Range(0.1f, 0.4f));
                 }
                 else

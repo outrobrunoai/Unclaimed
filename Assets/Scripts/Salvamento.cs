@@ -44,6 +44,7 @@ public static class Salvamento
         public Vector3 posicao;
         public float giro, inclinacao;
         public bool agachado;
+        public string noite;
         public List<string> chaves = new List<string>();
         public List<Registro> objetos = new List<Registro>();
     }
@@ -67,6 +68,7 @@ public static class Salvamento
         ApagarSave();
         pendente = null;
         Chaveiro.Limpar();
+        EstadoDaNoite.Limpar();
         SceneManager.LoadScene(cena);
     }
 
@@ -77,6 +79,7 @@ public static class Salvamento
         if (dados == null || string.IsNullOrEmpty(dados.cena)) return false;
         pendente = dados;
         Chaveiro.Limpar();
+        EstadoDaNoite.Limpar();
         SceneManager.LoadScene(dados.cena);
         return true;
     }
@@ -101,6 +104,7 @@ public static class Salvamento
             giro = jogador.transform.eulerAngles.y,
             inclinacao = jogador.Inclinacao,
             agachado = jogador.Agachado,
+            noite = EstadoDaNoite.Exportar(),
         };
         dados.chaves.AddRange(Chaveiro.Itens);
         foreach (KeyValuePair<string, ISalvavel> par in Coletar(cena))
@@ -152,6 +156,7 @@ public static class Salvamento
         Dados dados = pendente;
         pendente = null;
 
+        EstadoDaNoite.Importar(dados.noite);
         foreach (string chave in dados.chaves) Chaveiro.Adicionar(chave);
 
         List<KeyValuePair<string, ISalvavel>> salvaveis = Coletar(cena);

@@ -1,0 +1,374 @@
+{
+  "evidencias": [
+    {
+      "id": "D01",
+      "tipo": "documento",
+      "titulo": "Ficha de entrada de Léo",
+      "local": "Recepção",
+      "opcional": false,
+      "resumo": "Léo Martins chegou ao necrotério às 21h50 e recebeu o número 083. A ficha manda guardar o corpo na gaveta 3 da câmara fria."
+    },
+    {
+      "id": "D02",
+      "tipo": "documento",
+      "titulo": "Quadro de transferências",
+      "local": "Recebimento",
+      "opcional": false,
+      "resumo": "A gaveta 3 está interditada. Por isso, Mauro levou o corpo 083 para a sala de autópsia às 22h28."
+    },
+    {
+      "id": "D03",
+      "tipo": "documento",
+      "titulo": "Aviso da sala técnica",
+      "local": "Sala técnica",
+      "opcional": false,
+      "resumo": "A energia do prédio está em ligação provisória. A refrigeração precisa ficar sempre ligada."
+    },
+    {
+      "id": "D04",
+      "tipo": "documento",
+      "titulo": "Painel de energia",
+      "local": "Sala técnica",
+      "opcional": false,
+      "resumo": "O painel aguenta 10 unidades. A refrigeração usa 6. A luz geral usa 3. A luz de exame usa 4."
+    },
+    {
+      "id": "D05",
+      "tipo": "foto",
+      "titulo": "Foto de entrada de Léo",
+      "local": "Recebimento",
+      "opcional": false,
+      "resumo": "Quando chegou, Léo tinha uma tala no braço esquerdo. A bolsa dele tinha a costura remendada."
+    },
+    {
+      "id": "D06",
+      "tipo": "documento",
+      "titulo": "Observação sobre a tala",
+      "local": "Recebimento",
+      "opcional": false,
+      "resumo": "A tala do braço esquerdo de Léo foi mantida no corpo até o exame."
+    },
+    {
+      "id": "D07",
+      "tipo": "documento",
+      "titulo": "Registro do sensor do recebimento",
+      "local": "Recepção",
+      "opcional": false,
+      "resumo": "O computador da recepção guarda os registros do sensor da porta do recebimento. Às 23h04, o crachá LV-12, de Daniel Vilar, da Limiar, abriu a porta. Não há registro de saída."
+    },
+    {
+      "id": "D08",
+      "tipo": "documento",
+      "titulo": "Aviso sobre retiradas à noite",
+      "local": "Recebimento",
+      "opcional": false,
+      "resumo": "Depois das 22h30, um funcionário do necrotério precisa conferir qualquer retirada."
+    },
+    {
+      "id": "D09",
+      "tipo": "documento",
+      "titulo": "Lista de pertences de Léo",
+      "local": "Arquivo",
+      "opcional": false,
+      "resumo": "Às 22h05, Nina tirou o gravador da bolsa de Léo, porque a bolsa estava rasgada. Ela guardou o gravador no armário de guarda, na coluna B, nível 2."
+    },
+    {
+      "id": "D10",
+      "tipo": "documento",
+      "titulo": "Envelope do gravador",
+      "local": "Arquivo",
+      "opcional": false,
+      "resumo": "Nina lacrou o envelope com o gravador de Léo às 22h05."
+    },
+    {
+      "id": "D11",
+      "tipo": "documento",
+      "titulo": "Registro do transporte 784",
+      "local": "Arquivo",
+      "opcional": false,
+      "resumo": "A Limiar registrou que entregou o corpo de Vera Moura, de 58 anos. Daniel Vilar aprovou o transporte com o código LV-12. O destino respondeu que nunca recebeu o corpo."
+    },
+    {
+      "id": "D12",
+      "tipo": "documento",
+      "titulo": "Anotações de João e Célia",
+      "local": "Arquivo",
+      "opcional": false,
+      "resumo": "João escreveu que não fez o transporte registrado no nome dele. Célia fotografou o galpão da Limiar. Na foto, uma caixa marcada \"lote 784\" tem o chaveiro azul de Vera Moura."
+    },
+    {
+      "id": "D13",
+      "tipo": "audio",
+      "titulo": "Gravação de Léo",
+      "local": "Arquivo",
+      "opcional": false,
+      "resumo": "Léo diz a Daniel que o corpo de Vera Moura nunca chegou ao destino. Daniel responde que ninguém reclama esses corpos e que alguém paga por eles. No fim, Léo dá a referência: transporte 784."
+    },
+    {
+      "id": "D14",
+      "tipo": "documento",
+      "titulo": "Aviso de fim de turno",
+      "local": "Descanso",
+      "opcional": false,
+      "resumo": "A equipe do necrotério foi embora às 22h35. O vigia faz a ronda entre os prédios."
+    },
+    {
+      "id": "D15",
+      "tipo": "documento",
+      "titulo": "Mensagens de Daniel com o comprador",
+      "local": "Arquivo",
+      "opcional": false,
+      "resumo": "João copiou estas mensagens do celular de Daniel. O comprador pede: \"mulher, entre 50 e 65 anos\". Daniel responde: \"O 784 sai amanhã. Mesmo valor de sempre.\""
+    },
+    {
+      "id": "F01",
+      "tipo": "foto",
+      "titulo": "Foto da pessoa na mesa",
+      "local": "Autópsia",
+      "opcional": false,
+      "resumo": "A pessoa na mesa de autópsia tem a etiqueta 083. O braço esquerdo está descoberto e não tem tala."
+    },
+    {
+      "id": "F02",
+      "tipo": "foto",
+      "titulo": "Foto do corpo na gaveta 2",
+      "local": "Câmara fria",
+      "opcional": false,
+      "resumo": "O corpo na gaveta 2 tem a pulseira 083 e uma tala no braço esquerdo. É Léo."
+    },
+    {
+      "id": "V01",
+      "tipo": "observacao",
+      "titulo": "A pessoa da mesa se levantou",
+      "local": "Autópsia",
+      "opcional": false,
+      "resumo": "Você viu a pessoa que estava na mesa de autópsia se levantar e sair da sala."
+    },
+    {
+      "id": "H01",
+      "tipo": "documento",
+      "titulo": "Cartão de trabalho de Samuel Reis",
+      "local": "Descanso",
+      "opcional": true,
+      "resumo": "Mauro guardou o cartão de trabalho de Samuel Reis. O cartão veio com os pertences do corpo 041."
+    },
+    {
+      "id": "H02",
+      "tipo": "documento",
+      "titulo": "Pedido de Irene",
+      "local": "Arquivo",
+      "opcional": true,
+      "resumo": "Em 14/08/2024, às 21h10, Irene pediu que o corpo 041 não saísse do necrotério. Ela tinha encontrado a família de Samuel Reis."
+    },
+    {
+      "id": "H03",
+      "tipo": "documento",
+      "titulo": "Recibo do cemitério",
+      "local": "Arquivo",
+      "opcional": true,
+      "resumo": "O corpo 041 foi enterrado no cemitério Santa Amélia, setor C, registro 12, em 15/08/2024."
+    },
+    {
+      "id": "H04",
+      "tipo": "documento",
+      "titulo": "Relatório da apuração",
+      "local": "Arquivo",
+      "opcional": true,
+      "resumo": "O relatório diz que o pedido de Irene chegou depois que o corpo saiu. Ele põe a culpa em Irene."
+    },
+    {
+      "id": "H05",
+      "tipo": "documento",
+      "titulo": "Carta de Irene para Mauro",
+      "local": "Descanso",
+      "opcional": true,
+      "resumo": "Irene escreve que Mauro viu quando ela entregou o pedido e não disse nada. A mãe de Samuel ainda liga para ela."
+    },
+    {
+      "id": "H06",
+      "tipo": "documento",
+      "titulo": "Bilhete de Irene para Nina",
+      "local": "Arquivo",
+      "opcional": true,
+      "resumo": "Irene pede a Nina: se alguém descobrir onde o corpo 041 está, ela quer ser avisada antes do jornal. Ela quer falar primeiro com a mãe de Samuel."
+    },
+    {
+      "id": "H07",
+      "tipo": "documento",
+      "titulo": "Autorização de saída assinada por Helena",
+      "local": "Sala técnica",
+      "opcional": true,
+      "resumo": "Helena autorizou a saída do corpo 041 em 15/08/2024, às 06h20. Ela mesma anotou que recebeu o pedido de Irene no dia anterior, às 21h10."
+    },
+    {
+      "id": "H08",
+      "tipo": "documento",
+      "titulo": "Recibo de transporte do corpo 041",
+      "local": "Arquivo",
+      "opcional": true,
+      "resumo": "A Limiar transportou o corpo 041 até o cemitério. Daniel Vilar assinou o recibo com o código LV-12. Ninguém do necrotério conferiu o transporte."
+    }
+  ],
+  "comparacoes": [
+    {
+      "id": "tala",
+      "tipo": "hipotese",
+      "titulo": "A pessoa na mesa não tem a tala",
+      "texto": "Léo chegou com uma tala no braço esquerdo. A pessoa na mesa não tem tala nesse braço. Talvez a pessoa na mesa não seja Léo.",
+      "pares": [
+        {
+          "a": "F01",
+          "b": "D05"
+        },
+        {
+          "a": "F01",
+          "b": "D06"
+        }
+      ]
+    },
+    {
+      "id": "troca",
+      "tipo": "conclusao",
+      "titulo": "Duas pessoas com o número 083",
+      "texto": "O corpo de Léo está na gaveta 2 da câmara fria. A pessoa que estava na mesa de autópsia usava a etiqueta dele, mas era outra pessoa, e estava viva.",
+      "pares": [
+        {
+          "a": "F01",
+          "b": "F02"
+        },
+        {
+          "a": "V01",
+          "b": "F02"
+        }
+      ]
+    },
+    {
+      "id": "entrada_irregular",
+      "tipo": "conclusao",
+      "titulo": "Daniel entrou fora do horário e não saiu",
+      "texto": "O sensor registrou a entrada de Daniel às 23h04. Depois das 22h30, um funcionário precisava conferir qualquer entrada, mas a equipe já tinha ido embora. Não há registro de saída: Daniel ainda está no prédio.",
+      "pares": [
+        {
+          "a": "D07",
+          "b": "D08"
+        },
+        {
+          "a": "D07",
+          "b": "D14"
+        }
+      ]
+    },
+    {
+      "id": "gravador_antes",
+      "tipo": "conclusao",
+      "titulo": "O gravador saiu da bolsa antes de Daniel chegar",
+      "texto": "Nina guardou o gravador às 22h05. Daniel só entrou às 23h04. Por isso ele não encontrou o gravador na bolsa de Léo.",
+      "pares": [
+        {
+          "a": "D09",
+          "b": "D07"
+        },
+        {
+          "a": "D10",
+          "b": "D07"
+        }
+      ]
+    },
+    {
+      "id": "vera",
+      "tipo": "conclusao",
+      "titulo": "O corpo de Vera Moura nunca foi entregue",
+      "texto": "Na gravação, Léo fala do transporte 784. O registro mostra que o transporte 784 levava o corpo de Vera Moura e que o destino nunca recebeu o corpo.",
+      "pares": [
+        {
+          "a": "D13",
+          "b": "D11"
+        }
+      ]
+    },
+    {
+      "id": "daniel_784",
+      "tipo": "conclusao",
+      "titulo": "Daniel aprovou o transporte 784",
+      "texto": "O código LV-12 aparece no transporte 784 e no sensor do recebimento desta noite. Os dois registros são de Daniel Vilar.",
+      "pares": [
+        {
+          "a": "D11",
+          "b": "D07"
+        }
+      ]
+    },
+    {
+      "id": "chaveiro",
+      "tipo": "conclusao",
+      "titulo": "O corpo de Vera passou pelo galpão da Limiar",
+      "texto": "O corpo de Vera Moura nunca chegou ao destino. O chaveiro dela está numa caixa do galpão da Limiar, marcada com o número do transporte: 784.",
+      "pares": [
+        {
+          "a": "D12",
+          "b": "D11"
+        }
+      ]
+    },
+    {
+      "id": "venda",
+      "tipo": "conclusao",
+      "titulo": "Daniel vendeu o corpo de Vera Moura",
+      "texto": "O comprador pediu uma mulher entre 50 e 65 anos. Daniel prometeu o transporte 784, que levava o corpo de Vera Moura, de 58 anos. O corpo não chegou ao destino porque foi vendido.",
+      "pares": [
+        {
+          "a": "D15",
+          "b": "D11"
+        },
+        {
+          "a": "D15",
+          "b": "D13"
+        }
+      ]
+    },
+    {
+      "id": "samuel",
+      "tipo": "conclusao",
+      "titulo": "Samuel Reis está enterrado no Santa Amélia",
+      "texto": "O corpo 041 é de Samuel Reis. Ele foi enterrado no cemitério Santa Amélia, setor C, registro 12.",
+      "pares": [
+        {
+          "a": "H01",
+          "b": "H03"
+        },
+        {
+          "a": "H02",
+          "b": "H03"
+        }
+      ]
+    },
+    {
+      "id": "helena",
+      "tipo": "conclusao",
+      "titulo": "Helena recebeu o pedido antes da saída",
+      "texto": "O relatório diz que o pedido de Irene chegou tarde. A autorização mostra que Helena recebeu o pedido na véspera e liberou a saída mesmo assim.",
+      "pares": [
+        {
+          "a": "H04",
+          "b": "H07"
+        }
+      ]
+    },
+    {
+      "id": "daniel_041",
+      "tipo": "conclusao",
+      "titulo": "Daniel também transportou o corpo 041",
+      "texto": "Daniel assinou o transporte do corpo 041 em 2024, e ninguém conferiu. É o mesmo código que ele usou no transporte de Vera Moura.",
+      "pares": [
+        {
+          "a": "H08",
+          "b": "D11"
+        },
+        {
+          "a": "H08",
+          "b": "D07"
+        }
+      ]
+    }
+  ]
+}

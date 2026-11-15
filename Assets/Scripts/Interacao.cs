@@ -26,6 +26,7 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
     [Header("Informações da pista")]
     public string nome = "Pista";
     [TextArea] public string descricao;
+    public string idEvidencia;
 
     [Header("Interação")]
     [Tooltip("Nome da tecla (ex.: E, F, Q).")]
@@ -469,6 +470,7 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
         {
             jaExaminado = true;
             aoPrimeiraInspecao?.Invoke(); // Ideal para chamar mecânicas de diário ou som de nova pista!
+            if (!string.IsNullOrEmpty(idEvidencia)) Caderno.Coletar(idEvidencia);
         }
     }
 
