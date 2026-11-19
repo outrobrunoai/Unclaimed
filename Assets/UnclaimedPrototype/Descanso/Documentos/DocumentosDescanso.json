@@ -1,92 +1,152 @@
 {
- "documentos": [
-  {
-   "id": "bilhete_cafe",
-   "titulo": "Recados da copa",
-   "tamanho": [
-    0.11,
-    0.078
-   ],
-   "papel": "#F1F0EB",
-   "acabamento": "papel",
-   "fonte": "hand",
-   "margem": 0,
-   "amassado": 0.28,
-   "vincos": [
+  "documentos": [
     {
-     "eixo": "y",
-     "pos": 0.5,
-     "forca": 0.2
-    }
-   ],
-   "transcricao": "Mauro, deixei o café no pote azul. O do pote branco é descafeinado. Nina.\nA doutora já tomou o branco e reclamou que o plantão está fraco. Não conta. M.\nLeio os recados antes de tomar café. H.",
-   "blocos": []
-  },
-  {
-   "id": "bilhete_marmita",
-   "titulo": "Bilhete da marmita",
-   "tamanho": [
-    0.09,
-    0.047
-   ],
-   "papel": "#EFEEE8",
-   "acabamento": "papel",
-   "fonte": "hand",
-   "margem": 0,
-   "amassado": 0.3,
-   "vincos": [
+      "id": "bilhete_cafe",
+      "titulo": "Recados da copa",
+      "tamanho": [
+        0.11,
+        0.078
+      ],
+      "papel": "#F1F0EB",
+      "acabamento": "papel",
+      "fonte": "hand",
+      "margem": 0,
+      "amassado": 0.28,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "Mauro, deixei o café no pote azul. O do pote branco é descafeinado. Nina.\nA doutora já tomou o branco e reclamou que o plantão está fraco. Não conta. M.\nLeio os recados antes de tomar café. H.",
+      "blocos": [],
+      "fixo": true
+    },
     {
-     "eixo": "y",
-     "pos": 0.5,
-     "forca": 0.2
-    }
-   ],
-   "transcricao": "Helena, sua comida está na geladeira. A Nina disse que você só almoçou bolacha. Mauro.",
-   "blocos": []
-  },
-  {
-   "id": "aviso_encerramento",
-   "titulo": "Comunicado interno",
-   "tamanho": [
-    0.148,
-    0.152
-   ],
-   "papel": "#F4F4F1",
-   "acabamento": "fotocopia",
-   "fonte": "sans",
-   "margem": 0,
-   "amassado": 0.22,
-   "vincos": [
+      "id": "bilhete_marmita",
+      "titulo": "Bilhete da marmita",
+      "tamanho": [
+        0.09,
+        0.047
+      ],
+      "papel": "#EFEEE8",
+      "acabamento": "papel",
+      "fonte": "hand",
+      "margem": 0,
+      "amassado": 0.3,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "Helena, sua comida está na geladeira. A Nina disse que você só almoçou bolacha. Mauro.",
+      "blocos": []
+    },
     {
-     "eixo": "y",
-     "pos": 0.5,
-     "forca": 0.2
-    }
-   ],
-   "transcricao": "Comunicado interno nº 047/2026. 18/11/2026. De: Coordenação técnica. Para: equipe do plantão. Assunto: encerramento do plantão. Equipe técnica encerra presença no bloco às 22h35. Exames pendentes seguem para a manhã. Vigilância com ronda entre blocos. Coordenação técnica.",
-   "blocos": []
-  },
-  {
-   "id": "escala_limpeza",
-   "titulo": "Controle de limpeza",
-   "tamanho": [
-    0.21,
-    0.114
-   ],
-   "papel": "#F3F2EE",
-   "acabamento": "papel",
-   "fonte": "sans",
-   "margem": 0,
-   "amassado": 0.24,
-   "vincos": [
+      "id": "aviso_encerramento",
+      "titulo": "Comunicado interno",
+      "tamanho": [
+        0.148,
+        0.152
+      ],
+      "papel": "#F4F4F1",
+      "acabamento": "fotocopia",
+      "fonte": "sans",
+      "margem": 0,
+      "amassado": 0.22,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "Comunicado interno nº 047/2026. 18/11/2026. De: Coordenação técnica. Para: equipe do plantão. Assunto: encerramento do plantão. Equipe técnica encerra presença no bloco às 22h35. Exames pendentes seguem para a manhã. Vigilância com ronda entre blocos. Coordenação técnica.",
+      "blocos": [],
+      "fixo": true
+    },
     {
-     "eixo": "y",
-     "pos": 0.5,
-     "forca": 0.2
+      "id": "escala_limpeza",
+      "titulo": "Controle de limpeza",
+      "tamanho": [
+        0.21,
+        0.114
+      ],
+      "papel": "#F3F2EE",
+      "acabamento": "papel",
+      "fonte": "sans",
+      "margem": 0,
+      "amassado": 0.24,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "Controle de limpeza, copa e vestiário, semana de 16/11 a 22/11/2026. Rotina diária: piso, lixeiras, bancada e mesa, puxadores; marcada de segunda a quarta de manhã. Tarefas periódicas: geladeira quinzenal (última 06/11, próxima 20/11); piso lavagem completa semanal (14/11, 21/11); armários vagos mensal (31/10, 30/11).",
+      "blocos": [],
+      "fixo": true
+    },
+    {
+      "id": "h01_cartao_samuel",
+      "titulo": "Cartão de trabalho",
+      "tamanho": [
+        0.09,
+        0.055
+      ],
+      "papel": "#F2F0EA",
+      "acabamento": "papel",
+      "fonte": "sans",
+      "margem": 0,
+      "amassado": 0.4,
+      "vincos": [],
+      "transcricao": "Samuel Reis · Ajudante de obras · Construtora Bom Pastor",
+      "evidencia": "H01",
+      "blocos": []
+    },
+    {
+      "id": "h01_bilhete_mauro",
+      "titulo": "Bilhete de Mauro",
+      "tamanho": [
+        0.08,
+        0.055
+      ],
+      "papel": "#F1EFE4",
+      "acabamento": "papel",
+      "fonte": "hand",
+      "margem": 0,
+      "amassado": 0.3,
+      "vincos": [],
+      "transcricao": "Achei este cartão na bolsa P17, que era do corpo 041. Guardei comigo depois que o corpo saiu. — Mauro",
+      "evidencia": "H01",
+      "blocos": []
+    },
+    {
+      "id": "h05_carta_irene",
+      "titulo": "Carta de Irene",
+      "tamanho": [
+        0.148,
+        0.21
+      ],
+      "papel": "#F4F2EA",
+      "acabamento": "papel",
+      "fonte": "hand",
+      "margem": 0,
+      "amassado": 0.35,
+      "vincos": [
+        {
+          "eixo": "h",
+          "pos": 0.5,
+          "forca": 0.3
+        }
+      ],
+      "transcricao": "Mauro,\nvocê estava lá quando eu entreguei o pedido para a Helena. Você viu. Eu esperei você falar, e você ficou quieto.\nA mãe do Samuel continua me ligando.\nSe um dia descobrir onde ele foi enterrado, me avisa.\n— Irene",
+      "evidencia": "H05",
+      "blocos": []
     }
-   ],
-   "transcricao": "Controle de limpeza, copa e vestiário, semana de 16/11 a 22/11/2026. Rotina diária: piso, lixeiras, bancada e mesa, puxadores; marcada de segunda a quarta de manhã. Tarefas periódicas: geladeira quinzenal (última 06/11, próxima 20/11); piso lavagem completa semanal (14/11, 21/11); armários vagos mensal (31/10, 30/11).",
-   "blocos": []
-  }
- ]
+  ]
 }

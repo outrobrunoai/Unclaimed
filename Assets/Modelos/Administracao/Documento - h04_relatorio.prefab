@@ -131,9 +131,13 @@ MonoBehaviour:
     ap\xF3s a sa\xEDda do corpo. A falha de atualiza\xE7\xE3o do registro foi atribu\xEDda
     \xE0 respons\xE1vel pelo arquivo, Irene Farias. Coordena\xE7\xE3o do setor: Helena
     Duarte.\n20/08/2024"
+  idEvidencia: H04
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
+  realcarNaMira: 1
+  intensidadeDoRealce: 1
+  fixoNoLugar: 0
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.47

@@ -131,9 +131,13 @@ MonoBehaviour:
     veda\xE7\xE3o da C-03\nConferir original de 15/08/2024 nas pastas antigas da
     coordena\xE7\xE3o\nDevolver manual da impressora\nPedir toner\nEtiquetas da guarda
     G [riscado]\nN."
+  idEvidencia: 
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
+  realcarNaMira: 1
+  intensidadeDoRealce: 1
+  fixoNoLugar: 0
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.45

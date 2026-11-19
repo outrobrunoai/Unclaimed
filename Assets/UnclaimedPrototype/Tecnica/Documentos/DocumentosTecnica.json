@@ -1,1 +1,27 @@
-{"documentos": [{"id": "manutencao_provisoria", "titulo": "Manutenção provisória", "tamanho": [0.148, 0.105], "papel": "#F2F1EC", "acabamento": "papel", "fonte": "hand", "margem": 0, "amassado": 0.18, "vincos": [{"eixo": "y", "pos": 0.5, "forca": 0.15}], "transcricao": "A alimentação provisória não aguenta os dois circuitos de luz com a refrigeração ligada. Mauro.\nRefrigeração permanece ligada. H.", "blocos": []}]}
+{
+  "documentos": [
+    {
+      "id": "manutencao_provisoria",
+      "titulo": "Manutenção provisória",
+      "tamanho": [
+        0.148,
+        0.105
+      ],
+      "papel": "#F2F1EC",
+      "acabamento": "papel",
+      "fonte": "hand",
+      "margem": 0,
+      "amassado": 0.18,
+      "vincos": [
+        {
+          "eixo": "y",
+          "pos": 0.5,
+          "forca": 0.15
+        }
+      ],
+      "transcricao": "A alimentação provisória não aguenta os dois circuitos de luz com a refrigeração ligada. Mauro.\nRefrigeração permanece ligada. H.",
+      "blocos": [],
+      "fixo": true
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+ "documentos": [
+  {
+   "id": "d02_quadro",
+   "titulo": "Quadro do recebimento",
+   "tamanho": [
+    0.9,
+    0.6
+   ],
+   "papel": "#EEF0F0",
+   "acabamento": "plastificado",
+   "fonte": "sans",
+   "margem": 0,
+   "amassado": 0.0,
+   "vincos": [],
+   "transcricao": "CORPOS DE HOJE — 18/11\n081 · João Ferraz → gaveta C-01\n082 · Célia Prado → gaveta C-04\n083 · Léo Martins → levado para a sala de autópsia às 22h28.\nA gaveta C-03 está com defeito. Não usar.\n— Mauro",
+   "evidencia": "D02",
+   "blocos": [],
+   "fixo": true
+  },
+  {
+   "id": "d05_foto_entrada",
+   "titulo": "Foto de entrada · 083",
+   "tamanho": [
+    0.15,
+    0.115
+   ],
+   "papel": "#F6F5F1",
+   "acabamento": "papel",
+   "fonte": "sans",
+   "margem": 0,
+   "amassado": 0.08,
+   "vincos": [],
+   "transcricao": "Registro 083 · Léo Martins · entrada às 21h50.\nTala no braço esquerdo. Bolsa de pertences P26, com costura remendada.",
+   "evidencia": "D05",
+   "blocos": [],
+   "fixo": true
+  },
+  {
+   "id": "d06_bilhete_tala",
+   "titulo": "Bilhete sobre a tala",
+   "tamanho": [
+    0.075,
+    0.05
+   ],
+   "papel": "#F3F1E6",
+   "acabamento": "papel",
+   "fonte": "sans",
+   "margem": 0,
+   "amassado": 0.25,
+   "vincos": [],
+   "transcricao": "A tala do braço esquerdo fica no corpo até o exame. Não retirar.\n— Mauro",
+   "evidencia": "D06",
+   "blocos": [],
+   "fixo": true
+  },
+  {
+   "id": "d08_aviso_retiradas",
+   "titulo": "Aviso na porta do pátio",
+   "tamanho": [
+    0.3,
+    0.21
+   ],
+   "papel": "#F7F7F4",
+   "acabamento": "plastificado",
+   "fonte": "sans",
+   "margem": 0,
+   "amassado": 0.05,
+   "vincos": [],
+   "transcricao": "ATENÇÃO\nDepois das 22h30, nenhum corpo ou equipamento sai do prédio sem um funcionário do necrotério presente.\nA empresa de transporte não pode entrar sozinha.\n— Coordenação",
+   "evidencia": "D08",
+   "blocos": [],
+   "fixo": true
+  }
+ ]
+}

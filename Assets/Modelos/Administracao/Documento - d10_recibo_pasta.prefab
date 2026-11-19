@@ -129,9 +129,13 @@ MonoBehaviour:
   nome: Recibo de guarda
   descricao: "G-B2. P26 / item 03. Recebido \xE0s 22h05. Lacre conferido por Nina
     Rocha. G: guarda separada. Endere\xE7o: coluna e n\xEDvel.\nvia da pasta"
+  idEvidencia: D10
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
+  realcarNaMira: 1
+  intensidadeDoRealce: 1
+  fixoNoLugar: 0
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.45

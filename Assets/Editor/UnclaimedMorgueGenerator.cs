@@ -193,6 +193,7 @@ public static partial class UnclaimedMorgueGenerator
         BuildCirculacao(Sub(roomsGroup, CirculacaoRoom));
         Clues(clues);
         UnclaimedRecebimentoAssets.InstallGenerated(Sub(roomsGroup, "Recebimento de corpos"));
+        PlaceRecebimentoDocuments(Sub(roomsGroup, "Recebimento de corpos"));
         UnclaimedPatioRecebimentoAssets.InstallGenerated(outside);
         Markers(markers);
         UnclaimedCamaraFriaAssets.InstallGenerated(Sub(roomsGroup, "Camara fria"));
@@ -625,13 +626,16 @@ public static partial class UnclaimedMorgueGenerator
         Piece("Encosto", chair, -2.855f, 0.52f, -6.89f, -2.395f, 0.95f, -6.84f, furnitureMat);
     }
 
+    // The prototype's placeholder clues (register book, displaced instrument, autopsy report) were removed in stage 2:
+    // the case's evidence is now the documents of each room (Assets/Resources/Historia/evidencias.json).
     private static void Clues(Transform p)
     {
-        DressRegisterBook(Clue("Pista - registro de entrada", p, -12.42f, -9.0f, 1.1f));   // on the counter's granite ledge
-        if (!HasAdminPrefab("Armario de pertences")) Clue("Pista - objeto pessoal", p, 2.95f, -9.375f, 1.8f);
-        if (!HasAdminPrefab("Mesa do servidor")) Clue("Pista - prontuario", p, -2.25f, -7.875f, 0.75f);
-        Clue("Pista - instrumento deslocado", p, 6f, 11.05f, 0.9f);
-        Clue("Pista - laudo da autopsia", p, 3f, 3f, 0.9f);
+        foreach (string old in new[] { "Pista - registro de entrada", "Pista - objeto pessoal", "Pista - prontuario",
+                     "Pista - instrumento deslocado", "Pista - laudo da autopsia" })
+        {
+            Transform t = p.Find(old);
+            if (t != null) Undo.DestroyObjectImmediate(t.gameObject);
+        }
     }
 
     private static void Markers(Transform p)
@@ -730,9 +734,6 @@ public static partial class UnclaimedMorgueGenerator
         renderer.shadowCastingMode = ShadowCastingMode.Off;
         return obj;
     }
-
-    private static GameObject Clue(string name, Transform parent, float x, float z, float surface) =>
-        Box(name, parent, new Vector3(x, surface + 0.075f, z), new Vector3(0.25f, 0.15f, 0.25f), clueMat);
 
     private static void Marker(string name, Transform parent, float x, float z, float height)
     {

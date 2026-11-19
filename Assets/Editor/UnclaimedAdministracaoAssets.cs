@@ -246,6 +246,7 @@ public static class UnclaimedAdministracaoAssets
         exam.faceVoltadaParaJogador = face; exam.topoNaTela = face == EixoLocal.Cima ? EixoLocal.Frente : EixoLocal.Cima;
         exam.distanciaDaCamera = .45f; exam.tamanhoNaTela = size; exam.limiteDistancia = new Vector2(.16f, .75f);
         exam.zoomPorScroll = .05f; exam.ocultarOriginal = true; exam.travarMovimentoDoJogador = true; exam.duracaoAnimacao = .35f;
+        if (name == "Envelope de guarda") exam.idEvidencia = "D10";   // Nina sealed Leo's recorder in it at 22h05
     }
 
     [Serializable] private class LabelData { public int[] atlas; public Label[] etiquetas; }

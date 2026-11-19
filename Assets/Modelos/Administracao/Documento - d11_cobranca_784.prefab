@@ -130,9 +130,13 @@ MonoBehaviour:
   descricao: "Refer\xEAncia 784. Dois transportes extraordin\xE1rios. Aprova\xE7\xE3o:
     Daniel Vilar, LV-12. Limiar Servi\xE7os.\nConferir sa\xEDdas. N\xE3o encontrei
     execu\xE7\xE3o dessas duas viagens."
+  idEvidencia: D11
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
+  realcarNaMira: 1
+  intensidadeDoRealce: 1
+  fixoNoLugar: 0
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.45

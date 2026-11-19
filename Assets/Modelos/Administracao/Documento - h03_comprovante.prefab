@@ -129,9 +129,13 @@ MonoBehaviour:
   nome: Comprovante
   descricao: "Cemit\xE9rio Santa Am\xE9lia. Recebimento referente ao caso 041. Setor
     C, registro 12. 15 de agosto de 2024."
+  idEvidencia: H03
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
+  realcarNaMira: 1
+  intensidadeDoRealce: 1
+  fixoNoLugar: 0
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.45

@@ -130,11 +130,13 @@ MonoBehaviour:
   descricao: "Mauro, deixei o caf\xE9 no pote azul. O do pote branco \xE9 descafeinado.
     Nina.\nA doutora j\xE1 tomou o branco e reclamou que o plant\xE3o est\xE1 fraco.
     N\xE3o conta. M.\nLeio os recados antes de tomar caf\xE9. H."
+  idEvidencia: 
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
   realcarNaMira: 1
   intensidadeDoRealce: 1
+  fixoNoLugar: 1
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.45

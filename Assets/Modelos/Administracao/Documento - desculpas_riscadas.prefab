@@ -129,9 +129,13 @@ MonoBehaviour:
   nome: Rascunho de desculpas
   descricao: "Irene, eu sei que voc\xEA\nIrene, sobre o relat\xF3rio, eu n\xE3o queria
     que\nMe desculpa. Eu deveria ter"
+  idEvidencia: 
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
+  realcarNaMira: 1
+  intensidadeDoRealce: 1
+  fixoNoLugar: 0
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.47

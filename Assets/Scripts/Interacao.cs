@@ -40,6 +40,11 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
     [Tooltip("Força do realce branco na mira.")]
     [Range(0f, 1f)] public float intensidadeDoRealce = 1f;
 
+    [Header("Objeto preso no lugar")]
+    [Tooltip("Para o que está preso (quadro na parede, placa, papel colado): o objeto não sai do lugar nem gira. A câmera vai até a " +
+             "frente da face escolhida em \"Face Voltada Para Jogador\" (topo = \"Topo Na Tela\"); scroll aproxima, e de perto o mouse move a vista.")]
+    public bool fixoNoLugar = false;
+
     [Header("Visualização 360°")]
     [Tooltip("Opcional: um modelo mais detalhado só para a inspeção. Vazio = usa o próprio objeto.")]
     public GameObject modeloInspecao;
@@ -127,6 +132,14 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
     Vector3 origemPos, origemEsc, alvoLocalPos, alvoLocalEsc, deLocalPos, deLocalEsc;
     Quaternion origemRot, alvoLocalRot, deLocalRot;
     GUIStyle estilo;
+
+    // vista no lugar (fixoNoLugar): a câmera do jogador vai até a frente do objeto e volta ao fechar
+    bool vistaFixa;
+    Vector3 camPosLocal, deP;
+    Quaternion camRotLocal, deR;
+    Vector3 vistaCentro, vistaNormal, vistaCima, vistaDireita;
+    Vector2 vistaMeia;          // meia largura e meia altura do objeto no plano da vista (m)
+    float vistaDistInicial, vistaDist;
 
     // câmera sobreposta (desenha o objeto por cima de tudo)
     Camera camPrincipal;
@@ -237,7 +250,8 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
         {
             // voltando ao lugar: sem entrada; fecha ao chegar
             float e = Progresso();
-            PoseEntre(deLocalPos, deLocalRot, deLocalEsc, e, true);
+            if (vistaFixa) PoseDaCamera(e, true);
+            else PoseEntre(deLocalPos, deLocalRot, deLocalEsc, e, true);
             if (e >= 1f) Fechar();
             return;
         }
@@ -246,10 +260,12 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
             if (animacao == Animacao.Vindo)
             {
                 float e = Progresso();
-                PoseEntre(alvoLocalPos, alvoLocalRot, alvoLocalEsc, e, false);
+                if (vistaFixa) PoseDaCamera(e, false);
+                else PoseEntre(alvoLocalPos, alvoLocalRot, alvoLocalEsc, e, false);
                 if (e >= 1f) animacao = Animacao.Nenhuma;
             }
-            Inspecionar();
+            if (vistaFixa) { if (animacao == Animacao.Nenhuma) InspecionarNoLugar(); }
+            else Inspecionar();
             if (emInspecao == this && animacao == Animacao.Nenhuma && Time.frameCount != quadroAbertura)
             {
                 var pilha = PilhaDeDocumentos.De(this);
@@ -376,6 +392,13 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
         emInspecao = this;
         realce = 0f;
 
+        if (fixoNoLugar)
+        {
+            if (!AbrirNoLugar()) { emInspecao = null; return; }
+            TravarJogadorEColetar(null);
+            return;
+        }
+
         GameObject fonte = modeloInspecao != null ? modeloInspecao : gameObject;
         GameObject clone = Instantiate(fonte, fonte.transform.position, fonte.transform.rotation);
         clone.name = nome + " (inspeção)";
@@ -440,7 +463,12 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
             foreach (var r in GetComponentsInChildren<Renderer>())
                 if (r.enabled) { r.enabled = false; ocultados.Add(r); }
 
-        // Trava o jogador e libera o cursor.
+        TravarJogadorEColetar(clone);
+    }
+
+    // Trava o jogador, libera o cursor e registra a primeira inspeção (comum às duas formas de examinar).
+    void TravarJogadorEColetar(GameObject clone)
+    {
         desativados.Clear();
         if (desativarDuranteInspecao != null)
             foreach (var comp in desativarDuranteInspecao)
@@ -461,7 +489,7 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
 
         arrastando = false;
 
-        manipulador = GetComponent<IManipulavelNaInspecao>();
+        manipulador = clone != null ? GetComponent<IManipulavelNaInspecao>() : null;
         manipulador?.AoIniciarInspecao(clone.transform, camPrincipal);
 
         aoIniciarInspecao?.Invoke();
@@ -472,6 +500,67 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
             aoPrimeiraInspecao?.Invoke(); // Ideal para chamar mecânicas de diário ou som de nova pista!
             if (!string.IsNullOrEmpty(idEvidencia)) Caderno.Coletar(idEvidencia);
         }
+    }
+
+    // Vista no lugar: mede o objeto no plano da face escolhida e calcula a distância em que ele cabe inteiro na tela.
+    bool AbrirNoLugar()
+    {
+        Renderer[] rends = GetComponentsInChildren<Renderer>();
+        if (rends.Length == 0) return false;
+        Bounds b = rends[0].bounds;
+        for (int i = 1; i < rends.Length; i++) b.Encapsulate(rends[i].bounds);
+        vistaNormal = transform.TransformDirection(Eixo(faceVoltadaParaJogador)).normalized;
+        vistaCima = Vector3.ProjectOnPlane(transform.TransformDirection(Eixo(topoNaTela)), vistaNormal).normalized;
+        vistaDireita = Vector3.Cross(vistaCima, vistaNormal);   // direita de quem olha para a face
+        Vector3 ext = b.extents;
+        float Meia(Vector3 eixo) => Mathf.Abs(eixo.x) * ext.x + Mathf.Abs(eixo.y) * ext.y + Mathf.Abs(eixo.z) * ext.z;
+        vistaMeia = new Vector2(Meia(vistaDireita), Meia(vistaCima));
+        vistaCentro = b.center + vistaNormal * Meia(vistaNormal);   // na face, não no meio da espessura
+        float tg = Mathf.Tan(camPrincipal.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        vistaDistInicial = Mathf.Max(vistaMeia.y / tg, vistaMeia.x / (tg * camPrincipal.aspect)) * 1.2f;
+        vistaDistInicial = Mathf.Max(vistaDistInicial, camPrincipal.nearClipPlane + 0.08f);
+        vistaDist = vistaDistInicial;
+
+        camPosLocal = cam.localPosition; camRotLocal = cam.localRotation;
+        deP = cam.position; deR = cam.rotation;
+        vistaFixa = true;
+        animacao = Animacao.Vindo;
+        inicioAnimacao = Time.unscaledTime;
+        return true;
+    }
+
+    Vector3 PosicaoDaVista(Vector2 deslocamento) =>
+        vistaCentro + vistaNormal * vistaDist + vistaDireita * deslocamento.x + vistaCima * deslocamento.y;
+
+    Quaternion RotacaoDaVista => Quaternion.LookRotation(-vistaNormal, vistaCima);
+
+    // Câmera entre a pose do jogador e a vista do objeto (ida) ou da pose atual de volta ao jogador.
+    void PoseDaCamera(float e, bool voltando)
+    {
+        if (cam == null) return;
+        if (voltando)
+        {
+            Vector3 p = cam.parent != null ? cam.parent.TransformPoint(camPosLocal) : camPosLocal;
+            Quaternion r = cam.parent != null ? cam.parent.rotation * camRotLocal : camRotLocal;
+            cam.SetPositionAndRotation(Vector3.Lerp(deP, p, e), Quaternion.Slerp(deR, r, e));
+        }
+        else cam.SetPositionAndRotation(Vector3.Lerp(deP, PosicaoDaVista(Vector2.zero), e), Quaternion.Slerp(deR, RotacaoDaVista, e));
+    }
+
+    // Scroll aproxima; com zoom, o mouse leva a vista até a borda do objeto (sem zoom, ele fica inteiro e parado).
+    void InspecionarNoLugar()
+    {
+        float scroll = Mathf.Clamp(ScrollVertical(), -1f, 1f);
+        float minimo = Mathf.Max(camPrincipal.nearClipPlane + 0.05f, vistaDistInicial * 0.3f);
+        if (Mathf.Abs(scroll) > 0.01f)
+            vistaDist = Mathf.Clamp(vistaDist - scroll * zoomPorScroll * Mathf.Max(1f, vistaDistInicial), minimo, vistaDistInicial);
+        Vector2 m = PosicaoMouse();
+        Vector2 n = new Vector2(Mathf.Clamp(m.x / Mathf.Max(1, Screen.width) * 2f - 1f, -1f, 1f),
+                                Mathf.Clamp(m.y / Mathf.Max(1, Screen.height) * 2f - 1f, -1f, 1f));
+        float folga = 1f - vistaDist / vistaDistInicial;   // 0 sem zoom
+        Vector3 alvo = PosicaoDaVista(Vector2.Scale(n, vistaMeia) * folga);
+        float k = 1f - Mathf.Exp(-12f * Time.unscaledDeltaTime);
+        cam.SetPositionAndRotation(Vector3.Lerp(cam.position, alvo, k), RotacaoDaVista);
     }
 
     // Rotação (no mundo) que o objeto terá ao aparecer na inspeção.
@@ -560,6 +649,13 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
     /// <summary>Fecha a inspeção; com animação, a cópia volta antes ao lugar do original.</summary>
     void PedirFechamento()
     {
+        if (vistaFixa)
+        {
+            deP = cam.position; deR = cam.rotation;
+            animacao = Animacao.Voltando;
+            inicioAnimacao = Time.unscaledTime;
+            return;
+        }
         if (duracaoAnimacao <= 0f || copia == null) { Fechar(); return; }
         deLocalPos = copia.localPosition; deLocalRot = copia.localRotation; deLocalEsc = copia.localScale;
         animacao = Animacao.Voltando;
@@ -568,7 +664,8 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
 
     float Progresso()
     {
-        float k = Mathf.Clamp01((Time.unscaledTime - inicioAnimacao) / Mathf.Max(0.01f, duracaoAnimacao));
+        float duracao = vistaFixa ? Mathf.Max(0.35f, duracaoAnimacao) : duracaoAnimacao;
+        float k = Mathf.Clamp01((Time.unscaledTime - inicioAnimacao) / Mathf.Max(0.01f, duracao));
         return k * k * (3f - 2f * k);
     }
 
@@ -591,6 +688,8 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
     void Fechar()
     {
         animacao = Animacao.Nenhuma;
+        if (vistaFixa && cam != null) { cam.localPosition = camPosLocal; cam.localRotation = camRotLocal; }
+        vistaFixa = false;
         copia = null;
         if (pivot != null) Destroy(pivot.gameObject);
         pivot = null;
@@ -753,6 +852,7 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
         {
             string texto = !string.IsNullOrEmpty(instrucoes) ? instrucoes
                 : manipulador != null && !string.IsNullOrEmpty(manipulador.Instrucoes) ? manipulador.Instrucoes
+                : fixoNoLugar ? "Scroll: aproximar  |  Mouse: mover a vista de perto"
                 : "Clique e arraste: girar  |  Scroll: zoom";
             var pilha = PilhaDeDocumentos.De(this);
             if (pilha != null && pilha.Total > 1)

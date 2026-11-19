@@ -130,11 +130,13 @@ MonoBehaviour:
   descricao: "A alimenta\xE7\xE3o provis\xF3ria n\xE3o aguenta os dois circuitos
     de luz com a refrigera\xE7\xE3o ligada. Mauro.\nRefrigera\xE7\xE3o permanece
     ligada. H."
+  idEvidencia: 
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
   realcarNaMira: 1
   intensidadeDoRealce: 1
+  fixoNoLugar: 1
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.45

@@ -130,9 +130,13 @@ MonoBehaviour:
   descricao: "Obrigada por procurar. Se encontrar o destino do 041, me avise antes
     de mandar qualquer coisa para jornal. Quero falar com a dona L\xFAcia primeiro.
     Meu endere\xE7o continua o mesmo. Irene."
+  idEvidencia: H06
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
+  realcarNaMira: 1
+  intensidadeDoRealce: 1
+  fixoNoLugar: 0
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.45

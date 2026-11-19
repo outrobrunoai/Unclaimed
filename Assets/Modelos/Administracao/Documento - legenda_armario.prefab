@@ -129,9 +129,13 @@ MonoBehaviour:
   nome: GUARDA DE PERTENCES
   descricao: "GUARDA DE PERTENCES\nColunas A \xB7 B \u2014 n\xEDveis 1 \xB7 2 \xB7
     3 (1 = em cima)\nG: guarda separada\nEndere\xE7o: coluna e n\xEDvel."
+  idEvidencia: 
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
+  realcarNaMira: 1
+  intensidadeDoRealce: 1
+  fixoNoLugar: 1
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.45

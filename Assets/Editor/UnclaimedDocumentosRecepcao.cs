@@ -24,7 +24,7 @@ public static class UnclaimedDocumentosRecepcao
         BuildDocuments(Dir, "DocumentosRecepcao.json", UnclaimedRecepcaoAssets.Folder);
     }
 
-    [System.Serializable] private class Transcript { public string id, transcricao; }
+    [System.Serializable] private class Transcript { public string id, transcricao, evidencia; public bool fixo; }
     [System.Serializable] private class Transcripts { public Transcript[] documentos; }
 
     // Shared build pipeline; directories are parameters so reception output remains unchanged.
@@ -72,12 +72,20 @@ public static class UnclaimedDocumentosRecepcao
                 box.size = new Vector3(w, h, 0.012f);
                 if (d.id.StartsWith("aviso")) AddTape(root.transform, w, h);
                 if (d.id == "agenda_coleta") AddSheetLight(root.transform);
+                if (d.id.StartsWith("d02_quadro")) AddBoardFrame(root.transform, w, h);
 
                 var exam = root.AddComponent<ObjetoInspecionavel>();
                 exam.nome = d.titulo;
                 if (transcripts?.documentos != null)
                     foreach (var entry in transcripts.documentos)
-                        if (entry.id == d.id && !string.IsNullOrEmpty(entry.transcricao)) exam.descricao = entry.transcricao;
+                        if (entry.id == d.id)
+                        {
+                            if (!string.IsNullOrEmpty(entry.transcricao)) exam.descricao = entry.transcricao;
+                            // Evidence id from Assets/Resources/Historia/evidencias.json: collected on first inspection.
+                            if (!string.IsNullOrEmpty(entry.evidencia)) exam.idEvidencia = entry.evidencia;
+                            // Pinned to a wall or board: looked at in place, never pulled off and turned.
+                            exam.fixoNoLugar = entry.fixo;
+                        }
                 exam.distanciaMaxima = 2.2f;
                 exam.orientacao = OrientacaoNaInspecao.FaceParaOJogador;
                 exam.faceVoltadaParaJogador = EixoLocal.Tras;
@@ -179,6 +187,34 @@ public static class UnclaimedDocumentosRecepcao
         mesh.RecalculateTangents();
         mesh.RecalculateBounds();
         return mesh;
+    }
+
+    // Whiteboard: anodised aluminium frame around the writing surface and a marker tray under it.
+    private static void AddBoardFrame(Transform parent, float w, float h)
+    {
+        Material alu = Lit("Moldura de aluminio", new Color(0.62f, 0.63f, 0.64f), null);
+        alu.SetFloat("_Metallic", 0.85f);
+        alu.SetFloat("_Smoothness", 0.5f);
+        const float t = 0.018f, depth = 0.018f;
+        void bar(string name, Vector3 pos, Vector3 size)
+        {
+            var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            Object.DestroyImmediate(go.GetComponent<Collider>());
+            go.name = name;
+            go.transform.SetParent(parent, false);
+            go.transform.localPosition = pos;
+            go.transform.localScale = size;
+            var r = go.GetComponent<MeshRenderer>();
+            r.sharedMaterial = alu;
+            r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        }
+        // The board is placed 13 mm off the wall (+Z): the frame runs from the wall to 6 mm in front of the printed face.
+        const float z = 0.012f - depth / 2;
+        bar("Moldura topo", new Vector3(0f, h / 2 + t / 2 - 0.004f, z), new Vector3(w + 2 * t, t, depth));
+        bar("Moldura base", new Vector3(0f, -h / 2 - t / 2 + 0.004f, z), new Vector3(w + 2 * t, t, depth));
+        bar("Moldura esquerda", new Vector3(-w / 2 - t / 2 + 0.004f, 0f, z), new Vector3(t, h, depth));
+        bar("Moldura direita", new Vector3(w / 2 + t / 2 - 0.004f, 0f, z), new Vector3(t, h, depth));
+        bar("Calha do marcador", new Vector3(0f, -h / 2 - t - 0.004f, -0.022f), new Vector3(w * 0.55f, 0.008f, 0.05f));
     }
 
     // Two strips of clear tape over the top corners (the notice is stuck to the wall).

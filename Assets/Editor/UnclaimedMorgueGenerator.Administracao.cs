@@ -91,6 +91,8 @@ public static partial class UnclaimedMorgueGenerator
         AdminPaper(manuals, "h03_comprovante", new Vector3(-.012f, .229f, -.015f), 0, 90);
         // Irene's note sticks out past the receipt's back edge and 25 mm above it.
         AdminPaper(manuals, "h06_recado_irene", new Vector3(-.007f, .224f, .030f), 0, 90);
+        // Limiar's 041 transport receipt between them: the old case's papers stay together in the grey folder.
+        AdminPaper(manuals, "h08_recibo_041", new Vector3(-.0095f, .2265f, .008f), 0, 90);
         Transform middle = g.Find("Arquivo 2");
         // Loose on top of the hanging folders (their tabs end at .31), clear of drawer 3's bottom (.335) when closed,
         // at the front half so it is clear of the cabinet when the drawer is open.
@@ -102,6 +104,10 @@ public static partial class UnclaimedMorgueGenerator
         Transform contract = middle != null ? middle.Find("Pasta do contrato") : null;
         AdminPaper(contract, "d11_cobranca_784", new Vector3(-.045f, .023f, -.035f), 90, -6);
         AdminPaper(contract, "d12_pessoas_contrato", new Vector3(.05f, .029f, -.005f), 90, 5);
+        // Leo's own findings on top of the contract papers: the printed messages, the warehouse photo, João's note on it.
+        AdminPaper(contract, "d15_mensagens", new Vector3(-.02f, .035f, .0f), 90, 3);
+        AdminPaper(contract, "d12_foto_galpao", new Vector3(.035f, .040f, -.035f), 90, -8);
+        AdminPaper(contract, "d12_bilhete_joao", new Vector3(.06f, .042f, -.075f), 90, -3);
         AdminPaper(bench, "d09_retirada", new Vector3(-.70f, .901f, .16f), 90, -4);
         AdminPaper(bench, "d10_recibo_pasta", new Vector3(-.42f, .931f, -.085f), 90, 90);
         Transform locker = g.Find("Armario de pertences");
@@ -115,9 +121,9 @@ public static partial class UnclaimedMorgueGenerator
             AdminPaper(locker.Find("Porta A1"), "legenda_armario", new Vector3(.2055f, .23f, -.019f), 0, 0);
         }
         AdminStack(desk, "bandeja", "d01_copia_arquivo", "ficha_082", "ficha_081");
-        AdminStack(manuals, "pasta cinza", "h06_recado_irene", "h03_comprovante");
+        AdminStack(manuals, "pasta cinza", "h06_recado_irene", "h08_recibo_041", "h03_comprovante");
         AdminStack(coord, "pasta AGO", "ordem_conserto", "h07_autorizacao", "h04_relatorio", "desculpas_riscadas", "proposta_transferencia");
-        AdminStack(contract, "contrato", "d12_pessoas_contrato", "d11_cobranca_784");
+        AdminStack(contract, "contrato", "d12_bilhete_joao", "d12_foto_galpao", "d15_mensagens", "d12_pessoas_contrato", "d11_cobranca_784");
     }
 
     private static void AdminStack(Transform parent, string name, params string[] ids)

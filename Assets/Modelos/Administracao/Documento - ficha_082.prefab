@@ -129,9 +129,13 @@ MonoBehaviour:
   nome: "Ficha de entrada \xB7 082"
   descricao: "18/11/2026, 21h15. Registro 082. C\xE9lia Prado. Pertences P25. Acomoda\xE7\xE3o
     prevista C-04. Exame pendente.\n2\xAA via \xB7 arquivo"
+  idEvidencia: 
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
+  realcarNaMira: 1
+  intensidadeDoRealce: 1
+  fixoNoLugar: 0
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.45

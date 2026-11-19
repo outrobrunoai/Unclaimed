@@ -59,6 +59,22 @@ public static partial class UnclaimedMorgueGenerator
     private static Transform DescansoReception(Transform parent, string prefab, string name, Vector3 pos, float yaw)
         => DescansoPlace(AssetDatabase.LoadAssetAtPath<GameObject>(UnclaimedRecepcaoAssets.PrefabPath(prefab)), parent, name, pos, yaw);
 
+    // Mauro's locker (module "ilha 1", door 2 = M. NUNES, cell x 0..+.326, floor top .112): Irene's letter flat on the
+    // floor, top towards the back; Samuel's work card on it with Mauro's clipped note half over the card. Idempotent.
+    public static void PlaceMauroLockerDocuments(Transform furniture)
+    {
+        Transform mauro = furniture != null ? furniture.Find("Armarios - ilha 1") : null;
+        if (mauro == null) { Debug.LogWarning("Unclaimed: Mauro's locker (Armarios - ilha 1) not found."); return; }
+        foreach (string id in new[] { "h05_carta_irene", "h01_cartao_samuel", "h01_bilhete_mauro" })
+        {
+            Transform old = mauro.Find("Documento descanso - " + id);
+            if (old != null) Undo.DestroyObjectImmediate(old.gameObject);
+        }
+        DescansoPaper(mauro, "h05_carta_irene", new Vector3(.165f, .1125f, -.01f), 90, 2);
+        DescansoPaper(mauro, "h01_cartao_samuel", new Vector3(.140f, .1135f, -.07f), 90, 9);
+        DescansoPaper(mauro, "h01_bilhete_mauro", new Vector3(.195f, .1142f, -.045f), 90, -7);
+    }
+
     private static void DescansoPaper(Transform parent, string id, Vector3 pos, float tilt, float yaw)
     {
         string path = UnclaimedDescansoAssets.Folder + "/Documento - " + id + ".prefab";
@@ -117,6 +133,7 @@ public static partial class UnclaimedMorgueGenerator
         DescansoProp(g.Find("Armarios - ilha 1"), "Tamancos", "Tamancos no armario", new Vector3(-.165f, .112f, -.02f), 0);
         DescansoProp(g.Find("Armarios - ilha 2"), "Mochila", "Mochila no armario", new Vector3(.165f, .112f, -.02f), 0, .85f);
         DescansoProp(g.Find("Armarios - parede 2"), "Tamancos", "Tamancos no armario", new Vector3(.165f, .112f, -.02f), 0);
+        PlaceMauroLockerDocuments(g);
 
         // Benches: one in front of the island's doors (1 m from them), one facing the wall bank (0.7 m).
         DescansoProp(g, "Banco do vestiario", "Banco do vestiario 1", new Vector3(-10.85f, 0, DzMax - .80f), 90);

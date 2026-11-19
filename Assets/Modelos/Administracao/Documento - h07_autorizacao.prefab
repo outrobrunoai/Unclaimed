@@ -130,9 +130,13 @@ MonoBehaviour:
   descricao: "Caso 041. 15 de agosto de 2024, 06h20. Sa\xEDda mantida conforme programa\xE7\xE3o.
     Identifica\xE7\xE3o n\xE3o confirmada. Respons\xE1vel: Helena Duarte.\nPedido
     de revis\xE3o recebido \xE0s 21h10 do dia 14/08/2024. H.D."
+  idEvidencia: H07
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
+  realcarNaMira: 1
+  intensidadeDoRealce: 1
+  fixoNoLugar: 0
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.47

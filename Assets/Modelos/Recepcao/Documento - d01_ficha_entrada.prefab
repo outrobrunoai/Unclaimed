@@ -128,9 +128,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjetoInspecionavel
   nome: Ficha de entrada
   descricao: 
+  idEvidencia: 
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
+  realcarNaMira: 1
+  intensidadeDoRealce: 1
+  fixoNoLugar: 0
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.45

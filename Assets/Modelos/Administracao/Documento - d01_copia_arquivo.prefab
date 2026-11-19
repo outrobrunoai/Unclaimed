@@ -129,9 +129,13 @@ MonoBehaviour:
   nome: "Ficha de entrada \xB7 083"
   descricao: "18/11/2026, 21h50. Registro 083. L\xE9o Martins. Pertences P26. Acomoda\xE7\xE3o
     prevista C-03. Exame pendente.\n2\xAA via \xB7 arquivo"
+  idEvidencia: D01
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
+  realcarNaMira: 1
+  intensidadeDoRealce: 1
+  fixoNoLugar: 0
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.45

@@ -129,9 +129,13 @@ MonoBehaviour:
   nome: Bilhete da impressora
   descricao: "Se atolar papel: abrir a tampa de tr\xE1s, devagar. O manual est\xE1
     no porta-revistas, na pasta cinza (a da aba amarela). Nina."
+  idEvidencia: 
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
+  realcarNaMira: 1
+  intensidadeDoRealce: 1
+  fixoNoLugar: 0
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.45

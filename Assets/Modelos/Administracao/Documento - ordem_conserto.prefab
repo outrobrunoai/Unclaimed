@@ -130,9 +130,13 @@ MonoBehaviour:
   descricao: "Ordem de servi\xE7o n\xBA 0217. 13/08/2024. Local: c\xE2mara fria,
     posi\xE7\xE3o C-05. Servi\xE7o: troca da borracha de veda\xE7\xE3o da porta.
     Solicitante: H. Duarte. Executado em 16/08/2024 \u2014 Mauro Nunes."
+  idEvidencia: 
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
+  realcarNaMira: 1
+  intensidadeDoRealce: 1
+  fixoNoLugar: 0
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.47

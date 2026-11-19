@@ -116,7 +116,6 @@ public static class UnclaimedRecebimentoAssets
             if(i<OldNames.Length)go.name=OldNames[i];
         }
         DressRoom(root.transform);
-        DressClue();
         // Hide only verified placeholder renderers/colliders; keep objects/references and components.
         foreach(var t in room.scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<Transform>(true)))
         {
@@ -189,24 +188,12 @@ public static class UnclaimedRecebimentoAssets
             Panel(parent,"Forro acabado",new Vector3(3.35f,3.197f,5.35f),Vector3.right,Vector3.forward,9.30f,6.05f,Vector3.down,
                 AssetDatabase.LoadAssetAtPath<Material>(a+"Forro mineral.mat"));
     }
-    static void DressClue()
-    {
-        var clue=GameObject.Find("Pista - instrumento deslocado");
-        if(clue==null||clue.transform.Find("Instrumental modelado")!=null)return;
-        var prefab=AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath("InstrumentoRecebimento"));
-        if(prefab==null)throw new FileNotFoundException("Build InstrumentoRecebimento first.");
-        var go=(GameObject)PrefabUtility.InstantiatePrefab(prefab,clue.transform);go.name="Instrumental modelado";
-        go.transform.SetPositionAndRotation(new Vector3(6,.903f,11.05f),Quaternion.Euler(0,13,0));
-        Vector3 s=clue.transform.lossyScale;go.transform.localScale=new Vector3(1/s.x,1/s.y,1/s.z);
-        var r=clue.GetComponent<Renderer>();Undo.RecordObject(r,"Dress receiving clue");r.enabled=false;
-        Undo.RegisterCreatedObjectUndo(go,"Receiving instrument visual");
-    }
     public static void RefineInstalled()
     {
         RequireScene();
         var root=GameObject.Find("Unclaimed - Necroterio (planta)/Ambientes/Recebimento de corpos/"+Group).transform;
         var wash=root.Find("Pia de lavagem de corpos");Undo.RecordObject(wash,"Orient wash station");wash.rotation=Quaternion.Euler(0,-90,0);
-        AddHorizontalFinishes(root);DressClue();
+        AddHorizontalFinishes(root);
         EditorSceneManager.MarkSceneDirty(root.gameObject.scene);
     }
     static void Panel(Transform parent,string id,Vector3 o,Vector3 u,Vector3 v,float w,float h,Vector3 normal,Material mat)

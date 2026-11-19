@@ -129,9 +129,13 @@ MonoBehaviour:
   nome: Retirada de item
   descricao: "18/11/2026, 22h05. P26, item 03, gravador port\xE1til. Separado por
     ruptura do compartimento da bolsa. Encaminhado para guarda G-B2. Nina Rocha."
+  idEvidencia: D09
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
+  realcarNaMira: 1
+  intensidadeDoRealce: 1
+  fixoNoLugar: 0
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.45

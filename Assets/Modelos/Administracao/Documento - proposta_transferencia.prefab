@@ -130,9 +130,13 @@ MonoBehaviour:
   descricao: "Proposta de transfer\xEAncia. Vaga: coordena\xE7\xE3o t\xE9cnica regional.
     Indicada: Helena Duarte, coordena\xE7\xE3o do setor. In\xEDcio previsto: janeiro
     de 2025, condicionado \xE0 avalia\xE7\xE3o do setor. 06/08/2024."
+  idEvidencia: 
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
+  realcarNaMira: 1
+  intensidadeDoRealce: 1
+  fixoNoLugar: 0
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.47

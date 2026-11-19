@@ -8,6 +8,7 @@ import os
 import random
 import sys
 
+import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -24,6 +25,10 @@ HANDS = {
     'mauro': ('GochiHand-Regular.ttf', (28, 58, 128, 255)),
     'helena': ('ReenieBeanie.ttf', (20, 24, 46, 255)),
     'cleaner': ('Kalam-Regular.ttf', (30, 60, 150, 255)),
+    # Stage 2: Irene keeps the Caveat hand of her archive notes; Célia and João get their own.
+    'irene': ('Caveat-Variable.ttf', (24, 26, 30, 255)),
+    'celia': ('ShadowsIntoLight.ttf', (22, 22, 26, 255)),
+    'joao': ('Kalam-Regular.ttf', (22, 38, 96, 255)),
 }
 SANS = '/usr/share/fonts/noto/NotoSans-Regular.ttf'
 SANS_B = '/usr/share/fonts/noto/NotoSans-Bold.ttf'
@@ -254,7 +259,66 @@ def limpeza(doc):
     return img
 
 
-RENDER = {'bilhete_cafe': bilhete_cafe, 'bilhete_marmita': bilhete_marmita, 'aviso_encerramento': aviso, 'escala_limpeza': limpeza}
+# ---------------------------------------------------------------- stage 2, Mauro's locker: Samuel's work card, Mauro's note, Irene's letter
+
+def h01_cartao_samuel(doc):
+    img, W, H = new_page(doc)
+    d = ImageDraw.Draw(img)
+    ink = (30, 30, 34, 255)
+    band = (196, 126, 34, 255)                                    # builder's orange, faded by the bag
+    d.rectangle((0, 0, W, mm(12)), fill=band)
+    d.text((mm(5), mm(2.6)), 'CONSTRUTORA BOM PASTOR', font=font(SANS_B, 4.2), fill=(255, 255, 255, 255))
+    d.text((mm(5), mm(16)), 'CARTÃO DE TRABALHO', font=font(SANS_B, 2.8), fill=(110, 110, 114, 255))
+    d.rectangle((mm(5), mm(22), mm(24), mm(46)), outline=(150, 150, 150, 255), width=max(1, int(mm(.3))))
+    d.text((mm(8.5), mm(32)), 'FOTO', font=font(SANS, 2.6), fill=(170, 170, 170, 255))
+    d.text((mm(29), mm(24)), 'Samuel Reis', font=font(SANS_B, 5.2), fill=ink)
+    d.text((mm(29), mm(32.5)), 'Ajudante de obras', font=font(SANS, 3.8), fill=ink)
+    d.line((mm(29), mm(44), W - mm(6), mm(44)), fill=(120, 120, 120, 255), width=max(1, int(mm(.25))))
+    d.text((mm(29), mm(45.5)), 'Assinatura', font=font(SANS, 2.2), fill=(120, 120, 120, 255))
+    # Wear: rounded dirty corners and a dark smear from the belongings bag.
+    a = np.asarray(img).astype(float)
+    yy, xx = np.mgrid[0:H, 0:W]
+    smear = np.exp(-(((xx - W * .78) / (W * .22)) ** 2 + ((yy - H * .7) / (H * .3)) ** 2))
+    a[..., :3] -= smear[..., None] * np.array([34, 38, 44])
+    img = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8), 'RGBA')
+    m = Image.new('L', (W, H), 0)
+    ImageDraw.Draw(m).rounded_rectangle((0, 0, W - 1, H - 1), radius=int(mm(3)), fill=255)
+    img.putalpha(m)
+    return img
+
+
+def h01_bilhete_mauro(doc):
+    img, W, H = new_page(doc)
+    pen_text(img, 'Achei este cartão na bolsa P17, que era do corpo 041. Guardei comigo depois que o corpo saiu.', mm(5), mm(9),
+             'mauro', 4.6, rot=.6, width_mm=57, leading=1.1, seed=51)
+    pen_text(img, '— Mauro', W - mm(25), H - mm(11), 'mauro', 4.6, seed=52)
+    # Paper clip over the top edge, holding the card.
+    w, h = int(mm(8)), int(mm(26))
+    t = Image.new('RGBA', (w + 10, h + 10), (0, 0, 0, 0))
+    dc = ImageDraw.Draw(t)
+    for inset, col in ((0, (120, 122, 126, 255)), (int(mm(2)), (150, 152, 156, 255))):
+        dc.rounded_rectangle((5 + inset, 5 + inset, 5 + w - inset, 5 + h - inset * 2), radius=int((w - 2 * inset) / 2), outline=col, width=max(3, int(mm(.7))))
+    t = t.rotate(-5, expand=True, resample=Image.BICUBIC)
+    img.alpha_composite(t, (int(W - mm(14)), -int(t.height * .3)))
+    return img
+
+
+def h05_carta_irene(doc):
+    """Plain letter paper, folded in half; Irene writes large and slanted."""
+    img, W, H = new_page(doc)
+    size, x, w = 8.2, mm(14), 120
+    y = mm(16)
+    y += pen_text(img, 'Mauro,', x, y, 'irene', size, seed=61) + mm(3)
+    for k, para in enumerate(('você estava lá quando eu entreguei o pedido para a Helena. Você viu. Eu esperei você falar, e você ficou quieto.',
+                              'A mãe do Samuel continua me ligando.',
+                              'Se um dia descobrir onde ele foi enterrado, me avisa.')):
+        y += pen_text(img, para, x, y, 'irene', size, rot=-.3, width_mm=w, leading=1.08, seed=62 + k) + mm(5)
+    pen_text(img, '— Irene', W - mm(44), y + mm(6), 'irene', size, seed=70)
+    return img
+
+
+RENDER = {'bilhete_cafe': bilhete_cafe, 'bilhete_marmita': bilhete_marmita, 'aviso_encerramento': aviso, 'escala_limpeza': limpeza,
+          'h01_cartao_samuel': h01_cartao_samuel, 'h01_bilhete_mauro': h01_bilhete_mauro, 'h05_carta_irene': h05_carta_irene}
 
 
 def main():

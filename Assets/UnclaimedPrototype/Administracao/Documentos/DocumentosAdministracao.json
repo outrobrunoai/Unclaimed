@@ -62,7 +62,8 @@
       ],
       "amassado": 0.5,
       "vincos": [],
-      "transcricao": "18/11/2026, 21h50. Registro 083. Léo Martins. Pertences P26. Acomodação prevista C-03. Exame pendente.\n2ª via · arquivo"
+      "transcricao": "18/11/2026, 21h50. Registro 083. Léo Martins. Pertences P26. Acomodação prevista C-03. Exame pendente.\n2ª via · arquivo",
+      "evidencia": "D01"
     },
     {
       "id": "ficha_081",
@@ -299,7 +300,8 @@
           "texto": "Cemitério Santa Amélia. Recebimento referente ao caso 041. Setor C, registro 12. 15 de agosto de 2024.",
           "tamanho": 3.8
         }
-      ]
+      ],
+      "evidencia": "H03"
     },
     {
       "id": "h06_recado_irene",
@@ -332,7 +334,8 @@
           "texto": "Obrigada por procurar. Se encontrar o destino do 041, me avise antes de mandar qualquer coisa para jornal. Quero falar com a dona Lúcia primeiro. Meu endereço continua o mesmo. Irene.",
           "tamanho": 5
         }
-      ]
+      ],
+      "evidencia": "H06"
     },
     {
       "id": "h02_pedido_irene",
@@ -370,7 +373,8 @@
           "texto": "Caso 041. 14 de agosto de 2024, 21h10. Vinculada a bolsa de pertences P17 ao registro de entrada. Cartão de trabalho em nome de Samuel Reis. Contato familiar localizado, retorno pendente. Solicito suspensão da saída até confirmação. Irene Farias.",
           "tamanho": 3.8
         }
-      ]
+      ],
+      "evidencia": "H02"
     },
     {
       "id": "ordem_conserto",
@@ -452,7 +456,8 @@
           "tamanho": 5,
           "margem": true
         }
-      ]
+      ],
+      "evidencia": "H07"
     },
     {
       "id": "h04_relatorio",
@@ -495,7 +500,8 @@
           "texto": "20/08/2024",
           "tamanho": 3
         }
-      ]
+      ],
+      "evidencia": "H04"
     },
     {
       "id": "proposta_transferencia",
@@ -609,7 +615,8 @@
           "texto": "18/11/2026, 22h05. P26, item 03, gravador portátil. Separado por ruptura do compartimento da bolsa. Encaminhado para guarda G-B2. Nina Rocha.",
           "tamanho": 3.8
         }
-      ]
+      ],
+      "evidencia": "D09"
     },
     {
       "id": "d10_recibo_objeto",
@@ -647,7 +654,8 @@
           "texto": "via do objeto",
           "tamanho": 3
         }
-      ]
+      ],
+      "evidencia": "D10"
     },
     {
       "id": "d10_recibo_pasta",
@@ -685,7 +693,8 @@
           "texto": "via da pasta",
           "tamanho": 3
         }
-      ]
+      ],
+      "evidencia": "D10"
     },
     {
       "id": "legenda_armario",
@@ -718,7 +727,8 @@
           "texto": "Colunas A · B — níveis 1 · 2 · 3 (1 = em cima)\nG: guarda separada\nEndereço: coluna e nível.",
           "tamanho": 3.8
         }
-      ]
+      ],
+      "fixo": true
     },
     {
       "id": "d11_cobranca_784",
@@ -762,7 +772,8 @@
           "tamanho": 5,
           "rodape": true
         }
-      ]
+      ],
+      "evidencia": "D11"
     },
     {
       "id": "d12_pessoas_contrato",
@@ -801,6 +812,80 @@
           "tamanho": 3.8
         }
       ]
+    },
+    {
+      "id": "d12_foto_galpao",
+      "titulo": "Foto do galpão da Limiar",
+      "tamanho": [
+        0.15,
+        0.115
+      ],
+      "papel": "#F6F5F1",
+      "acabamento": "papel",
+      "fonte": "sans",
+      "margem": 0,
+      "amassado": 0.12,
+      "vincos": [],
+      "transcricao": "Galpão da Limiar, 12/11. A caixa do \"lote 784\" tem o chaveiro azul da Vera, o do dente quebrado. — Célia",
+      "evidencia": "D12",
+      "blocos": []
+    },
+    {
+      "id": "d12_bilhete_joao",
+      "titulo": "Bilhete de João",
+      "tamanho": [
+        0.09,
+        0.05
+      ],
+      "papel": "#F2F0E6",
+      "acabamento": "papel",
+      "fonte": "sans",
+      "margem": 0,
+      "amassado": 0.3,
+      "vincos": [],
+      "transcricao": "A saída da 784 está no meu nome, mas eu não fiz esse transporte. — João",
+      "evidencia": "D12",
+      "blocos": []
+    },
+    {
+      "id": "d15_mensagens",
+      "titulo": "Mensagens impressas",
+      "tamanho": [
+        0.148,
+        0.21
+      ],
+      "papel": "#F4F4F1",
+      "acabamento": "fotocopia",
+      "fonte": "sans",
+      "margem": 0,
+      "amassado": 0.35,
+      "vincos": [
+        {
+          "eixo": "h",
+          "pos": 0.5,
+          "forca": 0.2
+        }
+      ],
+      "transcricao": "Copiei do celular do Daniel quando ele esqueceu no caminhão. \"R.\" é o comprador. — João\nR. (07/10, 23h12): Preciso de mais uma. Mulher, entre 50 e 65 anos. Até sexta.\nDaniel (07/10, 23h40): O 784 sai amanhã. Mesmo valor de sempre.\nR. (07/10, 23h41): Mesmo galpão?\nDaniel (07/10, 23h41): Mesmo galpão. Ninguém vai procurar.",
+      "evidencia": "D15",
+      "blocos": []
+    },
+    {
+      "id": "h08_recibo_041",
+      "titulo": "Recibo de transporte · caso 041",
+      "tamanho": [
+        0.148,
+        0.21
+      ],
+      "papel": "#EFEDE4",
+      "acabamento": "desbotado",
+      "fonte": "sans",
+      "margem": 0,
+      "amassado": 0.25,
+      "vincos": [],
+      "transcricao": "LIMIAR SERVIÇOS — RECIBO DE TRANSPORTE\nCorpo: caso 041 (identidade não confirmada)\nSaída do necrotério: 15/08/2024, 06h40\nDestino: Cemitério Santa Amélia\nResponsável pelo transporte: Daniel Vilar (código LV-12)\nConferido por funcionário do necrotério: (em branco)",
+      "evidencia": "H08",
+      "blocos": []
     }
   ]
 }

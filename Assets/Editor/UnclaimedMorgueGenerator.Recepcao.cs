@@ -80,23 +80,6 @@ public static partial class UnclaimedMorgueGenerator
         obj.transform.SetPositionAndRotation(new Vector3(x, 0f, z), Quaternion.Euler(0f, yaw, 0f));
     }
 
-    // The clue placeholder on the counter's granite ledge looks like the visitors' register book; the
-    // object, its name and collider stay, so whatever refers to the clue keeps working.
-    private static void DressRegisterBook(GameObject clue)
-    {
-        var mesh = AssetDatabase.LoadAssetAtPath<Mesh>(UnclaimedRecepcaoAssets.Folder + "/LivroRegistro.fbx");
-        var material = AssetDatabase.LoadAssetAtPath<Material>(UnclaimedRecepcaoAssets.Folder + "/Materiais/Livro de registro.mat");
-        if (mesh == null || material == null) return;
-        clue.GetComponent<MeshFilter>().sharedMesh = mesh;
-        clue.GetComponent<MeshRenderer>().sharedMaterial = material;
-        Vector3 p = clue.transform.position;
-        clue.transform.SetPositionAndRotation(new Vector3(p.x, p.y - 0.075f, p.z), Quaternion.Euler(0f, 4f, 0f));
-        clue.transform.localScale = Vector3.one;
-        var box = clue.GetComponent<BoxCollider>();
-        box.center = mesh.bounds.center;
-        box.size = mesh.bounds.size;
-    }
-
     private static void BuildRecepcao(Transform room)
     {
         Transform walls = Sub(room, "Parede - sinalizacao e quadros"), wear = Sub(room, "Marcas de uso"),

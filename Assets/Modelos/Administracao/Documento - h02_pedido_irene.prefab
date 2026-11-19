@@ -131,9 +131,13 @@ MonoBehaviour:
     P17 ao registro de entrada. Cart\xE3o de trabalho em nome de Samuel Reis. Contato
     familiar localizado, retorno pendente. Solicito suspens\xE3o da sa\xEDda at\xE9
     confirma\xE7\xE3o. Irene Farias."
+  idEvidencia: H02
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
+  realcarNaMira: 1
+  intensidadeDoRealce: 1
+  fixoNoLugar: 0
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.45

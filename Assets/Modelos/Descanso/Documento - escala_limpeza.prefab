@@ -132,11 +132,13 @@ MonoBehaviour:
     a quarta de manh\xE3. Tarefas peri\xF3dicas: geladeira quinzenal (\xFAltima 06/11,
     pr\xF3xima 20/11); piso lavagem completa semanal (14/11, 21/11); arm\xE1rios
     vagos mensal (31/10, 30/11)."
+  idEvidencia: 
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
   realcarNaMira: 1
   intensidadeDoRealce: 1
+  fixoNoLugar: 1
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.5
   tamanhoNaTela: 0.45

@@ -107,7 +107,8 @@
     }
    ],
    "amassado": 0.15,
-   "vincos": []
+   "vincos": [],
+   "fixo": true
   },
   {
    "id": "palavras_cruzadas",
@@ -260,7 +261,8 @@
     }
    ],
    "amassado": 0.1,
-   "vincos": []
+   "vincos": [],
+   "fixo": true
   }
  ]
 }
