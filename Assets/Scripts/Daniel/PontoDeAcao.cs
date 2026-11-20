@@ -31,6 +31,8 @@ public class PontoDeAcao : MonoBehaviour, ISalvavel
 
     [Header("Referências (use as que servirem)")]
     public FolhaDePorta porta;
+    [Tooltip("Outras folhas trancadas junto (porta dupla, outra porta da sala).")]
+    public FolhaDePorta[] outrasPortas = new FolhaDePorta[0];
     public Torneira torneira;
     public Descarga descarga;
     public AudioSource som;
@@ -66,8 +68,35 @@ public class PontoDeAcao : MonoBehaviour, ISalvavel
 
     public bool Disponivel => !Ativo && (repetivel || Vezes == 0);
 
+    /// <summary>Verdadeiro se este ponto está ativo segurando a folha informada.</summary>
+    public bool Segura(FolhaDePorta f)
+    {
+        if (!Ativo || f == null) return false;
+        if (porta == f) return true;
+        if (outrasPortas != null)
+            foreach (FolhaDePorta outra in outrasPortas)
+                if (outra == f) return true;
+        return false;
+    }
+
+    /// <summary>Verdadeiro se esta ação fecha (ou bate) alguma porta.</summary>
+    public bool FechaPorta =>
+        tipo == TipoDeAcao.TrancarPorta || tipo == TipoDeAcao.PrenderCamaraFria || tipo == TipoDeAcao.Corrente
+        || (tipo == TipoDeAcao.Presenca && porta != null && porta.Abertura > 1f);
+
+    /// <summary>Verdadeiro se o jogador está vendo alguma das portas deste ponto.</summary>
+    public bool PortasAVista()
+    {
+        if (porta != null && OlharDoJogador.Vendo(porta)) return true;
+        if (outrasPortas != null)
+            foreach (FolhaDePorta outra in outrasPortas)
+                if (outra != null && OlharDoJogador.Vendo(outra)) return true;
+        return false;
+    }
+
     public void Executar()
     {
+        if (!pontos.Contains(this)) pontos.Add(this);   // quem age sempre entra na lista (testes sem OnEnable)
         Vezes++;
         switch (tipo)
         {
@@ -78,10 +107,8 @@ public class PontoDeAcao : MonoBehaviour, ISalvavel
                 if (mostrar != null) StartCoroutine(MostrarPor(segundosVisivel));
                 break;
             case TipoDeAcao.TrancarPorta:
-                if (porta != null)
+                if (FecharETrancarPortas())
                 {
-                    porta.Fechar();
-                    porta.trancada = true;
                     Ativo = true;
                     destravarEm = segundosTrancada > 0f ? Time.time + segundosTrancada : -1f;
                 }
@@ -90,13 +117,13 @@ public class PontoDeAcao : MonoBehaviour, ISalvavel
                 RedeEletrica.RemoverFusivel(RedeEletrica.Geral);
                 break;
             case TipoDeAcao.PrenderCamaraFria:
-                if (porta != null) { porta.Fechar(); porta.trancada = true; }
+                FecharETrancarPortas();
                 foreach (Light l in luzes) if (l != null) l.enabled = false;
                 Ativo = true;
                 EstadoDaNoite.Marcar("preso_camara_fria");
                 break;
             case TipoDeAcao.Corrente:
-                if (porta != null) { porta.Fechar(); porta.trancada = true; }
+                FecharETrancarPortas();
                 if (mostrar != null) mostrar.SetActive(true);
                 Ativo = true;
                 EstadoDaNoite.Marcar("corrente");
@@ -114,8 +141,48 @@ public class PontoDeAcao : MonoBehaviour, ISalvavel
         if (!Ativo || tipo == TipoDeAcao.Corrente) return;
         Ativo = false;
         destravarEm = -1f;
-        if (porta != null) porta.Destravar();
+        DestravarSeLivre(porta);
+        if (outrasPortas != null)
+            foreach (FolhaDePorta f in outrasPortas)
+                DestravarSeLivre(f);
         foreach (Light l in luzes) if (l != null) l.enabled = true;
+    }
+
+    bool FecharETrancarPortas()
+    {
+        bool alguma = false;
+        if (porta != null) { porta.Fechar(); porta.trancada = true; alguma = true; }
+        if (outrasPortas != null)
+            foreach (FolhaDePorta f in outrasPortas)
+                if (f != null) { f.Fechar(); f.trancada = true; alguma = true; }
+        return alguma;
+    }
+
+    void MarcarPortasTrancadas()
+    {
+        if (porta != null) porta.trancada = true;
+        if (outrasPortas != null)
+            foreach (FolhaDePorta f in outrasPortas)
+                if (f != null) f.trancada = true;
+    }
+
+    void DestravarSeLivre(FolhaDePorta f)
+    {
+        if (f == null) return;
+        // Tempo de uma porta trancada não pode soltar uma folha presa por armadilha ou corrente.
+        if (tipo == TipoDeAcao.TrancarPorta && SeguradaPorOutroCritico(f)) return;
+        f.Destravar();
+    }
+
+    bool SeguradaPorOutroCritico(FolhaDePorta f)
+    {
+        foreach (PontoDeAcao p in pontos)
+        {
+            if (p == null || p == this) continue;
+            if ((p.tipo == TipoDeAcao.PrenderCamaraFria || p.tipo == TipoDeAcao.Corrente) && p.Segura(f))
+                return true;
+        }
+        return false;
     }
 
     void Update()
@@ -139,6 +206,8 @@ public class PontoDeAcao : MonoBehaviour, ISalvavel
         var e = JsonUtility.FromJson<Estado>(estado);
         Vezes = e.vezes;
         Ativo = e.ativo;
+        if (Ativo && (tipo == TipoDeAcao.TrancarPorta || tipo == TipoDeAcao.PrenderCamaraFria || tipo == TipoDeAcao.Corrente))
+            MarcarPortasTrancadas();
         if (Ativo && tipo == TipoDeAcao.TrancarPorta && segundosTrancada > 0f) destravarEm = Time.time + segundosTrancada;
         if (Ativo && tipo == TipoDeAcao.Corrente && mostrar != null) mostrar.SetActive(true);
         if (Ativo && tipo == TipoDeAcao.PrenderCamaraFria) foreach (Light l in luzes) if (l != null) l.enabled = false;

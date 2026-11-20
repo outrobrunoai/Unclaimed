@@ -52,6 +52,8 @@ Textos (do Bruno, **provisórios**, escritos a partir da história): `Assets/Res
 
 ### Etapa 4 — Daniel atrapalha
 
+**Colocada em 20/11/2026** por *Tools > Unclaimed > Sistemas > Colocar etapa 4 (Daniel atrapalha)* (`Assets/Editor/UnclaimedSistemasEtapa4.cs`): as 12 salas com vizinhas e portas, 13 pontos de ação, a torneira do lavatório da autópsia, o vulto atrás do visor do recebimento, a corrente nos puxadores da porta de vidro (por dentro), a trava dentro da câmara fria e a respiração do lençol (`RespiracaoDoLencol`). Mudanças em relação à lista abaixo: `WC/Espelho` virou `WC/Torneira` (um vulto no WC nunca seria visto, porque Daniel não age na sala à vista); as portas duplas usam `outrasPortas`; a corrente só é passada com o jogador dentro do prédio. `Corredor/Passos` está sem som até a etapa de sons.
+
 **Lista de salas** (componente/prefab `Sala`, um BoxCollider trigger cobrindo cada sala; preencher `vizinhas` com a porta entre elas):
 `Recepcao`, `WC`, `Arquivo`, `Descanso`, `Deposito`, `Corredor`, `CorredorFundos`, `Tecnica`, `Autopsia`, `CamaraFria`, `Recebimento`, `Patio`.
 
@@ -77,7 +79,7 @@ Também: prefab `Trava de seguranca` do lado de dentro da câmara fria, perto da
 
 | Prefab | Onde | Configurar |
 |---|---|---|
-| `Gravador` | Dentro do compartimento G-B2 (atrás do cadeado 2205) | — |
+| `Gravador` | Lacrado dentro do envelope de guarda, no compartimento G-B2 (cadeado 4817 nas portas A2/B2; a combinação chega por mensagem do Celso em `con:venda`). Na inspeção do envelope: clique abre a aba e tira o gravador; clique de novo pega (`EnvelopeDoGravador`) | — |
 | `Copia do audio` | Sobre o monitor do computador do arquivo | — |
 | `Esconderijo` | Dentro dos armários do descanso e das gavetas vazias C-05 a C-07 | O collider fica no interior do móvel (o jogador abre a porta e mira dentro). Ajustar `Dentro` (pé do jogador escondido, olhando para a fresta) e `Saida` |
 | NavMesh | Mapa inteiro | NavMeshSurface do pacote AI Navigation, cobrindo a rota arquivo → circulação → vestíbulo → recebimento → pátio e o circuito pela autópsia |

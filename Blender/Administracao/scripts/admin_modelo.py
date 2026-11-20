@@ -45,9 +45,11 @@ BANCADA = dict(w=2.40, d=0.60, h=0.90, top_t=0.03)
 
 ASSETS = ("MesaServidor", "GavetaMesa1", "GavetaMesa2", "GavetaMesa3", "EquipamentosMesa", "ArquivoAco", "GavetaArquivo",
           "EstanteAco", "EstanteCoordenacao", "ArmarioPertences", "PortaPertences", "Bancada", "Impressora", "PastasManuais",
-          "BolsaPertences", "Gravador", "EnvelopeGuarda", "CaixaArquivo", "PastaContrato", "MesaApoio")
+          "BolsaPertences", "RemendoBolsa", "Gravador", "EnvelopeGuarda", "EnvelopeAba", "CaixaArquivo", "PastaContrato", "MesaApoio")
 # Printed labels (folder spines, locker addresses, legend, bag tags) are quads with a print atlas, made in Unity.
 UNBAKED = ()
+# Picked up and turned over in the inspection: their underside is kept (and given full texel density).
+INSPECTED = ("BolsaPertences", "Gravador", "EnvelopeGuarda", "EnvelopeAba")
 
 # ---------------------------------------------------------------- desk
 
@@ -529,53 +531,415 @@ def build_pastas_manuais():
 # ---------------------------------------------------------------- evidence props
 
 
+# Belongings bag: white TNT (spunbond polypropylene) sack with sewn side seams, filled, standing on the cell floor and
+# gathered at the top by a cotton drawstring (knot, two loose ends, a cord lock), its paper tag hanging on a string.
+# Origin on the floor at the centre of the footprint, front (-Y) towards the locker door. The tag card sits where the
+# Unity print quad of Etiquetas.json expects it (centre (0.11, -0.125, 0.175) here, facing -Y).
+BOLSA = dict(a=0.150, b=0.112, neck=0.300, top=0.362, sn=0.13)
+
+
+def _smooth(t):
+    t = max(0.0, min(1.0, t))
+    return t * t * (3 - 2 * t)
+
+
+def bolsa_ponto(th, z):
+    """Outer surface at angle th (0 = +X, -pi/2 = front) and height z (0 .. neck)."""
+    a, b, zn, sn = BOLSA["a"], BOLSA["b"], BOLSA["neck"], BOLSA["sn"]
+    if z < 0.03:
+        s = 0.84 + 0.16 * math.sin(math.pi / 2 * z / 0.03)
+    elif z < 0.17:
+        s = 1.0 + 0.035 * math.sin(math.pi * (z - 0.03) / 0.14)
+    else:
+        s = sn + (1 - sn) * math.cos(math.pi / 2 * min((z - 0.17) / (zn - 0.17), 1.0)) ** 1.25
+    n = 2.0 + 2.2 * (s - sn) / (1 - sn)
+    c, si = math.cos(th), math.sin(th)
+    x = a * s * math.copysign(abs(c) ** (2 / n), c)
+    y = b * s * math.copysign(abs(si) ** (2 / n), si)
+    d = Vector((x, y, 0))
+    d = d.normalized() if d.length > 1e-6 else Vector((1, 0, 0))
+    g = _smooth((z - 0.19) / 0.11) * (1 - 0.55 * math.exp(-((z - zn) / 0.01) ** 2))   # pleats, pinched by the cord
+    off = 0.011 * g * s ** 0.3 * math.sin(13 * th + 0.8 * math.sin(3 * th))
+    off += 0.0018 * (1 - g) * math.sin(9 * th + 2.0 + z * 30) * _smooth(z / 0.05)        # drape wrinkles
+    w = _smooth((z - 0.03) / 0.04) * (1 - _smooth((z - 0.22) / 0.06))
+    off += 0.006 * w * (math.sin(3 * th + 1.3) * math.sin(z * 25 + 0.5) + 0.6 * math.sin(5 * th + 0.4 + z * 14))
+    off += 0.0022 * w * math.sin(6 * th + z * 38 + 0.7) * math.sin(2 * th - z * 11)          # handling creases
+    if si < 0:                                                                           # contents push the front out
+        off += 0.0065 * si * si * math.exp(-((z - 0.16) / 0.07) ** 2)
+    p = Vector((x, y, z)) + d * off
+    p.x += 0.012 * (z / zn) ** 2                                                         # slumps a little to one side
+    return p
+
+
+def _lean(z):
+    return Vector((0.012 * (min(z, BOLSA["neck"]) / BOLSA["neck"]) ** 2, 0, z))
+
+
+def bolsa_franzido(th, u):
+    """The frill above the drawstring: u = 0 at the cord, 1 at the ragged top edge."""
+    p0 = bolsa_ponto(th, BOLSA["neck"])
+    d = p0 - _lean(p0.z); d.z = 0; d.normalize()
+    top = BOLSA["top"] + 0.008 * math.sin(7 * th + 2.0) + 0.004 * math.sin(11 * th)
+    r = 0.030 * u ** 0.8 + 0.008 * u * math.sin(13 * th + 0.8 * math.sin(3 * th) + 0.5)
+    return p0 + d * r + Vector((0, 0, u * (top - p0.z)))
+
+
+def bolsa_normal(th, z):
+    e = 1e-4
+    t = bolsa_ponto(th + e, z) - bolsa_ponto(th - e, z)
+    v = bolsa_ponto(th, z + e) - bolsa_ponto(th, z - e)
+    nrm = t.cross(v).normalized()
+    out = bolsa_ponto(th, z) - _lean(z); out.z = 0
+    return nrm if nrm.dot(out) >= 0 else -nrm
+
+
+def bolsa_frente(x, z):
+    """Angle on the front (-Y) half whose surface point is at x for height z."""
+    best = None
+    for k in range(361):
+        th = -math.pi + math.pi * k / 360
+        dx = abs(bolsa_ponto(th, z).x - x)
+        if best is None or dx < best[0]:
+            best = (dx, th)
+    lo, hi = best[1] - math.pi / 360, best[1] + math.pi / 360
+    for _ in range(30):
+        m = (lo + hi) / 2
+        # x decreases from th = -pi/2 (front) toward -pi; increases toward 0
+        if bolsa_ponto(m, z).x < x:
+            lo = m
+        else:
+            hi = m
+    return (lo + hi) / 2
+
+
+def sobre(th, z, h):
+    return bolsa_ponto(th, z) + bolsa_normal(th, z) * h
+
+
 def build_bolsa():
-    """Belongings bag: white polyethylene sack, folded top tied with a cable tie, a tag on a string."""
-    bm_pts = []
-    for k in range(16):
-        a = 2 * math.pi * k / 16
-        bm_pts.append((0.16 * math.cos(a), 0.11 * math.sin(a)))
     import bmesh
-    prof = [(0.0, 0.0), (1.0, 0.02), (1.06, 0.10), (1.0, 0.18), (0.78, 0.24), (0.24, 0.285), (0.2, 0.30), (0.36, 0.335), (0.42, 0.345)]
+    N = 64
+    zs = [0.0, 0.004, 0.010, 0.018, 0.026, 0.034] + [0.04 + (BOLSA["neck"] - 0.04) * k / 26 for k in range(27)]
+    rings = [[bolsa_ponto(2 * math.pi * k / N, z) for k in range(N)] for z in zs]
+    rings += [[bolsa_franzido(2 * math.pi * k / N, u) for k in range(N)] for u in (0.15, 0.3, 0.45, 0.6, 0.75, 0.88, 1.0)]
+    top = rings[-1]
+    c_top = sum(top, Vector()) / N
+    rings.append([p + (c_top - p).normalized() * 0.0025 + Vector((0, 0, -0.003)) for p in top])   # inner lip
+    rings.append([c_top + (p - c_top) * 0.3 + Vector((0, 0, -0.03)) for p in top])                # pinched inside
     bm = bmesh.new()
-    rings = []
-    for s, z in prof:
-        ring = [bm.verts.new((x * s, y * s * (1.0 - 0.15 * (z > 0.3)), z)) for x, y in bm_pts]
-        rings.append(ring)
-    for a, b in zip(rings, rings[1:]):
-        for k in range(16):
-            bm.faces.new((a[k], a[(k + 1) % 16], b[(k + 1) % 16], b[k]))
-    bm.faces.new(list(reversed(rings[0])))
-    bm.faces.new(rings[-1])
-    # Lumpy contents: push the vertices by a little deterministic noise.
-    for v in bm.verts:
-        n = math.sin(v.co.x * 41) * math.cos(v.co.y * 37) * math.sin(v.co.z * 23)
-        v.co += Vector((v.co.x, v.co.y, 0)).normalized() * 0.012 * n if v.co.length > 0.01 else Vector()
-    R._bevel(bm, 0.0, 1)
-    R._finish("Saco", bm, "saco")
-    cyl("Lacre do saco", "plastico", (0.0, 0.0, 0.295), 0.036, 0.012, seg=16, r=0.002)
-    cable("Barbante", "barbante", [(0.03, -0.025, 0.295), (0.08, -0.07, 0.27), (0.11, -0.10, 0.22)], 0.0012)
-    box("Etiqueta da bolsa", "etiqueta", 0.07, -0.125, 0.15, 0.15, -0.122, 0.20, r=0.0008)
+    vr = [[bm.verts.new(p) for p in r] for r in rings]
+    for A, B in zip(vr, vr[1:]):
+        for k in range(N):
+            bm.faces.new((A[k], A[(k + 1) % N], B[(k + 1) % N], B[k]))
+    c0 = bm.verts.new((0, 0, 0))
+    for k in range(N):
+        bm.faces.new((vr[0][(k + 1) % N], vr[0][k], c0))
+    c1 = bm.verts.new(sum(rings[-1], Vector()) / N)
+    for k in range(N):
+        bm.faces.new((vr[-1][k], vr[-1][(k + 1) % N], c1))
+    R._finish("Saco", bm, "tnt")
+    # Sewn side seams (a folded, stitched hem down each side).
+    for th in (0.0, math.pi):
+        cable("Costura lateral", "costura_tnt", [sobre(th, z, 0.0004) for z in (0.012, 0.05, 0.09, 0.13, 0.17, 0.21, 0.25, 0.28)],
+              0.0019, per_seg=6)
+    # Drawstring round the neck, a knot at the front right, two loose ends, a cord lock on the longer one.
+    zc = BOLSA["neck"] - 0.002
+    rad = []
+    for k in range(48):
+        th = 2 * math.pi * k / 48
+        q = bolsa_ponto(th, zc) - _lean(zc); q.z = 0
+        rad.append(q.length)
+    rc = max(rad) + 0.0022
+    ring = [_lean(zc) + Vector((math.cos(2 * math.pi * k / 40) * rc, math.sin(2 * math.pi * k / 40) * rc * 0.86, 0)) for k in range(41)]
+    tube("Cordao", "cordao", ring + [ring[1]], 0.0022, res=2)
+    thk = -1.15
+    kn = _lean(zc) + Vector((math.cos(thk) * (rc + 0.002), math.sin(thk) * (rc + 0.002) * 0.86, 0))
+    for k, (dx, dy, dz) in enumerate(((0, 0, 0), (0.003, -0.002, -0.002), (-0.002, -0.001, -0.003))):
+        cyl(f"No {k}", "cordao", kn + Vector((dx, dy, dz)), 0.0040, 0.0065, axis=(0.3 + k * 0.4, 0.5, 0.8), seg=14, r=0.0018)
+    ends = []
+    for dth, zs_end in ((0.10, (0.285, 0.27, 0.25, 0.225, 0.20)), (-0.18, (0.287, 0.275, 0.262, 0.25))):
+        pts = [kn + Vector((0, -0.002, -0.004))] + [sobre(thk + dth * (1 + i * 0.25), z, 0.0028) for i, z in enumerate(zs_end)]
+        cable("Ponta do cordao", "cordao", pts, 0.0021, per_seg=6)
+        ends.append(pts)
+    a, b = ends[0][-2], ends[0][-1]
+    cyl("Trava do cordao", "plastico", a.lerp(b, 0.4), 0.0056, 0.013, axis=tuple(b - a), seg=16, r=0.0015)
+    cyl("Trava - mola", "plastico", a.lerp(b, 0.4) + (b - a).normalized() * 0.0085, 0.0035, 0.005, axis=tuple(b - a), seg=12, r=0.001)
+    # Paper tag on a string: card 78 x 56 mm (the print quad covers its lower 48 mm), brass eyelet at the top.
+    y0 = -0.1245
+    box("Etiqueta da bolsa", "etiqueta", 0.071, y0, 0.151, 0.149, y0 + 0.0012, 0.207, r=0.0005)
+    cyl("Ilhos", "ilhos", (0.11, y0 - 0.0002, 0.2015), 0.0034, 0.0007, axis=(0, 1, 0), seg=20, r=0.0002)
+    cyl("Furo do ilhos", "fenda", (0.11, y0 - 0.0005, 0.2015), 0.0016, 0.0006, axis=(0, 1, 0), seg=14, r=0)
+    eye = Vector((0.11, y0 - 0.0008, 0.2015))
+    path = [kn + Vector((0, -0.003, -0.002))]
+    for t in (0.2, 0.4, 0.6, 0.8):
+        x, z = kn.x + (0.11 - kn.x) * t, kn.z + (0.215 - kn.z) * t
+        path.append(sobre(bolsa_frente(x, z), z, 0.0025))
+    path += [Vector((0.11, y0 - 0.004, 0.214)), eye]
+    cable("Barbante", "barbante", path, 0.0009, per_seg=6)
+    # How far the bag front comes forward under the card (must stay behind it).
+    worst = min(bolsa_ponto(bolsa_frente(x, z), z).y for x in (0.075, 0.11, 0.145) for z in (0.155, 0.175, 0.2))
+    print("BOLSA frente sob a etiqueta y =", round(worst, 4), "cartao y =", y0)
+
+
+def build_remendo():
+    """Bag P26 only (a child of that bag, same frame): a tear down the front, closed with crude hand stitches in navy
+    thread over an older seam, split open again at the bottom (Nina took the recorder out because of it)."""
+    import bmesh
+    import random
+    rnd = random.Random(26)
+
+    def rx(z):
+        return -0.078 + 0.004 * math.sin(z * 90) + 0.0018 * math.sin(z * 230 + 1)
+
+    def at(x, z, h):
+        th = bolsa_frente(x, z)
+        return sobre(th, z, h), bolsa_normal(th, z)
+
+    # The tear: a dark slit, wide where it is open (z 0.045..0.09), a hairline where it is stitched.
+    bm = bmesh.new()
+    rows = []
+    zs = [0.045 + (0.215 - 0.045) * k / 40 for k in range(41)]
+    for z in zs:
+        if z < 0.09:
+            w = 0.0045 * math.sin(math.pi * (z - 0.045) / 0.06) + 0.0006
+        else:
+            w = 0.0007
+        x = rx(z)
+        p, nrm = at(x, z, 0.00035)
+        side = Vector((1, 0, 0)) - nrm * nrm.x
+        side.normalize()
+        rows.append((bm.verts.new(p - side * w / 2), bm.verts.new(p + side * w / 2)))
+    for (a0, a1), (b0, b1) in zip(rows, rows[1:]):
+        bm.faces.new((a0, a1, b1, b0))
+    bmesh.ops.solidify(bm, geom=bm.faces[:], thickness=0.0003)
+    R._finish("Rasgo", bm, "fenda")
+    # Frayed lips of the open part.
+    for sg in (-1, 1):
+        pts = []
+        for z in (0.046, 0.055, 0.065, 0.075, 0.085, 0.092):
+            w = 0.0045 * math.sin(math.pi * max(0.0, min(1.0, (z - 0.045) / 0.06))) + 0.0006
+            pts.append(at(rx(z) + sg * (w / 2 + 0.0008), z, 0.0009)[0])
+        cable("Borda do rasgo", "tnt_borda", pts, 0.0009, per_seg=4)
+    # Cross stitches, uneven, from z 0.092 to 0.212, then a knot and a loose tail at the top.
+    n = 12
+    for i in range(n):
+        z = 0.094 + (0.208 - 0.094) * i / (n - 1) + rnd.uniform(-0.002, 0.002)
+        x = rx(z)
+        for sg in (1, -1) if i % 3 != 1 else (1,):
+            hw = rnd.uniform(0.0065, 0.0095)
+            dz = sg * rnd.uniform(0.0035, 0.0055)
+            p0 = at(x - hw, z - dz, -0.0004)[0]
+            pa = at(x - hw * 0.6, z - dz * 0.6, 0.0006)[0]
+            pm = at(x, z + rnd.uniform(-0.0008, 0.0008), 0.0010)[0]
+            pb = at(x + hw * 0.6, z + dz * 0.6, 0.0006)[0]
+            p1 = at(x + hw, z + dz, -0.0004)[0]
+            cable("Ponto", "linha_remendo", [p0, pa, pm, pb, p1], 0.00062, per_seg=4)
+            for q in (p0, p1):
+                cyl("Furo do ponto", "fenda", at(q.x, q.z, 0.0003)[0], 0.0008, 0.0004, axis=tuple(at(q.x, q.z, 0)[1]), seg=8, r=0)
+    k_ = at(rx(0.214) + 0.006, 0.216, 0.0016)[0]
+    cyl("No da linha", "linha_remendo", k_, 0.0019, 0.0022, axis=tuple(at(k_.x, k_.z, 0)[1]), seg=12, r=0.0008)
+    tail = [k_, at(rx(0.214) + 0.012, 0.212, 0.0015)[0], at(rx(0.2) + 0.016, 0.196, 0.0012)[0], at(rx(0.19) + 0.014, 0.181, 0.001)[0]]
+    cable("Ponta da linha", "linha_remendo", tail, 0.00062, per_seg=5)
+
+
+def _rrect(w, l, rc, seg=6):
+    pts = []
+    for cx, cy, a0 in ((w / 2 - rc, l / 2 - rc, 0), (-w / 2 + rc, l / 2 - rc, 90), (-w / 2 + rc, -l / 2 + rc, 180), (w / 2 - rc, -l / 2 + rc, 270)):
+        for k in range(seg + 1):
+            a = math.radians(a0 + 90 * k / seg)
+            pts.append((cx + rc * math.cos(a), cy + rc * math.sin(a)))
+    return pts
 
 
 def build_gravador():
-    """Pocket digital voice recorder (~108 x 38 x 17 mm), lying on its back: screen, buttons, mic grille, USB jack."""
-    L, W, T = 0.108, 0.038, 0.017
-    box("Corpo", "gravador", -W / 2, -L / 2, 0.0, W / 2, L / 2, T, r=0.006, seg=3)
-    box("Tela", "tela", -0.013, 0.005, T - 0.0004, 0.013, 0.03, T + 0.0003, r=0.0008)
-    for k, (x, y) in enumerate(((0.0, -0.008), (-0.01, -0.02), (0.01, -0.02), (0.0, -0.032))):
-        cyl(f"Botao {k}", "teclado", (x, y, T), 0.0045, 0.002, seg=14, r=0.0005)
-    cyl("Botao gravar", "botao_vermelho", (0.0, -0.044, T), 0.004, 0.002, seg=14, r=0.0005)
+    """Pocket digital voice recorder (102 x 36 x 14.5 mm, after common Sony/Olympus models), lying on its back, top
+    end towards +Y: graphite body, gloss black face with the LCD in a satin frame, stereo mic grilles and the record
+    LED at the top, menu/back keys, a navigation ring with a centre play key, stop / REC / erase keys, a speaker
+    grille; volume rocker and HOLD switch on the sides, USB slider at the bottom end, mic and headphone jacks on top."""
+    L, W, T = 0.102, 0.036, 0.0145
+    extrude("Corpo", "gravador", _rrect(W, L, 0.008), "XY", 0.0, T - 0.0012, r=0.003, seg=3)
+    extrude("Painel", "gravador_face", _rrect(W - 0.0024, L - 0.0024, 0.0068), "XY", T - 0.003, T, r=0.0011, seg=2)
+    box("Moldura da tela", "prata", -0.0145, 0.0065, T - 0.0004, 0.0145, 0.0325, T + 0.0001, r=0.0009)
+    box("Tela", "tela", -0.0133, 0.0077, T - 0.0002, 0.0133, 0.0313, T + 0.0003, r=0.0005)
+    for sx in (-1, 1):
+        cx, cy = sx * 0.0105, 0.0405
+        cyl("Grade do microfone", "prata", (cx, cy, T), 0.0058, 0.0008, seg=28, r=0.0003)
+        for i in range(-3, 4):
+            for j in range(-3, 4):
+                hx, hy = cx + (i + 0.5 * (j % 2)) * 0.0015, cy + j * 0.0013
+                if math.hypot(hx - cx, hy - cy) < 0.0045:
+                    cyl("Furo da grade", "fenda", (hx, hy, T + 0.0004), 0.00045, 0.0003, seg=8, r=0)
+    cyl("LED", "led", (0.0, 0.0405, T), 0.0011, 0.0009, seg=12, r=0.0002)
+    for sx in (-1, 1):
+        box("Tecla menu", "teclado", sx * 0.0095 - 0.004, 0.0005, T - 0.0003, sx * 0.0095 + 0.004, 0.0040, T + 0.0011, r=0.0013)
+    cy = -0.0165
+    cyl("Anel de navegacao", "teclado", (0, cy, T), 0.0108, 0.0016, seg=40, r=0.0005)
+    for dx, dy in ((0, 0.0078), (0, -0.0078), (0.0078, 0), (-0.0078, 0)):
+        cyl("Marca do anel", "prata", (dx, cy + dy, T + 0.0008), 0.0007, 0.0003, seg=10, r=0)
+    cyl("Vao do anel", "fenda", (0, cy, T + 0.0003), 0.0053, 0.0012, seg=32, r=0)
+    cyl("Tecla play", "prata", (0, cy, T + 0.0006), 0.0046, 0.0016, seg=32, r=0.0005)
+    cyl("Tecla gravar", "botao_vermelho", (0, -0.0365, T + 0.0003), 0.0052, 0.0018, seg=28, r=0.0006)
+    for sx in (-1, 1):
+        box("Tecla parar / apagar", "teclado", sx * 0.012 - 0.0035, -0.0395, T - 0.0003, sx * 0.012 + 0.0035, -0.0335, T + 0.0011, r=0.0013)
     for k in range(5):
-        box(f"Grade {k}", "fenda", -0.012, L / 2 - 0.012 + k * 0.0018 - 0.004, T - 0.0002, 0.012, L / 2 - 0.0112 + k * 0.0018 - 0.004, T + 0.0002, r=0)
-    box("Entrada USB", "fenda", -0.004, -L / 2 - 0.0005, 0.006, 0.004, -L / 2 + 0.001, 0.0095, r=0.0003)
+        y = -0.0462 + k * 0.0011
+        box("Fenda do alto-falante", "fenda", -0.0065, y - 0.0003, T - 0.0001, 0.0065, y + 0.0003, T + 0.0002, r=0)
+    box("Volume", "teclado", W / 2 - 0.0006, 0.006, 0.0045, W / 2 + 0.0008, 0.022, 0.0098, r=0.0007)
+    box("Divisao do volume", "fenda", W / 2 + 0.0005, 0.0138, 0.005, W / 2 + 0.0009, 0.0142, 0.0093, r=0)
+    box("Trilho do HOLD", "fenda", -W / 2 - 0.0002, -0.012, 0.0055, -W / 2 + 0.0004, -0.002, 0.0088, r=0)
+    box("Chave HOLD", "teclado", -W / 2 - 0.0009, -0.0105, 0.006, -W / 2 + 0.0002, -0.0065, 0.0083, r=0.0004)
+    box("Conector USB", "prata", -0.0055, -L / 2 - 0.0009, 0.0042, 0.0055, -L / 2 + 0.001, 0.0098, r=0.0006)
+    for k in range(3):
+        z = 0.0058 + k * 0.0012
+        box("Friso do USB", "fenda", -0.0035, -L / 2 - 0.0011, z, 0.0035, -L / 2 - 0.0007, z + 0.0004, r=0)
+    # Back (seen when it is turned over): battery door outline, speaker holes, the model sticker.
+    for x0, y0, x1, y1 in ((-0.0145, -0.0425, 0.0145, -0.0419), (-0.0145, -0.0056, 0.0145, -0.005),
+                           (-0.0145, -0.0425, -0.0139, -0.005), (0.0139, -0.0425, 0.0145, -0.005)):
+        box("Tampa da pilha", "fenda", x0, y0, -0.0002, x1, y1, 0.00005, r=0)
+    box("Trava da tampa", "teclado", -0.004, -0.0415, -0.0005, 0.004, -0.0375, 0.0, r=0.0003)
+    for i in range(6):
+        for j in range(4):
+            cyl("Furo do alto-falante", "fenda", (-0.00625 + i * 0.0025, 0.014 + j * 0.0025, -0.0001), 0.00055, 0.0003, seg=8, r=0)
+    box("Etiqueta do modelo", "etiqueta", -0.011, 0.031, -0.00025, 0.011, 0.044, 0.0, r=0.0002)
+    for sx in (-1, 1):
+        cyl("Anel do conector", "prata", (sx * 0.0085, L / 2, 0.0072), 0.0026, 0.0012, axis=(0, 1, 0), seg=20, r=0.0003)
+        cyl("Furo do conector", "fenda", (sx * 0.0085, L / 2 + 0.0004, 0.0072), 0.0017, 0.0012, axis=(0, 1, 0), seg=16, r=0)
+
+
+# Guard envelope (C4, 229 x 324 mm) lying face up, Leo's recorder sealed inside: the papers make a low pillow, the
+# recorder a raised bump; the flap (EnvelopeAba, its own mesh, hinged on the top edge) is folded over the face and held
+# by the red tamper tape, which tears in two when the flap is opened. The custody label is a Unity print quad
+# (centre (0, -0.07), z 0.0064 here). The recorder lies inside with its centre at GRAVADOR_DENTRO, top end towards the
+# mouth (+Y); the paper stays raised over it up to the mouth, so it can slide out.
+ENV = dict(w2=0.1145, l2=0.162, h=0.0058, aba=0.044)
+GRAVADOR_DENTRO = (0.0, 0.055, 0.0015)       # recorder origin (centre of its underside); Unity local (0, 0.0015, 0.055)
+ZH_ABA = 0.0012                              # hinge height of the flap (the top edge away from the recorder)
+
+
+def env_z(x, y):
+    W2, L2, H = ENV["w2"], ENV["l2"], ENV["h"]
+    e = _smooth(min(W2 - abs(x), L2 - abs(y)) / 0.020)
+    z = 0.0012 + (H - 0.0012) * e + 0.00015 * math.sin(x * 60 + 1) * math.sin(y * 45) * e
+    # The recorder inside: the paper is not shrink-wrapped round it, it tents over it, taut on top and falling off in a
+    # long slope to the edges (shorter towards the bottom, where the papers below hold it down), with faint tension
+    # lines from the recorder's corners to the envelope's corners.
+    gx, gy = GRAVADOR_DENTRO[0], GRAVADOR_DENTRO[1]
+    fx, fy = 0.012, 0.049                                    # tent footprint (recorder 18 x 51 mm half-size, rounded)
+    dx, dy = max(0.0, abs(x - gx) - fx), max(0.0, abs(y - gy) - fy)
+    d = math.sqrt(dx * dx + dy * dy + 0.006 ** 2) - 0.006
+    R = 0.080 if dy == 0 else (0.070 if y > gy else 0.035)
+    if dy > 0 and dx > 0:                                    # blend the radii round the corners
+        k = dx / (dx + dy)
+        R = 0.080 * k + (0.070 if y > gy else 0.035) * (1 - k)
+    b = (1 - min(1.0, d / R)) ** 1.7 * e
+    for sx in (-1, 1):
+        for sy in (-1, 1):
+            ax, ay, bx_, by_ = gx + sx * fx, gy + sy * fy, sx * W2, sy * L2
+            t = max(0.0, min(1.0, ((x - ax) * (bx_ - ax) + (y - ay) * (by_ - ay)) / ((bx_ - ax) ** 2 + (by_ - ay) ** 2)))
+            dd = math.hypot(x - ax - t * (bx_ - ax), y - ay - t * (by_ - ay))
+            b += 0.04 * math.exp(-(dd / 0.004) ** 2) * b * (1 - t)
+    z += (0.0175 - z) * min(1.0, b)
+    z += 0.006 * max(0.0, 1 - math.hypot(x + W2, y + L2) / 0.035) ** 2       # dog-eared corner
+    for (ax, ay, bx, by), k in (((-0.11, -0.02, 0.06, -0.16), 0.0003), ((0.03, 0.11, 0.115, -0.03), 0.00025)):
+        t = max(0.0, min(1.0, ((x - ax) * (bx - ax) + (y - ay) * (by - ay)) / ((bx - ax) ** 2 + (by - ay) ** 2)))
+        dd = math.hypot(x - ax - t * (bx - ax), y - ay - t * (by - ay))
+        z += k * e * math.exp(-(dd / 0.003) ** 2) * (1 - b)                  # handling creases
+    return z
+
+
+def _folha(bm, x0, x1, ys, nx, zfun, down=False, half=None):
+    """One sheet of a grid over (x, y) at height zfun, every face wound to face up (or down)."""
+    rows = []
+    for y in ys:
+        hx = half(y) if half else None
+        xa, xb = (-hx, hx) if hx else (x0, x1)
+        rows.append([bm.verts.new((xa + (xb - xa) * i / nx, y, 0)) for i in range(nx + 1)])
+    for row in rows:
+        for v in row:
+            v.co.z = zfun(v.co.x, v.co.y)
+    for A, B in zip(rows, rows[1:]):
+        for i in range(nx):
+            q = (A[i], A[i + 1], B[i + 1], B[i])          # x then y: counter-clockwise from above, faces +Z
+            bm.faces.new(tuple(reversed(q)) if down else q)
+
+
+def _sem_recalculo(name, bm, mat):
+    """Like R._finish, but keeps the winding as built (recalc_face_normals flips thin sheets unpredictably)."""
+    me = bpy.data.meshes.new(name)
+    bm.to_mesh(me)
+    bm.free()
+    ob = bpy.data.objects.new(name, me)
+    ob["mat"] = mat
+    R._coll(R._current["asset"]).objects.link(ob)
+    return ob
+
+
+def _env_grid(name, mat, x0, x1, y0, y1, nx, ny, zfun, thick=None):
+    """A thin overlay lying on the envelope (tape, slit, gum): one upward sheet."""
+    import bmesh
+    bm = bmesh.new()
+    _folha(bm, x0, x1, [y0 + (y1 - y0) * j / ny for j in range(ny + 1)], nx, zfun)
+    return _sem_recalculo(name, bm, mat)
 
 
 def build_envelope():
-    """Kraft guard envelope (C4) with a red numbered seal strip and the G-B2 label (its print is a Unity label quad)."""
-    box("Envelope", "kraft", -0.115, -0.162, 0.0, 0.115, 0.162, 0.012, r=0.003)
-    box("Lacre", "lacre", -0.115, 0.10, 0.012, 0.115, 0.13, 0.0135, r=0.0005)
-    box("Etiqueta do envelope", "etiqueta", -0.07, -0.05, 0.012, 0.07, 0.04, 0.0128, r=0.0003)
+    import bmesh
+    W2, L2 = ENV["w2"], ENV["l2"]
+    nx, ny = 80, 64
+    bm = bmesh.new()
+    G = [[bm.verts.new((-W2 + 2 * W2 * i / nx, -L2 + 2 * L2 * j / ny, 0)) for j in range(ny + 1)] for i in range(nx + 1)]
+    for row in G:
+        for v in row:
+            v.co.z = env_z(v.co.x, v.co.y)
+    for i in range(nx):
+        for j in range(ny):
+            bm.faces.new((G[i][j], G[i + 1][j], G[i + 1][j + 1], G[i][j + 1]))
+    loop = [G[i][0] for i in range(nx + 1)] + [G[nx][j] for j in range(1, ny + 1)] + \
+           [G[i][ny] for i in range(nx - 1, -1, -1)] + [G[0][j] for j in range(ny - 1, 0, -1)]
+    low = [bm.verts.new((v.co.x, v.co.y, 0.0)) for v in loop]
+    for k in range(len(loop)):
+        k2 = (k + 1) % len(loop)
+        bm.faces.new((loop[k], low[k], low[k2], loop[k2]))
+    bm.faces.new(low)
+    R._finish("Envelope", bm, "kraft")
+    # Under the flap: the mouth (a dark slit) and the gummed band; shown once the flap opens.
+    yf = L2 - ENV["aba"]
+    _env_grid("Boca", "fenda", -0.104, 0.104, L2 - 0.0062, L2 - 0.0032, 100, 1, lambda x, y: env_z(x, y) + 0.0002, 0.0001)
+    _env_grid("Faixa de cola", "kraft_velho", -0.108, 0.108, yf + 0.004, yf + 0.016, 100, 2, lambda x, y: env_z(x, y) + 0.00015, 0.0001)
+    # The tape's lower half (stays on the body when it tears).
+    _env_grid("Lacre - metade de baixo", "fita", -0.096, 0.096, yf - 0.010, yf, 100, 2, lambda x, y: env_z(x, y) + 0.0009, 0.0002)
+    # Perforation of the tear-off stub.
+    yp = -0.128
+    for k in range(50):
+        x = -0.104 + k * 0.0042
+        z = env_z(x, yp)
+        box("Picote", "fenda", x - 0.0012, yp - 0.0002, z - 0.0001, x + 0.0012, yp + 0.0002, z + 0.00015, r=0)
+    # Back: bottom fold and the long centre seam, slightly proud of the face it lies on.
+    box("Dobra do fundo", "kraft_velho", -W2 + 0.002, -L2 + 0.002, -0.0004, W2 - 0.002, -L2 + 0.055, 0.0, r=0.0002)
+    box("Costura central", "kraft_velho", -0.012, -L2 + 0.055, -0.0003, 0.012, L2 - 0.002, 0.0, r=0.0002)
+
+
+def build_envelope_aba():
+    """The flap, in its own frame: origin on the hinge (the envelope's top edge, x 0, y l2, z at the edge), folded
+    towards -Y over the face. Opening turns it about X. Upper half of the tamper tape on it."""
+    import bmesh
+    W2, L2, A = ENV["w2"], ENV["l2"], ENV["aba"]
+    zh = ZH_ABA
+    nx, ny = 100, 10
+
+    def zf(x, y):
+        return env_z(x, y) + 0.0005 - zh
+
+    ys = [-A + A * j / ny for j in range(ny + 1)]                     # flap frame: free edge at -A, hinge at 0
+    half = lambda y: 0.100 + 0.012 * min(1.0, (y + A) / A * 2.2)     # corners cut towards the free edge
+    zl = lambda x, y: zf(x, y + L2)
+    bm = bmesh.new()
+    _folha(bm, 0, 0, ys, nx, zl, half=half)                                        # outside (up when closed)
+    _folha(bm, 0, 0, ys, nx, lambda x, y: zl(x, y) - 0.0005, down=True, half=half)  # inside
+    _sem_recalculo("Aba", bm, "kraft")
+    yf = L2 - A
+    _env_grid("Lacre - metade de cima", "fita", -0.096, 0.096, yf - L2, yf + 0.020 - L2, 100, 3,
+              lambda x, y: env_z(x, y + L2) + 0.0009 - zh, 0.0002)
 
 
 def build_pasta_contrato():
@@ -601,7 +965,7 @@ BUILDERS = {"MesaServidor": build_mesa, "GavetaMesa1": lambda: build_gaveta_mesa
             "EquipamentosMesa": build_equipamentos, "ArquivoAco": build_arquivo, "GavetaArquivo": build_gaveta_arquivo,
             "EstanteAco": build_estante, "EstanteCoordenacao": build_estante_coordenacao, "ArmarioPertences": build_pertences, "PortaPertences": build_porta_pertences,
             "Bancada": build_bancada, "Impressora": build_impressora, "PastasManuais": build_pastas_manuais,
-            "BolsaPertences": build_bolsa, "Gravador": build_gravador, "EnvelopeGuarda": build_envelope, "CaixaArquivo": build_caixa,
+            "BolsaPertences": build_bolsa, "RemendoBolsa": build_remendo, "Gravador": build_gravador, "EnvelopeGuarda": build_envelope, "EnvelopeAba": build_envelope_aba, "CaixaArquivo": build_caixa,
             "PastaContrato": build_pasta_contrato, "MesaApoio": build_mesa_apoio}
 
 

@@ -1564,7 +1564,7 @@ def build(asset):
 
 # ---------------------------------------------------------------- game mesh
 
-def assemble(asset, mats, x_offset=0.0):
+def assemble(asset, mats, x_offset=0.0, keep_floor=False):
     """Joins the parts into one mesh with one slot per material key; drops faces lying on the floor,
     triangulates (so the baked normals match what Unity imports) and smooths by angle.
     x_offset only spreads the assets apart in the .blend for review; the export ignores it."""
@@ -1590,7 +1590,8 @@ def assemble(asset, mats, x_offset=0.0):
     bm = bmesh.new()
     bm.from_mesh(root.data)
     # Only faces lying on the floor plane (z = 0): ceiling and wall fittings hang below their origin.
-    floor = [f for f in bm.faces if f.normal.z < -0.99 and abs(f.calc_center_median().z) < 0.002]
+    # keep_floor: props that are picked up and turned over keep their underside.
+    floor = [] if keep_floor else [f for f in bm.faces if f.normal.z < -0.99 and abs(f.calc_center_median().z) < 0.002]
     bmesh.ops.delete(bm, geom=floor, context="FACES")
     bmesh.ops.triangulate(bm, faces=bm.faces[:], quad_method="BEAUTY", ngon_method="BEAUTY")
     bm.to_mesh(root.data)

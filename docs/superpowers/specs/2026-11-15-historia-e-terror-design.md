@@ -106,7 +106,7 @@ Os textos de D01 a D14 e H01 a H07 ficam como no template, salvo as mudanças in
 | P03 | A tala (foto da mesa × D05/D06) | Caderno | Novo | Nenhuma. |
 | P04 | Bolsa P26 | Arquivo (pertences) | Novo | O armário aparece revirado por Daniel. |
 | P05 | Entrada de Vilar (D07 × D08 × D14) | Recepção (computador) e recebimento (sensor da porta) | Novo | D07 deixa de ser papel assinado: é o registro automático do sensor, lido no computador da recepção. Mostra a entrada às 23h04 e nenhuma saída. |
-| P06 | Gravador em G-B2 | Arquivo (pertences) | Novo | O compartimento de guarda tem cadeado de combinação; o código é a hora do lacre de Nina (22h05 → 2205). Explica por que Daniel ainda não o pegou. |
+| P06 | Gravador em G-B2 | Arquivo (pertences) | Novo | O compartimento de guarda tem cadeado de combinação (4817). Por procedimento, Nina anota a combinação no livro de guarda, que fica com o vigia na guarita; a legenda do armário avisa isso. Celso manda a combinação pelo celular quando o jogador conclui a venda (`con:venda`), então o gravador só fica ao alcance no fim do ato 3. Explica também por que Daniel ainda não o pegou. |
 | P07 | Léo em C-02 | Câmara fria | Novo | Depois dele vem S4. |
 | P08 | A mesa vazia | Autópsia | Novo (há `EstadoMesaAutopsia` com os dois estados) | Marca a passagem para a fase Sombra. |
 | P09 | Vera Moura e a 784 | Arquivo | Novo | Inclui as mensagens do comprador (D15 × D11): o corpo de Vera foi vendido. |

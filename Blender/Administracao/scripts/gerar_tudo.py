@@ -15,9 +15,11 @@ ONLY = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else None
 
 ATLAS = {"MesaServidor": 2048, "GavetaMesa1": 1024, "GavetaMesa2": 1024, "GavetaMesa3": 1024, "EquipamentosMesa": 2048, "ArquivoAco": 1024,
          "GavetaArquivo": 1024, "EstanteAco": 2048, "EstanteCoordenacao": 2048, "ArmarioPertences": 2048, "PortaPertences": 512, "Bancada": 2048,
-         "Impressora": 1024, "PastasManuais": 512, "BolsaPertences": 512, "Gravador": 512, "EnvelopeGuarda": 512, "CaixaArquivo": 512, "PastaContrato": 512, "MesaApoio": 1024}
+         "Impressora": 1024, "PastasManuais": 512, "BolsaPertences": 1024, "RemendoBolsa": 512, "Gravador": 1024, "EnvelopeGuarda": 1024, "EnvelopeAba": 512, "CaixaArquivo": 512, "PastaContrato": 512, "MesaApoio": 1024}
 AO_SAMPLES = 64
-OCCLUDERS = {"EquipamentosMesa": ("MesaServidor",)}
+# Baked without the floor plane: the flap is seen from both sides once it opens.
+NO_GROUND = ("EnvelopeAba",)
+OCCLUDERS = {"EquipamentosMesa": ("MesaServidor",), "RemendoBolsa": ("BolsaPertences",)}
 
 
 def load(folder, module):
@@ -38,8 +40,9 @@ def main():
         if ONLY and asset not in ONLY:
             continue
         model.build(asset)
-        ob = model.assemble(asset, mats[asset], 2.5 * i)
-        built[asset] = model.layout_uvs(ob, ATLAS[asset])
+        turned = asset in getattr(model, "INSPECTED", ())
+        ob = model.assemble(asset, mats[asset], 2.5 * i, keep_floor=turned)
+        built[asset] = model.layout_uvs(ob, ATLAS[asset], hidden_scale=1.0 if turned else 0.3)
     bpy.ops.wm.save_as_mainfile(filepath=BLEND)
     if not BAKE_AND_EXPORT:
         return built
@@ -55,7 +58,8 @@ def main():
         for n in moved:
             bpy.data.objects[n].location = (0, 0, 0)
         try:
-            imgs, times = baker.bake(ob, [s.material for s in ob.material_slots], ao_samples=AO_SAMPLES)
+            imgs, times = baker.bake(ob, [s.material for s in ob.material_slots], ao_samples=AO_SAMPLES,
+                                     ground=asset not in NO_GROUND)
         finally:
             for n, loc in moved.items():
                 bpy.data.objects[n].location = loc

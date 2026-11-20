@@ -111,8 +111,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.038000006, y: 0.018000001, z: 0.108500004}
-  m_Center: {x: 0, y: 0.009000001, z: -0.00024999864}
+  m_Size: {x: 0.0378, y: 0.0164, z: 0.1041}
+  m_Center: {x: 9.313226e-10, y: 0.0077000004, z: -0.000050000846}
 --- !u!114 &4270322857918905755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,9 +127,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjetoInspecionavel
   nome: Gravador
   descricao: 
+  idEvidencia: 
   teclaInteracao: E
   distanciaMaxima: 2.2
   folgaDaMira: 0.04
+  realcarNaMira: 1
+  intensidadeDoRealce: 1
+  fixoNoLugar: 0
   modeloInspecao: {fileID: 0}
   distanciaDaCamera: 0.45
   tamanhoNaTela: 0.3

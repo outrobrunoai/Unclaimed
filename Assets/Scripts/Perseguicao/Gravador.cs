@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// O gravador de Léo dentro do compartimento G-B2 (P06). Pegar marca "gravador_pego", grava o checkpoint CP04
 /// e, alguns segundos depois, Daniel aparece na porta do arquivo (Confronto).
-/// Prefab de José; Bruno coloca dentro do armário de guarda (atrás do cadeado 2205).
+/// Fica no envelope de guarda, no compartimento G-B2, atrás do cadeado 4817. Celso manda a combinação quando o jogador conclui a venda.
 /// </summary>
 public class Gravador : AlvoDeInteracao, ISalvavel
 {

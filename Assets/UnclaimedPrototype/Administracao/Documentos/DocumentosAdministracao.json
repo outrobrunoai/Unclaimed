@@ -715,7 +715,7 @@
           "forca": 0.2
         }
       ],
-      "transcricao": "GUARDA DE PERTENCES\nColunas A · B — níveis 1 · 2 · 3 (1 = em cima)\nG: guarda separada\nEndereço: coluna e nível.",
+      "transcricao": "GUARDA DE PERTENCES\nColunas A · B — níveis 1 · 2 · 3 (1 = em cima)\nG: guarda separada, com cadeado.\nA combinação fica no livro de guarda, na guarita.",
       "blocos": [
         {
           "tipo": "titulo",
@@ -724,7 +724,7 @@
         },
         {
           "tipo": "paragrafo",
-          "texto": "Colunas A · B — níveis 1 · 2 · 3 (1 = em cima)\nG: guarda separada\nEndereço: coluna e nível.",
+          "texto": "Colunas A · B — níveis 1 · 2 · 3 (1 = em cima)\nG: guarda separada, com cadeado.\nA combinação fica no livro de guarda, na guarita.",
           "tamanho": 3.8
         }
       ],

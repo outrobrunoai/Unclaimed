@@ -135,7 +135,7 @@ public class DiretorDeDaniel : MonoBehaviour, ISalvavel
     {
         if (fase == FaseDeDaniel.Obstrucao)
         {
-            if (TentarUnica(TipoDeAcao.Corrente, protegidas)) return;
+            if (Sala.Em(jogador) != null && TentarUnica(TipoDeAcao.Corrente, protegidas)) return;
             if (TentarArmadilha()) return;
         }
 
@@ -156,6 +156,7 @@ public class DiretorDeDaniel : MonoBehaviour, ISalvavel
         foreach (PontoDeAcao p in PontoDeAcao.Todos)
         {
             if (p == null || p.tipo != tipo || p.Vezes > 0 || protegidas.Contains(p.Sala)) continue;
+            if (p.FechaPorta && p.PortasAVista()) continue;
             p.Executar();
             Log("executou " + p.id);
             return true;
@@ -172,6 +173,7 @@ public class DiretorDeDaniel : MonoBehaviour, ISalvavel
         foreach (PontoDeAcao p in PontoDeAcao.Todos)
         {
             if (p == null || p.tipo != TipoDeAcao.PrenderCamaraFria || p.Vezes > 0) continue;
+            if (p.PortasAVista()) continue;
             p.Executar();
             Log("prendeu o jogador na câmara fria");
             return true;
@@ -189,10 +191,11 @@ public class DiretorDeDaniel : MonoBehaviour, ISalvavel
             if (p == null) continue;
             if (p.tipo == TipoDeAcao.TrancarPorta && p.Ativo && !string.IsNullOrEmpty(p.grupo)) gruposTrancados.Add(p.grupo);
             candidatosPontos.Add(p);
+            bool disponivel = p.Disponivel && p.isActiveAndEnabled && !(p.FechaPorta && p.PortasAVista());
             candidatos.Add(new DecisoesDeDaniel.Candidato
             {
                 id = p.id, sala = p.Sala, grupo = p.grupo, tipo = p.tipo, posicao = p.transform.position,
-                disponivel = p.Disponivel && p.isActiveAndEnabled, valeNaFase = p.ValeNa(fase),
+                disponivel = disponivel, valeNaFase = p.ValeNa(fase),
             });
         }
         int i = DecisoesDeDaniel.Escolher(candidatos, protegidas, jogador, gruposTrancados, () => Random.value);

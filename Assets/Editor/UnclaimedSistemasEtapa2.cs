@@ -406,36 +406,8 @@ public static class UnclaimedSistemasEtapa2
     // ------------------------------------------------------------------ room volumes around the table (stage 4 seed)
 
     // DiretorDeDaniel only touches the table (pose B, P08) while the autopsy is out of the player's sight, judged by
-    // Sala volumes. Without them he believes the room is never seen and acts in front of the player. These three
-    // cover the table: the autopsy, the cold room and the corridor leg at the autopsy door; the rest of the list
-    // comes with stage 4. Rectangles from UnclaimedMorgueGenerator.Zones (floor to ceiling).
-    static void SalasDaMesa(Transform raiz)
-    {
-        Transform grupo = Grupo(raiz, "Sistemas - salas");
-        FolhaDePorta[] Folhas(string porta) => Object.FindObjectsByType<FolhaDePorta>(FindObjectsInactive.Include)
-            .Where(f => f.transform.IsChildOf(raiz) && f.GetComponentsInParent<Transform>(true).Any(t => t.name == porta)).ToArray();
-        var circulacao = Folhas("Porta autopsia - circulacao");
-        var camara = Folhas("Porta autopsia - camara fria");
-        Sala.Vizinha[] Por(string sala, FolhaDePorta[] folhas) =>
-            folhas.Select(f => new Sala.Vizinha { sala = sala, porta = f }).ToArray();   // one entry per leaf: either open counts
-
-        SalaVolume(grupo, "Autopsia", -2f, -3.5f, 7.5f, 3.625f, Por("Corredor", circulacao).Concat(Por("CamaraFria", camara)).ToArray());
-        SalaVolume(grupo, "CamaraFria", 7.5f, -3.5f, 15f, 5.25f, Por("Autopsia", camara));
-        SalaVolume(grupo, "Corredor", -4.5f, -3.875f, -2f, 3.625f, Por("Autopsia", circulacao));
-        if (circulacao.Length == 0 || camara.Length == 0) Debug.LogWarning("Unclaimed: autopsy door leaves not found for the Sala volumes.");
-    }
-
-    static void SalaVolume(Transform grupo, string id, float x0, float z0, float x1, float z1, Sala.Vizinha[] vizinhas)
-    {
-        Transform t = Grupo(grupo, "Sala - " + id);
-        t.gameObject.layer = 2;   // Ignore Raycast: aiming and photos pass through
-        t.position = new Vector3((x0 + x1) / 2f, 1.6f, (z0 + z1) / 2f);
-        var box = Garantir<BoxCollider>(t.gameObject);
-        box.isTrigger = true; box.center = Vector3.zero; box.size = new Vector3(x1 - x0, 3.2f, z1 - z0);
-        var sala = Garantir<Sala>(t.gameObject);
-        sala.id = id; sala.vizinhas = vizinhas;
-        EditorUtility.SetDirty(sala);
-    }
+    // Sala volumes. The whole room list lives in stage 4; stage 2 places the same volumes so both agree.
+    static void SalasDaMesa(Transform raiz) => UnclaimedSistemasEtapa4.Salas(raiz);
 
     // ------------------------------------------------------------------ helpers
 

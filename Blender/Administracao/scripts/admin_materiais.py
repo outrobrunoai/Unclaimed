@@ -24,6 +24,17 @@ CORES = dict(
 )
 
 
+def _tnt(RM, name, rgb):
+    """Spunbond polypropylene (TNT) of hospital belongings bags: matt white, fibrous, greyer where it was handled."""
+    m, g = RM._new(name)
+    p = g.obj()
+    base = g.color(g.noise(p, 25.0, 3.0, 0.55), tuple(c * 0.93 for c in rgb), rgb)
+    base = RM.lerp(g, base, tuple(c * 0.82 for c in rgb), RM.mul(g, RM.low(g, 0.05), 0.6))
+    h = g.math("ADD", g.noise(p, 800.0, 1.0, 0.5), RM.mul(g, g.voronoi(p, 260.0), 0.8))
+    g.finish(base, 0.9, 0.0, h, bump_strength=0.12, bump_dist=0.0003)
+    return m
+
+
 def make_all(G_class, model):
     RM = _load(os.path.join(HERE, "..", "..", "Recepcao", "scripts", "recepcao_materiais.py"), "recepcao_materiais")
     RM.laminado.__globals__["G"] = G_class   # the module functions read G from their own globals
@@ -97,7 +108,16 @@ def make_all(G_class, model):
         "saco": pla("Polietileno branco - bolsa", (0.74, 0.74, 0.71), 0.35, scuffed=False),
         "barbante": pla("Barbante", (0.62, 0.55, 0.42), 0.9, scuffed=False),
         "etiqueta": pap("Etiqueta de papel", (0.82, 0.80, 0.70)),
-        "gravador": pla("Plastico prata - gravador", (0.45, 0.46, 0.47), 0.32),
+        "gravador": pla("Plastico grafite - gravador", (0.075, 0.077, 0.082), 0.38),
+        "gravador_face": pla("Painel preto brilhante - gravador", (0.02, 0.02, 0.022), 0.18, scuffed=False),
+        "prata": met("Aluminio acetinado - gravador", (0.62, 0.62, 0.63), 0.35),
+        "led": pla("LED vermelho apagado", (0.25, 0.03, 0.03), 0.15, scuffed=False),
+        "tnt": _tnt(RM, "TNT branco - bolsa", (0.80, 0.80, 0.77)),
+        "tnt_borda": _tnt(RM, "TNT desfiado - bolsa", (0.74, 0.73, 0.69)),
+        "costura_tnt": pla("Costura do TNT", (0.70, 0.70, 0.67), 0.9, scuffed=False),
+        "cordao": pla("Cordao de algodao", (0.80, 0.79, 0.74), 0.95, scuffed=False),
+        "linha_remendo": pla("Linha azul do remendo", (0.03, 0.045, 0.11), 0.85, scuffed=False),
+        "ilhos": met("Ilhos de latao", (0.70, 0.62, 0.42), 0.35),
         "botao_vermelho": pla("Botao vermelho", (0.55, 0.04, 0.04), 0.3, scuffed=False),
         "lacre": pla("Lacre vermelho", (0.55, 0.05, 0.05), 0.3, scuffed=False),
     }

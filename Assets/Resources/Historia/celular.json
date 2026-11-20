@@ -17,6 +17,7 @@
     { "id": "celso_05", "contato": "celso", "de": "celso", "texto": "Alguém passou corrente na porta da frente. Não fui eu. Se precisar sair, vai pelos fundos, pelo pátio.", "quando": "corrente" },
     { "id": "redacao_02", "contato": "redacao", "de": "redacao", "texto": "Chegou. Continua, mas não fica aí mais do que precisa.", "quando": "enviou_algo" },
     { "id": "redacao_03", "contato": "redacao", "de": "redacao", "texto": "Se ele vendeu o corpo da Vera, a gente precisa da gravação. Sem ela é a palavra de um morto contra a dele.", "quando": "con:venda" },
+    { "id": "celso_06", "contato": "celso", "de": "celso", "texto": "A Marta me ligou falando do gravador do Léo. Olhei o livro de guarda aqui na guarita: G-B2, lacre da Nina, combinação 4817.", "quando": "con:venda" },
     { "id": "redacao_04", "contato": "redacao", "de": "redacao", "texto": "Recebemos o áudio. Ouvi duas vezes. Sai daí agora.", "quando": "env:D13" },
     { "id": "eu_ajuda", "contato": "redacao", "de": "eu", "texto": "Tem mais alguém aqui dentro. Chama alguém.", "quando": "ajuda_pedida" },
     { "id": "redacao_ajuda", "contato": "redacao", "de": "redacao", "texto": "Liguei pra polícia. Com essa chuva disseram uns quarenta minutos. Se puder sair, sai.", "quando": "ajuda_pedida" },

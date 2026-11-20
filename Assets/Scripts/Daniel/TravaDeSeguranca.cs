@@ -21,6 +21,15 @@ public class TravaDeSeguranca : AlvoDeInteracao
     [Tooltip("Distância máxima (m) para a lanterna revelar a trava no escuro.")]
     [Min(0.5f)] public float distanciaDaLuz = 6f;
     public AudioClip somTrava;
+    [Header("Alavanca (opcional)")]
+    [Tooltip("Gira em X ao puxar e volta sozinha.")]
+    public Transform alavanca;
+    [Range(0f, 120f)] public float anguloPuxada = 70f;
+    [Min(0.05f)] public float segundosPuxada = 0.9f;
+
+    float puxadaAte = -1f, angulo;
+    Quaternion repouso;
+    bool temRepouso;
 
     bool achada;
 
@@ -51,8 +60,21 @@ public class TravaDeSeguranca : AlvoDeInteracao
         }
     }
 
+    protected override void Update()
+    {
+        base.Update();   // a base lê a tecla de interação
+        if (alavanca == null) return;
+        if (!temRepouso) { repouso = alavanca.localRotation; temRepouso = true; }
+        float alvo = Time.time < puxadaAte ? anguloPuxada : 0f;
+        float novo = Mathf.MoveTowards(angulo, alvo, Time.deltaTime * (alvo > angulo ? 420f : 160f));
+        if (Mathf.Approximately(novo, angulo)) return;
+        angulo = novo;
+        alavanca.localRotation = repouso * Quaternion.Euler(angulo, 0f, 0f);
+    }
+
     public override void Interagir()
     {
+        puxadaAte = Time.time + segundosPuxada;
         PontoDeAcao a = Armadilha;
         if (somTrava != null) AudioSource.PlayClipAtPoint(somTrava, transform.position);
         if (a == null || !a.Ativo) return;

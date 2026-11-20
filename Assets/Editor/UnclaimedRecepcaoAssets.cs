@@ -289,30 +289,31 @@ public static class UnclaimedRecepcaoAssets
     private const float ShackleOpen = 0.015f, PadlockLiftOut = 0.0125f;
     public const string CirculationKeyId = "chave_circulacao";
 
-    private static void AddPadlockAndKey(Transform root, PecaDeMovel[] doors)
+    // The hasp (staple on doors[0], strap on doors[1]) and the 4-dial padlock, as on the support cabinet, moved by offset
+    // (root frame) so other furniture with a pair of doors meeting at x 0 can share it. Rest: where it lies once open.
+    public static CadeadoCombinacao AddPadlock(Transform root, PecaDeMovel[] doors, Vector3 offset, string code,
+                                               Vector3 restPosition, Quaternion restRotation)
     {
         Material steel = PuzzleMetal("Aco - fecho e arco", new Color(0.72f, 0.73f, 0.74f), 0.72f);
         Material brass = PuzzleMetal("Latao - cadeado", new Color(0.80f, 0.63f, 0.33f), 0.68f);
-        Material nickel = PuzzleMetal("Niquel - chave", new Color(0.82f, 0.82f, 0.80f), 0.78f);
         Material dials = LitMaterial("Discos do cadeado", Color.white, 0.45f, false, Tex(PuzzleTextures + "Cadeado_Digitos.png", 1024, srgb: true));
-        Material tag = LitMaterial("Etiqueta da chave", Color.white, 0.35f, false, Tex(PuzzleTextures + "Etiqueta_Circulacao.png", 512, srgb: true));
         Mesh M(string f) => MeshOf(f);
-        if (M("CadeadoCorpo") == null || M("FechoBase") == null || M("ChaveMetal") == null) { Debug.LogWarning("Unclaimed: missing padlock meshes."); return; }
+        if (M("CadeadoCorpo") == null || M("FechoBase") == null) { Debug.LogWarning("Unclaimed: missing padlock meshes."); return null; }
 
         // Staple on the left door, hinge leaf and strap on the right door (meshes in the cabinet's frame).
         Transform left = doors[0] != null ? doors[0].transform : root, right = doors[1] != null ? doors[1].transform : root;
-        Fixed("Fecho - grampo", left, M("FechoBase"), steel, root);
-        Fixed("Fecho - suporte da aba", right, M("FechoSuporte"), steel, root);
+        Fixed("Fecho - grampo", left, M("FechoBase"), steel, root, offset);
+        Fixed("Fecho - suporte da aba", right, M("FechoSuporte"), steel, root, offset);
         var strap = new GameObject("Fecho - aba").transform;
         strap.SetParent(right, false);
-        strap.localPosition = HaspStrapAxis - right.localPosition;
+        strap.localPosition = HaspStrapAxis + offset - right.localPosition;
         MeshObject("Malha", strap, M("FechoAba"), steel).transform.localPosition = -HaspStrapAxis;
 
         // Padlock: body, shackle and dials under "Modelo" (what the inspection copies), in the padlock's frame
         // (origin at the top of the body); logic, aim collider and inspection on the "Cadeado" object.
         var padlock = new GameObject("Cadeado").transform;
         padlock.SetParent(root, false);
-        padlock.localPosition = PadlockOrigin;
+        padlock.localPosition = PadlockOrigin + offset;
         var model = new GameObject("Modelo").transform;
         model.SetParent(padlock, false);
         MeshObject("Corpo", model, M("CadeadoCorpo"), brass);
@@ -327,10 +328,9 @@ public static class UnclaimedRecepcaoAssets
         var aim = padlock.gameObject.AddComponent<BoxCollider>();   // body and shackle, a little generous for the aim
         aim.center = new Vector3(0f, -0.012f, -0.002f);
         aim.size = new Vector3(0.05f, 0.08f, 0.03f);
-        // Lying on the cabinet top (0.95), dials up: the body's back (4 mm behind the origin) rests on the laminate.
         var rest = new GameObject("Cadeado - pouso aberto").transform;
         rest.SetParent(root, false);
-        rest.SetLocalPositionAndRotation(new Vector3(-0.30f, 0.9545f, -0.10f), Quaternion.Euler(90f, 25f, 0f));
+        rest.SetLocalPositionAndRotation(restPosition, restRotation);
         // Examined with the clue inspection: the padlock's own model in front of the camera, dials manipulated there.
         var inspect = padlock.gameObject.AddComponent<ObjetoInspecionavel>();
         inspect.nome = "Cadeado de combinação";
@@ -347,7 +347,7 @@ public static class UnclaimedRecepcaoAssets
         inspect.travarMovimentoDoJogador = true;
         inspect.ocultarOriginal = true;
         var lockLogic = padlock.gameObject.AddComponent<CadeadoCombinacao>();
-        lockLogic.combinacao = "2317";
+        lockLogic.combinacao = code;
         lockLogic.modelo = model;
         lockLogic.discos = dialParts;
         lockLogic.arco = shackle;
@@ -359,6 +359,18 @@ public static class UnclaimedRecepcaoAssets
         lockLogic.portas = doors;
         lockLogic.fonte = AddAudio(padlock.gameObject);   // no clips in the project yet
         foreach (PecaDeMovel d in doors) if (d != null) d.trancada = true;
+        return lockLogic;
+    }
+
+
+    private static void AddPadlockAndKey(Transform root, PecaDeMovel[] doors)
+    {
+        // Lying on the cabinet top (0.95), dials up: the body's back (4 mm behind the origin) rests on the laminate.
+        if (AddPadlock(root, doors, Vector3.zero, "2317", new Vector3(-0.30f, 0.9545f, -0.10f), Quaternion.Euler(90f, 25f, 0f)) == null) return;
+        Material nickel = PuzzleMetal("Niquel - chave", new Color(0.82f, 0.82f, 0.80f), 0.78f);
+        Material tag = LitMaterial("Etiqueta da chave", Color.white, 0.35f, false, Tex(PuzzleTextures + "Etiqueta_Circulacao.png", 512, srgb: true));
+        Mesh M(string f) => MeshOf(f);
+        if (M("ChaveMetal") == null) { Debug.LogWarning("Unclaimed: missing key meshes."); return; }
 
         // Key of the restricted circulation on the shelf, with its ring and tag.
         var key = new GameObject("Chave da circulacao").transform;
@@ -379,11 +391,11 @@ public static class UnclaimedRecepcaoAssets
 
     // A part modelled in the furniture's frame, fixed to a moving piece (or the root): the mesh is offset back by the
     // piece's pivot so it lands where it was modelled.
-    private static void Fixed(string name, Transform parent, Mesh mesh, Material material, Transform root)
+    private static void Fixed(string name, Transform parent, Mesh mesh, Material material, Transform root, Vector3 offset = default)
     {
         if (mesh == null) return;
         var obj = MeshObject(name, parent, mesh, material);
-        obj.transform.localPosition = parent == root ? Vector3.zero : -parent.localPosition;
+        obj.transform.localPosition = (parent == root ? Vector3.zero : -parent.localPosition) + offset;
         obj.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
     }
 

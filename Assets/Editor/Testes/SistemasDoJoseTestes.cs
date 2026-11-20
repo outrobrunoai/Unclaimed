@@ -270,6 +270,111 @@ public class SistemasDoJoseTestes
         Assert.That(DecisoesDeDaniel.Escolher(lista, protegidas, Vector3.zero, trancados, () => 0.5f), Is.EqualTo(1));
     }
 
+    [Test]
+    public void TrancarPortaComOutrasPortasTrancaEDestravaTodas()
+    {
+        var criados = new List<GameObject>();
+        FolhaDePorta CriarPorta(string nome)
+        {
+            var go = new GameObject(nome);
+            criados.Add(go);
+            return go.AddComponent<FolhaDePorta>();
+        }
+
+        try
+        {
+            FolhaDePorta p1 = CriarPorta("Folha1");
+            FolhaDePorta p2 = CriarPorta("Folha2");
+            FolhaDePorta p3 = CriarPorta("Folha3");
+
+            var goPonto = new GameObject("PontoTrancar");
+            criados.Add(goPonto);
+            var ponto = goPonto.AddComponent<PontoDeAcao>();
+            ponto.tipo = TipoDeAcao.TrancarPorta;
+            ponto.porta = p1;
+            ponto.outrasPortas = new[] { p2, null, p3 };
+
+            ponto.Executar();
+            Assert.That(ponto.Ativo, Is.True);
+            Assert.That(p1.trancada, Is.True);
+            Assert.That(p2.trancada, Is.True);
+            Assert.That(p3.trancada, Is.True);
+            Assert.That(ponto.Segura(p1), Is.True);
+            Assert.That(ponto.Segura(p2), Is.True);
+            Assert.That(ponto.Segura(p3), Is.True);
+            Assert.That(ponto.Segura(null), Is.False);
+
+            // Salvar ativo e carregar restaura todas as folhas trancadas.
+            string salvo = ponto.Salvar();
+            p1.trancada = p2.trancada = p3.trancada = false;
+            ponto.Carregar(salvo);
+            Assert.That(p1.trancada, Is.True);
+            Assert.That(p2.trancada, Is.True);
+            Assert.That(p3.trancada, Is.True);
+
+            ponto.Desfazer();
+            Assert.That(ponto.Ativo, Is.False);
+            Assert.That(p1.trancada, Is.False);
+            Assert.That(p2.trancada, Is.False);
+            Assert.That(p3.trancada, Is.False);
+            Assert.That(ponto.Segura(p1), Is.False);
+        }
+        finally
+        {
+            foreach (GameObject go in criados) Object.DestroyImmediate(go);
+        }
+    }
+
+    [Test]
+    public void DesfazerTrancarPortaNaoDestravaFolhaSeguradaPorArmadilha()
+    {
+        var criados = new List<GameObject>();
+        FolhaDePorta CriarPorta(string nome)
+        {
+            var go = new GameObject(nome);
+            criados.Add(go);
+            return go.AddComponent<FolhaDePorta>();
+        }
+
+        try
+        {
+            FolhaDePorta folhaCompartilhada = CriarPorta("FolhaCompartilhada");
+            FolhaDePorta folhaLivre = CriarPorta("FolhaLivre");
+            FolhaDePorta folhaCamara = CriarPorta("FolhaCamara");
+
+            var goTrancar = new GameObject("PontoTrancar");
+            criados.Add(goTrancar);
+            var trancar = goTrancar.AddComponent<PontoDeAcao>();
+            trancar.tipo = TipoDeAcao.TrancarPorta;
+            trancar.porta = folhaCompartilhada;
+            trancar.outrasPortas = new[] { folhaLivre };
+
+            var goArmadilha = new GameObject("PontoCamaraFria");
+            criados.Add(goArmadilha);
+            var armadilha = goArmadilha.AddComponent<PontoDeAcao>();
+            armadilha.tipo = TipoDeAcao.PrenderCamaraFria;
+            armadilha.porta = folhaCamara;
+            armadilha.outrasPortas = new[] { folhaCompartilhada };
+
+            trancar.Executar();
+            armadilha.Executar();
+            Assert.That(armadilha.Segura(folhaCompartilhada), Is.True);
+
+            trancar.Desfazer();
+            Assert.That(folhaLivre.trancada, Is.False);
+            Assert.That(folhaCompartilhada.trancada, Is.True);
+            Assert.That(folhaCamara.trancada, Is.True);
+
+            armadilha.Desfazer();
+            Assert.That(folhaCompartilhada.trancada, Is.False);
+            Assert.That(folhaCamara.trancada, Is.False);
+        }
+        finally
+        {
+            foreach (GameObject go in criados) Object.DestroyImmediate(go);
+        }
+    }
+
     // ------------------------------------------------------------------ dados combinados
 
     [Test]

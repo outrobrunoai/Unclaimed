@@ -116,7 +116,7 @@ public static partial class UnclaimedMorgueGenerator
             Bag(locker, false, 1, "P24", "1"); Bag(locker, true, 1, "P25", "2"); Bag(locker, false, 3, "P26", "3");
             float floor = UnclaimedAdministracaoAssets.CellBase(2);
             AdminProp(locker, "Envelope de guarda", "Pertence admin - envelope", new Vector3(.2225f, floor + .004f, -.005f), 0);
-            AdminProp(locker, "Gravador", "Pertence admin - gravador", new Vector3(.25f, floor + .018f, .04f), -8);
+            // Leo's recorder is sealed inside the envelope (child 'Gravador de Leo' of its prefab).
             AdminPaper(locker, "d10_recibo_objeto", new Vector3(.08f, floor + .001f, -.07f), 90, 0);
             AdminPaper(locker.Find("Porta A1"), "legenda_armario", new Vector3(.2055f, .23f, -.019f), 0, 0);
         }
@@ -154,6 +154,7 @@ public static partial class UnclaimedMorgueGenerator
         var bag = AdminProp(locker, "Bolsa de pertences", "Pertence admin - " + id,
             new Vector3(UnclaimedAdministracaoAssets.CellX(b), UnclaimedAdministracaoAssets.CellBase(level) + .004f, -.015f), 0);
         if (bag != null) UnclaimedAdministracaoAssets.ApplyLabels(bag, "Bolsa de pertences", variant);
+        if (bag != null && id == "P26") UnclaimedAdministracaoAssets.Remendo(bag);   // Leo's bag: the patched seam
     }
 
     private static void AdminPaper(Transform parent, string id, Vector3 pos, float tilt, float yaw, bool reception = false)

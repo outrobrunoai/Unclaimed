@@ -44,9 +44,9 @@ public static class UnclaimedAdministracaoAssets
                 bool inspected = a.file == "BolsaPertences" || a.file == "Gravador" || a.file == "EnvelopeGuarda";
                 root.isStatic = !inspected;
                 BodyColliders(root, a.file, mesh.bounds);
-                Complement(root.transform, a.file);
                 if (a.file == "BolsaPertences" || a.file == "Gravador" || a.file == "EnvelopeGuarda")
                     Inspect(root, a.prefab, a.file == "BolsaPertences" ? .40f : .30f, a.file == "BolsaPertences" ? EixoLocal.Tras : EixoLocal.Cima);
+                Complement(root.transform, a.file);
                 ApplyLabels(root.transform, a.prefab, "1");
                 PrefabUtility.SaveAsPrefabAsset(root, PrefabPath(a.prefab));
             }
@@ -203,6 +203,7 @@ public static class UnclaimedAdministracaoAssets
 
     private static void Complement(Transform root, string file)
     {
+        if (file == "EnvelopeGuarda") EnvelopeComGravador(root);
         if (file == "MesaServidor")
         {
             Mesh equipment = Import("EquipamentosMesa", out Material mat);
@@ -237,6 +238,55 @@ public static class UnclaimedAdministracaoAssets
                 p.textoAbrir = "Abrir compartimento"; p.textoFechar = "Fechar compartimento";
                 Box(p.gameObject, s * (CellWidth - .004f) / 2, (CellHeight - .004f) / 2, -.009f, CellWidth - .004f, CellHeight - .004f, .018f);
             }
+        if (file == "ArmarioPertences") GuardaComCadeado(root);
+    }
+
+    // Guard G-B2 (Leo's recorder) is padlocked: the reception padlock and hasp, across the meeting edges of doors A2
+    // and B2 (same layout as the support cabinet's two doors, moved 0.175 up and 0.0435 forward onto these fronts at
+    // z -0.268). Nina keeps the combination in the guard book at the gatehouse; Celso texts it (celular.json, con:venda).
+    // Once open, the padlock is laid on the top of the locker.
+    public const string GuardCombination = "4817";
+    private static void GuardaComCadeado(Transform root)
+    {
+        var a2 = root.Find("Porta A2"); var b2 = root.Find("Porta B2");
+        if (a2 == null || b2 == null) return;
+        var doors = new[] { a2.GetComponent<PecaDeMovel>(), b2.GetComponent<PecaDeMovel>() };
+        UnclaimedRecepcaoAssets.AddPadlock(root, doors, new Vector3(0f, .175f, -.0435f), GuardCombination,
+            new Vector3(.10f, 1.8545f, -.17f), Quaternion.Euler(90f, 25f, 0f));
+    }
+
+    // The guard envelope holds Leo's recorder, sealed: the flap (EnvelopeAba.fbx, origin on the hinge) and the recorder
+    // are children; EnvelopeDoGravador opens it in the inspection and hands the recorder over (Gravador component).
+    private static void EnvelopeComGravador(Transform root)
+    {
+        Mesh flap = Import("EnvelopeAba", out Material flapMat);
+        Mesh rec = Import("Gravador", out Material recMat);
+        if (flap == null || rec == null) return;
+        var aba = new GameObject("Aba"); aba.transform.SetParent(root, false);
+        aba.transform.localPosition = new Vector3(0f, .0012f, .162f);       // hinge (Blender y l2, z ZH_ABA)
+        aba.AddComponent<MeshFilter>().sharedMesh = flap; aba.AddComponent<MeshRenderer>().sharedMaterial = flapMat;
+        var g = new GameObject("Gravador de Leo"); g.transform.SetParent(root, false);
+        g.transform.localPosition = new Vector3(0f, .0015f, .055f);          // GRAVADOR_DENTRO in admin_modelo.py
+        g.AddComponent<MeshFilter>().sharedMesh = rec; g.AddComponent<MeshRenderer>().sharedMaterial = recMat;
+        var box = g.AddComponent<BoxCollider>(); box.center = rec.bounds.center; box.size = rec.bounds.size + Vector3.one * .01f;
+        var grav = g.AddComponent<Gravador>();
+        var env = root.gameObject.AddComponent<EnvelopeDoGravador>();
+        env.aba = aba.transform; env.gravador = grav; env.anguloAberta = 140f;
+    }
+
+    // Bag P26 only: the hand-stitched tear (RemendoBolsa.fbx, modelled in the bag's frame), as a child of the bag.
+    public static void Remendo(Transform bag)
+    {
+        if (bag == null) return;
+        var old = bag.Find("Remendo da costura");
+        if (old != null) Object.DestroyImmediate(old.gameObject);
+        Mesh mesh = Import("RemendoBolsa", out Material material);
+        if (mesh == null) return;
+        var go = new GameObject("Remendo da costura");
+        go.transform.SetParent(bag, false);
+        go.AddComponent<MeshFilter>().sharedMesh = mesh;
+        go.AddComponent<MeshRenderer>().sharedMaterial = material;
+        Undo.RegisterCreatedObjectUndo(go, "Remendo da bolsa P26");
     }
 
     private static void Inspect(GameObject go, string name, float size, EixoLocal face)
