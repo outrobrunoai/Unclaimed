@@ -196,7 +196,7 @@
       "id": "H07",
       "tipo": "documento",
       "titulo": "Autorização de saída assinada por Helena",
-      "local": "Sala técnica",
+      "local": "Arquivo",
       "opcional": true,
       "resumo": "Helena autorizou a saída do corpo 041 em 15/08/2024, às 06h20. Ela mesma anotou que recebeu o pedido de Irene no dia anterior, às 21h10."
     },
@@ -229,8 +229,8 @@
     {
       "id": "troca",
       "tipo": "conclusao",
-      "titulo": "Duas pessoas com o número 083",
-      "texto": "O corpo de Léo está na gaveta 2 da câmara fria. A pessoa que estava na mesa de autópsia usava a etiqueta dele, mas era outra pessoa, e estava viva.",
+      "titulo": "Dois corpos com o número 083",
+      "texto": "O corpo de Léo está na gaveta 2 da câmara fria, com a pulseira 083 e a tala. O corpo na mesa de autópsia usa a mesma etiqueta, mas é de outra pessoa. Alguém pôs a etiqueta de Léo em outro corpo.",
       "pares": [
         {
           "a": "F01",

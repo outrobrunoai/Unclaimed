@@ -127,7 +127,10 @@ public class SistemasDoJoseTestes
     public void MensagemSoChegaComSinalEComOFato()
     {
         CelularLogica.ReceberIniciais();
-        Assert.That(EstadoDaNoite.Tem("msg:celso_01"), Is.True);
+        Assert.That(EstadoDaNoite.Tem("msg:redacao_01"), Is.True);
+        Assert.That(EstadoDaNoite.Tem("msg:intro_01"), Is.False);   // a conversa da chegada vem pela introdução
+        EstadoDaNoite.Marcar(IntroChegada.Fato);   // a introdução já passou
+        CelularLogica.ReceberPendentes(true);
         Assert.That(CelularLogica.ReceberPendentes(true), Is.EqualTo(0));
         Caderno.Coletar("D02");
         Assert.That(CelularLogica.ReceberPendentes(false), Is.EqualTo(0));
@@ -210,8 +213,11 @@ public class SistemasDoJoseTestes
     public void TextosDosFinaisPreenchidos()
     {
         var t = Epilogo.CarregarTextos();
-        foreach (string s in new[] { t.incompleto, t.provasNenhuma, t.provasAlgumas, t.provasTodas, t.gravadorComJogador,
-                     t.gravadorEntregue, t.gravadorAbandonado, t.copiaEnviada, t.samuelNaoLocalizado, t.samuelIrene, t.samuelJornal })
+        foreach (string s in new[] { t.titulo, t.subtitulo, t.incompleto, t.provasNenhuma, t.provasAlgumas, t.provasTodas,
+                     t.gravadorComJogador, t.gravadorEntregue, t.gravadorAbandonado, t.copiaEnviada, t.ajudaPedida,
+                     t.samuelNaoLocalizado, t.samuelIrene, t.samuelJornal,
+                     t.capturaTitulo, t.capturaTexto, t.saidaNada, t.saidaAutopsia, t.saidaMesa, t.saidaTroca, t.saidaProvas,
+                     t.saidaVoltar, t.saidaIr })
             Assert.That(s, Is.Not.Null.And.Not.Empty);
     }
 

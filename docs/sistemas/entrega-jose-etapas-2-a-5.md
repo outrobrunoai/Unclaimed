@@ -41,6 +41,8 @@ D07 já está pronto: aplicativo **Controle de acesso** no computador da recepç
 
 ### Etapa 3 — Celular e finais
 
+**Colocado (2026-11-20)** por `Tools/Unclaimed/Sistemas/Colocar etapa 3`: zonas de sinal na recepção (2 barras) e no pátio do recebimento (3), saídas no portão de pedestres da frente (bloqueada pela corrente; a porta de vidro fica livre para o jardim) e no portão do pátio, e a introdução da chegada (`IntroChegada`).
+
 | Prefab | Onde | Configurar |
 |---|---|---|
 | `Zona de sinal` | Recepção e pátio | Ajustar o BoxCollider para cobrir a área. `barras` de 1 a 4 |
@@ -105,5 +107,5 @@ CP01 ao pegar a chave da circulação; CP02 em `con:troca`; CP03 ao ler D09; CP0
 ## Pendências (precisam de decisão ou do outro lado)
 
 - Encenação da mesa (lençol que respira quando o jogador não olha) é do Bruno.
-- Três pistas antigas sem texto ("Pista - registro de entrada", "laudo da autopsia", "instrumento deslocado"): decidir.
+- Três pistas antigas ("Pista - registro de entrada", "laudo da autopsia", "instrumento deslocado"): **decidido, saem do jogo.** Os papéis delas já estão com evidências novas: registro de entrada → D07 (sensor da porta) e D05; laudo → D06 e a foto F01; instrumento deslocado → ações do Daniel (pontos de ação da etapa 4). Não estão mais na cena PrototipoNecroterio.
 - Ritmo: `DiretorDeDaniel.escalaDosIntervalos` (90 s / 60 s), `Confronto.espera` (25 s), `CopiaDoAudio.segundos` (40 s), velocidades de Daniel. Ajustar em playtest.

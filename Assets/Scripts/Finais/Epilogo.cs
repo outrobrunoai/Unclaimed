@@ -23,15 +23,26 @@ public static class Epilogo
         public DestinoDoGravador gravador;
         public bool copiaEnviada, ajudaPedida;
         public CasoSamuel samuel;
+        public bool conheceGravador, conhece041;
     }
 
     [Serializable]
     public class Textos
     {
         public string titulo = "Fim";
+        public string subtitulo = "Necrotério Municipal, 18 de novembro de 2026";
         public string incompleto, provasNenhuma, provasAlgumas, provasTodas;
         public string gravadorComJogador, gravadorEntregue, gravadorAbandonado, copiaEnviada;
         public string samuelNaoLocalizado, samuelIrene, samuelJornal, ajudaPedida;
+        public string capturaTitulo = "Ele me alcançou.";
+        public string capturaTexto = "Daniel não queria uma quarta morte. Eu não deixei outra saída para ele.";
+        public string saidaNada = "Vim por causa do 083 e ainda nem vi o corpo.";
+        public string saidaAutopsia = "O Léo não está na gaveta que a ficha diz. Alguém tirou ele de lá.";
+        public string saidaMesa = "Tem alguém naquela mesa com a etiqueta do Léo. Ainda não sei o que isso quer dizer.";
+        public string saidaTroca = "O corpo na mesa não é o Léo. Se eu sair agora, ninguém vai saber disso.";
+        public string saidaProvas = "Já tenho o bastante para a redação. Ficar mais é arriscar o que eu tenho.";
+        public string saidaVoltar = "Voltar lá dentro";
+        public string saidaIr = "Ir embora";
     }
 
     public static Resultado Calcular(Func<string, bool> tem, FaseDeDaniel fase, IEnumerable<string> provasDa784)
@@ -48,11 +59,14 @@ public static class Epilogo
 
         r.gravador = !tem("gravador_pego") ? DestinoDoGravador.Abandonado
             : tem("gravador_entregue") ? DestinoDoGravador.Entregue : DestinoDoGravador.ComJogador;
+        r.conheceGravador = tem("gravador_pego") || tem("ev:D09") || tem("ev:D10") || tem("ev:D13");
         r.copiaEnviada = tem("env:" + CelularLogica.IdAudio);
         r.ajudaPedida = tem("ajuda_pedida");
 
         r.samuel = tem("samuel:irene:primeiro") ? CasoSamuel.IrenePrimeiro
             : tem("samuel:jornal:primeiro") ? CasoSamuel.JornalPrimeiro : CasoSamuel.NaoLocalizado;
+        for (int i = 1; i <= 8; i++)
+            if (tem("ev:H0" + i)) { r.conhece041 = true; break; }
         return r;
     }
 
@@ -65,12 +79,26 @@ public static class Epilogo
         void Add(string s) { if (!string.IsNullOrWhiteSpace(s)) p.Add(s); }
         if (r.incompleto) Add(t.incompleto);
         Add(r.provas == ProvasEnviadas.Todas ? t.provasTodas : r.provas == ProvasEnviadas.Algumas ? t.provasAlgumas : t.provasNenhuma);
-        Add(r.gravador == DestinoDoGravador.ComJogador ? t.gravadorComJogador
-            : r.gravador == DestinoDoGravador.Entregue ? t.gravadorEntregue : t.gravadorAbandonado);
+        if (r.gravador == DestinoDoGravador.ComJogador) Add(t.gravadorComJogador);
+        else if (r.gravador == DestinoDoGravador.Entregue) Add(t.gravadorEntregue);
+        else if (r.conheceGravador) Add(t.gravadorAbandonado);
         if (r.copiaEnviada && r.gravador != DestinoDoGravador.ComJogador) Add(t.copiaEnviada);
         if (r.ajudaPedida) Add(t.ajudaPedida);
-        Add(r.samuel == CasoSamuel.IrenePrimeiro ? t.samuelIrene : r.samuel == CasoSamuel.JornalPrimeiro ? t.samuelJornal : t.samuelNaoLocalizado);
+        if (r.samuel == CasoSamuel.IrenePrimeiro) Add(t.samuelIrene);
+        else if (r.samuel == CasoSamuel.JornalPrimeiro) Add(t.samuelJornal);
+        else if (r.conhece041) Add(t.samuelNaoLocalizado);
         return p;
+    }
+
+    public static string FraseDeSaida(Func<string, bool> tem, Textos t)
+    {
+        if (t == null) t = new Textos();
+        if (tem == null) return t.saidaNada;
+        if (tem("gravador_pego") || tem("enviou_algo")) return t.saidaProvas;
+        if (tem("con:troca")) return t.saidaTroca;
+        if (tem("ev:F01")) return t.saidaMesa;
+        if (tem("ev:D02")) return t.saidaAutopsia;
+        return t.saidaNada;
     }
 
     public static Textos CarregarTextos()

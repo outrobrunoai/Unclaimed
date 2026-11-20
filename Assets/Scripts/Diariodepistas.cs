@@ -154,7 +154,7 @@ public class DiarioDePistas : MonoBehaviour
 
     /// <summary>O caderno só abre com o jogo rodando: sem menu de pausa, inspeção ou outra tela aberta.</summary>
     static bool PodeAbrir =>
-        !MenuPausa.Pausado && !ObjetoInspecionavel.InspecionandoAlgo && !InterfaceDeTela.AlgumaAberta;
+        !MenuPausa.Pausado && !ObjetoInspecionavel.InspecionandoAlgo && !InterfaceDeTela.AlgumaAberta && !IntroChegada.Ativa;
 
     void Update()
     {

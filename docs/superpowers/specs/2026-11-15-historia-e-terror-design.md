@@ -112,7 +112,7 @@ Os textos de D01 a D14 e H01 a H07 ficam como no template, salvo as mudanças in
 | P09 | Vera Moura e a 784 | Arquivo | Novo | Inclui as mensagens do comprador (D15 × D11): o corpo de Vera foi vendido. |
 | P10 | A saída | Pátio ou recepção | Novo | Passa a ser a caça. |
 | O01 | Localizar Samuel (H01 + H03) | Descanso, arquivo | Novo, opcional | Recibo de transporte da Limiar com LV-12 (ponte, melhoria 6). |
-| O02 | Rever a apuração (H04 × H07) | Arquivo, técnica | Novo, opcional | Nenhuma. |
+| O02 | Rever a apuração (H04 × H07) | Arquivo | Novo, opcional | H07 fica na estante da coordenação, no arquivo, e não na sala técnica: os papéis de Helena ficam nas salas calmas (ver melhoria 7). |
 
 ## 7. Mecânicas a construir
 

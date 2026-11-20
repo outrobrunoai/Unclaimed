@@ -72,6 +72,20 @@ public static class CelularLogica
         return n;
     }
 
+    /// <summary>Entrega uma mensagem pelo id, sem exigir sinal nem a condição "quando". Falso se não existe ou já foi recebida.</summary>
+    public static bool Entregar(string idMensagem)
+    {
+        if (string.IsNullOrEmpty(idMensagem)) return false;
+        foreach (DadosDoCelular.Mensagem m in Dados.mensagens)
+        {
+            if (m == null || m.id != idMensagem) continue;
+            if (!EstadoDaNoite.Marcar("msg:" + m.id)) return false;
+            if (m.de != "eu") AoReceber?.Invoke(m);
+            return true;
+        }
+        return false;
+    }
+
     public static IEnumerable<DadosDoCelular.Mensagem> Conversa(string contato)
     {
         foreach (DadosDoCelular.Mensagem m in Dados.mensagens)

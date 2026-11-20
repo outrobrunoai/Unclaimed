@@ -20,13 +20,13 @@ public abstract class PainelDoJogador : InterfaceDeTela
     protected override void Update()
     {
         base.Update();
-        if (EstaAberta || InterfaceDeTela.AlgumaAberta || MiraDeInteracao.ControleCapturado || MenuPausa.Pausado) return;
+        if (EstaAberta || InterfaceDeTela.AlgumaAberta || MiraDeInteracao.ControleCapturado || MenuPausa.Pausado || IntroChegada.Ativa) return;
         if (PodeAbrir && MiraDeInteracao.TeclaApertada(TeclaDoPainel)) AbrirInterface();
     }
 
     protected override void AtualizarAberta()
     {
-        if (MiraDeInteracao.TeclaApertada(TeclaDoPainel)) PedirFechar();
+        if (!IntroChegada.Ativa && MiraDeInteracao.TeclaApertada(TeclaDoPainel)) PedirFechar();
     }
 
     // Sem indicação na mira: ninguém mira um painel do jogador.
@@ -72,7 +72,7 @@ public static class Jogador
     /// <summary>O jogador está lendo, usando uma tela, no caderno ou no menu: Daniel não age.</summary>
     public static bool Ocupado =>
         (InterfaceDeTela.AlgumaAberta && !(InterfaceDeTela.Aberta is Celular)) || ObjetoInspecionavel.InspecionandoAlgo ||
-        DiarioDePistas.Aberto || MenuPausa.Pausado;
+        DiarioDePistas.Aberto || MenuPausa.Pausado || IntroChegada.Ativa;
 }
 
 /// <summary>Desenho simples em IMGUI usado pelos painéis de José (escala pela altura da tela, 1080p = 1).</summary>
@@ -97,6 +97,18 @@ public static class DesenhoUi
         GUI.color = c;
         GUI.DrawTexture(r, branco);
         GUI.color = antes;
+    }
+
+    static Font maquina;
+    static bool maquinaCarregada;
+
+    /// <summary>Como Estilo, na fonte de máquina de escrever (voz do jornalista: pergunta de saída e finais).</summary>
+    public static GUIStyle EstiloMaquina(float tamanho, Color cor, TextAnchor ancora = TextAnchor.UpperLeft)
+    {
+        if (!maquinaCarregada) { maquina = Resources.Load<Font>("Fontes/Maquina de escrever"); maquinaCarregada = true; }
+        GUIStyle e = Estilo(tamanho, cor, false, ancora);
+        if (maquina != null) e.font = maquina;
+        return e;
     }
 
     public static GUIStyle Estilo(float tamanho, Color cor, bool negrito = false, TextAnchor ancora = TextAnchor.UpperLeft)

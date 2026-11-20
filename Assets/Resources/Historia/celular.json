@@ -5,7 +5,11 @@
     { "id": "irene", "nome": "Irene" }
   ],
   "mensagens": [
-    { "id": "celso_01", "contato": "celso", "de": "celso", "texto": "Deixei a recepção aberta pra você. Faço a ronda entre os prédios até as três. Não mexe em nada que eu tenha que explicar depois.", "quando": "" },
+    { "id": "intro_01", "contato": "celso", "de": "celso", "texto": "Chegou mais um hoje. 083, Léo Martins, da Limiar. Entrou às 21h50.", "quando": "intro_vista" },
+    { "id": "intro_02", "contato": "celso", "de": "eu", "texto": "É o terceiro da Limiar. Preciso ver o corpo antes do exame.", "quando": "intro_vista" },
+    { "id": "intro_03", "contato": "celso", "de": "celso", "texto": "A equipe saiu às 22h35. Deixei a recepção aberta pra você.", "quando": "intro_vista" },
+    { "id": "intro_04", "contato": "celso", "de": "celso", "texto": "Faço a ronda entre os prédios até as três. Não mexe em nada que eu tenha que explicar depois.", "quando": "intro_vista" },
+    { "id": "intro_05", "contato": "celso", "de": "eu", "texto": "Te passo o resto do dinheiro amanhã.", "quando": "intro_vista" },
     { "id": "redacao_01", "contato": "redacao", "de": "redacao", "texto": "Tudo que achar, fotografa e manda. Com essa chuva, o Celso disse que só pega sinal na recepção e no pátio.", "quando": "" },
     { "id": "celso_02", "contato": "celso", "de": "celso", "texto": "Viu o quadro do recebimento? O Mauro tirou o 083 da gaveta antes de ir embora. Deve estar na autópsia.", "quando": "ev:D02" },
     { "id": "celso_03", "contato": "celso", "de": "celso", "texto": "Escutei uma porta batendo aí dentro pelo rádio da guarita. Você tá sozinho, né?", "quando": "daniel_saiu" },

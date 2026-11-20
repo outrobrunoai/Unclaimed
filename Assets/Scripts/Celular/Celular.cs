@@ -78,7 +78,7 @@ public class Celular : PainelDoJogador
     public override string TeclaDoPainel => tecla;
     // O celular não pausa nada: o jogador anda com ele na mão (só o olhar fica com o mouse na tela).
     protected override bool TravaOJogador => false;
-    protected override bool PodeAbrir => !modoCamera && !TelaDeFinal.Ativa;
+    protected override bool PodeAbrir => !modoCamera && !TelaDeFinal.Ativa && !IntroChegada.Ativa;
 
     public bool Lanterna => lanterna;
     public bool ModoCamera => modoCamera;
@@ -89,7 +89,7 @@ public class Celular : PainelDoJogador
     /// <summary>Mensagens já vistas na conversa (para o contador de não lidas).</summary>
     public readonly HashSet<string> lidas = new HashSet<string>();
 
-    bool lanterna, modoCamera, guardandoParaFechar;
+    bool lanterna, modoCamera, guardandoParaFechar, montado;
     float disparoEm = -9f, avisoAte, dicaCameraAte;
     int vezesNaCamera;
     string aviso = "";
@@ -98,8 +98,12 @@ public class Celular : PainelDoJogador
     CelularTela telaDoCelular;
     CameraFotografica cameraDoCelular;
 
-    void Start()
+    void Start() => GarantirMontado();
+
+    void GarantirMontado()
     {
+        if (montado) return;
+        montado = true;
         CelularLogica.ReceberIniciais();
         cameraDoCelular = GetComponent<CameraFotografica>();
         UiMenu.GarantirEventSystem();
@@ -135,8 +139,9 @@ public class Celular : PainelDoJogador
     // Com o celular no bolso, só a vibração avisa: o jogador decide se olha.
     void AoReceber(DadosDoCelular.Mensagem m)
     {
+        if (IntroChegada.SilenciarAvisos) return;
         Tocar(somMensagem);
-        if (!EstaAberta) Avisar("O celular vibrou.");
+        if (!EstaAberta && !IntroChegada.Ativa) Avisar("O celular vibrou.");
     }
 
     void AoEnviar(string id) => Tocar(somEnviado);
@@ -173,14 +178,34 @@ public class Celular : PainelDoJogador
     // Esc e T: o celular desce (para o bolso, ou para a pose de lanterna) e só então a interface fecha.
     protected override void PedirFechar()
     {
+        if (IntroChegada.Ativa) return;
+        IniciarGuarda();
+    }
+
+    void IniciarGuarda()
+    {
         if (guardandoParaFechar) return;
         guardandoParaFechar = true;
         Tocar(somGuardar);
         if (naMao != null) naMao.IrPara(PoseDeDescanso);
     }
 
+    /// <summary>Abre o celular já na conversa deste contato, mesmo durante a introdução.</summary>
+    public void MostrarConversa(string contato)
+    {
+        GarantirMontado();
+        if (!EstaAberta) AbrirInterface();
+        else
+        {
+            guardandoParaFechar = false;
+            if (naMao != null) naMao.IrPara(CelularNaMao.Pose.Mao);
+        }
+        if (EstaAberta && telaDoCelular != null) telaDoCelular.AbrirConversa(contato);
+        foreach (DadosDoCelular.Mensagem m in CelularLogica.Conversa(contato)) lidas.Add(m.id);
+    }
+
     /// <summary>Guarda o celular com a animação (o mesmo que T ou Esc com ele aberto).</summary>
-    public void Guardar() { if (EstaAberta) PedirFechar(); }
+    public void Guardar() { if (EstaAberta) IniciarGuarda(); }
 
     CelularNaMao.Pose PoseDeDescanso => lanterna ? CelularNaMao.Pose.Lanterna : CelularNaMao.Pose.Guardado;
 
@@ -194,13 +219,14 @@ public class Celular : PainelDoJogador
 
     protected override void AtualizarAberta()
     {
-        base.AtualizarAberta();
+        if (!IntroChegada.Ativa) base.AtualizarAberta();
         if (guardandoParaFechar && (naMao == null || !naMao.Animando)) FecharInterface();
     }
 
     /// <summary>App Câmera: o celular deita na frente do rosto e o jogador volta a andar.</summary>
     public void AbrirCamera()
     {
+        if (IntroChegada.Ativa) return;
         modoCamera = true;
         vezesNaCamera++;
         if (vezesNaCamera <= 2) dicaCameraAte = Time.unscaledTime + 5f;
@@ -229,10 +255,15 @@ public class Celular : PainelDoJogador
         if (naMao != null) naMao.IrPara(PoseDeDescanso);
     }
 
-    public void AlternarLanterna() => DefinirLanterna(!lanterna);
+    public void AlternarLanterna()
+    {
+        if (IntroChegada.Ativa) return;
+        DefinirLanterna(!lanterna);
+    }
 
     public void DefinirLanterna(bool ligar)
     {
+        if (IntroChegada.Ativa && ligar) return;
         if (lanterna == ligar) return;
         lanterna = ligar;
         Tocar(somLanterna);
@@ -253,6 +284,8 @@ public class Celular : PainelDoJogador
             modoCamera = false;
             if (naMao != null) naMao.GuardarJa();
         }
+
+        if (IntroChegada.Ativa) return;
 
         bool livre = !EstaAberta && !MenuPausa.Pausado && !InterfaceDeTela.AlgumaAberta && !ObjetoInspecionavel.InspecionandoAlgo &&
                      !TelaDeFinal.Ativa && Cursor.lockState == CursorLockMode.Locked;
@@ -350,7 +383,7 @@ public class Celular : PainelDoJogador
                 $"Clique: foto     {teclaApps}: apps     {tecla}: guardar",
                 DesenhoUi.Estilo(15, new Color(1, 1, 1, a), false, TextAnchor.UpperCenter));
         }
-        if (!string.IsNullOrEmpty(aviso) && Time.unscaledTime < avisoAte && !EstaAberta)
+        if (!string.IsNullOrEmpty(aviso) && Time.unscaledTime < avisoAte && !InterfaceDeTela.AlgumaAberta)
         {
             float a = Mathf.Clamp01((avisoAte - Time.unscaledTime) / 0.6f) * 0.75f;
             GUI.Label(new Rect(0, Screen.height * 0.82f, Screen.width, 30 * s), aviso,

@@ -358,11 +358,29 @@ public class CelularTela : MonoBehaviour
         chaveConstruida = null;
     }
 
+    public void AbrirConversa(string contatoNovo)
+    {
+        emFoto = false;
+        painelRapidoAberto = false;
+        Ir(Tela.Conversa, contatoNovo);
+    }
+
     void Ir(Tela t, string contatoNovo = null)
     {
         tela = t;
         contato = contatoNovo;
         chaveConstruida = null;
+    }
+
+    void OnEnable() => CelularLogica.AoReceber += AoReceberMensagem;
+
+    void OnDisable() => CelularLogica.AoReceber -= AoReceberMensagem;
+
+    void AoReceberMensagem(DadosDoCelular.Mensagem m)
+    {
+        chaveConstruida = null;
+        if (dono != null && tela == Tela.Conversa && m != null && m.contato == contato)
+            dono.lidas.Add(m.id);
     }
 
     public void AbrirFoto(int indice)
@@ -391,7 +409,7 @@ public class CelularTela : MonoBehaviour
 
     void Update()
     {
-        if (dono == null || !dono.EstaAberta || na.Animando || na.CameraSobreposta == null) return;
+        if (dono == null || !dono.EstaAberta || IntroChegada.Ativa || na.Animando || na.CameraSobreposta == null) return;
 #if ENABLE_INPUT_SYSTEM
         Mouse mouse = Mouse.current;
         if (mouse == null) return;

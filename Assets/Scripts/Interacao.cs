@@ -286,7 +286,7 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
             if (emInspecao == this && Time.frameCount != quadroAbertura && (TeclaApertada(teclaInteracao) || TeclaApertada("Escape")))
                 PedirFechamento();
         }
-        else if (emInspecao == null && melhor == this && TeclaApertada(teclaInteracao))
+        else if (emInspecao == null && melhor == this && !IntroChegada.Ativa && TeclaApertada(teclaInteracao))
         {
             Abrir();
         }
@@ -369,7 +369,7 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
     /// </summary>
     public bool IniciarInspecao()
     {
-        if (emInspecao != null) return false;
+        if (emInspecao != null || IntroChegada.Ativa) return false;
         Abrir();
         return emInspecao == this;
     }

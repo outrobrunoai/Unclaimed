@@ -53,6 +53,7 @@ public static class Salvamento
 
     public static string Caminho => Path.Combine(Application.persistentDataPath, "save.json");
     public static bool ExisteSave => File.Exists(Caminho);
+    public static bool VaiCarregar => pendente != null;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void Reiniciar()
@@ -87,6 +88,7 @@ public static class Salvamento
     /// <summary>Grava o mapa ativo e o estado das cenas carregadas. False se não há jogador ou a escrita falhou.</summary>
     public static bool Salvar()
     {
+        if (IntroChegada.Ativa) return false;
         Scene cena = SceneManager.GetActiveScene();
         Movimento jogador = UnityEngine.Object.FindFirstObjectByType<Movimento>();
         if (jogador == null)

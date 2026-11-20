@@ -33,7 +33,7 @@ public static class MiraDeInteracao
     /// </summary>
     public static bool ControleCapturado =>
         ObjetoInspecionavel.InspecionandoAlgo || DiarioDePistas.Aberto || InterfaceDeTela.AlgumaAberta ||
-        Cursor.lockState != CursorLockMode.Locked || Time.frameCount <= bloqueadoAte;
+        IntroChegada.Ativa || Cursor.lockState != CursorLockMode.Locked || Time.frameCount <= bloqueadoAte;
 
     /// <summary>Nenhum alvo neste quadro nem no próximo (a tecla que fechou uma interface não aciona outra).</summary>
     public static void BloquearNoProximoQuadro()

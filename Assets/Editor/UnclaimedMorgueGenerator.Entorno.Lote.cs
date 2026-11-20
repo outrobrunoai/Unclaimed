@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public static partial class UnclaimedMorgueGenerator
 {
@@ -225,10 +226,13 @@ public static partial class UnclaimedMorgueGenerator
         foreach (float x in posts) MasonryPost(walls, x, LotS, 2.15f);
         Collider("Colisor - gradil frontal", fences, LotW, LotS - 0.12f, LotE, LotS + 0.12f, -0.3f, BoundaryHeight);
 
-        // Pedestrian gate: two railing leaves, chained and padlocked in the middle.
+        // Pedestrian gate: Celso left it open for the journalist (intro). The west leaf stays shut with the chain and
+        // padlock hanging loose from it; the east leaf swings into the lot, about 95 degrees, against its hinge post.
         GateRailing(metal, new Vector3(-12.4f, 0, LotS), new Vector3(-11.42f, 0, LotS), 2.0f);
-        GateRailing(metal, new Vector3(-11.38f, 0, LotS), new Vector3(-10.4f, 0, LotS), 2.0f);
-        Padlock(metal, fences, new Vector3(-11.4f, 1.05f, LotS - 0.03f), Vector3.back);
+        Vector3 hinge = new Vector3(-10.4f, 0, LotS);
+        float open = 95f * Mathf.Deg2Rad;
+        GateRailing(metal, hinge + new Vector3(-Mathf.Cos(open), 0, Mathf.Sin(open)) * 0.98f, hinge, 2.0f);
+        Padlock(metal, fences, new Vector3(-11.47f, 0.82f, LotS - 0.03f), Vector3.back);
         // Water meter box set into the low wall west of the gate.
         walls.Box(-13.65f, 0.1f, LotS - 0.11f, -13.15f, 0.5f, LotS - 0.1f, exSteelSheet);
         walls.Box(-13.5f, 0.32f, LotS - 0.115f, -13.3f, 0.42f, LotS - 0.11f, exDarkGlass);
@@ -326,6 +330,28 @@ public static partial class UnclaimedMorgueGenerator
     }
 
     // Gate leaf of railing: frame, bars every 0.11 m.
+    // Rebuilds only the walls, railings, gates and lot limits (Fechamentos, Limites), keeping the rest of the exterior.
+    [MenuItem("Tools/Unclaimed/Entorno/Rebuild Lot Boundaries")]
+    public static void RebuildLotBoundaries()
+    {
+        GameObject top = null;
+        foreach (GameObject g in SceneManager.GetActiveScene().GetRootGameObjects())
+            if (g.name == GroupName) top = g;
+        if (top == null) { Debug.LogWarning("Unclaimed: no '" + GroupName + "' in the active scene."); return; }
+        Undo.IncrementCurrentGroup();
+        int undo = Undo.GetCurrentGroup();
+        Undo.SetCurrentGroupName("Rebuild lot boundaries");
+        root = top.transform;
+        ExteriorMaterials();
+        Transform outside = Sub(root, "Area externa");
+        RemoveChild(outside, "Fechamentos");
+        RemoveChild(outside, "Limites");
+        BuildLotBoundaries(Sub(outside, "Fechamentos"), Sub(outside, "Limites"));
+        Undo.CollapseUndoOperations(undo);
+        UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(top.scene);
+        Debug.Log("Unclaimed: lot boundaries rebuilt. Re-bake the lighting and save the scene.");
+    }
+
     private static void GateRailing(ExtMesh m, Vector3 a, Vector3 b, float height)
     {
         a.y = 0; b.y = 0;

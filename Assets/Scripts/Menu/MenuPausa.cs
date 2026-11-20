@@ -53,7 +53,7 @@ public class MenuPausa : MonoBehaviour
 
     // Outro sistema está usando o Esc (e os controles) agora.
     static bool OutroSistemaCapturando =>
-        ObjetoInspecionavel.InspecionandoAlgo || DiarioDePistas.Aberto || InterfaceDeTela.AlgumaAberta;
+        ObjetoInspecionavel.InspecionandoAlgo || DiarioDePistas.Aberto || InterfaceDeTela.AlgumaAberta || IntroChegada.Ativa;
 
     void Start()
     {
@@ -114,7 +114,7 @@ public class MenuPausa : MonoBehaviour
 
     public void Pausar()
     {
-        if (Pausado) return;
+        if (Pausado || IntroChegada.Ativa) return;
         Pausado = true;
 
         escalaDeTempoAnterior = Time.timeScale;
