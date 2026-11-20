@@ -22,9 +22,9 @@ public static class DecisoesDeDaniel
         return alvo > atual ? alvo : atual;
     }
 
-    /// <summary>Daniel larga a mesa quando o jogador já fotografou a pessoa nela e acendeu a luz forte, ou achou Léo em C-02.</summary>
-    public static bool PodeSairDaMesa(Func<string, bool> tem) =>
-        tem("ev:F02") || (tem("ev:F01") && tem("luz_exame"));
+    /// <summary>Daniel larga a mesa (P08) só depois que o jogador acha Léo em C-02 (F02, P07), como na ordem da história.
+    /// A F01 já exige a luz de exame; se ela bastasse, ele sairia na primeira saída da sala e a pose B nunca seria vista.</summary>
+    public static bool PodeSairDaMesa(Func<string, bool> tem) => tem("ev:F02");
 
     public static float Intervalo(FaseDeDaniel fase) => fase == FaseDeDaniel.Obstrucao ? IntervaloObstrucao : IntervaloSombra;
 

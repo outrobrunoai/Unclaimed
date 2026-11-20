@@ -40,8 +40,40 @@ public class Celular : PainelDoJogador
     /// <summary>A lanterna do celular está acesa (Daniel enxerga a luz de longe).</summary>
     public static bool LanternaLigada { get; private set; }
 
+    static Celular instancia;
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    static void Reiniciar() => LanternaLigada = false;
+    static void Reiniciar()
+    {
+        LanternaLigada = false;
+        instancia = null;
+    }
+
+    /// <summary>Verdadeiro quando a lanterna do celular está acesa e ilumina o ponto sem obstáculo sólido no caminho.</summary>
+    public static bool LanternaIlumina(Vector3 ponto, float distanciaMaxima)
+    {
+        if (instancia == null || !LanternaLigada || instancia.luzLanterna == null || !instancia.luzLanterna.enabled) return false;
+        if (distanciaMaxima < 0f) return false;
+        Transform luz = instancia.luzLanterna.transform;
+        Vector3 para = ponto - luz.position;
+        float distancia = para.magnitude;
+        if (distancia > distanciaMaxima) return false;
+        if (distancia <= 0.0001f) return true;
+        if (Vector3.Angle(luz.forward, para) > instancia.luzLanterna.spotAngle * 0.5f) return false;
+
+        RaycastHit[] acertos = Physics.RaycastAll(luz.position, para / distancia, distancia, ~(1 << 2), QueryTriggerInteraction.Ignore);
+        for (int i = 0; i < acertos.Length; i++)
+        {
+            Collider col = acertos[i].collider;
+            if (col == null) continue;
+            if (col.transform.IsChildOf(instancia.transform)) continue;
+            if (instancia.naMao != null && col.transform.IsChildOf(instancia.naMao.transform)) continue;
+            if (col.GetComponentInParent<Movimento>() != null) continue;
+            if (distancia - acertos[i].distance < 0.15f) continue;
+            return false;
+        }
+        return true;
+    }
 
     public override string TeclaDoPainel => tecla;
     // O celular não pausa nada: o jogador anda com ele na mão (só o olhar fica com o mouse na tela).
@@ -81,6 +113,7 @@ public class Celular : PainelDoJogador
 
     void OnEnable()
     {
+        instancia = this;
         CelularLogica.AoReceber += AoReceber;
         CelularLogica.AoEnviar += AoEnviar;
     }
@@ -90,6 +123,7 @@ public class Celular : PainelDoJogador
         base.OnDisable();
         CelularLogica.AoReceber -= AoReceber;
         CelularLogica.AoEnviar -= AoEnviar;
+        if (instancia == this) instancia = null;
         LanternaLigada = false;
     }
 
@@ -239,10 +273,15 @@ public class Celular : PainelDoJogador
         AtualizarLuzDaLanterna();
     }
 
-    /// <summary>Foto pelo visor (só no modo câmera, com o celular parado na pose).</summary>
+    /// <summary>Foto pelo visor (só no modo câmera, com o celular parado na pose e a lanterna desligada).</summary>
     public bool TirarFoto()
     {
         if (!modoCamera || naMao == null || naMao.Animando || cameraDoCelular == null) return false;
+        if (lanterna)
+        {
+            MiraDeInteracao.Avisar("Desligue a lanterna para tirar a foto.", 2.5f);
+            return false;
+        }
         cameraDoCelular.Fotografar(naMao);
         disparoEm = Time.unscaledTime;
         return true;
@@ -271,6 +310,11 @@ public class Celular : PainelDoJogador
             luzLanterna.type = LightType.Spot;
             int camada = LayerMask.NameToLayer("Inspecao");
             if (camada >= 0) luzLanterna.cullingMask = ~(1 << camada);   // não ilumina o próprio celular
+            // Todas as camadas de luz: salas isoladas (ex.: a autópsia, na camada 1) também recebem a lanterna.
+            luzLanterna.renderingLayerMask = ~0;
+            var urp = go.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalLightData>();
+            if (urp == null) urp = go.AddComponent<UnityEngine.Rendering.Universal.UniversalAdditionalLightData>();
+            urp.renderingLayers = uint.MaxValue;
         }
         Transform ponto = naMao != null ? naMao.PontoDaLuz : null;
         if (ponto != null && luzLanterna.transform.parent != ponto)

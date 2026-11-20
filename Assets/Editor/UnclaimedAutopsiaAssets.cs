@@ -139,6 +139,44 @@ public static class UnclaimedAutopsiaAssets
         return go;
     }
 
+    const string PoseB = "Pose B";
+
+    static void BodyPoseB(Transform occupied, Material skin)
+    {
+        var old = occupied.Find(PoseB);
+        if (old != null) Object.DestroyImmediate(old.gameObject);
+        var pose = new GameObject(PoseB).transform; pose.SetParent(occupied, false);
+        BodyPart(pose, "Corpo", "CorpoOcupadoB", true, skin);
+        BodyPart(pose, "Corpo oculto", "CorpoOcupadoOcultoB", false, skin);
+        pose.gameObject.SetActive(false);
+    }
+
+    /// <summary>Adds pose B to the existing occupied-body prefab in place (pose A's objects keep their ids, so the
+    /// scene's overrides survive): "Corpo" and "Corpo oculto" go into "Pose A", the new meshes into "Pose B".</summary>
+    [MenuItem("Tools/Unclaimed/Autopsia/Add Body Pose B")]
+    public static void AddBodyPoseB()
+    {
+        string path = PrefabPath("CorpoOcupado");
+        var root = PrefabUtility.LoadPrefabContents(path);
+        try
+        {
+            var poseA = root.transform.Find("Pose A");
+            if (poseA == null)
+            {
+                poseA = new GameObject("Pose A").transform; poseA.SetParent(root.transform, false); poseA.SetSiblingIndex(0);
+                foreach (var n in new[] { "Corpo", "Corpo oculto" })
+                {
+                    var t = root.transform.Find(n);
+                    if (t != null) t.SetParent(poseA, false);
+                }
+            }
+            var skin = poseA.GetComponentInChildren<Renderer>(true).sharedMaterial;
+            BodyPoseB(root.transform, skin);
+            PrefabUtility.SaveAsPrefabAsset(root, path);
+        }
+        finally { PrefabUtility.UnloadPrefabContents(root); }
+    }
+
     [MenuItem("Tools/Unclaimed/Autopsia/Build Body Prefabs")]
     public static void BuildBody()
     {
@@ -167,9 +205,12 @@ public static class UnclaimedAutopsiaAssets
         var occupied = new GameObject("Corpo - autopsia (ocupado)");
         try
         {
-            BodyPart(occupied.transform, "Corpo", "CorpoOcupado", true, skin);
-            // Never-seen region under the sheet: its shadow is never visible, so it stays out of the shadow pass.
-            BodyPart(occupied.transform, "Corpo oculto", "CorpoOcupadoOculto", false, skin);
+            // Pose A (start) and pose B (left arm moved by Daniel while the player is away); AlvoFotografico.poses
+            // shows one of them. The never-seen region under the sheet stays out of the shadow pass.
+            var poseA = new GameObject("Pose A").transform; poseA.SetParent(occupied.transform, false);
+            BodyPart(poseA, "Corpo", "CorpoOcupado", true, skin);
+            BodyPart(poseA, "Corpo oculto", "CorpoOcupadoOculto", false, skin);
+            BodyPoseB(occupied.transform, skin);
             BodyPart(occupied.transform, "Lencol", "LencolOcupado", true, linen);
             BodyPart(occupied.transform, "Adesivo", "AdesivoMao", false, sticker);
             BodyPart(occupied.transform, "Etiqueta 083", "EtiquetaMovimentacao", false, tag, pin);
@@ -250,7 +291,7 @@ public static class UnclaimedAutopsiaAssets
                     lm.SetFloat("_Surface", 0); lm.renderQueue = (int)RenderQueue.Geometry;
                     lm.SetColor("_BaseColor", new Color(.86f, .86f, .83f));
                     lm.SetFloat("_Smoothness", .35f); lm.SetFloat("_Metallic", 0);
-                    lm.EnableKeyword("_EMISSION"); lm.SetColor("_EmissionColor", new Color(2.4f, 2.25f, 2f));
+                    lm.EnableKeyword("_EMISSION"); lm.SetColor("_EmissionColor", new Color(6f, 5.7f, 5.2f));
                     lm.globalIlluminationFlags = MaterialGlobalIlluminationFlags.None;
                     EditorUtility.SetDirty(lm); Dress(lens, lm, false);
                     var lightObject = new GameObject("Luz - luminaria de exame");
@@ -259,13 +300,15 @@ public static class UnclaimedAutopsiaAssets
                     lightObject.transform.localPosition = BoundsIn(lens, go.transform).center + Vector3.down * .005f;
                     lightObject.transform.localRotation = Quaternion.Euler(90, 0, 0);
                     var light = lightObject.AddComponent<Light>();
-                    light.type = LightType.Spot; light.spotAngle = 50; light.innerSpotAngle = 22;
-                    light.range = 3.2f; light.intensity = 3; light.useColorTemperature = true; light.colorTemperature = 4500;
+                    // LED exam head: the brightest light in the room when on, a wide pool over the whole table.
+                    light.type = LightType.Spot; light.spotAngle = 70; light.innerSpotAngle = 40;
+                    light.range = 4f; light.intensity = 9; light.useColorTemperature = true; light.colorTemperature = 4500;
                     light.shadows = LightShadows.Soft; light.lightmapBakeType = LightmapBakeType.Realtime; light.enabled = false;
                     var control = go.AddComponent<LuminariaExame>();
                     var so = new SerializedObject(control);
                     so.FindProperty("luz").objectReferenceValue = light;
                     so.FindProperty("lente").objectReferenceValue = lens.GetComponentInChildren<Renderer>(true);
+                    so.FindProperty("emissaoLigada").colorValue = new Color(6f, 5.7f, 5.2f);
                     so.ApplyModifiedPropertiesWithoutUndo();
                     control.Ligar(false);
                 }

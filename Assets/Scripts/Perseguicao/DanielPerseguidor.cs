@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 /// <summary>
 /// Daniel na parte 4 (caça). Fica escondido até o confronto; depois persegue com NavMesh, pela visão e pelo som.
-///   Visão: cone à frente, sem parede no caminho; no apagão enxerga menos (o flash denuncia o jogador).
+///   Visão: cone à frente, sem parede no caminho; no apagão enxerga menos (a lanterna denuncia o jogador).
 ///   Som: cada passo do jogador faz barulho num raio: correndo (Shift) longe, andando perto, agachado nada.
 ///   Escondido: o jogador fica invisível, a menos que Daniel o tenha visto entrar.
 ///   Captura: perto o bastante e vendo o jogador = fim imediato (volta ao CP04).
@@ -32,8 +32,6 @@ public class DanielPerseguidor : MonoBehaviour
     public float alcanceNoEscuro = 8f;
     [Range(10f, 180f)] public float anguloDaVisao = 120f;
     public float raioPassoCorrendo = 14f, raioPassoAndando = 5f, raioPassoAgachado = 0f;
-    [Tooltip("O flash da câmera é visto de longe.")]
-    public float raioDoFlash = 25f;
     public float distanciaDeCaptura = 1.3f;
     [Tooltip("Segundos sem ver o jogador até desistir da última posição e procurar em volta.")]
     public float esquecerEm = 6f;
@@ -51,7 +49,6 @@ public class DanielPerseguidor : MonoBehaviour
     Vector3 ultimaPosicao;
     float procurandoDesde, proximoDestino;
     Movimento ouvindo;
-    float ultimoFlashVisto = -999f;
 
     void Awake()
     {
@@ -116,7 +113,6 @@ public class DanielPerseguidor : MonoBehaviour
             ultimaPosicao = Jogador.Posicao;
             Atual = Estado.Perseguindo;
         }
-        else if (FlashVisivel()) Investigar(CameraFotografica.OrigemDoFlash);
 
         // Escondido depois de ser visto entrando: ele vai até o esconderijo.
         Esconderijo esc = Esconderijo.Ocupado;
@@ -186,14 +182,6 @@ public class DanielPerseguidor : MonoBehaviour
             if (m == null) return false;
         }
         return true;
-    }
-
-    bool FlashVisivel()
-    {
-        float quando = CameraFotografica.UltimoFlash;
-        if (quando <= ultimoFlashVisto || Time.time - quando > 0.5f) return false;
-        ultimoFlashVisto = quando;
-        return (CameraFotografica.OrigemDoFlash - transform.position).sqrMagnitude <= raioDoFlash * raioDoFlash;
     }
 
     void Capturar()

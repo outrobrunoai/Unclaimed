@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Trava de segurança do lado de dentro da câmara fria (saída da armadilha S3). No escuro ela só responde
-/// depois que o flash da câmera a iluminou por perto (ou com a luz da câmara acesa). Puxar destrava a porta
+/// depois que a lanterna do celular a iluminou por perto (ou com a luz da câmara acesa). Puxar destrava a porta
 /// presa pelo PontoDeAcao de tipo PrenderCamaraFria e acende a luz de novo.
 /// Prefab de José; Bruno coloca junto da porta frigorífica, do lado de dentro.
 /// </summary>
@@ -13,9 +14,12 @@ public class TravaDeSeguranca : AlvoDeInteracao
     public string textoPuxar = "Puxar trava de segurança";
     [Tooltip("Ponto da armadilha. Vazio = qualquer PrenderCamaraFria ativo.")]
     public PontoDeAcao armadilha;
-    [Tooltip("Depois do flash, por quantos segundos o jogador ainda acha a trava no escuro.")]
-    [Min(1f)] public float segundosAposFlash = 8f;
-    [Min(0.5f)] public float distanciaDoFlash = 6f;
+    [FormerlySerializedAs("segundosAposFlash")]
+    [Tooltip("Depois da luz da lanterna, por quantos segundos o jogador ainda acha a trava no escuro.")]
+    [Min(1f)] public float segundosAposLuz = 8f;
+    [FormerlySerializedAs("distanciaDoFlash")]
+    [Tooltip("Distância máxima (m) para a lanterna revelar a trava no escuro.")]
+    [Min(0.5f)] public float distanciaDaLuz = 6f;
     public AudioClip somTrava;
 
     bool achada;
@@ -42,9 +46,7 @@ public class TravaDeSeguranca : AlvoDeInteracao
             PontoDeAcao a = Armadilha;
             if (a == null || !a.Ativo) return true;   // sem armadilha: a trava é só uma trava
             if (achada) return true;
-            float desde = Time.time - CameraFotografica.UltimoFlash;
-            bool perto = (CameraFotografica.OrigemDoFlash - transform.position).sqrMagnitude <= distanciaDoFlash * distanciaDoFlash;
-            if (desde >= 0f && desde <= segundosAposFlash && perto) achada = true;
+            if (Celular.LanternaIlumina(transform.position, distanciaDaLuz)) achada = true;
             return achada;
         }
     }

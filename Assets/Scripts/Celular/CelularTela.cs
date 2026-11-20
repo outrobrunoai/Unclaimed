@@ -47,9 +47,8 @@ public class CelularTela : MonoBehaviour
     readonly List<RaycastResult> acertos = new List<RaycastResult>();
     RectTransform retrato, paisagem, conteudo, camHud, fotoView, painelRapido;
     RawImage papel;
-    TextMeshProUGUI horaStatus, flashTexto;
+    TextMeshProUGUI horaStatus;
     Image[] barras = new Image[4];
-    RawImage raio;
     Image clarao;
     Sprite arredondado;
 
@@ -331,10 +330,6 @@ public class CelularTela : MonoBehaviour
             h.rectTransform.anchorMin = h.rectTransform.anchorMax = new Vector2(0.5f, i / 3f);
             h.rectTransform.sizeDelta = new Vector2(A, 0.8f);
         }
-        raio = Figura(camHud, "glifo_raio", new Color(1f, 0.85f, 0.2f));
-        Em(raio.rectTransform, 22, 18, 22, 22);
-        flashTexto = Texto(camHud, "", 12, new Color(1, 1, 1, 0.8f));
-        Em(flashTexto.rectTransform, 46, 20, 80, 18);
         // Obturador à direita (decorativo: a foto sai pelo clique ou F).
         RectTransform ob = Novo("Obturador", camHud);
         ob.anchorMin = ob.anchorMax = new Vector2(1f, 0.5f);
@@ -487,10 +482,6 @@ public class CelularTela : MonoBehaviour
 
     void AtualizarVisor()
     {
-        CameraFotografica cam = dono.CameraDoCelular;
-        bool pronto = cam == null || cam.FlashPronto;
-        raio.color = pronto ? new Color(1f, 0.85f, 0.2f) : new Color(1, 1, 1, 0.35f);
-        flashTexto.text = pronto ? "" : $"{Mathf.CeilToInt(cam.SegundosParaRecarregar)} s";
         float desde = Time.unscaledTime - dono.DisparoEm;
         clarao.color = new Color(1, 1, 1, desde < 0.25f ? 0.9f * (1f - desde / 0.25f) : 0f);
     }

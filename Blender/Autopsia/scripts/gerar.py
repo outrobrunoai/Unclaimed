@@ -43,6 +43,7 @@ MATS = {
     "borracha": material("borracha grafite", (.025,.03,.029), .72),
     "pintura": material("epoxi cinza claro", (.58,.60,.58), .42),
     "marfim": material("polimero marfim", (.69,.68,.61), .42),
+    "carcaca": material("epoxi branco da luminaria", (.80,.81,.78), .36),
     "tecido": material("algodao cru", (.70,.69,.64), .88),
     "azul": material("embalagem azul desaturada", (.13,.23,.29), .59),
     "papel": material("papel", (.75,.73,.66), .81),
@@ -309,8 +310,8 @@ def balanca():
                             (.145,pan_z-.036),(.097,pan_z-.062),(.0,pan_z-.064)],seg=48,r=.001,matrix=Matrix.Translation((0,cy,0)))
 
 def luminaria():
-    """Ceiling exam light, single head: canopy, 450 mm drop, two articulated 400 mm arms, yoke and a 410 mm
-    reflector head with central handle. Origin = ceiling point; arm reaches +X; head centre at
+    """Ceiling LED exam light, single head: canopy, 450 mm drop, two articulated 400 mm arms, a single-sided
+    yoke and a 340 mm domed head with eight LED cells and a central handle. Origin = ceiling point; arm reaches +X; head centre at
     (0.62, 0, -1.10); the lens (LuminariaExameLente) faces down."""
     cyl("Canopla do teto","pintura",(0,0,-.015),.085,.03,seg=40,r=.004)
     for i in range(3):
@@ -324,27 +325,37 @@ def luminaria():
             tube("Braco articulado","pintura",[(a[0],s*.022,a[2]),(b[0],s*.022,b[2])],.013,res=2)
     cyl("Mola compensadora","escuro",((k1[0]+k2[0])/2,0,(k1[2]+k2[2])/2+.002),.010,.33,Vector(k2)-Vector(k1),seg=12)
     hc=Vector((.62,0,-1.10))
-    tube("Garfo","pintura",[(k3[0],0,k3[2]),(k3[0],0,-.96),(k3[0],-.236,-.96),(k3[0],-.236,hc.z)],.012,fillet=.03)
-    tube("Garfo","pintura",[(k3[0],0,-.96),(k3[0],.236,-.96),(k3[0],.236,hc.z)],.012,fillet=.03)
-    for s in (-1,1): cyl("Pivo da cabeca","escuro",(hc.x,s*.222,hc.z),.022,.03,(0,1,0),seg=20,r=.003)
-    z0=hc.z-.045
-    R.lathe("Cupula","pintura",[(.05,.105),(.13,.095),(.185,.065),(.205,.02),(.205,0),(.197,0),(.197,.018),(.178,.058),
-                                (.125,.086),(.05,.096)],seg=56,r=.002,matrix=Matrix.Translation((hc.x,hc.y,z0)))
-    R.lathe("Refletor","cromado",[(.19,.008),(.16,.05),(.10,.075),(.04,.08)],seg=56,r=0,matrix=Matrix.Translation((hc.x,hc.y,z0)))
-    cyl("Tampa superior","pintura",(hc.x,hc.y,z0+.105),.052,.02,seg=32,r=.004)
-    cyl("Aro da lente","escuro",(hc.x,hc.y,z0+.004),.203,.010,seg=56,r=.002)
-    cyl("Manopla","marfim",(hc.x,hc.y,z0-.035),.022,.085,seg=24,r=.006)
-    cyl("Base da manopla","escuro",(hc.x,hc.y,z0+.002),.034,.012,seg=24,r=.002)
+    # Single-sided cardan yoke (LED exam lights, e.g. VOG Luxiflex): short drop from the last joint, a curved arm
+    # around the head's +Y side and a pivot on its rim, instead of a wide fork.
+    tube("Garfo","pintura",[(k3[0],0,k3[2]),(k3[0],0,-.975),(k3[0],.215,-.975),(k3[0],.215,hc.z+.015)],.013,fillet=.035)
+    cyl("Pivo da cabeca","escuro",(hc.x,.196,hc.z+.015),.024,.034,(0,1,0),seg=20,r=.003)
+    # Head: 340 mm domed white housing, 120 mm deep, dark front face with eight LED cells in chrome rings
+    # around the handle. Faces down; front face at z0.
+    z0=hc.z-.04
+    R.lathe("Cabeca","carcaca",[(.0,z0+.118),(.05,z0+.116),(.10,z0+.104),(.138,z0+.084),(.162,z0+.058),(.172,z0+.030),
+                               (.172,z0+.008),(.168,z0+.001),(.160,z0),(.0,z0+.004)],seg=64,r=.002,
+            matrix=Matrix.Translation((hc.x,hc.y,0)))
+    cyl("Aro da cabeca","pintura",(hc.x,hc.y,z0+.010),.1735,.016,seg=64,r=.003)
+    cyl("Face frontal","escuro",(hc.x,hc.y,z0-.001),.158,.004,seg=64,r=.001)
+    for k in range(8):
+        a=k*math.tau/8+math.pi/8
+        R.lathe("Aro do LED","cromado",[(.033,0),(.033,.004),(.026,.004),(.026,0)],seg=32,r=0,
+                matrix=Matrix.Translation((hc.x+.104*math.cos(a),hc.y+.104*math.sin(a),z0-.006)))
+    cyl("Tampa superior","pintura",(hc.x,hc.y,z0+.118),.045,.012,seg=32,r=.003)
+    cyl("Base da manopla","escuro",(hc.x,hc.y,z0-.006),.036,.010,seg=32,r=.002)
+    cyl("Manopla","marfim",(hc.x,hc.y,z0-.050),.020,.080,seg=24,r=.006,radius_top=.023)
 
 def luminaria_lente():
-    hc=Vector((.62,0,-1.10)); z0=hc.z-.045
-    # Annulus around the handle base: emissive diffuser.
-    N=64;verts=[];faces=[]
-    for i in range(N):
-        a=i*math.tau/N
-        verts+= [(hc.x+.194*math.cos(a),.194*math.sin(a),z0+.006),(hc.x+.036*math.cos(a),.036*math.sin(a),z0+.006)]
-    for i in range(N):
-        j=(i+1)%N;faces.append((2*i,2*i+1,2*j+1,2*j))
+    """Emissive LED cells of the exam light: eight discs of 52 mm inside the chrome rings."""
+    hc=Vector((.62,0,-1.10)); z=hc.z-.04-.004
+    verts=[];faces=[]
+    def disc(cx,cy,rad,N=24):
+        b=len(verts);verts.append((cx,cy,z))
+        for i in range(N):
+            a=i*math.tau/N;verts.append((cx+rad*math.cos(a),cy+rad*math.sin(a),z))
+        for i in range(N):faces.append((b,b+1+(i+1)%N,b+1+i))
+    for k in range(8):
+        a=k*math.tau/8+math.pi/8;disc(hc.x+.104*math.cos(a),hc.y+.104*math.sin(a),.026)
     link("Lente difusora","lente",verts,faces,smooth=False)
 
 def comando():

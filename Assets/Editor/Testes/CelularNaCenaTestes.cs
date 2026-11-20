@@ -62,10 +62,15 @@ public class CelularNaCenaTestes
         Assert.That(visor.width, Is.GreaterThan(visor.height), "No modo câmera o celular fica deitado.");
         Assert.That(visor.width, Is.InRange(Screen.width * 0.6f, Screen.width * 0.8f), "No modo câmera o celular ocupa uns 70% da tela.");
         int antes = AlbumDeFotos.Fotos.Count;
+        celular.DefinirLanterna(true);
+        yield return null;
+        Assert.That(celular.TirarFoto(), Is.False, "Não deve fotografar com a lanterna acesa.");
+        Assert.That(AlbumDeFotos.Fotos.Count, Is.EqualTo(antes));
+        celular.DefinirLanterna(false);
+        yield return null;
         Assert.That(celular.TirarFoto(), Is.True);
         Assert.That(AlbumDeFotos.Fotos.Count, Is.EqualTo(antes + 1));
         Assert.That(AlbumDeFotos.Fotos[AlbumDeFotos.Fotos.Count - 1].imagem, Is.Not.Null);
-        Assert.That(CameraFotografica.UltimoFlash, Is.GreaterThan(0f));
 
         // Galeria: a foto aberta deita o celular grande, e voltar o põe em pé de novo.
         celular.AbrirInterface();

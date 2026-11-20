@@ -236,7 +236,7 @@ public class SistemasDoJoseTestes
         EstadoDaNoite.Marcar("ev:F01");
         Assert.That(DecisoesDeDaniel.PodeSairDaMesa(EstadoDaNoite.Tem), Is.False);
         EstadoDaNoite.Marcar("luz_exame");
-        Assert.That(DecisoesDeDaniel.PodeSairDaMesa(EstadoDaNoite.Tem), Is.True);
+        Assert.That(DecisoesDeDaniel.PodeSairDaMesa(EstadoDaNoite.Tem), Is.False);   // a foto da mesa sozinha não basta
         EstadoDaNoite.Limpar();
         EstadoDaNoite.Marcar("ev:F02");
         Assert.That(DecisoesDeDaniel.PodeSairDaMesa(EstadoDaNoite.Tem), Is.True);

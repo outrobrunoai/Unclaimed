@@ -197,7 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LuminariaExame
   luz: {fileID: 1490533355775652678}
   lente: {fileID: 3281970553774189500}
-  emissaoLigada: {r: 2.4, g: 2.25, b: 2, a: 1}
+  emissaoLigada: {r: 6, g: 5.7, b: 5.2, a: 1}
   ligadaAoIniciar: 0
 --- !u!1 &8529384001791749797
 GameObject:
@@ -242,10 +242,10 @@ Light:
   serializedVersion: 13
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 3
-  m_Range: 3.2
-  m_SpotAngle: 50
-  m_InnerSpotAngle: 22
+  m_Intensity: 9
+  m_Range: 4
+  m_SpotAngle: 70
+  m_InnerSpotAngle: 40
   m_CookieSize2D: {x: 0.5, y: 0.5}
   m_Shadows:
     m_Type: 2

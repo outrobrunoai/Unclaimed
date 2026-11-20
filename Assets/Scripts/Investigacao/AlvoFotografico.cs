@@ -27,6 +27,10 @@ public class AlvoFotografico : MonoBehaviour
     [Range(0.2f, 1f)] public float enquadramento = 0.8f;
     [Tooltip("Fato que precisa existir para o alvo valer (vazio = sempre).")]
     public string requerFato = "";
+    [Tooltip("Circuito da RedeEletrica que precisa estar ligado para a foto valer (vazio = sempre). Ex.: exame.")]
+    public string requerCircuito = "";
+    [Tooltip("Aviso quando o alvo é fotografado sem essa luz.")]
+    [TextArea] public string avisoSemLuz = "Está escuro demais. Não dá para ver o braço nem ler a etiqueta. Preciso de mais luz sobre a mesa.";
 
     [Header("Variantes")]
     [Tooltip("Um objeto por variante; só o da variante atual fica ativo. Pode ficar vazio.")]
@@ -70,6 +74,7 @@ public class AlvoFotografico : MonoBehaviour
     }
 
     public bool Valido => string.IsNullOrEmpty(requerFato) || EstadoDaNoite.Tem(requerFato);
+    public bool TemLuz => string.IsNullOrEmpty(requerCircuito) || RedeEletrica.Ligado(requerCircuito);
 
     /// <summary>Quão bem o alvo está enquadrado (0 = fora; 1 = no centro). Considera distância e paredes.</summary>
     public float Enquadramento(Camera cam)

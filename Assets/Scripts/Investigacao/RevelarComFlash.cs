@@ -1,13 +1,14 @@
 using UnityEngine;
 
 /// <summary>
-/// Mostra objetos só por alguns segundos depois de um flash da câmera por perto (ex.: a trava de segurança
-/// dentro da câmara fria, no escuro). Fora disso eles ficam escondidos. Uma vez revelado, pode ficar visível
-/// para sempre (manterDepoisDeVer).
+/// Mostra objetos enquanto a lanterna do celular os ilumina por perto e por alguns segundos depois
+/// (ex.: a trava de segurança dentro da câmara fria, no escuro). Fora disso eles ficam escondidos.
+/// Uma vez revelado, pode ficar visível para sempre (manterDepoisDeVer).
+/// O nome da classe foi mantido por compatibilidade com prefabs existentes.
 /// </summary>
 public class RevelarComFlash : MonoBehaviour
 {
-    [Tooltip("Objetos ligados enquanto o flash revela.")]
+    [Tooltip("Objetos ligados enquanto a lanterna revela.")]
     public GameObject[] objetos = new GameObject[0];
     [Min(0.5f)] public float distancia = 6f;
     [Min(0.2f)] public float segundosVisivel = 4f;
@@ -16,15 +17,19 @@ public class RevelarComFlash : MonoBehaviour
     public string fatoAoRevelar = "";
 
     bool visto;
+    float visivelAte = float.NegativeInfinity;
 
     void OnEnable() => Aplicar(visto && manterDepoisDeVer);
 
-    void Update()
+    void Update() => Avaliar();
+
+    /// <summary>Atualiza a visibilidade dos objetos de acordo com a lanterna do celular.</summary>
+    public void Avaliar()
     {
         if (visto && manterDepoisDeVer) return;
-        float desde = Time.time - CameraFotografica.UltimoFlash;
-        bool perto = (CameraFotografica.OrigemDoFlash - transform.position).sqrMagnitude <= distancia * distancia;
-        bool revela = desde >= 0f && desde <= segundosVisivel && perto;
+        bool iluminado = Celular.LanternaIlumina(transform.position, distancia);
+        if (iluminado) visivelAte = Time.time + segundosVisivel;
+        bool revela = iluminado || Time.time <= visivelAte;
         if (revela && !visto)
         {
             visto = true;

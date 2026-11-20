@@ -77,9 +77,9 @@ O jogador pode achar pistas fora de ordem, como no template. As fases de Daniel 
 
 | Cód. | O que ele faz | Quando | Como o jogador contorna | Reaproveita |
 |---|---|---|---|---|
-| S1 | **Apagão.** Tira o fusível da luz geral na sala técnica. Ficam só as luzes de emergência. | Obstrução, com o jogador longe da técnica. | Flash da câmera como luz; fusível reserva no depósito; refazer o painel de P02. | Painel de P02 |
+| S1 | **Apagão.** Tira o fusível da luz geral na sala técnica. Ficam só as luzes de emergência. | Obstrução, com o jogador longe da técnica. | Lanterna do celular como luz; fusível reserva no depósito; refazer o painel de P02. | Painel de P02 |
 | S2 | **Porta travada.** Passa o ferrolho pelo outro lado. | Sombra e Obstrução, uma porta por vez, nunca as duas pontas do circuito. | Dar a volta pelo circuito autópsia – câmara fria – recebimento – vestíbulo. | `FerrolhoDePorta` |
-| S3 | **Preso na câmara fria.** Fecha a porta frigorífica e corta a luz com o jogador dentro. | Obstrução, uma vez, depois de P07. | Trava de segurança interna, achada com o flash. A outra porta (recebimento) abre em seguida. | Portas frigoríficas, `LuzDeCompartimento` |
+| S3 | **Preso na câmara fria.** Fecha a porta frigorífica e corta a luz com o jogador dentro. | Obstrução, uma vez, depois de P07. | Trava de segurança interna, achada com a lanterna do celular. A outra porta (recebimento) abre em seguida. | Portas frigoríficas, `LuzDeCompartimento` |
 | S4 | **Presença.** Torneira aberta na autópsia, descarga no WC, passos no corredor, porta batendo, vulto no visor ou no espelho. | Sombra e Obstrução. | Nada a resolver. São sustos de baixa intensidade que mostram onde ele está. | `Torneira`, `Descarga`, `EspelhoPlanar`, `PassosDoJogador` |
 | S5 | **Corrente na entrada.** Passa corrente e cadeado na porta principal. | Início da Obstrução. | Saída pelo pátio; ou achar a chave no molho que ele deixa cair no encontro. | `CadeadoCombinacao` (visual) |
 
@@ -119,7 +119,7 @@ Os textos de D01 a D14 e H01 a H07 ficam como no template, salvo as mudanças in
 | Mecânica | O que faz | Já existe |
 |---|---|---|
 | **Estado da noite** | Registro central de fatos (evidências, conclusões, fase de Daniel), salvo. | `Salvamento`, `ISalvavel` |
-| **Câmera, flash e álbum** | Alvos amplos com fotos predefinidas; o flash ilumina por um instante e recarrega em poucos segundos. | `Interacao`, `MiraDeInteracao` |
+| **Câmera e álbum** | Alvos amplos com fotos predefinidas. Sem flash, e sem foto com a lanterna acesa: a foto usa a luz do lugar (ex.: a luminária de exame para a F01). | `Interacao`, `MiraDeInteracao` |
 | **Caderno** | Evidências, transcrições e comparações de duas peças que geram hipótese ou conclusão. | `DiarioDePistas` |
 | **Celular** | Mensagens (Celso, redação, Irene), envio de provas com sinal só na recepção e no pátio, pedido de ajuda. | UI do `ComputadorRecepcao` como referência |
 | **Painel de energia** | Interação curta de soma até o limite; estado da luz por sala. | `LuminariaExame` |
@@ -163,6 +163,6 @@ Casos de borda a testar (do template): chegar primeiro a C-02, ligar a luz cedo,
 5. A entrada de Daniel fica registrada por um sensor na porta do recebimento, e não por assinatura. Ele não teve tempo de apagar o registro no computador da recepção.
 
 **Deixado para quem implementar:**
-- Valores de intervalo das sabotagens, tempo de recarga do flash e tempo de cópia.
+- Valores de intervalo das sabotagens e tempo de cópia.
 - Modelo e animações de Daniel (precisa de personagem com esqueleto; há um corpo-base em `docs/revisao-autopsia/corpo_base`).
 - Vozes: gravadas ou sintetizadas.

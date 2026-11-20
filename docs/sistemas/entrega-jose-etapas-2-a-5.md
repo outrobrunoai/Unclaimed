@@ -69,7 +69,7 @@ Textos (do Bruno, **provisórios**, escritos a partir da história): `Assets/Res
 | `Recepcao/Corrente` | Corrente | `porta` da entrada e `mostrar` = corrente com cadeado |
 | `Arquivo/Porta` | Aparicao | onde Daniel aparece no confronto |
 
-Também: prefab `Trava de seguranca` do lado de dentro da câmara fria, perto da porta (só aparece com o flash).
+Também: prefab `Trava de seguranca` do lado de dentro da câmara fria, perto da porta (só aparece quando a lanterna do celular a ilumina; o celular não tem flash).
 
 ### Etapa 5 — Perseguição
 

@@ -1,6 +1,7 @@
 """Autopsy table body from an MPFB 2 (MakeHuman) base: adult male, game_engine rig, posed supine on the table.
 Run: blender -b --threads 8 --python Blender/Autopsia/scripts/corpo_base.py [-- etapa ...]
-  etapas: base (create + pose + lay down + contact), render (neutral studio, simple material), pele
+  etapas: base (create + pose + lay down + contact), render (neutral studio, simple material), pele,
+  pose_b (left arm moved by Daniel: CorpoOcupadoB + CorpoOcupadoOcultoB; run alone, after jogo)
 Needs the MPFB extension (extensions.blender.org, 2.0.18). Assets used: MPFB core base mesh + rig (CC0).
 Same frame as corpo.py (table origin, head at -X, right side -Y). The earlier scripted pilot (corpo.py,
 Corpo.blend) is kept untouched as a reference; this script writes CorpoBase.blend."""
@@ -863,6 +864,96 @@ def export_game():
         shutil.copyfile(d + "/" + a, out + "/Texturas/" + b)
     print("EXPORT_JOGO", json.dumps(stats), flush=True)
 
+# ---------------------------------------------------------------- pose B: Daniel moved the left arm
+# The person on the table is alive. While the player is away, the exposed left forearm ends up swung 11 deg out
+# from the body, the hand turned 30 deg back toward it at the wrist and the fingers spread (the tray wall is only
+# 4 cm beyond the fingertips, so the hand cannot simply swing out). Only horizontal rotations (about the vertical at the
+# elbow, the wrist and the knuckles), so the hand keeps resting on the steel and the arm under the sheet stays put.
+# The motion comes from the rig (pose A -> pose B on the source human) and is carried to the game mesh by nearest
+# source vertex, so the reduced body, the sheet and the split visible/hidden are kept. Exports CorpoOcupadoB and
+# CorpoOcupadoOcultoB next to the pose A meshes; the .blend is not saved (the rig keeps pose A).
+POSE_B = dict(giro=11.0, mao=-30.0, dedos=(("index", 9.0), ("ring", 7.0), ("pinky", 15.0), ("thumb", 14.0)))
+
+def pose_b():
+    from mathutils.kdtree import KDTree
+    for k in ("giro", "mao"):
+        if os.environ.get("B_" + k): POSE_B[k] = float(os.environ["B_" + k])
+    rig, h = bpy.data.objects["CorpoBase.rig"], bpy.data.objects["CorpoBase"]
+    body, game, sheet_game = bpy.data.objects["CorpoMesa"], bpy.data.objects["CorpoJogo"], bpy.data.objects["LencolJogo"]
+    for o in (rig, h): o.hide_set(False); o.hide_viewport = False
+    def evaluated():
+        deps = bpy.context.evaluated_depsgraph_get(); ev = h.evaluated_get(deps); me = ev.to_mesh()
+        pts = [h.matrix_world @ v.co for v in me.vertices]; ev.to_mesh_clear(); return pts
+    A = evaluated()
+    assert len(A) == len(body.data.vertices), (len(A), len(body.data.vertices))
+    bpy.context.view_layer.objects.active = rig; bpy.ops.object.mode_set(mode="POSE")
+    W = rig.matrix_world; up = (W.to_3x3().inverted() @ Vector((0, 0, 1))).normalized()
+    def world(n): return W @ head(rig, n)
+    def turn_out(bone, deg, probe):
+        """Rotate about the vertical through the bone head; deg > 0 moves `probe` north (+Y, away from the body),
+        deg < 0 south (toward the body)."""
+        pb = rig.pose.bones[bone]; pivot = head(rig, bone); y0 = world(probe).y; a = math.radians(abs(deg))
+        rotate_about(pb, Quaternion(up, a), pivot)
+        if (world(probe).y - y0) * deg < 0: rotate_about(pb, Quaternion(up, -2 * a), pivot)
+    turn_out("lowerarm_l", POSE_B["giro"], "hand_l")
+    turn_out("hand_l", POSE_B["mao"], "middle_01_l")
+    mid = world("middle_01_l")
+    for f, deg in POSE_B["dedos"]:
+        n = f + "_01_l"; pb = rig.pose.bones[n]; pivot = head(rig, n)
+        d0 = (W @ tail(rig, n) - world(n)).angle(W @ tail(rig, "middle_01_l") - mid)
+        rotate_about(pb, Quaternion(up, math.radians(deg)), pivot)
+        if (W @ tail(rig, n) - world(n)).angle(W @ tail(rig, "middle_01_l") - mid) < d0:
+            rotate_about(pb, Quaternion(up, -2 * math.radians(deg)), pivot)
+    bpy.ops.object.mode_set(mode="OBJECT")
+    B = evaluated()
+    disp = [b - a for a, b in zip(A, B)]
+    kd = KDTree(len(body.data.vertices))
+    for i, v in enumerate(body.data.vertices): kd.insert(v.co, i)
+    kd.balance()
+    g = game.copy(); g.data = game.data.copy(); g.name = "CorpoJogoB"; bpy.context.scene.collection.objects.link(g)
+    orig = {}
+    for v in g.data.vertices:
+        if v.co.y < .10: continue
+        d = disp[kd.find(v.co)[1]]
+        if d.length > 1e-5: orig[v.index] = v.co.copy(); v.co += d
+    # The tray is a shallow dish: rising toward the rim, the moved hand would sink a mm or two. Lift it out.
+    floor = mesa_floor_fn(load_table())
+    # Only the tray bottom counts (z < 0.93; the rim and gutter lip sit above the arm's outer edge in both poses),
+    # and only sinking beyond what the same vertex already had in pose A.
+    def below(c):
+        f = floor(c.x, c.y, c.z + .06)
+        return f - c.z if f is not None and f < .93 else 0.0
+    pen = max([0.0] + [below(g.data.vertices[i].co) - max(0.0, below(o)) for i, o in orig.items()])
+    if pen > 0:
+        for i, o in orig.items():
+            moved = (g.data.vertices[i].co - o).length
+            g.data.vertices[i].co.z += (pen + .0005) * min(1.0, moved / .01)
+    # Check: no moved vertex may end above the game sheet where the sheet covers it.
+    deps = bpy.context.evaluated_depsgraph_get(); ts = BVHTree.FromObject(sheet_game, deps)
+    poke = 0
+    for i, o in orig.items():
+        c = g.data.vertices[i].co; hit = ts.ray_cast(Vector((c.x, c.y, 1.6)), Vector((0, 0, -1)), 1.0)[0]
+        if hit is not None and o.z < hit.z and c.z > hit.z - .0005: poke += 1
+    sink = sum(1 for i, o in orig.items() if below(g.data.vertices[i].co) > max(0.0, below(o)) + .0005)
+    rep = {"movidos": len(orig), "desloc_max_m": round(max((g.data.vertices[i].co - o).length for i, o in orig.items()), 3),
+           "erguido_mm": round(pen * 1000, 2), "atravessa_lencol": poke, "abaixo_do_aco": sink,
+           "y_max_a": round(max(o.y for o in orig.values()), 3), "y_max_b": round(max(g.data.vertices[i].co.y for i in orig), 3)}
+    if os.environ.get("B_teste"): print("POSE_B", json.dumps(rep), flush=True); return
+    print("POSE_B", json.dumps(rep), flush=True)
+    # Export: same split and frame as export_game.
+    import bmesh
+    ns = {"__name__": "rexp", "__file__": ROOT + "/Blender/Recepcao/scripts/recepcao_modelo.py"}
+    exec(compile(open(ns["__file__"]).read(), ns["__file__"], "exec"), ns)
+    out = ROOT + "/Assets/Modelos/Autopsia/Corpo"
+    for name, hidden in (("CorpoOcupadoB", False), ("CorpoOcupadoOcultoB", True)):
+        c = g.copy(); c.data = g.data.copy(); c.name = name; bpy.context.scene.collection.objects.link(c)
+        bm = bmesh.new(); bm.from_mesh(c.data); lay = bm.faces.layers.bool.get("oculto")
+        bmesh.ops.delete(bm, geom=[f for f in bm.faces if f[lay] != hidden], context="FACES")
+        bm.to_mesh(c.data); bm.free()
+        ns["export_fbx"](c, out + "/" + name + ".fbx", keep_slots=False)
+        print("EXPORT_B", name, tris(c), flush=True)
+
+
 def main():
     if "base" in STEPS: base(); bpy.ops.wm.save_as_mainfile(filepath=BLEND)
     else: bpy.ops.wm.open_mainfile(filepath=BLEND)
@@ -875,6 +966,7 @@ def main():
     if "p08" in STEPS: p08(); bpy.ops.wm.save_as_mainfile(filepath=BLEND)
     if "exportar" in STEPS: export()
     if "exportar_jogo" in STEPS: export_game()
+    if "pose_b" in STEPS: pose_b()
     if "render" in STEPS or "maos" in STEPS or "detalhes" in STEPS or "comparar" in STEPS or "p08" in STEPS or "pele" in STEPS or "comlencol" in STEPS: render(); bpy.ops.wm.save_as_mainfile(filepath=BLEND)
 
 if __name__ == "__main__": main()
