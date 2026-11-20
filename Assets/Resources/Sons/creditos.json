@@ -1,0 +1,513 @@
+{
+ "licenca": "Sons do Freesound marcados como CC0 (domínio público): uso livre, sem atribuição obrigatória.",
+ "sons": {
+  "gravacoes_do_jose": {
+   "arquivos": [
+    "Passos/interno_01",
+    "Passos/interno_02",
+    "Passos/interno_03",
+    "Passos/interno_04",
+    "Passos/interno_05",
+    "Passos/interno_06",
+    "Passos/interno_07",
+    "Passos/interno_08",
+    "Passos/interno_09",
+    "Passos/interno_10",
+    "Passos/interno_11",
+    "Portas/comum_abrir_01",
+    "Portas/comum_fechou_01",
+    "Moveis/gaveta_mesa_abrir_01",
+    "Moveis/gaveta_mesa_abrir_02",
+    "Moveis/gaveta_mesa_abrir_03",
+    "Moveis/gaveta_mesa_abrir_04",
+    "Moveis/gaveta_mesa_abrir_05",
+    "Moveis/gaveta_mesa_abrir_06",
+    "Moveis/gaveta_mesa_fechar_01",
+    "Moveis/gaveta_mesa_fechar_02",
+    "Moveis/gaveta_mesa_fechar_03",
+    "Moveis/gaveta_mesa_fechar_04",
+    "Moveis/gaveta_mesa_fechar_05"
+   ]
+  },
+  "459964": {
+   "titulo": "Footsteps on concrete by florianreichelt",
+   "url": "https://freesound.org/people/florianreichelt/sounds/459964/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Passos/concreto_01",
+    "Passos/concreto_02",
+    "Passos/concreto_03",
+    "Passos/concreto_04",
+    "Passos/concreto_05",
+    "Passos/concreto_06",
+    "Passos/concreto_07",
+    "Passos/concreto_08",
+    "Passos/concreto_09",
+    "Passos/concreto_10"
+   ]
+  },
+  "539556": {
+   "titulo": "walking small street wet asphalt.wav by Federico_Casazza",
+   "url": "https://freesound.org/people/Federico_Casazza/sounds/539556/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Passos/asfalto_molhado_01",
+    "Passos/asfalto_molhado_02",
+    "Passos/asfalto_molhado_03",
+    "Passos/asfalto_molhado_04",
+    "Passos/asfalto_molhado_05",
+    "Passos/asfalto_molhado_06",
+    "Passos/asfalto_molhado_07",
+    "Passos/asfalto_molhado_08",
+    "Passos/asfalto_molhado_09",
+    "Passos/asfalto_molhado_10",
+    "Passos/asfalto_molhado_11",
+    "Passos/asfalto_molhado_12"
+   ]
+  },
+  "670305": {
+   "titulo": "steps on wet field.wav by bruno.auzet",
+   "url": "https://freesound.org/people/bruno.auzet/sounds/670305/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Passos/grama_molhada_01",
+    "Passos/grama_molhada_02",
+    "Passos/grama_molhada_03",
+    "Passos/grama_molhada_04",
+    "Passos/grama_molhada_05",
+    "Passos/grama_molhada_06",
+    "Passos/grama_molhada_07",
+    "Passos/grama_molhada_08",
+    "Passos/grama_molhada_09",
+    "Passos/grama_molhada_10",
+    "Passos/grama_molhada_11",
+    "Passos/grama_molhada_12"
+   ]
+  },
+  "698697": {
+   "titulo": "Footsteps on Metal by IENBA",
+   "url": "https://freesound.org/people/IENBA/sounds/698697/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Passos/metal_01",
+    "Passos/metal_02",
+    "Passos/metal_03",
+    "Passos/metal_04",
+    "Passos/metal_05",
+    "Passos/metal_06",
+    "Passos/metal_07"
+   ]
+  },
+  "349865": {
+   "titulo": "Footsteps on Tile by jtnewlin13",
+   "url": "https://freesound.org/people/jtnewlin13/sounds/349865/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Daniel/passos_01",
+    "Daniel/passos_02",
+    "Daniel/passos_03",
+    "Daniel/passos_04",
+    "Daniel/passos_05",
+    "Daniel/passos_06",
+    "Daniel/passos_07",
+    "Daniel/passos_08",
+    "Daniel/passos_09",
+    "Daniel/passos_corredor_01"
+   ]
+  },
+  "383830": {
+   "titulo": "Opening Closing Big Heavy Metal Exterior Door by deleted_user_7146007",
+   "url": "https://freesound.org/people/deleted_user_7146007/sounds/383830/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Portas/tecnica_abrir_01",
+    "Portas/tecnica_fechou_01"
+   ]
+  },
+  "814976": {
+   "titulo": "Closing large metal door-001 by AudioPapkin",
+   "url": "https://freesound.org/people/AudioPapkin/sounds/814976/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Portas/tecnica_fechou_02"
+   ]
+  },
+  "870662": {
+   "titulo": "Walk In Cooler Door Open and Close, Several by CHallSmith",
+   "url": "https://freesound.org/people/CHallSmith/sounds/870662/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Portas/frigorifica_abrir_01",
+    "Portas/frigorifica_abrir_02",
+    "Portas/frigorifica_abrir_03",
+    "Portas/frigorifica_fechou_01",
+    "Portas/frigorifica_fechou_02",
+    "Portas/frigorifica_fechou_03",
+    "Moveis/camara_porta_abrir_01",
+    "Moveis/camara_porta_abrir_02",
+    "Moveis/camara_porta_abrir_03"
+   ]
+  },
+  "736559": {
+   "titulo": "Opening Glass Door by Kraftaggregat",
+   "url": "https://freesound.org/people/Kraftaggregat/sounds/736559/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Portas/vidro_abrir_01",
+    "Portas/vidro_fechou_01"
+   ]
+  },
+  "125529": {
+   "titulo": "glass-door.wav by krissyeliot",
+   "url": "https://freesound.org/people/krissyeliot/sounds/125529/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Portas/vidro_fechou_02"
+   ]
+  },
+  "451932": {
+   "titulo": "swinging door in tight space +light electric hum.flac by kyles",
+   "url": "https://freesound.org/people/kyles/sounds/451932/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Portas/vaivem_abrir_01",
+    "Portas/vaivem_fechar_01"
+   ]
+  },
+  "390328": {
+   "titulo": "Door unlocking with keys by Lightnessko",
+   "url": "https://freesound.org/people/Lightnessko/sounds/390328/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Portas/destrancar_01"
+   ]
+  },
+  "391794": {
+   "titulo": "METAL SFX & FOLEY, Metal slide, clunk and clink (door bolt).wav by Alexbuk",
+   "url": "https://freesound.org/people/Alexbuk/sounds/391794/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Portas/ferrolho_01",
+    "Portas/ferrolho_02",
+    "Portas/ferrolho_03",
+    "Portas/ferrolho_04"
+   ]
+  },
+  "235473": {
+   "titulo": "Locked_Door_Handle_Rattle_multiple.wav by jcdecha",
+   "url": "https://freesound.org/people/jcdecha/sounds/235473/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Portas/trancada_01",
+    "Portas/trancada_02"
+   ]
+  },
+  "571797": {
+   "titulo": "Door slamming hard by NachtmahrTV",
+   "url": "https://freesound.org/people/NachtmahrTV/sounds/571797/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Portas/batida_forte_01"
+   ]
+  },
+  "581404": {
+   "titulo": "Filing Cabinet Drawer Open/Close by SamsterBirdies",
+   "url": "https://freesound.org/people/SamsterBirdies/sounds/581404/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Moveis/arquivo_abrir_01",
+    "Moveis/arquivo_abrir_02",
+    "Moveis/arquivo_fechar_01",
+    "Moveis/arquivo_fechar_02"
+   ]
+  },
+  "442370": {
+   "titulo": "squeaky metal locker open close.wav by toddcircle",
+   "url": "https://freesound.org/people/toddcircle/sounds/442370/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Moveis/locker_abrir_01",
+    "Moveis/locker_fechou_01",
+    "Daniel/esconderijo_entrar_01"
+   ]
+  },
+  "450792": {
+   "titulo": "door metal locker or shed close hard slam rattle solid nice.wav by kyles",
+   "url": "https://freesound.org/people/kyles/sounds/450792/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Moveis/locker_fechou_02",
+    "Moveis/locker_fechou_03",
+    "Moveis/locker_fechou_04"
+   ]
+  },
+  "513341": {
+   "titulo": "Wardrobe door1.wav by babuhr",
+   "url": "https://freesound.org/people/babuhr/sounds/513341/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Moveis/madeira_abrir_01",
+    "Moveis/madeira_fechou_01",
+    "Moveis/madeira_fechou_02"
+   ]
+  },
+  "149853": {
+   "titulo": "Freezer Door in Garage by Hitrison",
+   "url": "https://freesound.org/people/Hitrison/sounds/149853/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Moveis/camara_porta_fechou_01",
+    "Moveis/camara_porta_fechou_02",
+    "Moveis/camara_porta_fechou_03",
+    "Moveis/camara_porta_fechou_04",
+    "Moveis/camara_porta_fechou_05"
+   ]
+  },
+  "165110": {
+   "titulo": "Large Drawer.wav by EchoCinematics",
+   "url": "https://freesound.org/people/EchoCinematics/sounds/165110/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Moveis/maca_abrir_01",
+    "Moveis/maca_fechar_01",
+    "Moveis/maca_fechou_01"
+   ]
+  },
+  "708668": {
+   "titulo": "SFX MECHClik_INT_Inserting Charger Head_Group 29_OWSFX by Karla_Bezuidenhout",
+   "url": "https://freesound.org/people/Karla_Bezuidenhout/sounds/708668/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Objetos/cadeado_disco_01",
+    "Objetos/encaixe_01"
+   ]
+  },
+  "678254": {
+   "titulo": "Bank Vault Combination Lock Sound - V6 by Pixeliota",
+   "url": "https://freesound.org/people/Pixeliota/sounds/678254/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Objetos/cadeado_disco_02"
+   ]
+  },
+  "536414": {
+   "titulo": "Small Padlock Opening by Rudmer_Rotteveel",
+   "url": "https://freesound.org/people/Rudmer_Rotteveel/sounds/536414/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Objetos/cadeado_abrir_01"
+   ]
+  },
+  "642877": {
+   "titulo": "closet locked.ogg by Kneeling",
+   "url": "https://freesound.org/people/Kneeling/sounds/642877/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Objetos/cadeado_erro_01"
+   ]
+  },
+  "278205": {
+   "titulo": "Switch Flip #1 by IanStarGem",
+   "url": "https://freesound.org/people/IanStarGem/sounds/278205/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Objetos/registro_01"
+   ]
+  },
+  "405231": {
+   "titulo": "Sink_Water_Running.wav by NigelWright",
+   "url": "https://freesound.org/people/NigelWright/sounds/405231/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Objetos/agua_loop_01"
+   ]
+  },
+  "331897": {
+   "titulo": "Flushing the toilet by Huminaatio",
+   "url": "https://freesound.org/people/Huminaatio/sounds/331897/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Objetos/descarga_01"
+   ]
+  },
+  "267711": {
+   "titulo": "Picking Up Keys by WeeJee_vdH",
+   "url": "https://freesound.org/people/WeeJee_vdH/sounds/267711/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Objetos/pegar_chave_01"
+   ]
+  },
+  "556261": {
+   "titulo": "Foley_Object_Container_PickUp_Mono_NTG4.wav by Nox_Sound",
+   "url": "https://freesound.org/people/Nox_Sound/sounds/556261/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Objetos/pegar_objeto_01",
+    "Objetos/pegar_objeto_02",
+    "Daniel/gravador_pegar_01"
+   ]
+  },
+  "130152": {
+   "titulo": "Circuit Breaker 1 SP.wav by sribubba",
+   "url": "https://freesound.org/people/sribubba/sounds/130152/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Energia/disjuntor_01"
+   ]
+  },
+  "130153": {
+   "titulo": "Circuit Breaker 2 DP.wav by sribubba",
+   "url": "https://freesound.org/people/sribubba/sounds/130153/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Energia/disjuntor_02"
+   ]
+  },
+  "130154": {
+   "titulo": "Circuit Breaker 3 DP.wav by sribubba",
+   "url": "https://freesound.org/people/sribubba/sounds/130154/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Energia/disjuntor_03"
+   ]
+  },
+  "400194": {
+   "titulo": "power cut by ninjatrappeur",
+   "url": "https://freesound.org/people/ninjatrappeur/sounds/400194/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Energia/desarme_01"
+   ]
+  },
+  "636578": {
+   "titulo": "Cutting Power by swag1773",
+   "url": "https://freesound.org/people/swag1773/sounds/636578/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Energia/apagao_01"
+   ]
+  },
+  "788042": {
+   "titulo": "Switches Key Turn by kamgam",
+   "url": "https://freesound.org/people/kamgam/sounds/788042/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Energia/chave_01"
+   ]
+  },
+  "419023": {
+   "titulo": "acess denied buzz by Jacco18",
+   "url": "https://freesound.org/people/Jacco18/sounds/419023/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Energia/recusado_01"
+   ]
+  },
+  "119910": {
+   "titulo": "Fluorescent Lightbulb Hum.aif by ftpalad",
+   "url": "https://freesound.org/people/ftpalad/sounds/119910/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Energia/zumbido_loop_01"
+   ]
+  },
+  "370935": {
+   "titulo": "Fridge Compressor Hum by Kinoton",
+   "url": "https://freesound.org/people/Kinoton/sounds/370935/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Energia/compressor_loop_01"
+   ]
+  },
+  "760369": {
+   "titulo": "Message Receive by Froey_",
+   "url": "https://freesound.org/people/Froey_/sounds/760369/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Celular/mensagem_01"
+   ]
+  },
+  "760370": {
+   "titulo": "Message Sent by Froey_",
+   "url": "https://freesound.org/people/Froey_/sounds/760370/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Celular/enviado_01"
+   ]
+  },
+  "476804": {
+   "titulo": "Clothing: Rustling 2 (Phone out of Pocket) by Sheyvan",
+   "url": "https://freesound.org/people/Sheyvan/sounds/476804/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Celular/puxar_01",
+    "Celular/guardar_01"
+   ]
+  },
+  "187335": {
+   "titulo": "Flashlight Clicking On.wav by baidonovan",
+   "url": "https://freesound.org/people/baidonovan/sounds/187335/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Celular/lanterna_01"
+   ]
+  },
+  "431588": {
+   "titulo": "iPhone Camera Capture.wav by pooky1",
+   "url": "https://freesound.org/people/pooky1/sounds/431588/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Celular/obturador_01"
+   ]
+  },
+  "330635": {
+   "titulo": "Padlock Chain Lock Unlock by leonelmail",
+   "url": "https://freesound.org/people/leonelmail/sounds/330635/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Daniel/corrente_01"
+   ]
+  },
+  "734641": {
+   "titulo": "Lock - strong door by Vrymaa",
+   "url": "https://freesound.org/people/Vrymaa/sounds/734641/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Daniel/trava_01"
+   ]
+  },
+  "637481": {
+   "titulo": "door metal locker gate grill open.flac by kyles",
+   "url": "https://freesound.org/people/kyles/sounds/637481/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Daniel/esconderijo_sair_01"
+   ]
+  },
+  "125400": {
+   "titulo": "Digital Data Beeps.aif by jasonLON",
+   "url": "https://freesound.org/people/jasonLON/sounds/125400/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Daniel/copia_loop_01"
+   ]
+  },
+  "415762": {
+   "titulo": "Notification Correct by TheBuilder15",
+   "url": "https://freesound.org/people/TheBuilder15/sounds/415762/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Daniel/copia_pronto_01"
+   ]
+  },
+  "879279": {
+   "titulo": "Horror Sting by Qvantor",
+   "url": "https://freesound.org/people/Qvantor/sounds/879279/",
+   "licenca": "CC0",
+   "arquivos": [
+    "Daniel/captura_01"
+   ]
+  }
+ }
+}

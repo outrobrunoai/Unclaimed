@@ -88,6 +88,7 @@ public class FolhaDePorta : AlvoDeInteracao, ISalvavel
     [Tooltip("Quando chega ao ângulo fechado (batida).")] public AudioClip somFechou;
     [Tooltip("Quando para contra um obstáculo.")] public AudioClip somBloqueio;
     [Tooltip("Ao destrancar com a chave.")] public AudioClip somDestrancar;
+    [Tooltip("Ao tentar abrir trancada, sem a chave (maçaneta sacudindo).")] public AudioClip somTrancada;
 
     [Header("Eventos")]
     public UnityEvent aoComecarAbrir;
@@ -118,7 +119,7 @@ public class FolhaDePorta : AlvoDeInteracao, ISalvavel
     public override void Interagir()
     {
         if (!trancada) { Alternar(); return; }
-        if (!Chaveiro.Tem(chaveNecessaria)) { MiraDeInteracao.Avisar(avisoSemChave, 1.5f); return; }
+        if (!Chaveiro.Tem(chaveNecessaria)) { Tocar(somTrancada); MiraDeInteracao.Avisar(avisoSemChave, 1.5f); return; }
         trancada = false;   // a chave fica com o jogador; a porta continua destrancada nesta sessão
         Tocar(somDestrancar);
         MiraDeInteracao.Avisar(avisoDestrancada);
@@ -240,7 +241,7 @@ public class FolhaDePorta : AlvoDeInteracao, ISalvavel
         {
             movendo = false;
             if (destino <= 0f) { Tocar(somFechou); aoFecharTotalmente?.Invoke(); }
-            else aoAbrirTotalmente?.Invoke();
+            else { Esvair(somAbrir); aoAbrirTotalmente?.Invoke(); }   // abriu: o som não continua com a folha parada
         }
     }
 
@@ -385,9 +386,35 @@ public class FolhaDePorta : AlvoDeInteracao, ISalvavel
     void Tocar(AudioClip clip)
     {
         if (fonte == null || clip == null) return;
+        if (esvaindo != null) { StopCoroutine(esvaindo); esvaindo = null; fonte.volume = volumeDaFonte; }
         fonte.Stop();   // um som por vez: interações repetidas não empilham
         fonte.clip = clip;
         fonte.Play();
+    }
+
+    [Tooltip("Ao terminar de abrir, o som de abrir que ainda estiver tocando some neste tempo (s).")]
+    [Min(0f)] public float esvairAoParar = 0.18f;
+    Coroutine esvaindo;
+    float volumeDaFonte = 1f;
+
+    /// <summary>Some com o som em curso (se ainda for este clipe) em vez de deixá-lo tocar com a folha parada.</summary>
+    void Esvair(AudioClip clip)
+    {
+        if (fonte == null || clip == null || fonte.clip != clip || !fonte.isPlaying || !isActiveAndEnabled || esvaindo != null) return;
+        volumeDaFonte = fonte.volume;
+        esvaindo = StartCoroutine(EsvairAgora());
+    }
+
+    System.Collections.IEnumerator EsvairAgora()
+    {
+        for (float t = 0f; t < esvairAoParar; t += Time.unscaledDeltaTime)
+        {
+            fonte.volume = volumeDaFonte * (1f - t / esvairAoParar);
+            yield return null;
+        }
+        fonte.Stop();
+        fonte.volume = volumeDaFonte;
+        esvaindo = null;
     }
 
     void OnValidate()

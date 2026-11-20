@@ -187,6 +187,7 @@ public class PecaDeMovel : AlvoDeInteracao, ISalvavel
         {
             movendo = false;
             if (destino <= 0f) Tocar(somFechou);
+            else Esvair(somAbrir);   // abriu: o rangido não continua depois que a peça parou
         }
     }
 
@@ -253,8 +254,35 @@ public class PecaDeMovel : AlvoDeInteracao, ISalvavel
     void Tocar(AudioClip clip)
     {
         if (fonte == null || clip == null) return;
+        if (esvaindo != null) { StopCoroutine(esvaindo); esvaindo = null; fonte.volume = volumeDaFonte; }
         fonte.Stop();   // um som por vez: interações repetidas não empilham
         fonte.clip = clip;
         fonte.Play();
+    }
+
+    [Tooltip("Ao terminar de abrir, o som de abrir que ainda estiver tocando some neste tempo (s).")]
+    [Min(0f)] public float esvairAoParar = 0.12f;
+    Coroutine esvaindo;
+    float volumeDaFonte = 1f;
+
+    /// <summary>Some com o som em curso (se ainda for este clipe) em vez de deixá-lo tocar com a peça parada.</summary>
+    void Esvair(AudioClip clip)
+    {
+        if (fonte == null || clip == null || fonte.clip != clip || !fonte.isPlaying || !isActiveAndEnabled) return;
+        if (esvaindo != null) return;
+        volumeDaFonte = fonte.volume;
+        esvaindo = StartCoroutine(EsvairAgora());
+    }
+
+    System.Collections.IEnumerator EsvairAgora()
+    {
+        for (float t = 0f; t < esvairAoParar; t += Time.unscaledDeltaTime)
+        {
+            fonte.volume = volumeDaFonte * (1f - t / esvairAoParar);
+            yield return null;
+        }
+        fonte.Stop();
+        fonte.volume = volumeDaFonte;
+        esvaindo = null;
     }
 }

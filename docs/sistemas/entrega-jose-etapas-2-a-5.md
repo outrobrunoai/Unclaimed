@@ -104,6 +104,24 @@ Também: prefab `Trava de seguranca` do lado de dentro da câmara fria, perto da
 
 CP01 ao pegar a chave da circulação; CP02 em `con:troca`; CP03 ao ler D09; CP04 ao pegar o gravador. A captura volta ao último.
 
+## Sons
+
+O `SonsDoMapa` se instala sozinho no Play e, a cada cena carregada, preenche os campos de som **vazios** dos
+componentes do mapa. Não precisa mexer em prefab nem em cena; som posto à mão no Inspector tem prioridade.
+
+- Arquivos: `Assets/Resources/Sons/<pasta>/<slot>_NN.wav`. Para trocar um som, substitua o .wav; para ter mais
+  variações, acrescente outro número com o mesmo prefixo (ex.: `tecnica_fechou_03.wav`).
+- Origem: gravações próprias (passos internos, porta comum, gaveta da mesa) e sons CC0 do Freesound, com autor e
+  link em `Assets/Resources/Sons/creditos.json`. Os cortes saem de `Blender/Sistemas/Sons/montar_sons.py`.
+- O tipo de porta vem do nome do prefab: vidro, frigorífica, técnica, vai e vem (clínica/serviço dupla) e comum.
+  Os móveis seguem a mesma ideia: arquivo de aço, armário de pertences, câmara mortuária (portinha e maca),
+  portinhas de madeira e gavetas de mesa.
+- Passos: o piso interno é o padrão. Asfalto/calçada, grama e concreto/metal usam o nome do material do chão.
+- Energia: zumbido nas luzes do circuito geral (apaga junto), compressor na câmara mortuária (circuito de
+  refrigeração) e o som de queda quando a luz geral cai.
+- Daniel: nos `PontoDeAcao` de presença sem torneira ou descarga tocam passos no corredor (ou a batida forte, se
+  tiver porta); trancar porta = ferrolho; câmara fria = trava; corrente = corrente com cadeado.
+
 ## Pendências (precisam de decisão ou do outro lado)
 
 - Encenação da mesa (lençol que respira quando o jogador não olha) é do Bruno.

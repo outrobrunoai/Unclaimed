@@ -73,16 +73,23 @@ public class Torneira : AlvoDeInteracao
         }
         if (espuma != null) { materialEspuma = espuma.material; espuma.enabled = false; }
         if (respingos != null) { var e = respingos.emission; e.enabled = false; }
-        if (somAgua != null)
+        GarantirFonteDeAgua();
+    }
+
+    /// <summary>Cria a fonte da água em loop (também quando o som é posto depois do Awake, pelo SonsDoMapa).</summary>
+    void GarantirFonteDeAgua()
+    {
+        if (somAgua == null) return;
+        if (fonteAgua == null)
         {
             fonteAgua = gameObject.AddComponent<AudioSource>();
-            fonteAgua.clip = somAgua;
             fonteAgua.loop = true;
             fonteAgua.playOnAwake = false;
             fonteAgua.spatialBlend = 1f;
             fonteAgua.minDistance = 0.5f;
             fonteAgua.maxDistance = 8f;
         }
+        fonteAgua.clip = somAgua;
     }
 
     void PrepararTrajetoria()
@@ -105,6 +112,7 @@ public class Torneira : AlvoDeInteracao
             fluxoVisivel = true;
             inicio = fim = 0f;
             tempoInicio = tempoFim = 0f;
+            GarantirFonteDeAgua();
             if (fonteAgua != null) fonteAgua.Play();
         }
         else
