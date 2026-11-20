@@ -1,0 +1,15 @@
+{
+  "porta": "Porta do recebimento (pátio) · leitor LC-02 · sensor de presença SP-02",
+  "aviso": "Entradas e saídas registradas automaticamente pelo leitor de crachá. Depois das 22h30, toda retirada precisa ser conferida por um funcionário do necrotério.",
+  "registros": [
+    { "data": "18/11/2026", "hora": "07:02", "cracha": "NC-03", "nome": "Mauro Nunes", "empresa": "Necrotério", "evento": "Entrada" },
+    { "data": "18/11/2026", "hora": "07:10", "cracha": "NC-07", "nome": "Nina Rocha", "empresa": "Necrotério", "evento": "Entrada" },
+    { "data": "18/11/2026", "hora": "13:45", "cracha": "LV-04", "nome": "Transporte Limiar", "empresa": "Limiar", "evento": "Entrada" },
+    { "data": "18/11/2026", "hora": "14:02", "cracha": "LV-04", "nome": "Transporte Limiar", "empresa": "Limiar", "evento": "Saída" },
+    { "data": "18/11/2026", "hora": "21:46", "cracha": "LV-09", "nome": "Transporte Limiar", "empresa": "Limiar", "evento": "Entrada" },
+    { "data": "18/11/2026", "hora": "21:58", "cracha": "LV-09", "nome": "Transporte Limiar", "empresa": "Limiar", "evento": "Saída" },
+    { "data": "18/11/2026", "hora": "22:33", "cracha": "NC-07", "nome": "Nina Rocha", "empresa": "Necrotério", "evento": "Saída" },
+    { "data": "18/11/2026", "hora": "22:35", "cracha": "NC-03", "nome": "Mauro Nunes", "empresa": "Necrotério", "evento": "Saída" },
+    { "data": "18/11/2026", "hora": "23:04", "cracha": "LV-12", "nome": "Daniel Vilar", "empresa": "Limiar", "evento": "Entrada" }
+  ]
+}

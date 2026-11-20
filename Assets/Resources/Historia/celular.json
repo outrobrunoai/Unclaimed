@@ -1,0 +1,35 @@
+{
+  "contatos": [
+    { "id": "celso", "nome": "Celso (vigia)" },
+    { "id": "redacao", "nome": "Redação — Marta" },
+    { "id": "irene", "nome": "Irene" }
+  ],
+  "mensagens": [
+    { "id": "celso_01", "contato": "celso", "de": "celso", "texto": "Deixei a recepção aberta pra você. Faço a ronda entre os prédios até as três. Não mexe em nada que eu tenha que explicar depois.", "quando": "" },
+    { "id": "redacao_01", "contato": "redacao", "de": "redacao", "texto": "Tudo que achar, fotografa e manda. Com essa chuva, o Celso disse que só pega sinal na recepção e no pátio.", "quando": "" },
+    { "id": "celso_02", "contato": "celso", "de": "celso", "texto": "Viu o quadro do recebimento? O Mauro tirou o 083 da gaveta antes de ir embora. Deve estar na autópsia.", "quando": "ev:D02" },
+    { "id": "celso_03", "contato": "celso", "de": "celso", "texto": "Escutei uma porta batendo aí dentro pelo rádio da guarita. Você tá sozinho, né?", "quando": "daniel_saiu" },
+    { "id": "celso_04", "contato": "celso", "de": "celso", "texto": "Caiu a luz? Daqui o prédio tá todo escuro. Tem fusível reserva no depósito, na prateleira de manutenção.", "quando": "apagao" },
+    { "id": "celso_05", "contato": "celso", "de": "celso", "texto": "Alguém passou corrente na porta da frente. Não fui eu. Se precisar sair, vai pelos fundos, pelo pátio.", "quando": "corrente" },
+    { "id": "redacao_02", "contato": "redacao", "de": "redacao", "texto": "Chegou. Continua, mas não fica aí mais do que precisa.", "quando": "enviou_algo" },
+    { "id": "redacao_03", "contato": "redacao", "de": "redacao", "texto": "Se ele vendeu o corpo da Vera, a gente precisa da gravação. Sem ela é a palavra de um morto contra a dele.", "quando": "con:venda" },
+    { "id": "redacao_04", "contato": "redacao", "de": "redacao", "texto": "Recebemos o áudio. Ouvi duas vezes. Sai daí agora.", "quando": "env:D13" },
+    { "id": "eu_ajuda", "contato": "redacao", "de": "eu", "texto": "Tem mais alguém aqui dentro. Chama alguém.", "quando": "ajuda_pedida" },
+    { "id": "redacao_ajuda", "contato": "redacao", "de": "redacao", "texto": "Liguei pra polícia. Com essa chuva disseram uns quarenta minutos. Se puder sair, sai.", "quando": "ajuda_pedida" },
+    { "id": "irene_01", "contato": "irene", "de": "irene", "texto": "A Nina me passou este número. Se for sobre o 041, me fala antes de falar com o jornal. Eu preciso falar com a mãe dele primeiro.", "quando": "ev:H06" },
+    { "id": "eu_samuel_irene", "contato": "irene", "de": "eu", "texto": "Samuel Reis está no cemitério Santa Amélia, setor C, registro 12.", "quando": "samuel:irene" },
+    { "id": "irene_02", "contato": "irene", "de": "irene", "texto": "Agora eu sei onde levar as flores.", "quando": "samuel:irene" },
+    { "id": "eu_samuel_jornal", "contato": "redacao", "de": "eu", "texto": "O corpo 041 é de Samuel Reis. Santa Amélia, setor C, registro 12. A chefe mandou enterrar mesmo com o pedido da Irene.", "quando": "samuel:jornal" },
+    { "id": "redacao_samuel", "contato": "redacao", "de": "redacao", "texto": "Uma Irene ligou pra cá pedindo pra gente esperar antes de publicar o caso do Samuel.", "quando": "samuel:jornal" }
+  ],
+  "respostas": [
+    { "id": "resp_ajuda", "contato": "redacao", "rotulo": "Pedir ajuda", "texto": "", "quando": "daniel_saiu", "naoSe": "", "marca": "ajuda_pedida", "grupo": "" },
+    { "id": "resp_samuel_irene", "contato": "irene", "rotulo": "Contar onde Samuel está", "texto": "", "quando": "con:samuel", "naoSe": "", "marca": "samuel:irene", "grupo": "samuel" },
+    { "id": "resp_samuel_jornal", "contato": "redacao", "rotulo": "Mandar o caso de Samuel", "texto": "", "quando": "con:samuel", "naoSe": "", "marca": "samuel:jornal", "grupo": "samuel" }
+  ],
+  "envio": {
+    "provasDa784": [ "D11", "D12", "D13", "D15" ],
+    "segundosPorDocumento": 5,
+    "segundosPorAudio": 25
+  }
+}

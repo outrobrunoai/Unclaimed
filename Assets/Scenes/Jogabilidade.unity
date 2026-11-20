@@ -256,6 +256,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1821500671}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &236622841
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5729383555343059802, guid: 669b8786878d050468eaa518940c3b27, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.375
+      objectReference: {fileID: 0}
+    - target: {fileID: 5729383555343059802, guid: 669b8786878d050468eaa518940c3b27, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -49
+      objectReference: {fileID: 0}
+    - target: {fileID: 5729383555343059802, guid: 669b8786878d050468eaa518940c3b27, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5729383555343059802, guid: 669b8786878d050468eaa518940c3b27, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5729383555343059802, guid: 669b8786878d050468eaa518940c3b27, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5729383555343059802, guid: 669b8786878d050468eaa518940c3b27, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5729383555343059802, guid: 669b8786878d050468eaa518940c3b27, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5729383555343059802, guid: 669b8786878d050468eaa518940c3b27, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5729383555343059802, guid: 669b8786878d050468eaa518940c3b27, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5729383555343059802, guid: 669b8786878d050468eaa518940c3b27, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6100474470925383944, guid: 669b8786878d050468eaa518940c3b27, type: 3}
+      propertyPath: m_Name
+      value: Daniel (provisorio)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 669b8786878d050468eaa518940c3b27, type: 3}
 --- !u!1 &306459288
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +410,92 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &900340468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 900340472}
+  - component: {fileID: 900340471}
+  - component: {fileID: 900340470}
+  - component: {fileID: 900340469}
+  m_Layer: 0
+  m_Name: Sistemas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &900340469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900340468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbbf07176b79f2845b80a5b6107055f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Confronto
+  pontoDeAparicao: Arquivo/Porta
+  espera: 25
+  esperaDepoisDeOuvir: 2
+  fala: Deixa o gravador. Pode ir.
+  esperaAntesDaCaca: 1.2
+--- !u!114 &900340470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900340468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b03b85117997c44e976f12d873eb65b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiretorDeDaniel
+  salaMesa: Autopsia
+  salaCamaraFria: CamaraFria
+  salaTecnica: Tecnica
+  alvoMesa: mesa_autopsia
+  pontoTorneiraMesa: Autopsia/Torneira
+  escalaDosIntervalos: 1
+  folgaDepoisDeLer: 4
+  esperaDoBraco: 6
+  esperaDaArmadilha: 3
+  depurar: 0
+--- !u!114 &900340471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900340468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd969d898fd94514da7b7eb79aff2c81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SistemasDaNoite
+  salvarCheckpoints: 1
+--- !u!4 &900340472
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900340468}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1797626154
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,6 +578,9 @@ GameObject:
   - component: {fileID: 1821500670}
   - component: {fileID: 1821500669}
   - component: {fileID: 1821500668}
+  - component: {fileID: 1821500675}
+  - component: {fileID: 1821500673}
+  - component: {fileID: 1821500672}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -489,6 +635,7 @@ MonoBehaviour:
   olhar: {x: 0, y: 0}
   velocidadeJogador: 2.3
   sensibilidadeMouse: 5
+  velocidadeCorrida: 6.2
   velocidadeAgachado: 1.15
   alturaAgachado: 1
   velocidadeTransicao: 10
@@ -541,6 +688,72 @@ Transform:
   - {fileID: 43220424}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1821500672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821500667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e182e0ce236e42e4bad9892da8285030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OuvirGravador
+  tecla: G
+  audioDaGravacao: {fileID: 0}
+  fonte: {fileID: 0}
+  idEvidencia: D13
+--- !u!114 &1821500673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821500667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf666ba2b4cf4304d9b073f8abd248a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Celular
+  tecla: T
+  teclaFoto: F
+  teclaApps: Q
+  prefabNaMao: {fileID: 2264394796992048820, guid: 320825267312e114c93c437d4bdeec11, type: 3}
+  fonte: {fileID: 0}
+  somMensagem: {fileID: 0}
+  somEnviado: {fileID: 0}
+  somPuxar: {fileID: 0}
+  somGuardar: {fileID: 0}
+  teclaLanterna: L
+  intensidadeLanterna: 4
+  alcanceLanterna: 14
+  anguloLanterna: 60
+  anguloInternoLanterna: 30
+  corLanterna: {r: 1, g: 0.96, b: 0.88, a: 1}
+  sombrasLanterna: 2
+  cookieLanterna: {fileID: 0}
+  somLanterna: {fileID: 0}
+--- !u!114 &1821500675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821500667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8086978921bc8e46a385882228e604a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFotografica
+  flash: {fileID: 0}
+  intensidade: 9
+  alcance: 14
+  duracao: 0.18
+  recarga: 3
+  fonte: {fileID: 0}
+  somDisparo: {fileID: 0}
+  somRecarregado: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -549,3 +762,5 @@ SceneRoots:
   - {fileID: 853382226}
   - {fileID: 1797626156}
   - {fileID: 306459290}
+  - {fileID: 900340472}
+  - {fileID: 236622841}

@@ -47,7 +47,7 @@ public partial class ComputadorRecepcao : InterfaceDeTela
 
     // ------------------------------------------------------------------ janelas
 
-    public enum App { Correio, Arquivos, Leitor, Notas, Imagens, Agenda, Sobre }
+    public enum App { Correio, Arquivos, Leitor, Notas, Imagens, Agenda, Sobre, Acesso }
 
     public class Janela
     {
@@ -93,6 +93,7 @@ public partial class ComputadorRecepcao : InterfaceDeTela
         J(App.Imagens, 470, 120, 940, 660, "imagem");
         J(App.Agenda, 380, 130, 900, 600, "agenda");
         J(App.Sobre, 0, 0, 540, 420, "estacao");
+        J(App.Acesso, 300, 90, 1000, 640, "estacao");
     }
 
     /// <summary>Minutos desde 00:00 do dia da sessão, andando com o tempo de jogo.</summary>
@@ -170,6 +171,7 @@ public partial class ComputadorRecepcao : InterfaceDeTela
     {
         Carregar();
         var j = janelas[a];
+        if (a == App.Acesso) AoAbrirAcesso();
         if (!j.aberta)
         {
             j.aberta = true;
@@ -333,6 +335,7 @@ public partial class ComputadorRecepcao : InterfaceDeTela
     static readonly (App app, string icone, string rotulo)[] IconesDaArea =
     {
         (App.Correio, "correio", "Correio"), (App.Arquivos, "pasta", "Arquivos"), (App.Notas, "nota", "Notas"), (App.Agenda, "agenda", "Agenda"),
+        (App.Acesso, "estacao", "Controle de acesso"),
     };
 
     void AreaDeTrabalho()
@@ -441,6 +444,7 @@ public partial class ComputadorRecepcao : InterfaceDeTela
             case App.Notas: return (notaAtual != null ? notaAtual.nome + " — " : "") + "Notas";
             case App.Imagens: return (imagemAtual != null ? imagemAtual.nome + " — " : "") + "Imagens";
             case App.Agenda: return "Agenda — recepção";
+            case App.Acesso: return "Controle de acesso — porta do recebimento";
             default: return "Sobre esta estação";
         }
     }
@@ -456,6 +460,7 @@ public partial class ComputadorRecepcao : InterfaceDeTela
             case App.Imagens: AppImagens(w, h); break;
             case App.Agenda: AppAgenda(w, h); break;
             case App.Sobre: AppSobre(w, h); break;
+            case App.Acesso: AppAcesso(w, h); break;
         }
     }
 
@@ -527,6 +532,7 @@ public partial class ComputadorRecepcao : InterfaceDeTela
             case App.Notas: return notaAtual != null ? notaAtual.nome : "Notas";
             case App.Imagens: return imagemAtual != null ? imagemAtual.nome : "Imagens";
             case App.Agenda: return "Agenda";
+            case App.Acesso: return "Controle de acesso";
             default: return "Sobre esta estação";
         }
     }
@@ -534,7 +540,7 @@ public partial class ComputadorRecepcao : InterfaceDeTela
     static readonly (App? app, string icone, string rotulo)[] ItensDoMenu =
     {
         (App.Correio, "correio", "Correio"), (App.Arquivos, "pasta", "Arquivos"), (App.Notas, "nota", "Notas"), (App.Agenda, "agenda", "Agenda"),
-        (null, null, null), (App.Sobre, "estacao", "Sobre esta estação"),
+        (App.Acesso, "estacao", "Controle de acesso"), (null, null, null), (App.Sobre, "estacao", "Sobre esta estação"),
     };
 
     Rect RetanguloMenu()

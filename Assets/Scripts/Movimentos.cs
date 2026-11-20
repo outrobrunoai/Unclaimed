@@ -13,6 +13,8 @@ public class Movimento : MonoBehaviour
     [Header("Configurações de Movimento")]
     [SerializeField] private float velocidadeJogador = 4f;
     [SerializeField] private float sensibilidadeMouse = 5f;
+    [Tooltip("Velocidade com Shift (só em pé). Correr faz barulho: Daniel ouve de longe.")]
+    [SerializeField] private float velocidadeCorrida = 6.2f;
 
     [Header("Configurações de Agachar")]
     [SerializeField] private float velocidadeAgachado = 2f;
@@ -87,6 +89,10 @@ public class Movimento : MonoBehaviour
 
     public float Inclinacao => rotacaoVertical;
     public bool Agachado => estaAgachado;
+    /// <summary>Celular na mão com o cursor solto: o jogador anda, mas o mouse mexe na tela do celular (o olhar fica parado).</summary>
+    public bool ComCelularNaMao { get; set; }
+    /// <summary>Shift segurado, em pé e andando.</summary>
+    public bool Correndo { get; private set; }
 
     /// <summary>Coloca o jogador numa pose salva, sem animação (Salvamento ao continuar o jogo).</summary>
     public void Teleportar(Vector3 posicao, float giro, float inclinacao, bool agachado)
@@ -130,7 +136,7 @@ public class Movimento : MonoBehaviour
 
     void Update()
     {
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        if (!ComCelularNaMao && Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -138,7 +144,7 @@ public class Movimento : MonoBehaviour
 
         // Esc é do MenuPausa: ele solta o cursor e desliga este componente enquanto o jogo está pausado.
 
-        if (Cursor.lockState != CursorLockMode.Locked)
+        if (Cursor.lockState != CursorLockMode.Locked && !ComCelularNaMao)
             return;
 
         // --- SISTEMA TOGGLE DIRETO NO UPDATE ---
@@ -156,6 +162,7 @@ public class Movimento : MonoBehaviour
         // 1. Rotação da Câmera e do Personagem (Olhar)
         // O mouse já entrega o deslocamento do quadro: multiplicar por deltaTime fazia um quadro lento girar a
         // câmera pelo quadrado da duração (o "teleporte" num engasgo). Analógico é velocidade: esse usa deltaTime.
+        if (ComCelularNaMao) olhar = Vector2.zero;   // o mouse está no celular
         InputControl controleOlhar = acaoOlhar?.activeControl;
         bool analogico = controleOlhar != null && !(controleOlhar.device is Pointer);
         float escalaOlhar = sensibilidadeMouse * Configuracoes.Sensibilidade * (analogico ? Time.deltaTime : PassoDeReferencia);
@@ -173,7 +180,9 @@ public class Movimento : MonoBehaviour
         }
 
         // 3. Movimentação Horizontal
-        float velocidadeAtual = estaAgachado ? velocidadeAgachado : velocidadeJogador;
+        bool shift = Keyboard.current != null && Keyboard.current.leftShiftKey.isPressed;
+        Correndo = shift && !estaAgachado && entradasJogador.sqrMagnitude > 0.01f;
+        float velocidadeAtual = estaAgachado ? velocidadeAgachado : Correndo ? velocidadeCorrida : velocidadeJogador;
 
         Vector3 posicaoAntes = transform.position;
         Vector3 direcaoMovimento = transform.right * entradasJogador.x + transform.forward * entradasJogador.y;

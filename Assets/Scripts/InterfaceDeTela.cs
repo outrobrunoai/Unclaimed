@@ -20,6 +20,9 @@ public abstract class InterfaceDeTela : AlvoDeInteracao
 
     public bool EstaAberta => Aberta == this;
 
+    /// <summary>Falso para telas que deixam o jogador andar (o celular): ele só perde o olhar enquanto o cursor está solto.</summary>
+    protected virtual bool TravaOJogador => true;
+
     /// <summary>Escala da interface: 1 em 1080p, 1,33 em 1440p (medidas pensadas em pixels de 1080p).</summary>
     protected static float Escala => Mathf.Max(0.5f, Screen.height / 1080f);
 
@@ -37,7 +40,7 @@ public abstract class InterfaceDeTela : AlvoDeInteracao
         Aberta = this;
         pedidoFechar = false;
         desativados.Clear();
-        foreach (var mov in FindObjectsByType<Movimento>())
+        foreach (var mov in TravaOJogador ? FindObjectsByType<Movimento>() : new Movimento[0])
         {
             if (!mov.enabled) continue;
             mov.enabled = false;   // movimento, olhar e o Esc/clique que travam e soltam o cursor

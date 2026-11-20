@@ -1,0 +1,12 @@
+{
+  "titulo": "Gravação de Léo — 18/11, 19h12",
+  "falas": [
+    { "inicio": 0.5, "fim": 4.5, "voz": "Voz 1", "texto": "O corpo da Vera Moura nunca chegou, Daniel. A filha dela ligou de novo hoje." },
+    { "inicio": 5.0, "fim": 8.0, "voz": "Voz 2", "texto": "Você não devia estar mexendo nisso." },
+    { "inicio": 8.5, "fim": 12.5, "voz": "Voz 1", "texto": "O recibo diz entregue. O cemitério diz que nunca recebeu. Quem assinou foi você." },
+    { "inicio": 13.0, "fim": 18.5, "voz": "Voz 2", "texto": "Ninguém reclama esses corpos, Léo. Ninguém. E tem gente que paga por eles. Paga bem." },
+    { "inicio": 19.0, "fim": 22.0, "voz": "Voz 2", "texto": "A Vera foi um erro. Não vai acontecer de novo." },
+    { "inicio": 22.5, "fim": 26.0, "voz": "Voz 1", "texto": "Transporte 784. Está tudo anotado, Daniel." },
+    { "inicio": 26.5, "fim": 29.0, "voz": "", "texto": "(passos; a gravação para)" }
+  ]
+}
