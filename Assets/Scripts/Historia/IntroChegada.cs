@@ -69,8 +69,8 @@ public class IntroChegada : MonoBehaviour
         while ((movimento == null || celular == null) && espera < EsperaMaximaCena)
         {
             if (!DeveTocar()) yield break;
-            if (movimento == null) movimento = FindFirstObjectByType<Movimento>();
-            if (celular == null) celular = FindFirstObjectByType<Celular>();
+            if (movimento == null) movimento = FindAnyObjectByType<Movimento>();
+            if (celular == null) celular = FindAnyObjectByType<Celular>();
             if (movimento != null && celular != null) break;
             espera += Time.unscaledDeltaTime;
             yield return null;

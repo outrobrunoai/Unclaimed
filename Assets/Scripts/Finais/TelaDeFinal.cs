@@ -38,6 +38,7 @@ public class TelaDeFinal : MonoBehaviour
     float[] inicioParagrafo;
     bool[] completo;
     bool autoRolar;
+    Movimento[] movimentos;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void Reiniciar() => instancia = null;
@@ -79,7 +80,8 @@ public class TelaDeFinal : MonoBehaviour
         float inicioPrimeiro = instancia.inicioConteudo + (temSub ? 1.4f : 1.1f);
         instancia.proximoInicio = qtd > 0 ? inicioPrimeiro : float.PositiveInfinity;
         instancia.inicioBotoes = qtd == 0 ? inicioPrimeiro : float.PositiveInfinity;
-        foreach (Movimento m in FindObjectsByType<Movimento>()) m.enabled = false;
+        instancia.movimentos = FindObjectsByType<Movimento>();
+        for (int i = 0; i < instancia.movimentos.Length; i++) instancia.movimentos[i].enabled = false;
         Time.timeScale = 0f;
         AudioListener.pause = true;
         Cursor.lockState = CursorLockMode.None;
@@ -157,7 +159,11 @@ public class TelaDeFinal : MonoBehaviour
     // Uma interface que fecha no mesmo quadro devolveria o controle ao jogador: a tela o retoma a cada quadro.
     void LateUpdate()
     {
-        foreach (Movimento m in FindObjectsByType<Movimento>()) if (m.enabled) m.enabled = false;
+        if (movimentos != null)
+        {
+            for (int i = 0; i < movimentos.Length; i++)
+                if (movimentos[i] != null && movimentos[i].enabled) movimentos[i].enabled = false;
+        }
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -259,6 +265,20 @@ public class TelaDeFinal : MonoBehaviour
         else if (Event.current.type == EventType.Repaint)
         {
             ultimoRepaint = agora;
+        }
+
+        bool temParagrafoPendente = paragrafos.Count > 0 && agora < inicioBotoes &&
+            (atual < paragrafos.Count - 1 || (!completo[atual] && agora - inicioParagrafo[atual] < DuracaoParagrafo));
+        if (temParagrafoPendente)
+        {
+            float alfaDica = Suave((t - 0.4f) / 0.6f) * 0.35f;
+            if (alfaDica > 0.001f)
+            {
+                float margem = 36f * s, larguraDica = 360f * s, alturaDica = 26f * s;
+                var rDica = new Rect(Screen.width - margem - larguraDica, Screen.height - margem - alturaDica, larguraDica, alturaDica);
+                GUI.Label(rDica, "Clique ou Espaço para avançar",
+                    DesenhoUi.EstiloMaquina(15f, new Color(1f, 1f, 1f, alfaDica), TextAnchor.MiddleRight));
+            }
         }
 
         if (agora < inicioBotoes) return;

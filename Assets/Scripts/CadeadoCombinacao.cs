@@ -72,7 +72,7 @@ public class CadeadoCombinacao : MonoBehaviour, IManipulavelNaInspecao, ISalvave
     /// <summary>Abertura atual do arco (m ao longo de cursoDoArco).</summary>
     public float ArcoAtual => arcoAtual;
 
-    const string Instr = "Clique num disco e arraste (ou scroll) para girar  |  ←/→ escolhe, ↑/↓ gira  |  " +
+    const string Instr = "Clique num disco e arraste (ou roda do mouse) para girar  |  ←/→ escolhe, ↑/↓ gira  |  " +
                          "Clique no arco ou Espaço: puxar  |  Arraste fora dos discos: girar o cadeado";
     public string Instrucoes => destrancado ? "" : Instr;
 

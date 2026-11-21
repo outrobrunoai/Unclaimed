@@ -105,3 +105,19 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# Daniel (Blender): só os scripts, o .blend principal e as revisões leves entram no repositório.
+# Quadros e GIFs de revisão no Unity, testes antigos de captura (CMU) e o FBX exportado são regeráveis.
+/Blender/Daniel/revisao/unity/
+/Blender/Daniel/revisao/*.gif
+/Blender/Daniel/anim_*.blend
+/Blender/Daniel/export/
+__pycache__/
+
+# Fontes baixadas (CC0), grandes demais para o git. Origem:
+#  - Quaternius UAL1/UAL2 Standard: opengameart.org (universal_animation_librarystandard.zip, universal_animation_library_2standard.zip)
+#  - MakeHuman system assets CC0: makehuman_system_assets_cc0.zip
+#  - CMU Graphics Lab mocap (BVH), testes descartados
+/Blender/Fontes/Quaternius/
+/Blender/Fontes/CMU/
+/Blender/Fontes/MakeHuman/makehuman_system_assets_cc0.zip

@@ -24,12 +24,12 @@
     { "id": "irene_01", "contato": "irene", "de": "irene", "texto": "A Nina me passou este número. Se for sobre o 041, me fala antes de falar com o jornal. Eu preciso falar com a mãe dele primeiro.", "quando": "ev:H06" },
     { "id": "eu_samuel_irene", "contato": "irene", "de": "eu", "texto": "Samuel Reis está no cemitério Santa Amélia, setor C, registro 12.", "quando": "samuel:irene" },
     { "id": "irene_02", "contato": "irene", "de": "irene", "texto": "Agora eu sei onde levar as flores.", "quando": "samuel:irene" },
-    { "id": "eu_samuel_jornal", "contato": "redacao", "de": "eu", "texto": "O corpo 041 é de Samuel Reis. Santa Amélia, setor C, registro 12. A chefe mandou enterrar mesmo com o pedido da Irene.", "quando": "samuel:jornal" },
+    { "id": "eu_samuel_jornal", "contato": "redacao", "de": "eu", "texto": "O corpo 041 é de Samuel Reis. Ele está enterrado no cemitério Santa Amélia, setor C, registro 12.", "quando": "samuel:jornal" },
     { "id": "redacao_samuel", "contato": "redacao", "de": "redacao", "texto": "Uma Irene ligou pra cá pedindo pra gente esperar antes de publicar o caso do Samuel.", "quando": "samuel:jornal" }
   ],
   "respostas": [
     { "id": "resp_ajuda", "contato": "redacao", "rotulo": "Pedir ajuda", "texto": "", "quando": "daniel_saiu", "naoSe": "", "marca": "ajuda_pedida", "grupo": "" },
-    { "id": "resp_samuel_irene", "contato": "irene", "rotulo": "Contar onde Samuel está", "texto": "", "quando": "con:samuel", "naoSe": "", "marca": "samuel:irene", "grupo": "samuel" },
+    { "id": "resp_samuel_irene", "contato": "irene", "rotulo": "Contar onde Samuel está", "texto": "", "quando": "con:samuel+ev:H06", "naoSe": "", "marca": "samuel:irene", "grupo": "samuel" },
     { "id": "resp_samuel_jornal", "contato": "redacao", "rotulo": "Mandar o caso de Samuel", "texto": "", "quando": "con:samuel", "naoSe": "", "marca": "samuel:jornal", "grupo": "samuel" }
   ],
   "envio": {

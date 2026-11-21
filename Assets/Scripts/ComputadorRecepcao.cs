@@ -134,12 +134,27 @@ public partial class ComputadorRecepcao : InterfaceDeTela
         FecharInterface();
     }
 
+    protected override void OnDisable()
+    {
+        fechando = false;
+        base.OnDisable();
+    }
+
+    void OnDestroy()
+    {
+        if (capturaMonitor != null)
+        {
+            Destroy(capturaMonitor);
+            capturaMonitor = null;
+        }
+    }
+
     /// <summary>Põe a imagem da interface na tela do monitor.</summary>
     public void AplicarNoMonitor(Texture2D captura)
     {
         if (captura == null) return;
         if (telaDoMonitor == null) { Destroy(captura); return; }
-        if (capturaMonitor != null) Destroy(capturaMonitor);
+        if (capturaMonitor != null && capturaMonitor != captura) Destroy(capturaMonitor);
         capturaMonitor = captura;
         capturaMonitor.wrapMode = TextureWrapMode.Clamp;
         float sx = Mathf.Min(1f, aspectoDoMonitor / ((float)captura.width / captura.height));

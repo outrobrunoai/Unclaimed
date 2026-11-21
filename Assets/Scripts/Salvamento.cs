@@ -85,12 +85,22 @@ public static class Salvamento
         return true;
     }
 
+    /// <summary>Motivo legível pelo qual não se pode salvar agora, ou null quando está liberado.</summary>
+    public static string PorQueNaoPodeSalvar()
+    {
+        if (TelaDeFinal.Ativa || DanielPerseguidor.Capturando) return "Não é possível salvar agora.";
+        if (DecisoesDeDaniel.CacaEmAndamento)
+            return "Não é possível salvar durante a perseguição.";
+        if (Esconderijo.JogadorEscondido) return "Saia do esconderijo para salvar.";
+        return null;
+    }
+
     /// <summary>Grava o mapa ativo e o estado das cenas carregadas. False se não há jogador ou a escrita falhou.</summary>
     public static bool Salvar()
     {
-        if (IntroChegada.Ativa) return false;
+        if (IntroChegada.Ativa || PorQueNaoPodeSalvar() != null) return false;
         Scene cena = SceneManager.GetActiveScene();
-        Movimento jogador = UnityEngine.Object.FindFirstObjectByType<Movimento>();
+        Movimento jogador = UnityEngine.Object.FindAnyObjectByType<Movimento>();
         if (jogador == null)
         {
             Debug.LogWarning("Salvamento: nenhum Movimento (jogador) na cena; nada foi salvo.");
@@ -157,7 +167,7 @@ public static class Salvamento
         if (pendente == null) return;
         Scene mapa = SceneManager.GetSceneByName(pendente.cena);
         if (!mapa.IsValid() || !mapa.isLoaded) return;
-        Movimento jogador = UnityEngine.Object.FindFirstObjectByType<Movimento>();
+        Movimento jogador = UnityEngine.Object.FindAnyObjectByType<Movimento>();
         if (jogador == null) return;
 
         Dados dados = pendente;

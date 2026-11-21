@@ -112,7 +112,7 @@ public class UiMenu
     /// </summary>
     public static void GarantirEventSystem()
     {
-        if (UnityEngine.Object.FindFirstObjectByType<EventSystem>() != null) return;
+        if (UnityEngine.Object.FindAnyObjectByType<EventSystem>() != null) return;
         new GameObject("EventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
     }
 
@@ -134,20 +134,22 @@ public class DialogoConfirmacao : MonoBehaviour
 
     RectTransform painel;
     Vector2 areaAnterior;
+    Action aoCancelar;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void Reiniciar() => Aberto = null;
 
     public static DialogoConfirmacao Mostrar(Transform canvas, UiMenu ui, string titulo, string mensagem,
-        string textoConfirmar, Action aoConfirmar, string textoCancelar = "CANCELAR")
+        string textoConfirmar, Action aoConfirmar, string textoCancelar = "CANCELAR", Action aoCancelar = null)
     {
-        if (Aberto != null) Aberto.Cancelar();
+        if (Aberto != null) Aberto.Fechar();
 
         RectTransform tela = UiMenu.Rect("Confirmacao", canvas);
         UiMenu.Esticar(tela);
         tela.SetAsLastSibling();
         UiMenu.Imagem(tela.gameObject, new Color(0f, 0f, 0f, 0.7f));
         var dialogo = tela.gameObject.AddComponent<DialogoConfirmacao>();
+        dialogo.aoCancelar = aoCancelar;
 
         var tamanho = new Vector2(900f, 380f);
         RectTransform painel = ui.Painel("Painel", tela, tamanho, new Color(0.03f, 0.05f, 0.05f, 0.97f));
@@ -161,6 +163,7 @@ public class DialogoConfirmacao : MonoBehaviour
         ui.BotaoTexto("Cancelar", painel, textoCancelar, 34, new Vector2(-200f, -125f), new Vector2(300f, 60f), dialogo.Cancelar);
         ui.BotaoTexto("Confirmar", painel, textoConfirmar, 34, new Vector2(200f, -125f), new Vector2(300f, 60f), () =>
         {
+            dialogo.aoCancelar = null;
             dialogo.Fechar();
             aoConfirmar?.Invoke();
         });
@@ -170,7 +173,13 @@ public class DialogoConfirmacao : MonoBehaviour
         return dialogo;
     }
 
-    public void Cancelar() => Fechar();
+    public void Cancelar()
+    {
+        Action acao = aoCancelar;
+        aoCancelar = null;
+        Fechar();
+        acao?.Invoke();
+    }
 
     void Fechar()
     {

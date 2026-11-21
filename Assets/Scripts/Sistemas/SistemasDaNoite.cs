@@ -29,13 +29,16 @@ public class SistemasDaNoite : MonoBehaviour
 
     void Update()
     {
-        if (!salvarCheckpoints || TelaDeFinal.Ativa || Jogador.Ocupado || Jogador.Movimento == null) return;
-        if (Esconderijo.JogadorEscondido) return;
+        if (!salvarCheckpoints || Jogador.Ocupado || Jogador.Movimento == null) return;
+        if (Salvamento.PorQueNaoPodeSalvar() != null) return;
         foreach (var (id, fato) in Checkpoints)
         {
             if (EstadoDaNoite.Tem("cp:" + id) || !Tem(fato)) continue;
-            EstadoDaNoite.Marcar("cp:" + id);
-            if (Salvamento.Salvar()) MiraDeInteracao.Avisar("Progresso salvo.", 1.5f);
+            if (Salvamento.Salvar())
+            {
+                EstadoDaNoite.Marcar("cp:" + id);
+                MiraDeInteracao.Avisar("Progresso salvo.", 1.5f);
+            }
             return;
         }
     }

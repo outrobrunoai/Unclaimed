@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Stopwatch = System.Diagnostics.Stopwatch;
 
 // Medido em 2026-10-19, Release/Vulkan: primeiro texto do quadro ~550 ms
@@ -20,8 +21,11 @@ public class AquecimentoDeTexto : MonoBehaviour
     {
         Criar();
         // Cenas carregadas depois (menu → jogo) trazem fontes novas.
-        UnityEngine.SceneManagement.SceneManager.sceneLoaded += (_, _) => Criar();
+        SceneManager.sceneLoaded -= AoCarregarCena;
+        SceneManager.sceneLoaded += AoCarregarCena;
     }
+
+    static void AoCarregarCena(Scene cena, LoadSceneMode modo) => Criar();
 
     static void Criar()
     {
@@ -80,6 +84,7 @@ public class AquecimentoDeTexto : MonoBehaviour
         // Null no skin representa o estilo padrão; referências nulas dos componentes são ignoradas.
         fontes.Add(GUI.skin.font);
         if (!fontes.Contains(GUI.skin.label.font)) fontes.Add(GUI.skin.label.font);
+        AdicionarFonte(Resources.Load<Font>("Fontes/Maquina de escrever"));
         foreach (ComputadorRecepcao computador in FindObjectsByType<ComputadorRecepcao>(FindObjectsInactive.Include))
         {
             AdicionarFonte(computador.fonte);

@@ -74,7 +74,10 @@ public partial class ComputadorRecepcao
             y += linha;
         }
         Linha(16f * s, y + 4f * s, w - 32f * s, CBorda);
-        Texto(new Rect(24f * s, y + 14f * s, w - 48f * s, 22f * s), $"{d.registros.Length} registro(s) em 18/11/2026. Atualizado automaticamente.",
+        int qtd = d.registros.Length;
+        string data = dados?.estacao?.data ?? (qtd > 0 ? d.registros[0].data : "");
+        string emData = string.IsNullOrEmpty(data) ? "" : $" em {data}";
+        Texto(new Rect(24f * s, y + 14f * s, w - 48f * s, 22f * s), $"{qtd} {(qtd == 1 ? "registro" : "registros")}{emData}. Atualizado automaticamente.",
             Estilo(13, CFraco));
     }
 }

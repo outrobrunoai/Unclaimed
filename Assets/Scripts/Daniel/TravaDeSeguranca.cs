@@ -14,9 +14,6 @@ public class TravaDeSeguranca : AlvoDeInteracao
     public string textoPuxar = "Puxar trava de segurança";
     [Tooltip("Ponto da armadilha. Vazio = qualquer PrenderCamaraFria ativo.")]
     public PontoDeAcao armadilha;
-    [FormerlySerializedAs("segundosAposFlash")]
-    [Tooltip("Depois da luz da lanterna, por quantos segundos o jogador ainda acha a trava no escuro.")]
-    [Min(1f)] public float segundosAposLuz = 8f;
     [FormerlySerializedAs("distanciaDoFlash")]
     [Tooltip("Distância máxima (m) para a lanterna revelar a trava no escuro.")]
     [Min(0.5f)] public float distanciaDaLuz = 6f;

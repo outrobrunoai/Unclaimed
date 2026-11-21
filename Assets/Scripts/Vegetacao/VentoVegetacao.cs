@@ -18,10 +18,12 @@ public sealed class VentoVegetacao : MonoBehaviour
     public float tempoFixo;
     [Min(0)] public float escalaTempo = 1f;
 
+    const float IntervaloBuscaChuva = 2f;
     static readonly int DirForca = Shader.PropertyToID("_VentoDirForca");
     static readonly int Rajada = Shader.PropertyToID("_VentoRajada");
     static VentoVegetacao instancia;
     ChuvaLeve chuva;
+    float proximaBuscaChuva = float.NegativeInfinity;
     float tempo;
 #if UNITY_EDITOR
     double ultimoTempoEditor;
@@ -37,6 +39,7 @@ public sealed class VentoVegetacao : MonoBehaviour
 
     void OnEnable()
     {
+        proximaBuscaChuva = float.NegativeInfinity;
 #if UNITY_EDITOR
         ultimoTempoEditor = UnityEditor.EditorApplication.timeSinceStartup;
         UnityEditor.EditorApplication.update += AtualizarEditor;
@@ -69,7 +72,11 @@ public sealed class VentoVegetacao : MonoBehaviour
     {
         if (!instancia || !instancia.isActiveAndEnabled) instancia = this;
         if (instancia != this) return; // Only one active publisher, even if accidentally duplicated.
-        if (usarDirecaoDaChuva && !chuva) chuva = FindAnyObjectByType<ChuvaLeve>();
+        if (usarDirecaoDaChuva && !chuva && Time.realtimeSinceStartup >= proximaBuscaChuva)
+        {
+            chuva = FindAnyObjectByType<ChuvaLeve>();
+            proximaBuscaChuva = Time.realtimeSinceStartup + IntervaloBuscaChuva;
+        }
         Vector2 d = usarDirecaoDaChuva && chuva ? chuva.vento : direcao;
         d = d.sqrMagnitude > 0.000001f ? d.normalized : Vector2.right;
         Shader.SetGlobalVector(DirForca, new Vector4(d.x, d.y, Mathf.Clamp01(intensidade), tempoCongelado ? tempoFixo : tempo));

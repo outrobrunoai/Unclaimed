@@ -145,7 +145,9 @@ public class PontoDeAcao : MonoBehaviour, ISalvavel
         if (outrasPortas != null)
             foreach (FolhaDePorta f in outrasPortas)
                 DestravarSeLivre(f);
-        foreach (Light l in luzes) if (l != null) l.enabled = true;
+        if (luzes != null)
+            foreach (Light l in luzes)
+                if (l != null) l.enabled = ConsumidorDeEnergia.DeveEstarLigada(l);
     }
 
     bool FecharETrancarPortas()

@@ -16,7 +16,7 @@ public static class Configuracoes
 {
     public static readonly int[] LimitesDeFps = { 30, 60, 120, 144, 0 };   // 0 = sem limite
 
-    public const float BrilhoPadrao = 0.5f, VolumePadrao = 0.8f, SensibilidadePadrao = 1f;
+    public const float BrilhoPadrao = 0.5f, VolumePadrao = 0.8f, SensibilidadePadrao = 1f, SensibilidadeMicrofonePadrao = 0.5f;
     public const float CampoDeVisaoPadrao = 60f, CampoDeVisaoMin = 50f, CampoDeVisaoMax = 90f;
     public const float SensibilidadeMin = 0.2f, SensibilidadeMax = 3f;
     public const float BalancoPadrao = 1f;
@@ -37,6 +37,9 @@ public static class Configuracoes
     // --- áudio ---
     public static float VolumeGeral { get; private set; }
     public static bool SomEmSegundoPlano { get; private set; }
+    public static bool UsarMicrofone { get; private set; }
+    public static bool MicrofonePerguntado { get; private set; }
+    public static float SensibilidadeMicrofone { get; private set; } = SensibilidadeMicrofonePadrao;
     // --- controles ---
     public static float Sensibilidade { get; private set; }
     public static bool InverterY { get; private set; }
@@ -84,6 +87,9 @@ public static class Configuracoes
         Brilho = PlayerPrefs.GetFloat("opc.brilho", BrilhoPadrao);
         VolumeGeral = PlayerPrefs.GetFloat("opc.volume", VolumePadrao);
         SomEmSegundoPlano = PlayerPrefs.GetInt("opc.somFundo", 1) == 1;
+        UsarMicrofone = PlayerPrefs.GetInt("opc.microfone", 0) == 1;
+        MicrofonePerguntado = PlayerPrefs.GetInt("opc.microfonePerguntado", 0) == 1;
+        SensibilidadeMicrofone = Mathf.Clamp01(PlayerPrefs.GetFloat("opc.microfoneSens", SensibilidadeMicrofonePadrao));
         Sensibilidade = PlayerPrefs.GetFloat("opc.sensibilidade", SensibilidadePadrao);
         InverterY = PlayerPrefs.GetInt("opc.inverterY", 0) == 1;
         CampoDeVisao = PlayerPrefs.GetFloat("opc.fov", CampoDeVisaoPadrao);
@@ -101,6 +107,9 @@ public static class Configuracoes
         PlayerPrefs.SetFloat("opc.brilho", Brilho);
         PlayerPrefs.SetFloat("opc.volume", VolumeGeral);
         PlayerPrefs.SetInt("opc.somFundo", SomEmSegundoPlano ? 1 : 0);
+        PlayerPrefs.SetInt("opc.microfone", UsarMicrofone ? 1 : 0);
+        PlayerPrefs.SetInt("opc.microfonePerguntado", MicrofonePerguntado ? 1 : 0);
+        PlayerPrefs.SetFloat("opc.microfoneSens", SensibilidadeMicrofone);
         PlayerPrefs.SetFloat("opc.sensibilidade", Sensibilidade);
         PlayerPrefs.SetInt("opc.inverterY", InverterY ? 1 : 0);
         PlayerPrefs.SetFloat("opc.fov", CampoDeVisao);
@@ -121,6 +130,8 @@ public static class Configuracoes
         Brilho = BrilhoPadrao;
         VolumeGeral = VolumePadrao;
         SomEmSegundoPlano = true;
+        UsarMicrofone = false;
+        SensibilidadeMicrofone = SensibilidadeMicrofonePadrao;
         Sensibilidade = SensibilidadePadrao;
         InverterY = false;
         CampoDeVisao = CampoDeVisaoPadrao;
@@ -157,6 +168,14 @@ public static class Configuracoes
     public static void DefinirBrilho(float valor) { Brilho = Mathf.Clamp01(valor); AplicarBrilho(); Avisar(); }
     public static void DefinirVolumeGeral(float valor) { VolumeGeral = Mathf.Clamp01(valor); AplicarAudio(); Avisar(); }
     public static void DefinirSomEmSegundoPlano(bool ligado) { SomEmSegundoPlano = ligado; AplicarAudio(); Avisar(); }
+    public static void DefinirUsarMicrofone(bool ligado) { UsarMicrofone = ligado; Avisar(); }
+    public static void MarcarMicrofonePerguntado()
+    {
+        MicrofonePerguntado = true;
+        PlayerPrefs.SetInt("opc.microfonePerguntado", 1);
+        PlayerPrefs.Save();
+    }
+    public static void DefinirSensibilidadeMicrofone(float valor) { SensibilidadeMicrofone = Mathf.Clamp01(valor); Avisar(); }
     public static void DefinirSensibilidade(float valor) { Sensibilidade = Mathf.Clamp(valor, SensibilidadeMin, SensibilidadeMax); Avisar(); }
     public static void DefinirInverterY(bool ligado) { InverterY = ligado; Avisar(); }
     public static void DefinirCampoDeVisao(float graus) { CampoDeVisao = Mathf.Clamp(graus, CampoDeVisaoMin, CampoDeVisaoMax); Avisar(); }

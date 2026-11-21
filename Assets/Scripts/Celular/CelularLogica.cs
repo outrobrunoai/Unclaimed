@@ -47,7 +47,25 @@ public static class CelularLogica
 
     public static void Limpar() => fila.Clear();
 
-    static bool Condicao(string fato) => string.IsNullOrEmpty(fato) || EstadoDaNoite.Tem(fato);
+    /// <summary>
+    /// Verdadeiro quando a condição "quando" vale: vazia (sempre) ou todos os fatos separados por '+' estão marcados
+    /// no EstadoDaNoite.
+    /// </summary>
+    public static bool Condicao(string quando)
+    {
+        if (string.IsNullOrWhiteSpace(quando)) return true;
+        int inicio = 0;
+        while (inicio <= quando.Length)
+        {
+            int prox = quando.IndexOf('+', inicio);
+            int fim = prox < 0 ? quando.Length : prox;
+            string parte = quando.Substring(inicio, fim - inicio).Trim();
+            if (parte.Length > 0 && !EstadoDaNoite.Tem(parte)) return false;
+            if (prox < 0) break;
+            inicio = prox + 1;
+        }
+        return true;
+    }
 
     public static bool Recebida(DadosDoCelular.Mensagem m) => EstadoDaNoite.Tem("msg:" + m.id);
 

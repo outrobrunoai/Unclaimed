@@ -53,6 +53,11 @@ public class Torneira : AlvoDeInteracao
     float[] acumulado;
     Vector3 botaoRepouso;
     Mesh malha;
+    Renderer rendererFluxo;
+    Vector3[] bufVertices, bufNormais;
+    Vector2[] bufUv;
+    int[] bufTriangulos;
+    int aneisBuffer;
     Material materialFluxo, materialEspuma;
     AudioSource fonteAgua;
     const int Lados = 8;
@@ -67,9 +72,12 @@ public class Torneira : AlvoDeInteracao
             malha = new Mesh { name = "Fluxo de agua" };
             malha.MarkDynamic();
             fluxo.sharedMesh = malha;
-            var r = fluxo.GetComponent<Renderer>();
-            materialFluxo = r.material;   // instância própria: a rolagem da textura é desta torneira
-            r.enabled = false;
+            rendererFluxo = fluxo.GetComponent<Renderer>();
+            if (rendererFluxo != null)
+            {
+                materialFluxo = rendererFluxo.material;   // instância própria: a rolagem da textura é desta torneira
+                rendererFluxo.enabled = false;
+            }
         }
         if (espuma != null) { materialEspuma = espuma.material; espuma.enabled = false; }
         if (respingos != null) { var e = respingos.emission; e.enabled = false; }
@@ -141,8 +149,11 @@ public class Torneira : AlvoDeInteracao
 
         rolagem = (rolagem + velocidadeTextura * dt) % 1000f;
         if (materialFluxo != null) materialFluxo.mainTextureOffset = new Vector2(0f, rolagem);
-        Construir(inicio, fim);
+        bool estavaAtivo = rendererFluxo != null && rendererFluxo.enabled;
         Mostrar(true);
+        // Pula a reconstrução da malha fora de tela, garantindo ao menos uma malha válida ao ligar.
+        if (rendererFluxo == null || rendererFluxo.isVisible || !estavaAtivo || malha == null || malha.vertexCount == 0)
+            Construir(inicio, fim);
     }
 
     void AnimarBotao(float dt)
@@ -156,7 +167,7 @@ public class Torneira : AlvoDeInteracao
 
     void Mostrar(bool sim)
     {
-        if (fluxo != null) fluxo.GetComponent<Renderer>().enabled = sim;
+        if (rendererFluxo != null) rendererFluxo.enabled = sim;
         bool impacto = sim && AguaNaCuba;
         if (respingos != null)
         {
@@ -184,10 +195,23 @@ public class Torneira : AlvoDeInteracao
     {
         if (malha == null || b - a < 0.001f) { malha?.Clear(); return; }
         int aneis = Mathf.Clamp(Mathf.CeilToInt((b - a) / 0.01f) + 1, 2, 64);
-        var v = new Vector3[aneis * (Lados + 1)];
-        var n = new Vector3[v.Length];
-        var uv = new Vector2[v.Length];
-        var t = new int[(aneis - 1) * Lados * 6];
+        int qtdVertices = aneis * (Lados + 1);
+        if (aneis != aneisBuffer || bufVertices == null)
+        {
+            aneisBuffer = aneis;
+            bufVertices = new Vector3[qtdVertices];
+            bufNormais = new Vector3[qtdVertices];
+            bufUv = new Vector2[qtdVertices];
+            bufTriangulos = new int[(aneis - 1) * Lados * 6];
+            int w = 0;
+            for (int i = 0; i < aneis - 1; i++)
+                for (int k = 0; k < Lados; k++)
+                {
+                    int i0 = i * (Lados + 1) + k, i1 = i0 + 1, j0 = i0 + Lados + 1, j1 = j0 + 1;
+                    bufTriangulos[w++] = i0; bufTriangulos[w++] = j0; bufTriangulos[w++] = i1;
+                    bufTriangulos[w++] = i1; bufTriangulos[w++] = j0; bufTriangulos[w++] = j1;
+                }
+        }
         Transform tf = fluxo.transform;
         for (int i = 0; i < aneis; i++)
         {
@@ -204,24 +228,25 @@ public class Torneira : AlvoDeInteracao
                 float ang = k / (float)Lados * Mathf.PI * 2f;
                 Vector3 radial = lado * Mathf.Cos(ang) + outro * Mathf.Sin(ang);
                 int idx = i * (Lados + 1) + k;
-                v[idx] = tf.InverseTransformPoint(transform.TransformPoint(p + radial * raio));
-                n[idx] = tf.InverseTransformDirection(transform.TransformDirection(radial));
-                uv[idx] = new Vector2(k / (float)Lados, -s * 6f);
+                bufVertices[idx] = tf.InverseTransformPoint(transform.TransformPoint(p + radial * raio));
+                bufNormais[idx] = tf.InverseTransformDirection(transform.TransformDirection(radial));
+                bufUv[idx] = new Vector2(k / (float)Lados, -s * 6f);
             }
         }
-        int w = 0;
-        for (int i = 0; i < aneis - 1; i++)
-            for (int k = 0; k < Lados; k++)
-            {
-                int i0 = i * (Lados + 1) + k, i1 = i0 + 1, j0 = i0 + Lados + 1, j1 = j0 + 1;
-                t[w++] = i0; t[w++] = j0; t[w++] = i1;
-                t[w++] = i1; t[w++] = j0; t[w++] = j1;
-            }
-        malha.Clear();
-        malha.vertices = v;
-        malha.normals = n;
-        malha.uv = uv;
-        malha.triangles = t;
+        if (malha.vertexCount != qtdVertices)
+        {
+            malha.Clear();
+            malha.vertices = bufVertices;
+            malha.normals = bufNormais;
+            malha.uv = bufUv;
+            malha.triangles = bufTriangulos;
+        }
+        else
+        {
+            malha.vertices = bufVertices;
+            malha.normals = bufNormais;
+            malha.uv = bufUv;
+        }
         malha.RecalculateBounds();
     }
 

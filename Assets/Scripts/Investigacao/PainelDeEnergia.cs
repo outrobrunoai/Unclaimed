@@ -29,10 +29,11 @@ public class PainelDeEnergia : InterfaceDeTela, ISalvavel
     public override void Interagir() => AbrirInterface();
 
     string mensagem = "";
-    float mensagemAte;
+    float mensagemAte, abertoEm;
 
     protected override void AoAbrir()
     {
+        abertoEm = Time.unscaledTime;
         if (!string.IsNullOrEmpty(idEvidencia)) Caderno.Coletar(idEvidencia);
         mensagem = "";
     }
@@ -92,10 +93,13 @@ public class PainelDeEnergia : InterfaceDeTela, ISalvavel
     {
         float s = Escala;
         var fundo = new Rect(0, 0, Screen.width, Screen.height);
-        DesenhoUi.Caixa(fundo, new Color(0.03f, 0.03f, 0.035f, 0.92f));
+        // Entrada curta: o fundo escurece e o quadro sobe um pouco até o lugar.
+        float e = DesenhoUi.Suave((Time.unscaledTime - abertoEm) / 0.3f);
+        DesenhoUi.Caixa(fundo, new Color(0.03f, 0.03f, 0.035f, 0.92f * e));
+        DesenhoUi.Vinheta(e);
 
         float w = 900 * s, h = 640 * s;
-        Rect caixa = new Rect((Screen.width - w) / 2f, (Screen.height - h) / 2f, w, h);
+        Rect caixa = new Rect((Screen.width - w) / 2f, (Screen.height - h) / 2f + (1f - e) * 24f * s, w, h);
         DesenhoUi.Caixa(caixa, new Color(0.55f, 0.57f, 0.55f));
         DesenhoUi.Caixa(new Rect(caixa.x + 12 * s, caixa.y + 12 * s, w - 24 * s, h - 24 * s), new Color(0.42f, 0.44f, 0.43f));
 
@@ -142,7 +146,7 @@ public class PainelDeEnergia : InterfaceDeTela, ISalvavel
         if (!string.IsNullOrEmpty(mensagem) && Time.unscaledTime < mensagemAte)
             GUI.Label(new Rect(caixa.x + 40 * s, caixa.yMax - 110 * s, w - 80 * s, 50 * s), mensagem,
                 DesenhoUi.Estilo(18, new Color(0.08f, 0.08f, 0.08f), true));
-        if (DesenhoUi.Botao(new Rect(caixa.xMax - 190 * s, caixa.yMax - 64 * s, 150 * s, 42 * s), "Fechar"))
+        if (DesenhoUi.Botao(new Rect(caixa.xMax - 190 * s, caixa.yMax - 64 * s, 150 * s, 42 * s), "Fechar (Esc)"))
             FecharInterface();
     }
 }

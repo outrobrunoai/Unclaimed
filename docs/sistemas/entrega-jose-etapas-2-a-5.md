@@ -4,7 +4,7 @@ Data: 19/11/2026. Tudo é código, prefab ou dado do José. As cenas do mapa (`P
 
 - Prefabs: `Assets/Prefabs/Sistemas/` (recriados por *Tools > Unclaimed > José > Criar prefabs de mecânica*).
 - Cena de testes: `Assets/Scenes/Testes/Jose.unity` (uma sala de cada sistema, com NavMesh). Abra e dê Play: a Jogabilidade carrega junto.
-- Jogabilidade: o Player ganhou o celular (com câmera e galeria) e o gravador; há um objeto **Sistemas** (diretor de Daniel, confronto, checkpoints) e um **Daniel (provisorio)** (cápsula, até o modelo do Bruno ficar pronto).
+- Jogabilidade: o Player ganhou o celular (com câmera e galeria) e o gravador; há um objeto **Sistemas** (diretor de Daniel, confronto, checkpoints) e um **Daniel (provisorio)**, já com o modelo do Daniel (MakeHuman, CC0) e animações da Quaternius (CC0).
 - Testes: 59 testes de modo de edição, um deles joga a noite inteira na cena de testes.
 
 ## Controles novos
@@ -80,10 +80,11 @@ Também: prefab `Trava de seguranca` do lado de dentro da câmara fria, perto da
 | Prefab | Onde | Configurar |
 |---|---|---|
 | `Gravador` | Lacrado dentro do envelope de guarda, no compartimento G-B2 (cadeado 4817 nas portas A2/B2; a combinação chega por mensagem do Celso em `con:venda`). Na inspeção do envelope: clique abre a aba e tira o gravador; clique de novo pega (`EnvelopeDoGravador`) | — |
-| `Copia do audio` | Sobre o monitor do computador do arquivo | — |
-| `Esconderijo` | Dentro dos armários do descanso e das gavetas vazias C-05 a C-07 | O collider fica no interior do móvel (o jogador abre a porta e mira dentro). Ajustar `Dentro` (pé do jogador escondido, olhando para a fresta) e `Saida` |
-| NavMesh | Mapa inteiro | NavMeshSurface do pacote AI Navigation, cobrindo a rota arquivo → circulação → vestíbulo → recebimento → pátio e o circuito pela autópsia |
-| Modelo de Daniel | Substituir a cápsula do `Daniel (provisorio)` na Jogabilidade | Pôr o modelo como filho, ligar em `corpo` e `animator` (parâmetro float `Velocidade`) |
+| `Copia do audio` | **Colocado.** Alvo invisível sobre a tela do monitor da mesa do arquivo | `Tools/Unclaimed/Sistemas/Colocar etapa 5 (perseguição)` refaz |
+| `Esconderijo` | **Colocado** no compartimento esquerdo (vazio) dos três armários de parede do vestiário | O jogador abre a porta do compartimento, mira dentro e aperta E. As gavetas C-05 a C-07 ficaram de fora (são pequenas para uma pessoa em pé) |
+| NavMesh | **Assada** em `Sistemas - etapa 5` (NavMeshSurface, colliders físicos, portas fora do caminho; raio do agente 0,3 m para passar nas portas de 0,9 m). Arquivo: `Assets/Scenes/PrototipoNecroterio/NavMesh.asset` | Daniel abre as portas fechadas à frente dele (`DanielAbrePortas`, no prefab); não abre as trancadas |
+| Microfone | Sozinho (`MicrofoneDoJogador`, instala-se no Play) | Na caça, com Daniel sem ver o jogador ou com ele escondido, qualquer barulho alto no microfone (só o volume; não reconhece fala) atrai Daniel: escondido a até 6 m, Daniel descobre o esconderijo; até 14 m, investiga. Pergunta Usar/Não usar antes de jogar; opções em Áudio (ligar e sensibilidade). Nada é gravado |
+| Modelo de Daniel | Feito: o filho `Corpo` do `Daniel (provisorio)` é o modelo, com `Assets/Modelos/Daniel/Daniel.controller` | Parâmetros: `Velocidade` (parado, andar, correr), `Confronto` (braços cruzados na porta do arquivo), `Agarrar` (captura; a tela final entra depois de `tempoDoAgarrar`, 0,8 s). Para refazer: `Tools/Unclaimed/Daniel/Configurar modelo e animações` e depois `Montar animator e prefab` |
 
 ## Fatos combinados (EstadoDaNoite)
 

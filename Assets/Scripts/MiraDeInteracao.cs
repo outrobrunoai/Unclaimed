@@ -50,7 +50,8 @@ public static class MiraDeInteracao
         if (frame == Time.frameCount) return;
         frame = Time.frameCount;
         alvo = null;
-        if (ControleCapturado) return;
+        // Escondido, só a tecla de sair do esconderijo vale (ela é lida pelo próprio Esconderijo).
+        if (ControleCapturado || Esconderijo.JogadorEscondido) return;
         Camera cam = Camera.main;
         if (cam == null) return;
         // A câmera fica dentro da cápsula do jogador; raios não atingem o collider em que começam.

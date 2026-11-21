@@ -13,8 +13,10 @@ public sealed class CeuNoturno : MonoBehaviour
     [Tooltip("Tempo inicial (s): onde as nuvens começam.")] public float tempoInicial;
     public bool tempoCongelado;
 
+    const float IntervaloBuscaChuva = 2f;
     static readonly int Estado = Shader.PropertyToID("_CeuEstado");
     ChuvaLeve chuva;
+    float proximaBuscaChuva = float.NegativeInfinity;
     float tempo;
 #if UNITY_EDITOR
     double ultimoTempoEditor;
@@ -26,6 +28,7 @@ public sealed class CeuNoturno : MonoBehaviour
     void OnEnable()
     {
         tempo = tempoInicial;
+        proximaBuscaChuva = float.NegativeInfinity;
 #if UNITY_EDITOR
         ultimoTempoEditor = UnityEditor.EditorApplication.timeSinceStartup;
         UnityEditor.EditorApplication.update += AtualizarEditor;
@@ -62,7 +65,11 @@ public sealed class CeuNoturno : MonoBehaviour
 
     void Publicar()
     {
-        if (usarDirecaoDaChuva && !chuva) chuva = FindAnyObjectByType<ChuvaLeve>();
+        if (usarDirecaoDaChuva && !chuva && Time.realtimeSinceStartup >= proximaBuscaChuva)
+        {
+            chuva = FindAnyObjectByType<ChuvaLeve>();
+            proximaBuscaChuva = Time.realtimeSinceStartup + IntervaloBuscaChuva;
+        }
         Vector2 d = usarDirecaoDaChuva && chuva ? chuva.vento : direcao;
         d = d.sqrMagnitude > 1e-6f ? d.normalized : Vector2.right;
         Shader.SetGlobalVector(Estado, new Vector4(d.x, tempo, d.y, 1f));

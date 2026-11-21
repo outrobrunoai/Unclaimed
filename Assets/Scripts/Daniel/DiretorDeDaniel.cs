@@ -67,6 +67,8 @@ public class DiretorDeDaniel : MonoBehaviour, ISalvavel
 
         Vector3 jogador = Jogador.Posicao;
         HashSet<string> protegidas = Sala.Protegidas(jogador);
+        if (fase > FaseDeDaniel.Mesa && !EstadoDaNoite.Tem("daniel_saiu") && !protegidas.Contains(salaMesa))
+            SairDaMesa();
         switch (fase)
         {
             case FaseDeDaniel.Mesa: AtualizarMesa(protegidas); break;

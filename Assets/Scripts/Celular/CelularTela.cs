@@ -142,6 +142,7 @@ public class CelularTela : MonoBehaviour
         Esticar(fotoView);
 
         chaveConstruida = null;
+        camUi.enabled = na.Visivel;
     }
 
     Sprite Arredondado()
@@ -306,8 +307,8 @@ public class CelularTela : MonoBehaviour
             }
             else
             {
-                var t = Texto(tile.transform, i == 1 ? "Wi-Fi" : i == 2 ? "4G" : "Off", 13, ligado ? new Color(0.1f, 0.1f, 0.12f) : Color.white,
-                    TextAlignmentOptions.Center, FontStyles.Bold);
+                var t = Texto(tile.transform, i == 1 ? "Wi-Fi" : i == 2 ? "4G" : "Desligado", i == 3 ? 11f : 13f,
+                    ligado ? new Color(0.1f, 0.1f, 0.12f) : Color.white, TextAlignmentOptions.Center, FontStyles.Bold);
                 Esticar(t.rectTransform);
             }
             Em(Texto(painelRapido, nomes[i], 10.5f, TextoFraco, TextAlignmentOptions.Center).rectTransform, esp + i * (lado + esp) - 10, 190, lado + 20, 16);
@@ -409,7 +410,7 @@ public class CelularTela : MonoBehaviour
 
     void Update()
     {
-        if (dono == null || !dono.EstaAberta || IntroChegada.Ativa || na.Animando || na.CameraSobreposta == null) return;
+        if (dono == null || !dono.EstaAberta || IntroChegada.Ativa || TelaDeFinal.Ativa || DanielPerseguidor.Capturando || MenuPausa.Pausado || na.Animando || na.CameraSobreposta == null) return;
 #if ENABLE_INPUT_SYSTEM
         Mouse mouse = Mouse.current;
         if (mouse == null) return;
@@ -467,7 +468,14 @@ public class CelularTela : MonoBehaviour
     void LateUpdate()
     {
         if (canvas == null || dono == null) return;
-        camUi.enabled = na.Visivel;
+        if (!na.Visivel)
+        {
+            if (camUi.enabled) camUi.enabled = false;
+            if (!dono.EstaAberta && !dono.ModoCamera) emFoto = false;
+            chaveConstruida = null;
+            return;
+        }
+        camUi.enabled = true;
         if (Camera.main != null) camUi.depth = Camera.main.depth - 1f;   // desenha antes da câmera do jogador
         if (!dono.EstaAberta && !dono.ModoCamera) emFoto = false;
 
@@ -800,7 +808,17 @@ public class CelularTela : MonoBehaviour
                 float aspecto = f.imagem.width / (float)f.imagem.height;
                 mini.uvRect = aspecto >= 1f ? new Rect((1f - 1f / aspecto) / 2f, 0f, 1f / aspecto, 1f) : new Rect(0f, (1f - aspecto) / 2f, 1f, aspecto);
             }
-            else mini.color = new Color(0.2f, 0.2f, 0.22f);
+            else
+            {
+                mini.color = new Color(0.2f, 0.2f, 0.22f);
+                string legenda = !string.IsNullOrEmpty(f.legenda) ? f.legenda : f.alvo;
+                if (!string.IsNullOrEmpty(legenda))
+                {
+                    var rotulo = Texto(mini.transform, legenda, 11, new Color(0.88f, 0.88f, 0.9f, 0.82f), TextAlignmentOptions.Center);
+                    rotulo.overflowMode = TextOverflowModes.Ellipsis;
+                    Esticar(rotulo.rectTransform, 8, 8, 8, 8);
+                }
+            }
             int indice = i;
             Clicavel(mini, () => dono.AbrirFoto(indice));
         }
@@ -823,7 +841,16 @@ public class CelularTela : MonoBehaviour
             ajuste.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
             ajuste.aspectRatio = f.imagem.width / (float)f.imagem.height;
         }
-        else img.color = new Color(0.12f, 0.12f, 0.13f);
+        else
+        {
+            img.color = new Color(0.12f, 0.12f, 0.13f);
+            string legenda = !string.IsNullOrEmpty(f.legenda) ? f.legenda : f.alvo;
+            if (!string.IsNullOrEmpty(legenda))
+            {
+                var rotulo = Texto(fotoView, legenda, 18, new Color(0.88f, 0.88f, 0.9f, 0.82f), TextAlignmentOptions.Center);
+                Esticar(rotulo.rectTransform, 72, 24, 72, 54);
+            }
+        }
 
         // Barra de cima: voltar e posição.
         Image topo = Caixa(fotoView, new Color(0, 0, 0, 0.45f));

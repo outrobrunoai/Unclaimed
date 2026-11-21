@@ -53,7 +53,8 @@ public class MenuPausa : MonoBehaviour
 
     // Outro sistema está usando o Esc (e os controles) agora.
     static bool OutroSistemaCapturando =>
-        ObjetoInspecionavel.InspecionandoAlgo || DiarioDePistas.Aberto || InterfaceDeTela.AlgumaAberta || IntroChegada.Ativa;
+        ObjetoInspecionavel.InspecionandoAlgo || DiarioDePistas.Aberto || InterfaceDeTela.AlgumaAberta ||
+        IntroChegada.Ativa || TelaDeFinal.Ativa || DanielPerseguidor.Capturando;
 
     void Start()
     {
@@ -114,7 +115,7 @@ public class MenuPausa : MonoBehaviour
 
     public void Pausar()
     {
-        if (Pausado || IntroChegada.Ativa) return;
+        if (Pausado || IntroChegada.Ativa || TelaDeFinal.Ativa || DanielPerseguidor.Capturando) return;
         Pausado = true;
 
         escalaDeTempoAnterior = Time.timeScale;
@@ -166,8 +167,9 @@ public class MenuPausa : MonoBehaviour
 
     void SalvarJogo()
     {
-        bool ok = Salvamento.Salvar();
-        aviso.text = ok ? "Jogo salvo." : "Não foi possível salvar.";
+        string motivo = Salvamento.PorQueNaoPodeSalvar();
+        bool ok = motivo == null && Salvamento.Salvar();
+        aviso.text = ok ? "Jogo salvo." : motivo ?? "Não foi possível salvar.";
         aviso.color = ok ? corTexto : corDestaque;
         aviso.alpha = 1f;
         avisoAte = Time.unscaledTime + 2.5f;

@@ -6,9 +6,9 @@ using UnityEngine;
 /// Conteúdo do celular (Resources/Historia/celular.json): contatos, mensagens e as respostas que o jogador pode
 /// mandar. Os textos são do Bruno; a lógica (CelularLogica) só lê os campos.
 ///
-/// Mensagem: chega quando o fato "quando" existe (vazio = já estava no celular ao começar) e o jogador tem
-/// sinal. "de" = "eu" para as que o jogador mandou.
-/// Resposta: botão que aparece na conversa quando "quando" existe e "naoSe" não existe; ao mandar, marca
+/// Mensagem: chega quando a condição "quando" vale (vazio = já estava no celular ao começar; fatos separados
+/// por '+' são todos obrigatórios) e o jogador tem sinal. "de" = "eu" para as que o jogador mandou.
+/// Resposta: botão que aparece na conversa quando "quando" vale e "naoSe" não existe; ao mandar, marca
 /// "marca" (e as mensagens que dependem dele chegam depois).
 /// </summary>
 [Serializable]

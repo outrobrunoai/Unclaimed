@@ -8,23 +8,13 @@ using UnityEngine.InputSystem;
 
 /// <summary>
 /// Caderno do jornalista. Coloque UM destes em um GameObject vazio da cena.
-/// Cada ObjetoInspecionavel se registra aqui na primeira vez que é examinado.
-/// Tab abre/fecha. Três abas: Pistas (anotações livres), Evidências e Conclusões (do Caderno).
+/// Tab abre/fecha. Duas abas: Evidências e Conclusões (do Caderno).
 /// Interface feita com IMGUI (sem Canvas), com visual de bloco de repórter.
 /// </summary>
 public class DiarioDePistas : MonoBehaviour
 {
-    [Serializable]
-    public class Entrada
-    {
-        public string nome;
-        public string descricao;
-        public bool lida;
-    }
-
     public static DiarioDePistas Instancia { get; private set; }
     public static bool Aberto => Instancia != null && Instancia.aberto;
-    public static int Total => Instancia != null ? Instancia.entradas.Count : 0;
 
     [Header("Controles")]
     public string teclaDiario = "Tab";
@@ -50,15 +40,11 @@ public class DiarioDePistas : MonoBehaviour
     public Texture2D texturaEspiral;
 
     [Header("Eventos")]
-    [Tooltip("Ex.: tocar um som de anotação.")]
-    public UnityEvent aoRegistrarPista;
     public UnityEvent aoAbrirDiario;
     public UnityEvent aoFecharDiario;
 
-    readonly List<Entrada> entradas = new List<Entrada>();
     bool aberto;
     float animacao; // 0 = fora da tela, 1 = aberto; segue "aberto" com a duração configurada
-    int selecionado = -1;
     Vector2 scrollLista, scrollTexto;
     int aba;
     Evidencia evidenciaSelecionada;
@@ -110,18 +96,7 @@ public class DiarioDePistas : MonoBehaviour
 
     // ---------- API pública ----------
 
-    /// <summary>Chamado pelas pistas. Ignora se a pista já está no diário.</summary>
-    public static void Registrar(string nome, string descricao)
-    {
-        if (Instancia == null)
-        {
-            Debug.LogWarning("DiarioDePistas: não há nenhum DiarioDePistas na cena.");
-            return;
-        }
-        Instancia.Adicionar(nome, descricao);
-    }
-
-    /// <summary>Abre o caderno (se estiver fechado) já na aba pedida: 0 Pistas, 1 Evidências, 2 Conclusões.</summary>
+    /// <summary>Abre o caderno (se estiver fechado) já na aba pedida: 0 Evidências, 1 Conclusões.</summary>
     public static void AbrirNaAba(int aba)
     {
         if (Instancia == null) return;
@@ -133,31 +108,18 @@ public class DiarioDePistas : MonoBehaviour
         Instancia.TrocarAba(aba);
     }
 
-    /// <summary>Útil para o futuro sistema de dedução: o jogador já achou esta pista?</summary>
-    public static bool Tem(string nome)
-    {
-        return Instancia != null && Instancia.entradas.Exists(e => e.nome == nome);
-    }
-
-    void Adicionar(string nome, string descricao)
-    {
-        if (string.IsNullOrWhiteSpace(nome)) nome = "Pista sem nome";
-        if (entradas.Exists(e => e.nome == nome)) return;
-
-        entradas.Add(new Entrada { nome = nome, descricao = descricao });
-        avisoTexto = $"Nova pista no diário: {nome}";
-        avisoAte = Time.unscaledTime + 4f;
-        aoRegistrarPista?.Invoke();
-    }
-
     // ---------- Abrir / fechar ----------
 
-    /// <summary>O caderno só abre com o jogo rodando: sem menu de pausa, inspeção ou outra tela aberta.</summary>
+    /// <summary>O caderno só abre com o jogo rodando: sem pausa, inspeção, esconderijo, caça ou outra tela aberta.</summary>
     static bool PodeAbrir =>
-        !MenuPausa.Pausado && !ObjetoInspecionavel.InspecionandoAlgo && !InterfaceDeTela.AlgumaAberta && !IntroChegada.Ativa;
+        !MenuPausa.Pausado && !ObjetoInspecionavel.InspecionandoAlgo && !InterfaceDeTela.AlgumaAberta && !IntroChegada.Ativa &&
+        !TelaDeFinal.Ativa && !DanielPerseguidor.Capturando && !Esconderijo.JogadorEscondido && !DecisoesDeDaniel.CacaEmAndamento;
 
     void Update()
     {
+        if (aberto && (TelaDeFinal.Ativa || DanielPerseguidor.Capturando))
+            Fechar();
+
         float alvo = aberto ? 1f : 0f;
         float duracao = aberto ? duracaoAbrir : duracaoFechar;
         animacao = Mathf.MoveTowards(animacao, alvo, Time.unscaledDeltaTime / Mathf.Max(0.01f, duracao));
@@ -199,8 +161,6 @@ public class DiarioDePistas : MonoBehaviour
             Time.timeScale = 0f;
         }
 
-        if (selecionado < 0 && entradas.Count > 0) Selecionar(entradas.Count - 1);
-
         aoAbrirDiario?.Invoke();
     }
 
@@ -209,7 +169,8 @@ public class DiarioDePistas : MonoBehaviour
         aberto = false;
 
         foreach (var comp in desativados)
-            if (comp != null) comp.enabled = true;
+            if (comp != null && !(comp is Movimento && (TelaDeFinal.Ativa || DanielPerseguidor.Capturando)))
+                comp.enabled = true;
         desativados.Clear();
 
         Cursor.lockState = travaAnterior;
@@ -217,7 +178,7 @@ public class DiarioDePistas : MonoBehaviour
 
         if (pausou)
         {
-            Time.timeScale = timeScaleAnterior;
+            if (!TelaDeFinal.Ativa) Time.timeScale = timeScaleAnterior;
             pausou = false;
         }
 
@@ -228,13 +189,6 @@ public class DiarioDePistas : MonoBehaviour
     {
         EstadoDaNoite.AoMarcar -= AoMarcarFato;
         if (aberto) Fechar();
-    }
-
-    void Selecionar(int i)
-    {
-        selecionado = i;
-        entradas[i].lida = true;
-        scrollTexto = Vector2.zero;
     }
 
     // ---------- Interface (IMGUI) ----------
@@ -256,12 +210,12 @@ public class DiarioDePistas : MonoBehaviour
     static readonly Color corVermelho = new Color(0.68f, 0.16f, 0.14f);
     static readonly Color corArame = new Color(0.30f, 0.30f, 0.32f);
 
-    static readonly string[] cabecalhos = { "PISTAS ENCONTRADAS", "EVIDÊNCIAS REUNIDAS", "CONCLUSÕES E HIPÓTESES" };
+    static readonly string[] cabecalhos = { "EVIDÊNCIAS REUNIDAS", "CONCLUSÕES E HIPÓTESES" };
 
     readonly GUIContent conteudo = new GUIContent();
     readonly List<Evidencia> coletadas = new List<Evidencia>();
     readonly List<Comparacao> conclusoes = new List<Comparacao>();
-    readonly string[] nomesDasAbas = new string[3];
+    readonly string[] nomesDasAbas = new string[2];
     float escala = 1f; // 1 = tela de 1080 linhas
     int escalaDosEstilos;
 
@@ -435,8 +389,7 @@ public class DiarioDePistas : MonoBehaviour
         var areaLista = new Rect(indice.x + S(18), indice.y + S(68), indice.width - S(86), indice.height - S(88)); // deixa livre a faixa da espiral
         var areaPagina = new Rect(pagina.x + S(96), pagina.y + S(40), pagina.width - S(132), pagina.height - S(66));
 
-        if (aba == 0) DesenharPistas(areaLista, areaPagina);
-        else if (aba == 1) DesenharEvidencias(areaLista, areaPagina);
+        if (aba == 0) DesenharEvidencias(areaLista, areaPagina);
         else DesenharConclusoes(areaLista, areaPagina);
 
         GUI.Label(new Rect(0, folha.yMax + borda + S(10), Screen.width, S(26)),
@@ -462,23 +415,21 @@ public class DiarioDePistas : MonoBehaviour
         conclusoes.AddRange(Caderno.Conclusoes());
         if (!coletadas.Contains(evidenciaSelecionada)) evidenciaSelecionada = coletadas.Count > 0 ? coletadas[0] : null;
         if (!conclusoes.Contains(conclusaoSelecionada)) conclusaoSelecionada = conclusoes.Count > 0 ? conclusoes[0] : null;
-        if (selecionado >= entradas.Count) selecionado = entradas.Count - 1;
-        nomesDasAbas[0] = $"Pistas ({entradas.Count})";
-        nomesDasAbas[1] = $"Evidências ({coletadas.Count})";
-        nomesDasAbas[2] = $"Conclusões ({conclusoes.Count})";
+        nomesDasAbas[0] = $"Evidências ({coletadas.Count})";
+        nomesDasAbas[1] = $"Conclusões ({conclusoes.Count})";
     }
 
     void TrocarAba(int nova)
     {
-        aba = Mathf.Clamp(nova, 0, 2);
+        aba = Mathf.Clamp(nova, 0, 1);
         escolhendoComparacao = false;
         scrollLista = scrollTexto = Vector2.zero;
     }
 
     void DesenharAbas(Rect folha, float hAbas, float borda)
     {
-        float largura = Mathf.Min(S(250), (folha.width - S(360)) / 3f), vao = S(8);
-        for (int i = 0; i < 3; i++)
+        float largura = Mathf.Min(S(250), (folha.width - S(360)) / 2f), vao = S(8);
+        for (int i = 0; i < 2; i++)
         {
             var r = new Rect(folha.x + S(26) + i * (largura + vao), folha.y - hAbas, largura, hAbas);
             bool ativa = i == aba;
@@ -564,34 +515,6 @@ public class DiarioDePistas : MonoBehaviour
         GUI.BeginGroup(area);
         Bloco(0, area.width, texto, sTexto, true);
         GUI.EndGroup();
-    }
-
-    void DesenharPistas(Rect areaLista, Rect areaPagina)
-    {
-        if (entradas.Count == 0)
-        {
-            PaginaVazia(areaPagina, "Nenhuma pista registrada ainda.\nExamine objetos pelas salas para encontrar pistas.");
-            return;
-        }
-
-        float largura = areaLista.width - S(18), total = 0f;
-        for (int i = 0; i < entradas.Count; i++) total += AlturaDaLinha(entradas[i].nome, largura);
-        int clicada = -1;
-        scrollLista = GUI.BeginScrollView(areaLista, scrollLista, new Rect(0, 0, largura, total));
-        float y = 0f;
-        for (int i = 0; i < entradas.Count; i++)
-            if (Linha(ref y, largura, entradas[i].nome, null, !entradas[i].lida, i == selecionado)) clicada = i;
-        GUI.EndScrollView();
-        if (clicada >= 0) Selecionar(clicada);
-
-        if (selecionado < 0) return;
-        Entrada e = entradas[selecionado];
-        string corpo = string.IsNullOrEmpty(e.descricao) ? "(sem descrição)" : e.descricao;
-        float lp = areaPagina.width - S(18);
-        float alt = PaginaSimples(lp, false, "PISTA", e.nome, corpo);
-        scrollTexto = GUI.BeginScrollView(areaPagina, scrollTexto, new Rect(0, 0, lp, alt));
-        PaginaSimples(lp, true, "PISTA", e.nome, corpo);
-        GUI.EndScrollView();
     }
 
     void DesenharEvidencias(Rect areaLista, Rect areaPagina)
@@ -757,7 +680,7 @@ public class DiarioDePistas : MonoBehaviour
         GUI.EndScrollView();
     }
 
-    /// <summary>Aviso de pista ou evidência nova: uma tira de papel no canto superior direito.</summary>
+    /// <summary>Aviso de evidência nova: uma tira de papel no canto superior direito.</summary>
     void DesenharAviso()
     {
         float largura = S(480);
@@ -767,15 +690,6 @@ public class DiarioDePistas : MonoBehaviour
         Papel(r, texturaPagina, corPapel);
         Caixa(new Rect(r.x, r.y, S(8), r.height), corVermelho);
         GUI.Label(new Rect(r.x + S(26), r.y + S(14), largura - S(48), alt - S(28)), avisoTexto, sAviso);
-    }
-
-    // ---------- Teste rápido ----------
-
-    [ContextMenu("Testar: adicionar pista de teste")]
-    void AdicionarPistaDeTeste()
-    {
-        int n = entradas.Count + 1;
-        Adicionar($"Pista de teste {n}", "Texto de exemplo para testar o diário. Troque por uma descrição real depois.");
     }
 
     // ---------- Entrada (Input System novo e antigo) ----------

@@ -52,12 +52,14 @@ public sealed class ChuvaLeve : MonoBehaviour
     public List<PortalDeChuva> portais = new List<PortalDeChuva>();
     [Min(0.001f)] public float suavizacaoAudio = 0.08f;
 
+    static readonly int ChuvaCentro = Shader.PropertyToID("_ChuvaCentro");
     readonly Vector4[] dadosPocas = new Vector4[8];
     readonly Vector4[] rotacoesPocas = new Vector4[8];
     float acumulador, acumuladorOndulacoes, proximoAudio, exposicaoAudio, alvoAudio, velocidadeAudio, velocidadeExterno, velocidadeInterno;
     readonly HashSet<AudioSource> fontesIniciadas = new HashSet<AudioSource>();
     bool preparada;
     Transform cameraAlvo;
+    ParticleSystemRenderer rendererGotas;
 
     Transform ObterAlvo()
     {
@@ -66,7 +68,12 @@ public sealed class ChuvaLeve : MonoBehaviour
         return cameraAlvo;
     }
 
-    void OnEnable() { preparada = false; Aplicar(); }
+    void OnEnable()
+    {
+        preparada = false;
+        rendererGotas = gotas ? gotas.GetComponent<ParticleSystemRenderer>() : null;
+        Aplicar();
+    }
     void OnDisable()
     {
         if (Application.isPlaying)
@@ -85,7 +92,7 @@ public sealed class ChuvaLeve : MonoBehaviour
     void OnValidate() { Aplicar(); }
     void Update()
     {
-        Aplicar();
+        AtualizarQuadro();
         if (!Application.isPlaying) return;
         Transform t = ObterAlvo();
         if (!t) return;
@@ -109,10 +116,8 @@ public sealed class ChuvaLeve : MonoBehaviour
 
     void Aplicar()
     {
-        Transform t = ObterAlvo();
         Shader.SetGlobalTexture("_ChuvaAbrigoTex", mapa && mapa.textura ? mapa.textura : Texture2D.blackTexture);
         Shader.SetGlobalVector("_ChuvaAbrigoUV", mapa && mapa.textura ? mapa.ParametrosUV : Vector4.zero);
-        Shader.SetGlobalVector("_ChuvaCentro", t ? t.position : transform.position);
         Shader.SetGlobalVector("_ChuvaFade", new Vector4(inicioFade, Mathf.Max(inicioFade + 0.01f, fimFade), 0, 0));
         Shader.SetGlobalFloat("_ChuvaUmidade", umidade);
         int n = pocas == null ? 0 : Mathf.Min(8, pocas.Count);
@@ -127,37 +132,56 @@ public sealed class ChuvaLeve : MonoBehaviour
         Shader.SetGlobalInt("_ChuvaPocasQtd", n);
         Shader.SetGlobalVectorArray("_ChuvaPocas", dadosPocas);
         Shader.SetGlobalVectorArray("_ChuvaPocasRot", rotacoesPocas);
+        if (gotas)
+        {
+            var main = gotas.main;
+            main.simulationSpace = ParticleSystemSimulationSpace.World;
+            main.startSpeed = 0;
+            main.startLifetime = Mathf.Max(0.1f, alturaArea / Mathf.Max(1, velocidadeQueda));
+            main.startSize = new ParticleSystem.MinMaxCurve(larguraGota * 0.85f, larguraGota * 1.15f);
+            var shape = gotas.shape;
+            shape.enabled = true;
+            shape.shapeType = ParticleSystemShapeType.Box;
+            shape.scale = new Vector3(raioArea * 2, alturaArea, raioArea * 2);
+            var emission = gotas.emission;
+            emission.enabled = true;
+            emission.rateOverTime = Mathf.Max(0, taxaMaxima) * intensidade;
+            var velocity = gotas.velocityOverLifetime;
+            velocity.enabled = true;
+            velocity.space = ParticleSystemSimulationSpace.World;
+            float variacao = Mathf.Min(variacaoQueda, velocidadeQueda * 0.9f);
+            velocity.y = new ParticleSystem.MinMaxCurve(-velocidadeQueda - variacao, -velocidadeQueda + variacao);
+            rendererGotas = gotas.GetComponent<ParticleSystemRenderer>();
+            if (rendererGotas)
+            {
+                rendererGotas.renderMode = ParticleSystemRenderMode.Stretch;
+                rendererGotas.lengthScale = 1;
+                rendererGotas.cameraVelocityScale = 0;
+            }
+        }
+        else
+        {
+            rendererGotas = null;
+        }
+        AtualizarQuadro();
+    }
+
+    // Só o que varia por quadro: posição do alvo e oscilação do vento nas gotas.
+    void AtualizarQuadro()
+    {
+        Transform t = ObterAlvo();
+        Shader.SetGlobalVector(ChuvaCentro, t ? t.position : transform.position);
         if (!gotas) return;
-        var main = gotas.main;
-        main.simulationSpace = ParticleSystemSimulationSpace.World;
-        main.startSpeed = 0;
-        main.startLifetime = Mathf.Max(0.1f, alturaArea / Mathf.Max(1, velocidadeQueda));
-        main.startSize = new ParticleSystem.MinMaxCurve(larguraGota * 0.85f, larguraGota * 1.15f);
-        var shape = gotas.shape;
-        shape.enabled = true;
-        shape.shapeType = ParticleSystemShapeType.Box;
-        shape.scale = new Vector3(raioArea * 2, alturaArea, raioArea * 2);
-        var emission = gotas.emission;
-        emission.enabled = true;
-        emission.rateOverTime = Mathf.Max(0, taxaMaxima) * intensidade;
         float tempo = Application.isPlaying ? Time.time : 0;
         Vector2 v = vento + new Vector2(Mathf.PerlinNoise(tempo * 0.065f, 3.2f) * 2 - 1,
             Mathf.PerlinNoise(7.1f, tempo * 0.065f) * 2 - 1) * variacaoVento;
         var velocity = gotas.velocityOverLifetime;
-        velocity.enabled = true;
-        velocity.space = ParticleSystemSimulationSpace.World;
         velocity.x = new ParticleSystem.MinMaxCurve(v.x - 0.12f, v.x + 0.12f);
         velocity.z = new ParticleSystem.MinMaxCurve(v.y - 0.12f, v.y + 0.12f);
-        float variacao = Mathf.Min(variacaoQueda, velocidadeQueda * 0.9f);
-        velocity.y = new ParticleSystem.MinMaxCurve(-velocidadeQueda - variacao, -velocidadeQueda + variacao);
-        var renderer = gotas.GetComponent<ParticleSystemRenderer>();
-        if (renderer)
+        if (rendererGotas)
         {
-            renderer.renderMode = ParticleSystemRenderMode.Stretch;
-            renderer.lengthScale = 1;
-            renderer.cameraVelocityScale = 0;
             // Unity stretches by size * lengthScale + speed * velocityScale (world units, not sizes).
-            renderer.velocityScale = Mathf.Max(0, comprimentoRastro - larguraGota)
+            rendererGotas.velocityScale = Mathf.Max(0, comprimentoRastro - larguraGota)
                 / Mathf.Max(1, new Vector3(v.x, velocidadeQueda, v.y).magnitude);
         }
     }

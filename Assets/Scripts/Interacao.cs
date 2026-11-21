@@ -131,7 +131,6 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
     Transform copia;
     Vector3 origemPos, origemEsc, alvoLocalPos, alvoLocalEsc, deLocalPos, deLocalEsc;
     Quaternion origemRot, alvoLocalRot, deLocalRot;
-    GUIStyle estilo;
 
     // vista no lugar (fixoNoLugar): a câmera do jogador vai até a frente do objeto e volta ao fechar
     bool vistaFixa;
@@ -159,10 +158,16 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
             melhorDistancia = float.MaxValue;
         }
 
+        if (emInspecao == this && (TelaDeFinal.Ativa || DanielPerseguidor.Capturando))
+        {
+            EncerrarInspecao();
+            return;
+        }
         if (emInspecao != null) return;
         // Diário, telas (computador, cadeado) e cursor solto bloqueiam; portas, gavetas etc. na mira têm
         // prioridade sobre a pista (mesma tecla).
-        if (MiraDeInteracao.ControleCapturado || MiraDeInteracao.Alvo != null) return;
+        if (MiraDeInteracao.ControleCapturado || MiraDeInteracao.Alvo != null || Esconderijo.JogadorEscondido ||
+            TelaDeFinal.Ativa || DanielPerseguidor.Capturando) return;
 
         Camera c = Camera.main;
         if (c == null) return;
@@ -246,6 +251,11 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
     void LateUpdate()
     {
         if (emInspecao != null) realce = 0f;
+        if (emInspecao == this && (TelaDeFinal.Ativa || DanielPerseguidor.Capturando))
+        {
+            EncerrarInspecao();
+            return;
+        }
         if (emInspecao == this && animacao == Animacao.Voltando)
         {
             // voltando ao lugar: sem entrada; fecha ao chegar
@@ -369,7 +379,12 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
     /// </summary>
     public bool IniciarInspecao()
     {
-        if (emInspecao != null || IntroChegada.Ativa) return false;
+        if (emInspecao != null || IntroChegada.Ativa || TelaDeFinal.Ativa || DanielPerseguidor.Capturando) return false;
+        if (DecisoesDeDaniel.CacaEmAndamento)
+        {
+            MiraDeInteracao.Avisar("Não dá tempo de ler agora.", 1.5f);
+            return false;
+        }
         Abrir();
         return emInspecao == this;
     }
@@ -386,6 +401,12 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
 
     void Abrir()
     {
+        if (TelaDeFinal.Ativa || DanielPerseguidor.Capturando) return;
+        if (DecisoesDeDaniel.CacaEmAndamento)
+        {
+            MiraDeInteracao.Avisar("Não dá tempo de ler agora.", 1.5f);
+            return;
+        }
         quadroAbertura = Time.frameCount;
         camPrincipal = Camera.main;
         cam = camPrincipal.transform;
@@ -702,7 +723,11 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
         foreach (var comp in desativados)
         {
             if (comp == null) continue;
-            if (comp is Movimento mov) mov.olhar = Vector2.zero;   // sem giro acumulado durante a inspeção
+            if (comp is Movimento mov)
+            {
+                mov.olhar = Vector2.zero;   // sem giro acumulado durante a inspeção
+                if (TelaDeFinal.Ativa || DanielPerseguidor.Capturando) continue;
+            }
             comp.enabled = true;
         }
         desativados.Clear();
@@ -823,17 +848,6 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
         bool inspecionando = emInspecao == this;
         if (!mostrandoAviso && !inspecionando) return;
 
-        if (estilo == null)
-        {
-            estilo = new GUIStyle(GUI.skin.label)
-            {
-                fontSize = 22,
-                alignment = TextAnchor.MiddleCenter,
-                wordWrap = true
-            };
-            estilo.normal.textColor = Color.white;
-        }
-
         if (mostrandoAviso)
         {
             HudInteracao.Interagir(teclaInteracao);
@@ -844,7 +858,7 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
                 int naoLidas = pilha.NaoLidas;
                 string aviso = $"{total} papéis aqui";
                 if (naoLidas == total) aviso += " · nenhum lido";
-                else if (naoLidas > 0) aviso += $" · {naoLidas} não lidos";
+                else if (naoLidas > 0) aviso += naoLidas == 1 ? " · 1 não lido" : $" · {naoLidas} não lidos";
                 HudInteracao.Texto(aviso, 0.5f + 0.045f + 0.032f, 0.75f);
             }
         }
@@ -852,8 +866,8 @@ public class ObjetoInspecionavel : MonoBehaviour, ISalvavel
         {
             string texto = !string.IsNullOrEmpty(instrucoes) ? instrucoes
                 : manipulador != null && !string.IsNullOrEmpty(manipulador.Instrucoes) ? manipulador.Instrucoes
-                : fixoNoLugar ? "Scroll: aproximar  |  Mouse: mover a vista de perto"
-                : "Clique e arraste: girar  |  Scroll: zoom";
+                : fixoNoLugar ? "Roda do mouse: aproximar  |  Mouse: mover a vista de perto"
+                : "Clique e arraste: girar  |  Roda do mouse: aproximar";
             var pilha = PilhaDeDocumentos.De(this);
             if (pilha != null && pilha.Total > 1)
                 texto += $"  |  ← →: outro papel ({pilha.Indice(this) + 1}/{pilha.Total})";

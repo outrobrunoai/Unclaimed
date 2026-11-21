@@ -214,6 +214,9 @@ public class MenuOpcoes : MonoBehaviour
         Deslizante(pagina, ref y, "Volume geral", 0f, 1f, () => Configuracoes.VolumeGeral, Configuracoes.DefinirVolumeGeral,
             v => Mathf.RoundToInt(v * 100f) + "%");
         SimNao(pagina, ref y, "Som em segundo plano", () => Configuracoes.SomEmSegundoPlano, Configuracoes.DefinirSomEmSegundoPlano);
+        SimNao(pagina, ref y, "Usar microfone", () => Configuracoes.UsarMicrofone, Configuracoes.DefinirUsarMicrofone);
+        Deslizante(pagina, ref y, "Sensibilidade do microfone", 0f, 1f, () => Configuracoes.SensibilidadeMicrofone,
+            Configuracoes.DefinirSensibilidadeMicrofone, v => Mathf.RoundToInt(v * 100f) + "%");
         return pagina.gameObject;
     }
 

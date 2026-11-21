@@ -41,7 +41,7 @@ public class SaidaDoPredio : InterfaceDeTela
 
     public override void Interagir()
     {
-        if (IntroChegada.Ativa) return;
+        if (IntroChegada.Ativa || DanielPerseguidor.Capturando) return;
         if (Bloqueada) { MiraDeInteracao.Avisar(textoBloqueada, 2f); return; }
         AbrirInterface();
     }
@@ -69,7 +69,7 @@ public class SaidaDoPredio : InterfaceDeTela
     protected override void Update()
     {
         base.Update();
-        if (IntroChegada.Ativa || EstadoDaNoite.Fase != FaseDeDaniel.Caca || Bloqueada || TelaDeFinal.Ativa) return;
+        if (IntroChegada.Ativa || EstadoDaNoite.Fase != FaseDeDaniel.Caca || Bloqueada || TelaDeFinal.Ativa || DanielPerseguidor.Capturando) return;
         if (EstadoDaNoite.Tem("gravador_entregue")) return;
         if ((Jogador.Posicao - transform.position).sqrMagnitude <= raioDeFuga * raioDeFuga) Sair();
     }
@@ -150,6 +150,11 @@ public class SaidaDoPredio : InterfaceDeTela
 
         if (DesenharEscolha(rVoltar, tamVoltar.x, textos.saidaVoltar, pEscolhas, hoverVoltar, s)) FecharInterface();
         if (DesenharEscolha(rIr, tamIr.x, textos.saidaIr, pEscolhas, hoverIr, s)) Sair();
+
+        float margem = 36f * s, larguraDica = 260f * s, alturaDica = 26f * s;
+        var rDica = new Rect(Screen.width - margem - larguraDica, Screen.height - margem - alturaDica, larguraDica, alturaDica);
+        GUI.Label(rDica, "Esc para voltar",
+            DesenhoUi.EstiloMaquina(15f, new Color(1f, 1f, 1f, 0.35f * pEscolhas), TextAnchor.MiddleRight));
     }
 
     static bool DesenharEscolha(Rect r, float larguraTexto, string texto, float alfa, float hover, float s)

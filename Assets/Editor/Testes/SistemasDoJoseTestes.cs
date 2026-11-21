@@ -164,6 +164,8 @@ public class SistemasDoJoseTestes
     public void SamuelPrimeiroQuemRecebeuPrimeiro()
     {
         EstadoDaNoite.Marcar("con:samuel");
+        Assert.That(CelularLogica.RespostasDisponiveis("irene"), Is.Empty);
+        EstadoDaNoite.Marcar("ev:H06");
         var irene = CelularLogica.RespostasDisponiveis("irene").Single();
         var jornal = CelularLogica.RespostasDisponiveis("redacao").Single(r => r.marca == "samuel:jornal");
         Assert.That(CelularLogica.Responder(irene, false), Is.False);
@@ -172,6 +174,69 @@ public class SistemasDoJoseTestes
         Assert.That(EstadoDaNoite.Tem("samuel:irene:primeiro"), Is.True);
         Assert.That(EstadoDaNoite.Tem("samuel:jornal:primeiro"), Is.False);
         Assert.That(CelularLogica.RespostasDisponiveis("irene"), Is.Empty);
+    }
+
+    [Test]
+    public void QuandoComMaisDeUmFatoExigeTodos()
+    {
+        Assert.That(CelularLogica.Condicao(null), Is.True);
+        Assert.That(CelularLogica.Condicao(""), Is.True);
+        Assert.That(CelularLogica.Condicao("   "), Is.True);
+        Assert.That(CelularLogica.Condicao("fato_a"), Is.False);
+        Assert.That(CelularLogica.Condicao("fato_a+fato_b"), Is.False);
+
+        EstadoDaNoite.Marcar("fato_a");
+        Assert.That(CelularLogica.Condicao("fato_a"), Is.True);
+        Assert.That(CelularLogica.Condicao("fato_a+fato_b"), Is.False);
+        Assert.That(CelularLogica.Condicao(" fato_a + fato_b "), Is.False);
+
+        EstadoDaNoite.Marcar("fato_b");
+        Assert.That(CelularLogica.Condicao("fato_a+fato_b"), Is.True);
+        Assert.That(CelularLogica.Condicao(" fato_a + fato_b "), Is.True);
+        Assert.That(CelularLogica.Condicao("fato_a+fato_b+fato_c"), Is.False);
+
+        EstadoDaNoite.Marcar("fato_c");
+        Assert.That(CelularLogica.Condicao("fato_a+fato_b+fato_c"), Is.True);
+
+        // Na história real, responder à Irene exige tanto a conclusão quanto o contato (H06).
+        EstadoDaNoite.Limpar();
+        EstadoDaNoite.Marcar("ev:H06");
+        Assert.That(CelularLogica.RespostasDisponiveis("irene"), Is.Empty);
+        EstadoDaNoite.Limpar();
+        EstadoDaNoite.Marcar("con:samuel");
+        Assert.That(CelularLogica.RespostasDisponiveis("irene"), Is.Empty);
+        EstadoDaNoite.Marcar("ev:H06");
+        Assert.That(CelularLogica.RespostasDisponiveis("irene").Select(r => r.id), Is.EqualTo(new[] { "resp_samuel_irene" }));
+    }
+
+    [Test]
+    public void CelularSalvaERestauraLidasEFila()
+    {
+        var go = new GameObject("CelularTeste");
+        try
+        {
+            var celular = go.AddComponent<Celular>();
+            Caderno.Coletar("D11");
+            Caderno.Coletar("D12");
+            Assert.That(CelularLogica.Enfileirar("D11"), Is.True);
+            Assert.That(CelularLogica.Enfileirar("D12"), Is.True);
+            celular.lidas.Add("redacao_01");
+            celular.lidas.Add("celso_02");
+
+            string salvo = celular.Salvar();
+            celular.lidas.Clear();
+            CelularLogica.Limpar();
+            Assert.That(celular.lidas, Is.Empty);
+            Assert.That(CelularLogica.Fila, Is.Empty);
+
+            celular.Carregar(salvo);
+            Assert.That(celular.lidas, Is.EquivalentTo(new[] { "redacao_01", "celso_02" }));
+            Assert.That(CelularLogica.Fila.Select(i => i.id).ToArray(), Is.EqualTo(new[] { "D11", "D12" }));
+        }
+        finally
+        {
+            Object.DestroyImmediate(go);
+        }
     }
 
     // ------------------------------------------------------------------ finais
@@ -231,7 +296,10 @@ public class SistemasDoJoseTestes
         Assert.That(DecisoesDeDaniel.ProximaFase(FaseDeDaniel.Mesa, EstadoDaNoite.Tem), Is.EqualTo(FaseDeDaniel.Sombra));
         EstadoDaNoite.Marcar("con:troca");
         Assert.That(DecisoesDeDaniel.ProximaFase(FaseDeDaniel.Sombra, EstadoDaNoite.Tem), Is.EqualTo(FaseDeDaniel.Obstrucao));
+        EstadoDaNoite.Marcar("caca");
+        Assert.That(DecisoesDeDaniel.ProximaFase(FaseDeDaniel.Obstrucao, EstadoDaNoite.Tem), Is.EqualTo(FaseDeDaniel.Caca));
         EstadoDaNoite.Limpar();
+        EstadoDaNoite.Marcar("daniel_saiu");
         Assert.That(DecisoesDeDaniel.ProximaFase(FaseDeDaniel.Obstrucao, EstadoDaNoite.Tem), Is.EqualTo(FaseDeDaniel.Obstrucao));
     }
 
@@ -245,7 +313,82 @@ public class SistemasDoJoseTestes
         Assert.That(DecisoesDeDaniel.PodeSairDaMesa(EstadoDaNoite.Tem), Is.False);   // a foto da mesa sozinha não basta
         EstadoDaNoite.Limpar();
         EstadoDaNoite.Marcar("ev:F02");
+        Assert.That(DecisoesDeDaniel.PodeSairDaMesa(EstadoDaNoite.Tem), Is.False);   // só F02 também não: F01 ainda precisa existir para a troca
+        EstadoDaNoite.Marcar("ev:F01");
         Assert.That(DecisoesDeDaniel.PodeSairDaMesa(EstadoDaNoite.Tem), Is.True);
+    }
+
+    [Test]
+    public void CacaEmAndamentoSoDurantePerseguicaoSemEntrega()
+    {
+        EstadoDaNoite.Fase = FaseDeDaniel.Mesa;
+        Assert.That(DecisoesDeDaniel.CacaEmAndamento, Is.False);
+        EstadoDaNoite.Fase = FaseDeDaniel.Sombra;
+        Assert.That(DecisoesDeDaniel.CacaEmAndamento, Is.False);
+        EstadoDaNoite.Fase = FaseDeDaniel.Obstrucao;
+        Assert.That(DecisoesDeDaniel.CacaEmAndamento, Is.False);
+
+        EstadoDaNoite.Fase = FaseDeDaniel.Caca;
+        Assert.That(DecisoesDeDaniel.CacaEmAndamento, Is.True);
+
+        EstadoDaNoite.Marcar("gravador_entregue");
+        Assert.That(DecisoesDeDaniel.CacaEmAndamento, Is.False);
+    }
+
+    [Test]
+    public void DesfazerCamaraFriaRespeitaRedeEletrica()
+    {
+        var criados = new List<GameObject>();
+        try
+        {
+            var goLuzGeral = new GameObject("LuzGeral");
+            criados.Add(goLuzGeral);
+            var luzGeral = goLuzGeral.AddComponent<Light>();
+            luzGeral.enabled = true;
+
+            var goConsumidor = new GameObject("ConsumidorGeral");
+            criados.Add(goConsumidor);
+            var consumidor = goConsumidor.AddComponent<ConsumidorDeEnergia>();
+            consumidor.circuito = RedeEletrica.Geral;
+            consumidor.luzes = new[] { luzGeral };
+
+            var goPonto = new GameObject("PontoCamara");
+            criados.Add(goPonto);
+            var ponto = goPonto.AddComponent<PontoDeAcao>();
+            ponto.tipo = TipoDeAcao.PrenderCamaraFria;
+            ponto.luzes = new[] { luzGeral };
+
+            // No apagão, desfazer a armadilha não pode reacender a luz.
+            ponto.Executar();
+            Assert.That(luzGeral.enabled, Is.False);
+            RedeEletrica.RemoverFusivel(RedeEletrica.Geral);
+            ponto.Desfazer();
+            Assert.That(luzGeral.enabled, Is.False);
+
+            // Com energia de volta no circuito, desfazer reacende a luz.
+            RedeEletrica.ColocarFusivel(RedeEletrica.Geral);
+            ponto.Executar();
+            Assert.That(luzGeral.enabled, Is.False);
+            ponto.Desfazer();
+            Assert.That(luzGeral.enabled, Is.True);
+        }
+        finally
+        {
+            foreach (GameObject go in criados) Object.DestroyImmediate(go);
+        }
+    }
+
+    [Test]
+    public void PorQueNaoPodeSalvarBloqueiaDurantePerseguicao()
+    {
+        Assert.That(Salvamento.PorQueNaoPodeSalvar(), Is.Null);
+
+        EstadoDaNoite.Fase = FaseDeDaniel.Caca;
+        Assert.That(Salvamento.PorQueNaoPodeSalvar(), Is.EqualTo("Não é possível salvar durante a perseguição."));
+        Assert.That(Salvamento.Salvar(), Is.False);
+
+        EstadoDaNoite.Marcar("gravador_entregue");
+        Assert.That(Salvamento.PorQueNaoPodeSalvar(), Is.Null);
     }
 
     static DecisoesDeDaniel.Candidato C(string sala, TipoDeAcao tipo, float x, string grupo = "") => new DecisoesDeDaniel.Candidato

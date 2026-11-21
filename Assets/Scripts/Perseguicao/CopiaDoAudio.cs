@@ -18,6 +18,7 @@ public class CopiaDoAudio : AlvoDeInteracao, ISalvavel
 
     float feito;
     bool copiando;
+    float copiaDesde;
 
     public override float AlcanceDeInteracao => alcance;
     public override string Tecla => tecla;
@@ -31,6 +32,7 @@ public class CopiaDoAudio : AlvoDeInteracao, ISalvavel
     {
         if (!Gravador.ComOJogador || EstadoDaNoite.Tem(CelularLogica.FatoAudioCopiado)) return;
         copiando = true;
+        copiaDesde = Time.unscaledTime;
         if (fonte != null && somTrabalhando != null) { fonte.clip = somTrabalhando; fonte.loop = true; fonte.Play(); }
         MiraDeInteracao.Avisar("Copiando. Fique perto do computador.");
     }
@@ -60,12 +62,20 @@ public class CopiaDoAudio : AlvoDeInteracao, ISalvavel
     {
         base.OnGUI();
         if (!copiando) return;
+        // Barra fina de transferência, como no computador do arquivo, com a porcentagem ao lado.
         float s = DesenhoUi.S;
-        Rect r = new Rect(Screen.width / 2f - 220 * s, Screen.height - 150 * s, 440 * s, 16 * s);
-        DesenhoUi.Caixa(r, new Color(0, 0, 0, 0.6f));
-        DesenhoUi.Caixa(new Rect(r.x, r.y, r.width * Progresso, r.height), new Color(0.4f, 0.8f, 0.45f));
-        GUI.Label(new Rect(r.x, r.y - 34 * s, r.width, 30 * s), $"Copiando a gravação: {Mathf.RoundToInt(Progresso * 100)}%",
-            DesenhoUi.Estilo(17, Color.white, true, TextAnchor.LowerCenter));
+        float a = DesenhoUi.Suave((Time.unscaledTime - copiaDesde) / 0.35f);
+        float w = 460f * s, x = (Screen.width - w) * 0.5f, y = Screen.height - 132f * s;
+        DesenhoUi.Caixa(new Rect(x - 24f * s, y - 52f * s, w + 48f * s, 92f * s), new Color(0f, 0f, 0f, 0.55f * a));
+        GUI.Label(new Rect(x, y - 40f * s, w, 26f * s), "Copiando a gravação…",
+            DesenhoUi.EstiloMaquina(18f, new Color(1f, 1f, 1f, 0.9f * a)));
+        GUI.Label(new Rect(x, y - 40f * s, w, 26f * s), $"{Mathf.RoundToInt(Progresso * 100)}%",
+            DesenhoUi.EstiloMaquina(18f, new Color(1f, 1f, 1f, 0.9f * a), TextAnchor.UpperRight));
+        float h = Mathf.Max(2f, 3f * s);
+        DesenhoUi.Caixa(new Rect(x, y, w, h), new Color(1f, 1f, 1f, 0.15f * a));
+        DesenhoUi.Caixa(new Rect(x, y, w * Progresso, h), new Color(0.86f, 0.86f, 0.80f, a));
+        GUI.Label(new Rect(x, y + 10f * s, w, 22f * s), "Fique perto do computador até terminar.",
+            DesenhoUi.Estilo(14f, new Color(1f, 1f, 1f, 0.45f * a)));
     }
 
     public string Salvar() => feito.ToString(System.Globalization.CultureInfo.InvariantCulture);

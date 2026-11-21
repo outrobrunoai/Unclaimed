@@ -48,4 +48,23 @@ public class ConsumidorDeEnergia : MonoBehaviour
             else if (!ligado && a.isPlaying) a.Stop();
         }
     }
+
+    /// <summary>Verdadeiro se a luz deve ficar acesa conforme o circuito do consumidor que a controla (ou a luz geral).</summary>
+    public static bool DeveEstarLigada(Light luz)
+    {
+        if (luz == null) return false;
+        foreach (ConsumidorDeEnergia c in FindObjectsByType<ConsumidorDeEnergia>())
+            if (c.Controla(luz)) return RedeEletrica.Ligado(c.circuito) != c.inverter;
+        return RedeEletrica.Ligado(RedeEletrica.Geral);
+    }
+
+    bool Controla(Light luz)
+    {
+        if (luzes != null && luzes.Length > 0)
+        {
+            foreach (Light l in luzes) if (l == luz) return true;
+            return false;
+        }
+        return luz.transform.IsChildOf(transform);
+    }
 }

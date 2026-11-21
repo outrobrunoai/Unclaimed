@@ -42,7 +42,8 @@ public class CenaDeTestesDoJoseTestes
         Assert.That(Object.FindAnyObjectByType<CameraFotografica>(), Is.Not.Null);
         Assert.That(Object.FindAnyObjectByType<Celular>(), Is.Not.Null);
 
-        // Parte 2: com F02, Daniel larga a mesa (a autópsia não está à vista do corredor).
+        // Parte 2: com F01 e F02, Daniel larga a mesa (a autópsia não está à vista do corredor).
+        EstadoDaNoite.Marcar("ev:F01");
         EstadoDaNoite.Marcar("ev:F02");
         for (int i = 0; i < 30 && !EstadoDaNoite.Tem("daniel_saiu"); i++) yield return null;
         Assert.That(EstadoDaNoite.Tem("daniel_saiu"), Is.True);

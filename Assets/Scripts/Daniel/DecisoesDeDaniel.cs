@@ -13,6 +13,9 @@ public static class DecisoesDeDaniel
 {
     public const float IntervaloSombra = 90f, IntervaloObstrucao = 60f;
 
+    /// <summary>Verdadeiro enquanto Daniel está caçando o jogador (fase Caça sem ter entregue o gravador).</summary>
+    public static bool CacaEmAndamento => EstadoDaNoite.Fase == FaseDeDaniel.Caca && !EstadoDaNoite.Tem("gravador_entregue");
+
     public static FaseDeDaniel ProximaFase(FaseDeDaniel atual, Func<string, bool> tem)
     {
         FaseDeDaniel alvo = FaseDeDaniel.Mesa;
@@ -22,9 +25,9 @@ public static class DecisoesDeDaniel
         return alvo > atual ? alvo : atual;
     }
 
-    /// <summary>Daniel larga a mesa (P08) só depois que o jogador acha Léo em C-02 (F02, P07), como na ordem da história.
-    /// A F01 já exige a luz de exame; se ela bastasse, ele sairia na primeira saída da sala e a pose B nunca seria vista.</summary>
-    public static bool PodeSairDaMesa(Func<string, bool> tem) => tem("ev:F02");
+    /// <summary>Daniel só larga a mesa (P08) depois que o jogador fotografou a mesa (F01) e achou Léo em C-02 (F02),
+    /// garantindo que a conclusão "troca" (F01 × F02) sempre possa ser formada.</summary>
+    public static bool PodeSairDaMesa(Func<string, bool> tem) => tem("ev:F01") && tem("ev:F02");
 
     public static float Intervalo(FaseDeDaniel fase) => fase == FaseDeDaniel.Obstrucao ? IntervaloObstrucao : IntervaloSombra;
 

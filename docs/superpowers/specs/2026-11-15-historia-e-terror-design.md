@@ -89,7 +89,7 @@ Removidas a pedido do autor em 2026-11-15: arrancar o registro da entrada e cola
 - Começa quando o jogador pega o gravador em G-B2. Daniel aparece na porta do arquivo depois de alguns segundos.
 - Daniel usa NavMesh e persegue por visão e som (correr faz barulho, andar agachado não).
 - **Esconderijos:** armários do descanso e os compartimentos vazios C-05 a C-07 da câmara fria. Entrar numa gaveta espelha o que Daniel fez na mesa.
-- **Antes da caça:** Daniel aparece na porta do arquivo e diz "Deixa o gravador. Pode ir." Se o jogador deixa o gravador, Daniel o pega e não persegue. Se o jogador fica com o gravador, a caça começa.
+- **Antes da caça:** Daniel aparece na porta do arquivo e diz "Põe o gravador no chão e vai embora. Ninguém precisa se machucar esta noite." Se o jogador deixa o gravador, Daniel o pega e não persegue. Se o jogador fica com o gravador, a caça começa.
 - **Captura:** fim de jogo imediato, recarrega CP04 (decidido pelo autor em 2026-11-15).
 - **Copiar o áudio** no PC do arquivo leva cerca de 40 s reais, com Daniel se aproximando. O jogador decide se copia antes de fugir.
 - **Rota:** arquivo → circulação → vestíbulo → recebimento → pátio, com o circuito pela autópsia e câmara fria como alternativa. Se o jogador preparou o portão do pátio antes, a fuga encurta.

@@ -69,7 +69,7 @@ public class BotaoSangueHover : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
         while (tempoPassado < tempoTransicao)
         {
-            tempoPassado += Time.deltaTime;
+            tempoPassado += Time.unscaledDeltaTime;
             float progresso = tempoPassado / tempoTransicao;
 
             // Usa suavização (Lerp) para a transição não ser seca

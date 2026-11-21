@@ -12,7 +12,7 @@ using UnityEngine.InputSystem;
 /// Q ou botão direito volta aos apps, T guarda. A lanterna fica no painel rápido (toque na barra de cima) ou na
 /// tecla L. Nenhuma dica de onde há sinal: o jogador descobre.
 /// </summary>
-public class Celular : PainelDoJogador
+public class Celular : PainelDoJogador, ISalvavel
 {
     public string tecla = "T";
     public string teclaFoto = "F", teclaApps = "Q";
@@ -39,8 +39,10 @@ public class Celular : PainelDoJogador
 
     /// <summary>A lanterna do celular está acesa (Daniel enxerga a luz de longe).</summary>
     public static bool LanternaLigada { get; private set; }
+    public static Celular Instancia => instancia;
 
     static Celular instancia;
+    static readonly RaycastHit[] acertosLanterna = new RaycastHit[32];
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void Reiniciar()
@@ -61,15 +63,15 @@ public class Celular : PainelDoJogador
         if (distancia <= 0.0001f) return true;
         if (Vector3.Angle(luz.forward, para) > instancia.luzLanterna.spotAngle * 0.5f) return false;
 
-        RaycastHit[] acertos = Physics.RaycastAll(luz.position, para / distancia, distancia, ~(1 << 2), QueryTriggerInteraction.Ignore);
-        for (int i = 0; i < acertos.Length; i++)
+        int qtd = Physics.RaycastNonAlloc(luz.position, para / distancia, acertosLanterna, distancia, ~(1 << 2), QueryTriggerInteraction.Ignore);
+        for (int i = 0; i < qtd; i++)
         {
-            Collider col = acertos[i].collider;
+            Collider col = acertosLanterna[i].collider;
             if (col == null) continue;
             if (col.transform.IsChildOf(instancia.transform)) continue;
             if (instancia.naMao != null && col.transform.IsChildOf(instancia.naMao.transform)) continue;
             if (col.GetComponentInParent<Movimento>() != null) continue;
-            if (distancia - acertos[i].distance < 0.15f) continue;
+            if (distancia - acertosLanterna[i].distance < 0.15f) continue;
             return false;
         }
         return true;
@@ -78,7 +80,8 @@ public class Celular : PainelDoJogador
     public override string TeclaDoPainel => tecla;
     // O celular não pausa nada: o jogador anda com ele na mão (só o olhar fica com o mouse na tela).
     protected override bool TravaOJogador => false;
-    protected override bool PodeAbrir => !modoCamera && !TelaDeFinal.Ativa && !IntroChegada.Ativa;
+    protected override bool PodeAbrir =>
+        !modoCamera && !TelaDeFinal.Ativa && !DanielPerseguidor.Capturando && !IntroChegada.Ativa && !Esconderijo.JogadorEscondido;
 
     public bool Lanterna => lanterna;
     public bool ModoCamera => modoCamera;
@@ -89,7 +92,7 @@ public class Celular : PainelDoJogador
     /// <summary>Mensagens já vistas na conversa (para o contador de não lidas).</summary>
     public readonly HashSet<string> lidas = new HashSet<string>();
 
-    bool lanterna, modoCamera, guardandoParaFechar, montado;
+    bool lanterna, modoCamera, guardandoParaFechar, guardadoNaHora, montado;
     float disparoEm = -9f, avisoAte, dicaCameraAte;
     int vezesNaCamera;
     string aviso = "";
@@ -164,6 +167,7 @@ public class Celular : PainelDoJogador
     protected override void AoAbrir()
     {
         guardandoParaFechar = false;
+        guardadoNaHora = false;
         if (Jogador.Movimento != null) Jogador.Movimento.ComCelularNaMao = true;
         bool vindoDaCamera = modoCamera;
         modoCamera = false;
@@ -207,14 +211,28 @@ public class Celular : PainelDoJogador
     /// <summary>Guarda o celular com a animação (o mesmo que T ou Esc com ele aberto).</summary>
     public void Guardar() { if (EstaAberta) IniciarGuarda(); }
 
+    /// <summary>Fecha a interface (se aberta), sai do modo câmera e guarda o modelo na hora.</summary>
+    public void GuardarJa()
+    {
+        modoCamera = false;
+        guardandoParaFechar = false;
+        if (EstaAberta)
+        {
+            guardadoNaHora = true;
+            FecharInterface();
+        }
+        if (naMao != null) naMao.GuardarJa();
+    }
+
     CelularNaMao.Pose PoseDeDescanso => lanterna ? CelularNaMao.Pose.Lanterna : CelularNaMao.Pose.Guardado;
 
     // Fechada por fora (sem passar pela animação): o celular volta ao descanso, a não ser que vá para a câmera.
     protected override void AoFechar()
     {
         if (Jogador.Movimento != null) Jogador.Movimento.ComCelularNaMao = false;
-        if (!modoCamera && naMao != null && naMao.Destino != PoseDeDescanso) naMao.IrPara(PoseDeDescanso);
+        if (!modoCamera && !guardadoNaHora && naMao != null && naMao.Destino != PoseDeDescanso) naMao.IrPara(PoseDeDescanso);
         guardandoParaFechar = false;
+        guardadoNaHora = false;
     }
 
     protected override void AtualizarAberta()
@@ -226,7 +244,7 @@ public class Celular : PainelDoJogador
     /// <summary>App Câmera: o celular deita na frente do rosto e o jogador volta a andar.</summary>
     public void AbrirCamera()
     {
-        if (IntroChegada.Ativa) return;
+        if (IntroChegada.Ativa || TelaDeFinal.Ativa || DanielPerseguidor.Capturando || Esconderijo.JogadorEscondido) return;
         modoCamera = true;
         vezesNaCamera++;
         if (vezesNaCamera <= 2) dicaCameraAte = Time.unscaledTime + 5f;
@@ -263,7 +281,7 @@ public class Celular : PainelDoJogador
 
     public void DefinirLanterna(bool ligar)
     {
-        if (IntroChegada.Ativa && ligar) return;
+        if ((IntroChegada.Ativa || TelaDeFinal.Ativa || DanielPerseguidor.Capturando) && ligar) return;
         if (lanterna == ligar) return;
         lanterna = ligar;
         Tocar(somLanterna);
@@ -278,8 +296,17 @@ public class Celular : PainelDoJogador
         CelularLogica.Avancar(Time.deltaTime, comSinal);
         CelularLogica.ReceberPendentes(comSinal);
 
-        // Inspeção de pista ou fim de jogo: o modelo some na hora (a luz da lanterna continua).
-        if ((ObjetoInspecionavel.InspecionandoAlgo || TelaDeFinal.Ativa) && (modoCamera || (naMao != null && naMao.Visivel && !EstaAberta)))
+        if (TelaDeFinal.Ativa || DanielPerseguidor.Capturando)
+        {
+            if (EstaAberta || modoCamera || (naMao != null && naMao.Visivel)) GuardarJa();
+            return;
+        }
+
+        if (Esconderijo.JogadorEscondido && (EstaAberta || modoCamera))
+            GuardarJa();
+
+        // Inspeção de pista: o modelo some na hora (a luz da lanterna continua).
+        if (ObjetoInspecionavel.InspecionandoAlgo && (modoCamera || (naMao != null && naMao.Visivel && !EstaAberta)))
         {
             modoCamera = false;
             if (naMao != null) naMao.GuardarJa();
@@ -288,12 +315,12 @@ public class Celular : PainelDoJogador
         if (IntroChegada.Ativa) return;
 
         bool livre = !EstaAberta && !MenuPausa.Pausado && !InterfaceDeTela.AlgumaAberta && !ObjetoInspecionavel.InspecionandoAlgo &&
-                     !TelaDeFinal.Ativa && Cursor.lockState == CursorLockMode.Locked;
+                     !TelaDeFinal.Ativa && !DanielPerseguidor.Capturando && Cursor.lockState == CursorLockMode.Locked;
         if (livre && lanterna && !modoCamera && naMao != null && naMao.Destino == CelularNaMao.Pose.Guardado) naMao.IrPara(CelularNaMao.Pose.Lanterna);
-        // A lanterna liga também com o celular aberto na mão.
+        // A lanterna liga também com o celular aberto na mão ou escondido.
         if ((livre || (EstaAberta && !MenuPausa.Pausado)) && MiraDeInteracao.TeclaApertada(teclaLanterna)) AlternarLanterna();
 
-        if (!modoCamera || !livre) return;
+        if (!modoCamera || !livre || Esconderijo.JogadorEscondido) return;
         if (MiraDeInteracao.TeclaApertada(tecla)) { GuardarDaCamera(); return; }
         if (MiraDeInteracao.TeclaApertada(teclaApps) || BotaoDoMouse(1)) { AbrirInterface(); return; }
         if (MiraDeInteracao.TeclaApertada(teclaFoto) || BotaoDoMouse(0)) TirarFoto();
@@ -332,7 +359,7 @@ public class Celular : PainelDoJogador
 
     void AtualizarLuzDaLanterna()
     {
-        bool acesa = lanterna && !TelaDeFinal.Ativa && naMao != null && (naMao.Visivel || ObjetoInspecionavel.InspecionandoAlgo);
+        bool acesa = lanterna && !TelaDeFinal.Ativa && !DanielPerseguidor.Capturando && naMao != null && (naMao.Visivel || ObjetoInspecionavel.InspecionandoAlgo);
         LanternaLigada = acesa;
         if (luzLanterna == null)
         {
@@ -365,6 +392,41 @@ public class Celular : PainelDoJogador
         luzLanterna.color = corLanterna;
         luzLanterna.shadows = sombrasLanterna;
         luzLanterna.cookie = cookieLanterna;
+    }
+
+    // ------------------------------------------------------------------ save
+
+    [System.Serializable]
+    struct EstadoSalvo
+    {
+        public string[] lidas;
+        public string[] fila;
+    }
+
+    public string Salvar()
+    {
+        var idsLidas = new List<string>(lidas);
+        idsLidas.Sort(System.StringComparer.Ordinal);
+        var idsFila = new List<string>(CelularLogica.Fila.Count);
+        foreach (CelularLogica.ItemNaFila item in CelularLogica.Fila)
+            if (item != null && !string.IsNullOrEmpty(item.id)) idsFila.Add(item.id);
+        return JsonUtility.ToJson(new EstadoSalvo { lidas = idsLidas.ToArray(), fila = idsFila.ToArray() });
+    }
+
+    public void Carregar(string estado)
+    {
+        lidas.Clear();
+        CelularLogica.Limpar();
+        if (string.IsNullOrEmpty(estado)) return;
+        EstadoSalvo salvo;
+        try { salvo = JsonUtility.FromJson<EstadoSalvo>(estado); }
+        catch (System.ArgumentException) { return; }
+        if (salvo.lidas != null)
+            foreach (string id in salvo.lidas)
+                if (!string.IsNullOrEmpty(id)) lidas.Add(id);
+        if (salvo.fila != null)
+            foreach (string id in salvo.fila)
+                if (!string.IsNullOrEmpty(id)) CelularLogica.Enfileirar(id);
     }
 
     // ------------------------------------------------------------------ o que fica fora da tela do celular

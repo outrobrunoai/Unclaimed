@@ -70,7 +70,7 @@ public class PecaDeMovel : AlvoDeInteracao, ISalvavel
     }
 
     float abertura, origem, destino, tempo, duracaoSegmento;
-    bool movendo, bloqueada, iniciada;
+    bool movendo, bloqueada, iniciada, ignorandoObstaculos;
     Vector3 posicaoFechada;
     Quaternion rotacaoFechada;
     Collider[] proprios = Array.Empty<Collider>();
@@ -124,7 +124,7 @@ public class PecaDeMovel : AlvoDeInteracao, ISalvavel
         var e = JsonUtility.FromJson<EstadoSalvo>(estado);
         trancada = e.trancada;
         abertura = destino = Mathf.Clamp(e.abertura, 0f, Maximo);
-        movendo = bloqueada = false;
+        movendo = bloqueada = ignorandoObstaculos = false;
         Aplicar(abertura);
     }
 
@@ -133,21 +133,37 @@ public class PecaDeMovel : AlvoDeInteracao, ISalvavel
     {
         Iniciar();
         abertura = destino = 0f;
-        movendo = bloqueada = false;
+        movendo = bloqueada = ignorandoObstaculos = false;
         Aplicar(0f);
     }
 
-    void IrPara(float alvo)
+    /// <summary>Anima até o alvo (0..|curso|); com ignorarObstaculos, pula o teste de obstrução neste movimento.</summary>
+    public void IrPara(float alvo, bool ignorarObstaculos)
+    {
+        if (trancada) return;
+        MoverPara(alvo, ignorarObstaculos);
+    }
+
+    void IrPara(float alvo) => MoverPara(alvo, false);
+
+    void MoverPara(float alvo, bool ignorarObstaculos)
     {
         Iniciar();
-        if (Mathf.Approximately(alvo, abertura) && !movendo) { destino = alvo; return; }
+        alvo = Mathf.Clamp(alvo, 0f, Maximo);
+        if (Mathf.Approximately(alvo, abertura) && !movendo)
+        {
+            destino = alvo;
+            ignorandoObstaculos = false;
+            return;
+        }
         bool abrindo = alvo > abertura;
         origem = abertura;
         destino = alvo;
         tempo = 0f;
-        duracaoSegmento = Mathf.Max(0.12f, duracao * Mathf.Abs(alvo - origem) / Maximo);
+        duracaoSegmento = Maximo > 0f ? Mathf.Max(0.12f, duracao * Mathf.Abs(alvo - origem) / Maximo) : 0.12f;
         movendo = true;
         bloqueada = false;
+        ignorandoObstaculos = ignorarObstaculos;
         Tocar(abrindo ? somAbrir : somFechar);
     }
 
@@ -164,14 +180,21 @@ public class PecaDeMovel : AlvoDeInteracao, ISalvavel
         float s = u * u * (3f - 2f * u);
         float alvo = Mathf.MoveTowards(abertura, Mathf.Lerp(origem, destino, s), 1.6f * Maximo / duracao * dt);
 
-        int passos = Mathf.Max(1, Mathf.CeilToInt(Mathf.Abs(alvo - abertura) / passoDeTeste));
-        float inicio = abertura;
         bool travou = false;
-        for (int i = 1; i <= passos; i++)
+        if (ignorandoObstaculos)
         {
-            float teste = Mathf.Lerp(inicio, alvo, i / (float)passos);
-            if (Obstruida(teste)) { travou = true; break; }
-            abertura = teste;
+            abertura = alvo;
+        }
+        else
+        {
+            int passos = Mathf.Max(1, Mathf.CeilToInt(Mathf.Abs(alvo - abertura) / passoDeTeste));
+            float inicio = abertura;
+            for (int i = 1; i <= passos; i++)
+            {
+                float teste = Mathf.Lerp(inicio, alvo, i / (float)passos);
+                if (Obstruida(teste)) { travou = true; break; }
+                abertura = teste;
+            }
         }
         Aplicar(abertura);
         Physics.SyncTransforms();
@@ -180,12 +203,14 @@ public class PecaDeMovel : AlvoDeInteracao, ISalvavel
         {
             movendo = false;
             bloqueada = true;
+            ignorandoObstaculos = false;
             Tocar(somBloqueio);
             return;
         }
         if (u >= 1f && Mathf.Approximately(abertura, destino))
         {
             movendo = false;
+            ignorandoObstaculos = false;
             if (destino <= 0f) Tocar(somFechou);
             else Esvair(somAbrir);   // abriu: o rangido não continua depois que a peça parou
         }

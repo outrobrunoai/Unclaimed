@@ -58,7 +58,8 @@ public static class AlbumDeFotos
             legendas[Fato(alvo, variante)] = legenda;
             nova = EstadoDaNoite.Marcar(Fato(alvo, variante));
             if (!string.IsNullOrEmpty(idEvidencia)) Caderno.Coletar(idEvidencia);
-            if (VariantesDe(alvo).Count > 1) EstadoDaNoite.Marcar("mudou:" + alvo);
+            if (VariantesDe(alvo).Count > 1 && EstadoDaNoite.Marcar("mudou:" + alvo) && alvo == "mesa_autopsia")
+                MiraDeInteracao.Avisar("O braço dele não estava assim na primeira foto.", 3.5f);
         }
         else if (ContarLivres() >= MaximoDeFotosLivres)
         {

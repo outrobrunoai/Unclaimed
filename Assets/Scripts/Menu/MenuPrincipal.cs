@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -74,6 +75,12 @@ public class MenuPrincipal : MonoBehaviour
     void Continuar()
     {
         if (carregando) return;
+        PerguntarMicrofoneSePreciso(ExecutarContinuar);
+    }
+
+    void ExecutarContinuar()
+    {
+        if (carregando) return;
         carregando = true;
         if (!Salvamento.Continuar())
         {
@@ -93,8 +100,37 @@ public class MenuPrincipal : MonoBehaviour
     void NovoJogo()
     {
         if (carregando) return;
+        PerguntarMicrofoneSePreciso(ExecutarNovoJogo);
+    }
+
+    void ExecutarNovoJogo()
+    {
+        if (carregando) return;
         carregando = true;
         Salvamento.NovoJogo(cenaDoJogo);
+    }
+
+    void PerguntarMicrofoneSePreciso(Action seguir)
+    {
+        Configuracoes.Carregar();
+        if (Configuracoes.MicrofonePerguntado || Microphone.devices.Length == 0)
+        {
+            seguir();
+            return;
+        }
+        // Cancelar e Esc chamam o mesmo callback (trata Esc como "NÃO USAR").
+        DialogoConfirmacao.Mostrar(raiz, ui, "MICROFONE",
+            "Você permite que o jogo use o seu microfone? O som não é gravado nem enviado. Dá para mudar isso nas opções.",
+            "PERMITIR", () => ResponderMicrofone(true, seguir),
+            "NÃO PERMITIR", () => ResponderMicrofone(false, seguir));
+    }
+
+    static void ResponderMicrofone(bool usar, Action seguir)
+    {
+        Configuracoes.DefinirUsarMicrofone(usar);
+        Configuracoes.MarcarMicrofonePerguntado();
+        Configuracoes.Salvar();
+        seguir();
     }
 
     void Sair()

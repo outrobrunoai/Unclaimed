@@ -444,7 +444,8 @@ MonoBehaviour:
   pontoDeAparicao: Arquivo/Porta
   espera: 25
   esperaDepoisDeOuvir: 2
-  fala: Deixa o gravador. Pode ir.
+  fala: "P\xF5e o gravador no ch\xE3o e vai embora.\nNingu\xE9m precisa se machucar
+    esta noite."
   esperaAntesDaCaca: 1.2
 --- !u!114 &900340470
 MonoBehaviour:
@@ -542,9 +543,6 @@ MonoBehaviour:
   texturaDivisoria: {fileID: 2800000, guid: fb36d72d5cecec08ca0a9e015cff4a2d, type: 3}
   texturaNota: {fileID: 2800000, guid: 8b40bac0ca3ba05e5b9534d654972e97, type: 3}
   texturaEspiral: {fileID: 2800000, guid: 5be1dfbe9ed53bd13b4740041e1fba5b, type: 3}
-  aoRegistrarPista:
-    m_PersistentCalls:
-      m_Calls: []
   aoAbrirDiario:
     m_PersistentCalls:
       m_Calls: []
@@ -746,14 +744,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8086978921bc8e46a385882228e604a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFotografica
-  flash: {fileID: 0}
-  intensidade: 9
-  alcance: 14
-  duracao: 0.18
-  recarga: 3
   fonte: {fileID: 0}
   somDisparo: {fileID: 0}
-  somRecarregado: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
