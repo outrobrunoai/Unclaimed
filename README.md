@@ -15,8 +15,6 @@ Mas você não está sozinho no prédio. Alguém quer que você vá embora de m�
 - **Terror:** sem nada sobrenatural. O medo vem de uma pessoa real, com um motivo claro.
 - **Vários finais:** dependem do que você descobre, do que consegue enviar pelo celular e de como sai do prédio.
 
-Duração: de 45 a 60 minutos.
-
 ## Baixar e jogar
 
 As versões jogáveis estão em **[Releases](../../releases)**:
